@@ -5,25 +5,39 @@
 
 (in-package :cl-user)
 (defpackage cl-oso
-  (:use :cl))
+  (:use :cl :cl-who :cl-css))
 (in-package :cl-oso)
 
 (defvar *acceptor* nil)
+(defvar *dispatch-list*
+  '(("^/oso$"             'page-home)
+    ("^/oso/css/oso.css$" 'page-oso.css)))
+
+;;
+(defun dispatch-all (list)
+  (when list
+    (let ((rec (car list)))
+      (push (hunchentoot:create-regex-dispatcher (first rec) (second rec))
+	    hunchentoot:*dispatch-table*)
+      (dispatch-all (cdr list)))))
+
+;;
 (defun start-http-svr ()
+  ;; setting hunchentoot
   (setq hunchentoot:*hunchentoot-default-external-format*
 	(flex:make-external-format :utf-8 :eol-style :lf))
   (setq hunchentoot:*default-content-type* "text/html; charset=utf-8")
   (setf *acceptor*
-	(hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port 4242))))
+	(hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port 4242)))
+  ;; 
+  (dispatch-all *dispatch-list*))
 
-(defun dispatch-all ()
-  (push  (hunchentoot:create-regex-dispatcher "^/oso$" 'page-home) hunchentoot:*dispatch-table*)
-  (push  (hunchentoot:create-regex-dispatcher "^/oso/css/oso.css$" 'page-oso.css) hunchentoot:*dispatch-table*))
 
 ;;
 (defun page-oso.css ()
   (setf (hunchentoot:content-type*) "text/css")
-  "body {background:#f00;}")
+  (cl-css:css '((html :background \#DC8847))))
+
 
 ;; home page
 (defun page-home ()
