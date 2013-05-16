@@ -21,10 +21,13 @@
   (push  (hunchentoot:create-regex-dispatcher "^/oso/css/oso.css$" 'page-oso.css) hunchentoot:*dispatch-table*))
 
 ;;
-(defun page-oso.css () "body {background:#f00;}")
+(defun page-oso.css ()
+  (setf (hunchentoot:content-type*) "text/css")
+  "body {background:#f00;}")
 
 ;; home page
 (defun page-home ()
+  (setf (hunchentoot:content-type*) "text/html")
   (cl-who:with-html-output-to-string
       (str nil :prologue t)
     (:html (:head (:title "おまえ")
