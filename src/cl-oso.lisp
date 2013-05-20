@@ -103,12 +103,11 @@
   "仕事を開始します。"
   (let ((wait (time-wait omae)))
     (setf (thread omae)
-          (sb-thread:make-thread
-           (lambda ()
-             (status-next omae)
-             (write-line (format nil "start wait : ~a[s]" wait))
-             (sleep wait)
-             (status-next omae))))))
+	  (cl+:enter-thread ()
+	    (status-next omae)
+	    (write-line (format nil "start wait : ~a[s]" wait))
+	    (sleep wait)
+	    (status-next omae)))))
 
 ;;;
 ;;; relation
