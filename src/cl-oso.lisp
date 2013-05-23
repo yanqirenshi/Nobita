@@ -110,7 +110,7 @@
 (defmethod start ((omae omae-cl))
   (let ((process (read-from-string (code omae))))
     (cl+:enter-thread ("cl-oso")
-		      (make-thread-core omae process))))
+      (make-thread-core omae process))))
 
 ;;;
 ;;; relation
@@ -146,5 +146,3 @@
 
 
 (defvar *pool-omae* (make-instance 'pool))
-
-
