@@ -5,6 +5,7 @@
 
 (in-package :cl-user)
 (defpackage cl-oso
+  (:nicknames :oso)
   (:use :cl :cl-who :cl-css))
 (in-package :cl-oso)
 
@@ -99,16 +100,17 @@
                 :start (get-universal-time))
           (timestamp omae))))
 
-(defmethod start ((omae omae-wait))
-  "仕事を開始します。"
-  (let ((wait (time-wait omae)))
-    (setf (thread omae)
-          (sb-thread:make-thread
-           (lambda ()
-             (status-next omae)
-             (write-line (format nil "start wait : ~a[s]" wait))
-             (sleep wait)
-             (status-next omae))))))
+;; TODO: なんか、これクロージャを返すようにして。 cl+:enter-thread ではそのクロージャを入力にしたやつを作ったほうが良さそうな。。。
+(defmacro make-thread-core (omae process)
+  `(progn
+     (status-next ,omae)
+     ,process
+     (status-next ,omae)))
+
+(defmethod start ((omae omae-cl))
+  (let ((process (read-from-string (code omae))))
+    (cl+:enter-thread ("cl-oso")
+		      (make-thread-core omae process))))
 
 ;;;
 ;;; relation
@@ -144,3 +146,5 @@
 
 
 (defvar *pool-omae* (make-instance 'pool))
+
+
