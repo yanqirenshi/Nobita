@@ -19,7 +19,8 @@
   :depends-on (:cl+)
   :components ((:module "src"
                 :components
-                ((:file "cl-oso"))))
+                ((:file "cl-oso")
+		 (:file "server" :depends-on ("cl-oso")))))
   :description ""
   :long-description
   #.(with-open-file (stream (merge-pathnames
