@@ -5,6 +5,8 @@
 ;;;
 (push (hunchentoot:create-folder-dispatcher-and-handler "/oss/image/" "/home/atman/prj/cl-oso/src/image/")
       hunchentoot:*dispatch-table*)
+(push (hunchentoot:create-folder-dispatcher-and-handler "/lib/" "/var/www/lib/")
+      hunchentoot:*dispatch-table*)
 
 (defmacro dispatch (name uri body &key (content-type "test/html"))
   `(hunchentoot:define-easy-handler (,name :uri ,uri) ()
@@ -12,11 +14,21 @@
      ,body))
 
 (defun define-page ()
-  (dispatch page-oso.css  "/oso/css/oso.css" (css-home)  :content-type "text/css")
-  (dispatch page-oso.html "/oso/login"             (html-home) :content-type "text/html"))
+  (dispatch page-oso.css        "/oso/css/oso.css" (css-home)   :content-type "text/css")
+  (dispatch page-oso.html       "/oso"             (html-main)  :content-type "text/html")
+  (dispatch page-oso-login.html "/oso/login"       (html-login) :content-type "text/html"))
 
 
-(defun html-home (&key (stream *standard-output*))
+(defun html-main (&key (stream *standard-output*))
+  (cl-who:with-html-output (stream)
+    (:html (:head (:title "俺とおまえ")
+                  (:link :rel "stylesheet" :type "text/css" :href "/oso/css/oso.css")
+                  (:script :srt "/lib/springy/springy.js")
+                  (:script :srt "/lib/springy/springyui.js"))
+           (:body (:section :id "graph-section")))))
+
+
+(defun html-login (&key (stream *standard-output*))
   (cl-who:with-html-output (stream)
     (:html (:head (:title "俺とおまえ")
                   (:link :rel "stylesheet" :type "text/css" :href "/oso/css/oso.css"))
@@ -30,11 +42,12 @@
                         (:lable "パスワード")
                         (:input :type "text" :class "inputTextPlain" :id "password"))))))
 
+
 ;;
 (defun css-home ()
   (cl-css:css '((html :background \#ffffff)
                 (.inputTextPlain :border "solid 1px #ccc")
-
+                ;;
                 (\#main-image-section
                  :width 555px
                  :height 333px
@@ -47,7 +60,7 @@
                  :width 555px
                  :height 333px
                  )
-
+                ;;
                 (\#login-form
                  :width        555px
                  :margin-top   5px
@@ -55,7 +68,15 @@
                  :margin-right auto)
                 (\#user-id :width 122px :padding 5px)
                 (\#password :width 122px :padding 5px)
-
+                ;;;
+                ;;;
+                ;;;
+                (\#graph-section
+                 :width  888px
+                 :height 388px
+                 :background \#ddd
+                 :margin auto
+                 )
                 )))
 
 
