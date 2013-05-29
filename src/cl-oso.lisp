@@ -19,10 +19,44 @@
 (defun log-clear () (setf *log* nil))
 
 
+
+
+;;;
+;;; pool
+;;;
+;;
+;; クラスルート
+;;  TODO: これの実装
+;;  (create omae ...) --> (make-instance 'omae) --> (add {omae} pool) --> return omae
+;;                          - Omae Don't have id      - Get id for Omae.    - Omae Aledy haved id.
+;;                                                    - Pool have id number variable.
+;;
+(defclass brahman () ())
+(defclass atman (brahman) ((id :accessor id :initarg id :initform nil)))
+;; atman に対する pool としよう。
+(defclass pool ()
+  ((hm :accessor hm :initarg :hm :initform (make-hash-table :test 'equalp))))
+
+(defvar *pool-omae* (make-instance 'pool))
+
+(defmethod add-atman ((pool pool) (atman atman))
+  (let ((hm (hm pool)))
+    (when (not (gethash (id atman) hm))
+      (setf (gethash (id atman) hm) atman))))
+
+(defmethod get-atman-at-id ((pool pool) id)
+  (when (and pool id)
+    (gethash id (hm pool))))
+
+(defmethod remove-atman-at-id ((pool pool) id)
+  (when (and pool id)
+    (remhash id (hm pool))))
+
+
 ;;;
 ;;; omae
 ;;;
-(defclass omae ()
+(defclass omae (atman)
   ((id          :accessor  id           :initarg :id            :initform nil)
    (name        :accessor name          :initarg :name          :initform "I dont have a name.")
    (note        :accessor note          :initarg :note          :initform "")
@@ -166,26 +200,6 @@
           (situation-find :from omae :port port)))
 
 
-;;;
-;;; poo
-;;;
-(defclass pool ()
-  ((hm :accessor hm :initarg :hm :initform (make-hash-table :test 'equalp))))
-
-(defvar *pool-omae* (make-instance 'pool))
-
-(defmethod add-omae ((pool pool) (omae omae))
-  (let ((hm (hm pool)))
-    (when (not (gethash (id omae) hm))
-      (setf (gethash (id omae) hm) omae))))
-
-(defmethod get-omae-at-id ((pool pool) id)
-  (when (and pool id)
-    (gethash id (hm pool))))
-
-(defmethod remove-omae-at-id ((pool pool) id)
-  (when (and pool id)
-    (remhash id (hm pool))))
 
 
 

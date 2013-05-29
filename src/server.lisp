@@ -3,12 +3,20 @@
 ;;;
 ;;; http server
 ;;;
-(push (hunchentoot:create-folder-dispatcher-and-handler "/oss/image/" "/home/atman/prj/cl-oso/src/image/")
+;; TODO: なぜこれは NG?
+;; (defun dispatch-directory (path directory &key (table hunchentoot:*dispatch-table*))
+;;   (push (hunchentoot:create-folder-dispatcher-and-handler path directory)
+;; 	table))  
+;; (dispatch-directory "/oss/image/" "~/prj/cl-oso/src/image/")
+;; (dispatch-directory "/oso/js/"    "~/prj/cl-oso/src/js/")
+;; (dispatch-directory "/lib/"       "/var/www/lib/")
+(push (hunchentoot:create-folder-dispatcher-and-handler "/oss/image/" "~/prj/cl-oso/src/image/")
+      hunchentoot:*dispatch-table*)
+(push (hunchentoot:create-folder-dispatcher-and-handler "/oso/js/" "~/prj/cl-oso/src/js/")
       hunchentoot:*dispatch-table*)
 (push (hunchentoot:create-folder-dispatcher-and-handler "/lib/" "/var/www/lib/")
       hunchentoot:*dispatch-table*)
-(push (hunchentoot:create-folder-dispatcher-and-handler "/oso/js/" "/var/www/oso/js/")
-      hunchentoot:*dispatch-table*)
+
 
 (defmacro dispatch (name uri body &key (content-type "test/html"))
   `(hunchentoot:define-easy-handler (,name :uri ,uri) ()
@@ -28,7 +36,6 @@
 (defun omae-get () (json:encode-json (list *omae-a*)))
 
 
-;; TODO: Window 変更時に #graph-section のサイズを調整するようにしたいね。
 (defun html-main (&key (stream *standard-output*))
   (cl-who:with-html-output (stream)
     (:html (:head (:title "俺とおまえ")
@@ -89,13 +96,7 @@
                 ;;;
                 ;;;
                 ;;;
-                (\#graph-section
-                 :padding 5px;
-                 :border "1px solid #ccc"
-                 :border-radius 3px
-                 :margin auto
-                 :overflow auto
-                 )
+                (\#graph-section :overflow auto)
                 )))
 
 
