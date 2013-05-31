@@ -1,13 +1,13 @@
 #|
-  This file is a part of cl-oso project.
+  This file is a part of nobita project.
   Copyright (c) 2013 satoshi iwasaki (yanqirenshi@gmail.com)
 |#
 
 (in-package :cl-user)
-(defpackage cl-oso
-  (:nicknames :oso :nobita)
+(defpackage nobita
+  (:nicknames :nobi)
   (:use :cl :cl-who :cl-css))
-(in-package :cl-oso)
+(in-package :nobita)
 
 ;;;
 ;;; log
@@ -95,7 +95,7 @@
 
 (defmethod start ((omae omae-cl))
   (let ((process (read-from-string (code omae))))
-    (cl+:enter-thread ("cl-oso")
+    (cl+:enter-thread ("nobita")
       (make-thread-core omae process))))
 
 (defmethod get-msg ((omae omae) port msg)

@@ -1,4 +1,4 @@
-(in-package :cl-oso)
+(in-package :nobita)
 
 ;;;
 ;;; http server
@@ -6,8 +6,8 @@
 (defun dispatch-directory (path directory)
   (push (hunchentoot:create-folder-dispatcher-and-handler path directory)
         hunchentoot:*dispatch-table*))
-(dispatch-directory "/oss/image/" "~/prj/cl-oso/src/image/")
-(dispatch-directory "/oso/js/"    "~/prj/cl-oso/src/js/")
+(dispatch-directory "/oss/image/" "~/prj/nobita/src/image/")
+(dispatch-directory "/oso/js/"    "~/prj/nobita/src/js/")
 (dispatch-directory "/lib/"       "/var/www/lib/")
 
 
@@ -95,6 +95,6 @@
 
 (defvar *http-server* nil)
 
-(defun oso-start ()
+(defun nobita-start ()
   (define-page)
   (setf *http-server* (hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port 4242))))

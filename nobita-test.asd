@@ -1,19 +1,19 @@
 #|
-  This file is a part of cl-oso project.
+  This file is a part of nobita project.
   Copyright (c) 2013 satoshi iwasaki (yanqirenshi@gmail.com)
 |#
 
 (in-package :cl-user)
-(defpackage cl-oso-test-asd
+(defpackage nobita-test-asd
   (:use :cl :asdf))
-(in-package :cl-oso-test-asd)
+(in-package :nobita-test-asd)
 
-(defsystem cl-oso-test
+(defsystem nobita-test
   :author "satoshi iwasaki"
   :license "LLGPL"
-  :depends-on (:cl-oso
+  :depends-on (:nobita
                :cl-test-more)
   :components ((:module "t"
                 :components
-                ((:file "cl-oso"))))
+                ((:file "nobita"))))
   :perform (load-op :after (op c) (asdf:clear-system c)))
