@@ -3,19 +3,12 @@
 ;;;
 ;;; http server
 ;;;
-;; TODO: なぜこれは NG?
-;; (defun dispatch-directory (path directory &key (table hunchentoot:*dispatch-table*))
-;;   (push (hunchentoot:create-folder-dispatcher-and-handler path directory)
-;; 	table))  
-;; (dispatch-directory "/oss/image/" "~/prj/cl-oso/src/image/")
-;; (dispatch-directory "/oso/js/"    "~/prj/cl-oso/src/js/")
-;; (dispatch-directory "/lib/"       "/var/www/lib/")
-(push (hunchentoot:create-folder-dispatcher-and-handler "/oss/image/" "~/prj/cl-oso/src/image/")
-      hunchentoot:*dispatch-table*)
-(push (hunchentoot:create-folder-dispatcher-and-handler "/oso/js/" "~/prj/cl-oso/src/js/")
-      hunchentoot:*dispatch-table*)
-(push (hunchentoot:create-folder-dispatcher-and-handler "/lib/" "/var/www/lib/")
-      hunchentoot:*dispatch-table*)
+(defun dispatch-directory (path directory)
+  (push (hunchentoot:create-folder-dispatcher-and-handler path directory)
+        hunchentoot:*dispatch-table*))
+(dispatch-directory "/oss/image/" "~/prj/cl-oso/src/image/")
+(dispatch-directory "/oso/js/"    "~/prj/cl-oso/src/js/")
+(dispatch-directory "/lib/"       "/var/www/lib/")
 
 
 (defmacro dispatch (name uri body &key (content-type "test/html"))
@@ -32,7 +25,7 @@
 ;; omae := {:omae-id xxx :name xxx :note xxx :location [x, y, z] :status xxx :thread xxx :timestamp [...] }
 ;; situation := [air...]
 ;; air := {:omae-id-from xxxx :omae-id-to xxx :port xxx :status xxxx :contents :timestamp [...] }
-;; TODO: omae の pool と 採番機能を作らないといけないね。
+;; TODO: (* (+ 1 2) (+ 3 4)) を実装してみよう。
 (defun omae-get () (json:encode-json (list *omae-a*)))
 
 

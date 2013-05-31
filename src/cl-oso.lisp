@@ -5,7 +5,7 @@
 
 (in-package :cl-user)
 (defpackage cl-oso
-  (:nicknames :oso)
+  (:nicknames :oso :nobita)
   (:use :cl :cl-who :cl-css))
 (in-package :cl-oso)
 
@@ -20,29 +20,27 @@
 
 
 
-
 ;;;
 ;;; pool
 ;;;
-;;
-;; クラスルート
-;;  TODO: これの実装
-;;  (create omae ...) --> (make-instance 'omae) --> (add {omae} pool) --> return omae
-;;                          - Omae Don't have id      - Get id for Omae.    - Omae Aledy haved id.
-;;                                                    - Pool have id number variable.
-;;
 (defclass brahman () ())
 (defclass atman (brahman) ((id :accessor id :initarg id :initform nil)))
-;; atman に対する pool としよう。
+
 (defclass pool ()
-  ((hm :accessor hm :initarg :hm :initform (make-hash-table :test 'equalp))))
+  ((hm :accessor hm :initarg :hm :initform (make-hash-table :test 'equalp))
+   (id-counter :accessor id-counter :initarg :id-counter :initform 0)))
 
 (defvar *pool-omae* (make-instance 'pool))
 
-(defmethod add-atman ((pool pool) (atman atman))
+(defmethod get-new-id ((pool pool))
+  (setf (id-counter pool)
+        (+ 1 (id-counter pool))))
+
+(defmethod put-atman ((pool pool) (atman atman))
   (let ((hm (hm pool)))
     (when (not (gethash (id atman) hm))
-      (setf (gethash (id atman) hm) atman))))
+      (setf (id atman) (get-new-id pool)))
+    (setf (gethash (id atman) hm) atman)))
 
 (defmethod get-atman-at-id ((pool pool) id)
   (when (and pool id)
