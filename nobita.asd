@@ -1,5 +1,5 @@
 #|
-  This file is a part of cl-oso project.
+  This file is a part of nobita project.
   Copyright (c) 2013 satoshi iwasaki (yanqirenshi@gmail.com)
 |#
 
@@ -8,19 +8,19 @@
 |#
 
 (in-package :cl-user)
-(defpackage cl-oso-asd
+(defpackage nobita-asd
   (:use :cl :asdf))
-(in-package :cl-oso-asd)
+(in-package :nobita-asd)
 
-(defsystem cl-oso
+(defsystem nobita
   :version "0.1"
   :author "satoshi iwasaki"
   :license "LLGPL"
   :depends-on (:cl+)
   :components ((:module "src"
                 :components
-                ((:file "cl-oso")
-		 (:file "server" :depends-on ("cl-oso")))))
+                ((:file "nobita")
+		 (:file "server" :depends-on ("nobita")))))
   :description ""
   :long-description
   #.(with-open-file (stream (merge-pathnames
@@ -34,4 +34,4 @@
                                :fill-pointer t)))
           (setf (fill-pointer seq) (read-sequence seq stream))
           seq)))
-  :in-order-to ((test-op (load-op cl-oso-test))))
+  :in-order-to ((test-op (load-op nobita-test))))
