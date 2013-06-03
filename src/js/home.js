@@ -1,9 +1,9 @@
 var graph = new Springy.Graph();
 
 var dennis = graph.newNode({
-  label: 'Dennis',
-  ondoubleclick: function() { console.log("Hello!"); }
-});
+                               label: 'Dennis',
+                               ondoubleclick: function() { console.log("Hello!"); }
+                           });
 var michael = graph.newNode({label: 'Michael'});
 var jessica = graph.newNode({label: 'Jessica'});
 var timothy = graph.newNode({label: 'Timothy'});
@@ -26,16 +26,38 @@ graph.newEdge(dennis, bianca, {color: '#CC333F'});
 graph.newEdge(bianca, monty, {color: '#EB6841'});
 
 $(function ($) {
-      $(window).resize(function() { $('#graph-section').height(window.innerHeight); });
+      init();
 
-      var springy 
-	  = window.springy 
-	  = jQuery('#netowrk-graph-job')
-	  .springy({ graph: graph,
-		     nodeSelected: function(node){
-			 console.log('Node selected: ' + JSON.stringify(node.data));
-		     }});
+      loadOmae();
+
+      var springy
+          = window.springy
+          = jQuery('#netowrk-graph-job')
+          .springy({ graph: graph,
+                     nodeSelected: function(node){
+                         console.log('Node selected: ' + JSON.stringify(node.data));
+                     }});
   });
+
+function init(){
+    $(window).resize(function() { $('#graph-section').height(window.innerHeight); });
+}
+
+function loadOmae(){
+    $.ajax({ type     : "GET",
+             url      : "http://localhost:4242/oso/rsc/omae",
+             dataType : "json"
+           })
+        .done(function(data){
+                  dump(data);
+                  alert('success!!');
+              })
+        .error(function(data) {
+                   dump(data);
+                   alert('error!!!');
+               });
+
+}
 
 
 
