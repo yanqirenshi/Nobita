@@ -1,5 +1,7 @@
 # Cl-Oso
 
+俺の仕事はおまえのもの。おまえの仕事はおまえのもの。
+
 ## Usage
 
 ## Installation

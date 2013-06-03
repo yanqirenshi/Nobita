@@ -5,7 +5,7 @@
 
 (in-package :cl-user)
 (defpackage nobita
-  (:nicknames :nobi)
+  (:nicknames :nobi )
   (:use :cl :cl-who :cl-css))
 (in-package :nobita)
 
@@ -86,7 +86,8 @@
                 :start (get-universal-time))
           (timestamp omae))))
 
-;; TODO: なんか、これクロージャを返すようにして。 cl+:enter-thread ではそのクロージャを入力にしたやつを作ったほうが良さそうな。。。
+;; TODO: なんか、これクロージャを返すようにして。
+;;       cl+:enter-thread ではそのクロージャを入力にしたやつを作ったほうが良さそうな。。。
 (defmacro make-thread-core (omae process)
   `(progn
      (status-next ,omae)
