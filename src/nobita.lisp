@@ -31,6 +31,7 @@
    (id-counter :accessor id-counter :initarg :id-counter :initform 0)))
 
 (defvar *pool-omae* (make-instance 'pool))
+(defvar *pool-situation* (make-instance 'pool))
 
 (defmethod get-new-id ((pool pool))
   (setf (id-counter pool)
@@ -114,7 +115,7 @@
 ;;; +--------+                 +--------+
 ;;;
 (defvar *situation* nil)
-(defclass air ()
+(defclass air (atman)
   ((from      :accessor from      :initarg :from      :initform nil)
    (to        :accessor to        :initarg :to        :initform nil)
    (port      :accessor port      :initarg :port      :initform nil)
@@ -230,5 +231,9 @@
 (defun test-data-gen ()
   (defparameter *omae-a* (make-instance 'omae-cl :name "oame-a"))
   (defparameter *omae-b* (make-instance 'omae-cl :name "oame-b"))
+  (put-atman *pool-situation*
+	     (make-instance 'air :from 1 :to 3 :port :result-1))
+  (put-atman *pool-situation*
+	     (make-instance 'air :from 2 :to 3 :port :result-2))
   (defparameter *air*
     (situation-make *omae-a* *omae-b* :port :job-a)))
