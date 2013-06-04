@@ -17,19 +17,23 @@
      ,body))
 
 (defun define-page ()
-  (dispatch page-oso.css        "/oso/css/oso.css" (css-home)   :content-type "text/css")
-  (dispatch page-oso.html       "/oso"             (html-main)  :content-type "text/html")
-  (dispatch page-oso-login.html "/oso/login"       (html-login) :content-type "text/html")
-  (dispatch omae-get.json       "/oso/rsc/omae"    (omae-get)   :content-type "application/json")))
+  (dispatch page-oso.css        "/oso/css/oso.css"   (css-home)      :content-type "text/css")
+  (dispatch page-oso.html       "/oso"               (html-main)     :content-type "text/html")
+  (dispatch page-oso-login.html "/oso/login"         (html-login)    :content-type "text/html")
+  (dispatch omae-get.json       "/oso/rsc/omae"      (omae-get)      :content-type "application/json")
+  (dispatch situation-get.json  "/oso/rsc/situation" (situation-get) :content-type "application/json")))
 
 ;; omae := {:omae-id xxx :name xxx :note xxx :location [x, y, z] :status xxx :thread xxx :timestamp [...] }
 ;; situation := [air...]
 ;; air := {:omae-id-from xxxx :omae-id-to xxx :port xxx :status xxxx :contents :timestamp [...] }
-;; TODO: (* (+ 1 2) (+ 3 4)) を実装してみよう。
-;;       CLOS オブジェクトも json形式 にしてくれるみたいね。
 (defun omae-get ()
   (setf (hunchentoot:header-out "Access-Control-Allow-Origin") "*")
   (json:encode-json-to-string (alexandria:hash-table-values (hm *pool-omae*))))
+
+(defun situation-get ()
+  (setf (hunchentoot:header-out "Access-Control-Allow-Origin") "*")
+  (json:encode-json-to-string (alexandria:hash-table-values (hm *pool-situation*))))
+
 
 (defun html-main (&key (stream *standard-output*))
   (cl-who:with-html-output (stream)
