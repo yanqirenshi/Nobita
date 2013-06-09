@@ -43,11 +43,11 @@
       (setf (id atman) (get-new-id pool)))
     (setf (gethash (id atman) hm) atman)))
 
-(defmethod get-atman-at-id ((pool pool) id)
+(defmethod get-at-id ((pool pool) id)
   (when (and pool id)
     (gethash id (hm pool))))
 
-(defmethod remove-atman-at-id ((pool pool) id)
+(defmethod remove-at-id ((pool pool) id)
   (when (and pool id)
     (remhash id (hm pool))))
 
@@ -78,6 +78,7 @@
   ((code :accessor code :initarg :code  :initform nil)))
 
 (defmethod status-next ((omae omae))
+  "なんだったっけ、これ。"
   (let ((now (status omae)))
     (push (list :status now
                 :end (get-universal-time))
@@ -89,16 +90,19 @@
 
 ;; TODO: なんか、これクロージャを返すようにして。
 ;;       cl+:enter-thread ではそのクロージャを入力にしたやつを作ったほうが良さそうな。。。
+;; 
 (defmacro make-thread-core (omae process)
-  `(progn
-     (status-next ,omae)
-     ,process
-     (status-next ,omae)))
+  `(let ((nobita ,omae))
+     #'(lambda ()
+       (status-next nobita)
+       ,process
+       (status-next nobita))))
 
 (defmethod start ((omae omae-cl))
-  (let ((process (read-from-string (code omae))))
     (cl+:enter-thread ("nobita")
-      (make-thread-core omae process))))
+      (let ((process (code omae)))
+	(funcall 
+	 (make-thread-core omae process)))))
 
 (defmethod get-msg ((omae omae) port msg)
   ())
@@ -142,7 +146,7 @@
                  *situation*))
 
 
-(defun situation-find (&key from to port (pool *situation*))
+(defun situation-find (&key from to port (pool (alexandria:hash-table-values (hm *pool-situation*))))
   "situation から air を検索する関数です。
 本当はマクロで書きたいけど、まだ実力が伴わないんです。。。"
   (cond ((and from to port)
@@ -189,6 +193,9 @@
               (contents air))
           (situation-find :to omae :port port)))
 
+;;(setf (code (get-atman-at-id *pool-omae* 1) ) "(express omae :contents (+ 1 2))")
+;;(start  (get-atman-at-id *pool-omae* 1))
+
 
 (defmethod express ((omae omae) &key port contents)
   "(何かを)表現するという関数です。
@@ -198,10 +205,6 @@
               (push (list :express (get-universal-time))
                     (timestamp air)))
           (situation-find :from omae :port port)))
-
-
-
-
 
 
 ;;;
@@ -229,11 +232,10 @@
 ;;; test code
 ;;;
 (defun test-data-gen ()
-  (defparameter *omae-a* (make-instance 'omae-cl :name "oame-a"))
-  (defparameter *omae-b* (make-instance 'omae-cl :name "oame-b"))
+  (put-atman *pool-omae* (make-instance 'omae-cl :name "oame-a" :code "(+ 1 2)"))
+  (put-atman *pool-omae* (make-instance 'omae-cl :name "oame-b" :code "(+ 3 4)"))
+  (put-atman *pool-omae* (make-instance 'omae-cl :name "oame-c" :code "(* (+ 1 2) (+ 3 4))"))
   (put-atman *pool-situation*
 	     (make-instance 'air :from 1 :to 3 :port :result-1))
   (put-atman *pool-situation*
-	     (make-instance 'air :from 2 :to 3 :port :result-2))
-  (defparameter *air*
-    (situation-make *omae-a* *omae-b* :port :job-a)))
+	     (make-instance 'air :from 2 :to 3 :port :result-2)))
