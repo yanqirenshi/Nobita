@@ -21,7 +21,7 @@
   (dispatch page-oso.html       "/oso"               (html-main)     :content-type "text/html")
   (dispatch page-oso-login.html "/oso/login"         (html-login)    :content-type "text/html")
   (dispatch omae-get.json       "/oso/rsc/omae"      (omae-get)      :content-type "application/json")
-  (dispatch situation-get.json  "/oso/rsc/situation" (situation-get) :content-type "application/json")))
+  (dispatch situation-get.json  "/oso/rsc/situation" (situation-get) :content-type "application/json"))
 
 ;; omae := {:omae-id xxx :name xxx :note xxx :location [x, y, z] :status xxx :thread xxx :timestamp [...] }
 ;; situation := [air...]
