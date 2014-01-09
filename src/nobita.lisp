@@ -19,13 +19,19 @@
 (defun log-clear () (setf *log* nil))
 
 
-
-;;;
-;;; pool
-;;;
+;;; ここは upanishad にしたらええね。
 (defclass brahman () ())
 (defclass atman (brahman) ((id :accessor id :initarg id :initform nil)))
 
+
+;;;
+;;; pool
+;;; これは仕事をプールするんじゃったっけ？
+;;; 仕事って。。。たしか omae じゃったんよね。たしか、そんな記憶がしてきた。
+;;;
+;;; でも、この pool って atman の pool みたいになっとるね。
+;;; まぁ、それもありなんじゃろう。汎用的にしたかったんじゃろうね。
+;;;
 (defclass pool ()
   ((hm :accessor hm :initarg :hm :initform (make-hash-table :test 'equalp))
    (id-counter :accessor id-counter :initarg :id-counter :initform 0)))
@@ -54,6 +60,9 @@
 
 ;;;
 ;;; omae
+;;; これが仕事の単位じゃったっけ？
+;;; あぁ、そうじゃね 仕事を連続するなかの一つのノードじゃったね。
+;;; 入力と出力があったんじゃった。
 ;;;
 (defclass omae (atman)
   ((id          :accessor  id           :initarg :id            :initform nil)
@@ -209,7 +218,10 @@
 
 ;;;
 ;;; beat
-;;;
+;;; おぉ、これじゃねタイマー的なものは。
+;;; tick を変更すれば良いのね。
+;;; beat を 刻むんじゃっちゅうことなんじゃね。
+;;; ふーん、わかったわ。
 (defclass beat ()
   ((id :accessor id :initarg :id :initform nil)
    (bpm :accessor bpm :initarg :bpm :initform 3)
