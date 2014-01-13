@@ -19,8 +19,7 @@
   :depends-on (:cl+)
   :components ((:module "src"
                 :components
-                ((:file "nobita")
-		 (:file "server" :depends-on ("nobita")))))
+                ((:file "nobita"))))
   :description ""
   :long-description
   #.(with-open-file (stream (merge-pathnames
