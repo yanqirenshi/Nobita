@@ -127,6 +127,12 @@
 ;;; |        |o--- port:B --->o| omae:C |
 ;;; +--------+                 +--------+
 ;;;
+;;;
+;;;
+;;;
+;;;
+;;;
+;;;
 (defvar *situation* nil)
 (defclass air (atman)
   ((from      :accessor from      :initarg :from      :initform nil)
@@ -157,7 +163,10 @@
 
 (defun situation-find (&key from to port (pool (alexandria:hash-table-values (hm *pool-situation*))))
   "situation から air を検索する関数です。
-本当はマクロで書きたいけど、まだ実力が伴わないんです。。。"
+本当はマクロで書きたいけど、まだ実力が伴わないんです。。。
+
+これは何じゃ？ from の後続を探すんじゃったっけ？
+"
   (cond ((and from to port)
          (remove-if-not #'(lambda (air)
                             (and (eq from (from air))
