@@ -249,6 +249,18 @@
 (defvar *beat* (make-instance 'beat :id "test"))
 
 
+(defun start-time-gen (h m s)
+  "毎時時刻サイクリックの時刻から、その時の日時を作成します。"
+  (multiple-value-bind (second minute hour date month year arg1 arg2 arg3)
+      (decode-universal-time (get-universal-time))
+    (encode-universal-time s m h date month year arg3)))
+
+
+(defun start-time-aleady-p (h m s)
+  "毎時時刻サイクリックの時刻から、すでに実行時間が来たか返します"
+  (>= (get-universal-time)
+      (start-time-gen h m s)))
+
 ;;;
 ;;; test code
 ;;;
@@ -260,3 +272,4 @@
 	     (make-instance 'air :from 1 :to 3 :port :result-1))
   (put-atman *pool-situation*
 	     (make-instance 'air :from 2 :to 3 :port :result-2)))
+
