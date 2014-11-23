@@ -1,10 +1,10 @@
 #|
-  This file is a part of nobita project.
-  Copyright (c) 2013 satoshi iwasaki (yanqirenshi@gmail.com)
+This file is a part of nobita project.
+Copyright (c) 2013 satoshi iwasaki (yanqirenshi@gmail.com)
 |#
 
 #|
-  Author: satoshi iwasaki (yanqirenshi@gmail.com)
+Author: satoshi iwasaki (yanqirenshi@gmail.com)
 |#
 
 (in-package :cl-user)
@@ -18,10 +18,13 @@
   :license "LLGPL"
   :depends-on (:cl+)
   :components ((:module "src"
-                :components
-                ((:file "package")
-		 (:file "class")
-		 (:file "nobita"))))
+                        :components
+                        ((:file "package")
+                         (:file "heart"  :depends-on ("package"))
+                         (:file "nobita" :depends-on ("heart"))
+                         (:file "/web/common"  :depends-on ("nobita"))
+                         (:file "/web/nobita"  :depends-on ("/web/common"))
+                         (:file "/web/httpsvr" :depends-on ("/web/nobita")))))
   :description ""
   :long-description
   #.(with-open-file (stream (merge-pathnames

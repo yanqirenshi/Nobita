@@ -85,7 +85,6 @@ readinessp ： 準備完了関数を実装する。
 | omae-timer |  | omae-wait |  | omae-cl |
 +------------+  +-----------+  +---------+
 
- 
 * beat 
 beat は サイクル毎に 実行すべき omae を探す。
 
