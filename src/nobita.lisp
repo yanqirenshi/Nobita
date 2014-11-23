@@ -2,26 +2,17 @@
   This file is a part of nobita project.
   Copyright (c) 2013 satoshi iwasaki (yanqirenshi@gmail.com)
 |#
-
-(in-package :cl-user)
-(defpackage nobita
-  (:nicknames :nobi )
-  (:use :cl :cl-who :cl-css))
 (in-package :nobita)
 
 ;;;
 ;;; log
 ;;;
-(defvar *log* nil)
 (defun log-put (type message)
   (push (list :type type :message message)
         *log*))
 (defun log-clear () (setf *log* nil))
 
 
-;;; ここは upanishad にしたらええね。
-(defclass brahman () ())
-(defclass atman (brahman) ((id :accessor id :initarg id :initform nil)))
 
 
 ;;;
@@ -32,13 +23,6 @@
 ;;; でも、この pool って atman の pool みたいになっとるね。
 ;;; まぁ、それもありなんじゃろう。汎用的にしたかったんじゃろうね。
 ;;;
-(defclass pool ()
-  ((hm :accessor hm :initarg :hm :initform (make-hash-table :test 'equalp))
-   (id-counter :accessor id-counter :initarg :id-counter :initform 0)))
-
-(defvar *pool-omae* (make-instance 'pool))
-(defvar *pool-situation* (make-instance 'pool))
-
 (defmethod get-new-id ((pool pool))
   (setf (id-counter pool)
         (+ 1 (id-counter pool))))
@@ -64,28 +48,6 @@
 ;;; あぁ、そうじゃね 仕事を連続するなかの一つのノードじゃったね。
 ;;; 入力と出力があったんじゃった。
 ;;;
-(defclass omae (atman)
-  ((id          :accessor  id           :initarg :id            :initform nil)
-   (name        :accessor name          :initarg :name          :initform "I dont have a name.")
-   (note        :accessor note          :initarg :note          :initform "")
-   ;; location
-   (x           :accessor x             :initarg :x             :initform 0)
-   (y           :accessor y             :initarg :y             :initform 0)
-   (z           :accessor z             :initarg :z             :initform 0)
-   ;; submit
-   (status      :accessor status        :initarg :status        :initform 0)
-   (thread      :accessor thread        :initarg :thread        :initform nil)
-   (timestamp   :accessor timestamp     :initarg :timestamp     :initform nil)))
-
-(defclass omae-timer (omae)
-  ((datetime :accessor datetime :initarg :datetime  :initform nil)))
-
-(defclass omae-wait (omae)
-  ((time-wait :accessor time-wait :initarg :time-wait  :initform nil)))
-
-(defclass omae-cl (omae)
-  ((code :accessor code :initarg :code  :initform nil)))
-
 (defmethod status-next ((omae omae))
   "なんだったっけ、これ。"
   (let ((now (status omae)))
@@ -133,16 +95,6 @@
 ;;;
 ;;;
 ;;;
-(defvar *situation* nil)
-(defclass air (atman)
-  ((from      :accessor from      :initarg :from      :initform nil)
-   (to        :accessor to        :initarg :to        :initform nil)
-   (port      :accessor port      :initarg :port      :initform nil)
-   (status    :accessor status    :initarg :status    :initform :born)
-   (contents  :accessor contents  :initarg :contents  :initform nil)
-   (timestamp :accessor timestamp :initarg :timestamp :initform (list :create (get-universal-time)))))
-
-
 (defmethod situation-make ((from omae) (to omae) &key port)
   (let ((exist (situation-get from to port)))
     (if exist
@@ -231,11 +183,6 @@
 ;;; tick を変更すれば良いのね。
 ;;; beat を 刻むんじゃっちゅうことなんじゃね。
 ;;; ふーん、わかったわ。
-(defclass beat ()
-  ((id :accessor id :initarg :id :initform nil)
-   (bpm :accessor bpm :initarg :bpm :initform 3)
-   (life :accessor life :initarg :life :initform t)))
-
 (defmethod tick ((beat beat))
   (log-put :info (format nil "tickt : ~a" (get-universal-time))))
 
@@ -245,8 +192,6 @@
     (do () ((not (life beat)))
       (tick beat)
       (sleep (bpm beat)))))
-
-(defvar *beat* (make-instance 'beat :id "test"))
 
 
 (defun start-time-gen (h m s)
