@@ -5,48 +5,27 @@
   ;; Page の描画
   (yzr:gen-html
       "の○太"
-      ((:link :rel "stylesheet" :type "text/css" :href "/lib/joint/dist/joint.css")
+      ((:link :rel "stylesheet" :type "text/css" :href "/common.css")
+       (:link :rel "stylesheet" :type "text/css" :href "/lib/joint/dist/joint.css")
        (:link :rel "stylesheet" :type "text/css" :href "/nobita.css"))
       ((:script :src "http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js")
        (:script :src "http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js")
        (:script :src "/lib/joint/dist/joint.js")
        (:script :src "/nobita/js/nobita.js"))
-    (:section :id "myholder")))
-
-
+    (:section :id "myholder")
+    (:section :id "background"
+              (:image :id  "main-image"
+                      :src "/nobita/image/gian.png"
+                      :alt "俺の仕事はおまえのもの。おまえの仕事はおまえのもの。2"))))
 
 
 
 (defun nobita.css (request host session)
   (declare (ignore request host session))
-  (cl-css:css '((* :padding 0px :margin 0px :font-size medium)
+  (setf (hunchentoot:content-type*) "text/css")
+  (cl-css:css '(
+                (* :padding 0px :margin 0px :font-size medium)
                 (html :background \#ffffff)
-                (.inputTextPlain :border "solid 1px #ccc")
-                ;;
-                (\#main-image-section
-                 :width 555px
-                 :height 333px
-                 :border "solid 1px #fff"
-                 :margin-top   111px
-                 :margin-left  auto
-                 :margin-right auto
-                 )
-                (\#main-image
-                 :width 555px
-                 :height 333px
-                 )
-                ;;
-                (\#login-form
-                 :width        555px
-                 :margin-top   5px
-                 :margin-left  auto
-                 :margin-right auto)
-                (\#user-id :width 122px :padding 5px)
-                (\#password :width 122px :padding 5px)
-                 ;;;
-                 ;;;
-                 ;;;
-                (\#graph-section :overflow auto)
                 )))
 
 

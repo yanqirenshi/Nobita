@@ -1,11 +1,12 @@
 $(function(){
     var graph = new joint.dia.Graph;
 
+    var place = $('#myholder');
     var paper = new joint.dia.Paper({
-        el: $('#myholder'),
-        width: 600,
-        height: 200,
-        model: graph,
+        el:       place,
+        width:    place.width(),
+        height:   place.height(),
+        model:    graph,
         gridSize: 1
     });
 
