@@ -1,0 +1,27 @@
+* nobita
+#+BEGIN_SRC tanka
+俺の仕事はおまえのもの。おまえの仕事はおまえのもの。
+#+END_SRC 
+
+仕事は nobita がやるけぇ。
+nobita に仕事まかせときゃぁええんよ。
+nobita には 弩○えもん がついとるんじゃけぇ。
+
+のび太は生きとるんじゃけぇ。
+心がビートを刻むんよ。
+
+** Usage
+** Dependencies
+** Installation
+** Author
+
++ Satoshi Iwasaki (yanqirenshi@gmail.com)
+
+* Copyright
+
+Copyright (c) 2014 Satoshi Iwasaki (yanqirenshi@gmail.com)
+
+* License
+
+Licensed under the LLGPL License.
+
