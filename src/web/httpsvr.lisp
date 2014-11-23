@@ -9,7 +9,8 @@
     ("/nobita/js/"    "~/prj/nobita/src/js/")
     ("/lib/"          "/var/www/lib/")))
 (defvar *httpsvr-rscs*
-  '(("/nobita.css"           :get nobita.css)
+  '(("/common.css"           :get common.css)
+    ("/nobita.css"           :get nobita.css)
     ("/nobita.html"          :get nobita.html)
     ("/nobita/login.html"    :get html-login)
     ("/nobita/rsc/omae"      :get omae-get)
