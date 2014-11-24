@@ -14,22 +14,22 @@ $(function(){
     var rect = new joint.shapes.basic.Rect({
         position: { x: 100, y: 30 },
         size:     { width: 100, height: 30 },
-        attrs:    { rect: { fill: 'white' }, 
-                    text: { text: '(+ 1 2)', fill: 'blue' } }
+        attrs:    { rect: { fill: 'white' },
+                    text: { text: 'Timer: 05:00', fill: 'blue' } }
     });
 
     var rect2 = new joint.shapes.basic.Rect({
         position: { x: 300, y: 230 },
-        size:     { width: 100, height: 30 },
-        attrs:    { rect: { fill: 'white' }, 
-                    text: { text: '(+ 3 in)', fill: 'blue' } }
+        size:     { width: 200, height: 30 },
+        attrs:    { rect: { fill: 'white' },
+                    text: { text: 'Call REST-API: Save Data', fill: 'blue' } }
     });
 
     var rect3 = new joint.shapes.basic.Rect({
-        position: { x: 400, y: 330 },
+        position: { x: 500, y: 30 },
         size:     { width: 100, height: 30 },
-        attrs:    { rect: { fill: 'white' }, 
-                    text: { text: 'xxx', fill: 'blue' } }
+        attrs:    { rect: { fill: 'white' },
+                    text: { text: 'Sleep 1m', fill: 'blue' } }
     });
 
     var link = new joint.dia.Link({
@@ -38,8 +38,8 @@ $(function(){
     });
 
     link.attr({
-	'.connection': { stroke: 'blue' },
-	'.marker-target': { fill: 'blue', d: 'M 10 0 L 0 5 L 10 10 z' }
+        '.connection': { stroke: 'blue' },
+        '.marker-target': { fill: 'blue', d: 'M 10 0 L 0 5 L 10 10 z' }
     });
 
     var link1 = new joint.dia.Link({
@@ -48,8 +48,8 @@ $(function(){
     });
 
     link1.attr({
-	'.connection': { stroke: 'blue' },
-	'.marker-target': { fill: 'blue', d: 'M 10 0 L 0 5 L 10 10 z' }
+        '.connection': { stroke: 'blue' },
+        '.marker-target': { fill: 'blue', d: 'M 10 0 L 0 5 L 10 10 z' }
     });
 
     var link2 = new joint.dia.Link({
@@ -58,8 +58,8 @@ $(function(){
     });
 
     link2.attr({
-	'.connection': { stroke: 'blue' },
-	'.marker-target': { fill: 'blue', d: 'M 10 0 L 0 5 L 10 10 z' }
+        '.connection': { stroke: 'blue' },
+        '.marker-target': { fill: 'blue', d: 'M 10 0 L 0 5 L 10 10 z' }
     });
 
 
