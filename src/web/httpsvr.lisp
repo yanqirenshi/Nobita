@@ -3,7 +3,7 @@
 (defvar *httpsvr* nil)
 (defvar *httpsvr-host* "localhost")
 (defvar *httpsvr-port* 55565)
-(defvar *httpsvr-log-dir* "/var/www/log/")
+(defvar *httpsvr-log-dir* "/var/www/log/nobita/")
 (defvar *httpsvr-file-dirs*
   '(("/nobita/image/" "~/prj/nobita/src/image/")
     ("/nobita/js/"    "~/prj/nobita/src/js/")
