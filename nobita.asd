@@ -20,11 +20,11 @@ Author: satoshi iwasaki (yanqirenshi@gmail.com)
   :components ((:module "src"
                         :components
                         ((:file "package")
-                         (:file "heart"  :depends-on ("package"))
-                         (:file "nobita" :depends-on ("heart"))
-                         (:file "/web/common"  :depends-on ("nobita"))
-                         (:file "/web/nobita"  :depends-on ("/web/common"))
-                         (:file "/web/httpsvr" :depends-on ("/web/nobita")))))
+                         (:file "heart"       :depends-on ("package"))
+                         (:file "nobita"      :depends-on ("heart"))
+                         (:file "web/common"  :depends-on ("nobita"))
+                         (:file "web/nobita"  :depends-on ("nobita"))
+                         (:file "web/httpsvr" :depends-on ("nobita")))))
   :description ""
   :long-description
   #.(with-open-file (stream (merge-pathnames
