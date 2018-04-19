@@ -1,5 +1,5 @@
 (in-package :cl-user)
 (defpackage nobita
-  (:nicknames :nobi )
-  (:use :cl :cl-who :cl-css))
+  (:nicknames :nobi)
+  (:use #:cl))
 (in-package :nobita)
