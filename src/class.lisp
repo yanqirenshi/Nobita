@@ -10,6 +10,10 @@
   (:documentation "要求(request)を作成するノードです。
 全てはここから初まります。"))
 
+(defclass suneo (node)
+  ()
+  (:documentation ""))
+
 (defclass nobita (node)
   ()
   (:documentation "作業者です。
