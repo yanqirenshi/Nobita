@@ -10,7 +10,7 @@
 
 (defsystem nobita-test
   :author "satoshi iwasaki"
-  :license "LLGPL"
+  :license "MIT"
   :depends-on (:nobita
                :cl-test-more)
   :components ((:module "t"
