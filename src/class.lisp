@@ -3,7 +3,7 @@
 ;;;;;
 ;;;;; Node
 ;;;;;
-(defclass node (shinra:shin))
+(defclass node (shinra:shin) ())
 
 (defclass gian (node)
   ()
