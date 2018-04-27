@@ -20,10 +20,13 @@ Author: satoshi iwasaki (yanqirenshi@gmail.com)
                #:shinrabanshou)
   :components ((:module "src"
                         :components
-                        ((:module "contents" :components ((:file "package")))
-                         (:file "graph")
+                        ((:file "db")
                          (:file "package")
-                         (:file "class"))))
+                         (:file "class")
+                         (:file "idea")
+                         (:file "g_an")
+                         (:file "4neo")
+                         (:file "nobit@"))))
   :description ""
   :long-description
   #.(with-open-file (stream (merge-pathnames
