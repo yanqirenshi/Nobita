@@ -1,7 +1,9 @@
 (in-package :cl-user)
 (defpackage nobita
   (:nicknames :nobi)
-  (:use #:cl))
+  (:use #:cl)
+  (:import-from :nobita.db
+                #:*graph*))
 (in-package :nobita)
 
 (defun get-context (gian)
