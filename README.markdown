@@ -4,9 +4,21 @@
 
 ## Usage
 
-## Dependencies
+```lisp
+(nobita.db:start)
+```
 
 ## Installation
+
+```lisp
+(ql:quickload :nobita)
+(ql:quickload :nobita.api)
+```
+
+## Dependencies
+
+- [cl-fad](https://github.com/edicl/cl-fad)
+- [shinrabanshou](https://github.com/yanqirenshi/shinrabanshou) / [upanishad](https://github.com/yanqirenshi/upanishad)
 
 ## Author
 
