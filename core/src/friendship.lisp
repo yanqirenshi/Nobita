@@ -1,18 +1,21 @@
 (in-package :nobita)
 
-(defgeneric make-frendship (from to)
-  (:method ((from g*an) (to 4neo))
+(defgeneric tx-make-frendship (graph from to)
+  (:method (graph (from g*an) (to 4neo))
     ;; 1:1
-    (list from to))
-  (:method ((from 4neo) (to nobit@))
+    (values nil from to))
+  (:method (graph (from 4neo) (to nobit@))
     ;; 1:1
-    (list from to))
-  (:method ((from nobit@) (to nobit@))
+    (list nil from to))
+  (:method (graph (from nobit@) (to nobit@))
     ;; 1:n
-    (list from to))
-  (:method ((from nobit@) (to 4neo))
+    (list nil from to))
+  (:method (graph (from nobit@) (to 4neo))
     ;; 1:1
-    (list from to))
-  (:method ((from 4neo) (to g*an))
+    (list nil from to))
+  (:method (graph (from 4neo) (to g*an))
     ;; 1:1
-    (list from to)))
+    (list nil from to)))
+
+;; - momentary
+;; - alternate
