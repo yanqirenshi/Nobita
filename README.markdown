@@ -2,7 +2,7 @@
 
 俺の仕事はおまえのもの。おまえの仕事はおまえのもの。
 
-![俺の仕事はおまえのもの。おまえの仕事はおまえのもの。](https://bitbucket.org/fools-gold/nobita/src/fbe02d55582b201c939f59fd0a12b94b4a4646ac/web/assets/image/gian.png)
+![俺の仕事はおまえのもの。おまえの仕事はおまえのもの。](https://bytebucket.org/fools-gold/nobita/raw/6978ff87907d29985f48f204ef8eae6b3eedcc98/web/assets/image/gian.png?token=647b7a3496518390c9496855cfdcccf0c91eedbb)
 
 ## Usage
 
