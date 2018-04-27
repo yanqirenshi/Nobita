@@ -2,6 +2,8 @@
 
 俺の仕事はおまえのもの。おまえの仕事はおまえのもの。
 
+![俺の仕事はおまえのもの。おまえの仕事はおまえのもの。](https://bitbucket.org/fools-gold/nobita/src/fbe02d55582b201c939f59fd0a12b94b4a4646ac/web/assets/image/gian.png)
+
 ## Usage
 
 ```lisp
