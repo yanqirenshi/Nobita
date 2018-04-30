@@ -1,4 +1,4 @@
-# Nobita.Api
+# nobita.api
 
 ## Usage
 
