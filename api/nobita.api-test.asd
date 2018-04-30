@@ -1,16 +1,14 @@
-#|
-  This file is a part of nobita.api project.
-|#
+(in-package :cl-user)
+(defpackage nobita.api-test-asd
+  (:use :cl :asdf))
+(in-package :nobita.api-test-asd)
 
-(defsystem "nobita.api-test"
-  :defsystem-depends-on ("prove-asdf")
+(defsystem nobita.api-test
   :author ""
   :license ""
-  :depends-on ("nobita.api"
-               "prove")
-  :components ((:module "tests"
+  :depends-on (:nobita.api
+               :prove)
+  :components ((:module "t"
                 :components
-                ((:test-file "nobita.api"))))
-  :description "Test system for nobita.api"
-
-  :perform (test-op (op c) (symbol-call :prove-asdf :run-test-system c)))
+                ((:file "nobita.api"))))
+  :perform (load-op :after (op c) (asdf:clear-system c)))

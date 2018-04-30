@@ -1,17 +1,33 @@
-#|
-  This file is a part of nobita.api project.
-|#
+(in-package :cl-user)
+(defpackage nobita.api-asd
+  (:use :cl :asdf))
+(in-package :nobita.api-asd)
 
-(defsystem "nobita.api"
-  :version "0.1.0"
+(defsystem nobita.api
+  :version "0.1"
   :author ""
   :license ""
-  :depends-on ()
+  :depends-on (:clack
+               :lack
+               :caveman2
+               :envy
+               :cl-ppcre
+               :uiop
+               :lack-middleware-validation
+               :jonathan
+               ;; Database
+               :upanishad
+               :shinrabanshou
+               :sephirothic)
   :components ((:module "src"
                 :components
-                ((:file "nobita.api"))))
+                ((:file "config")
+                 (:module "controller"
+                  :components ((:file "package")))
+                 (:file "render")
+                 (:module "router"
+                  :components ((:file "route")
+                               (:file "api-v1")))
+                 (:file "main"))))
   :description ""
-  :long-description
-  #.(read-file-string
-     (subpathname *load-pathname* "README.markdown"))
-  :in-order-to ((test-op (test-op "nobita.api-test"))))
+  :in-order-to ((test-op (load-op nobita.api-test))))
