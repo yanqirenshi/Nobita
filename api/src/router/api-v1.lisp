@@ -1,12 +1,12 @@
 (in-package :cl-user)
-(defpackage nobita.api.api-v1
+(defpackage nobit@.api.api-v1
   (:use :cl
         :caveman2
         :lack.middleware.validation
-        :nobita.api.config
-        :nobita.api.render)
+        :nobit@.api.config
+        :nobit@.api.render)
   (:export #:*api-v1*))
-(in-package :nobita.api.api-v1)
+(in-package :nobit@.api.api-v1)
 
 ;;;;;
 ;;;;; Application

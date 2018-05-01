@@ -1,5 +1,5 @@
 (in-package :cl-user)
-(defpackage nobita.db
+(defpackage nobit@.db
   (:use #:cl)
   (:import-from :asdf
                 #:system-source-directory)
@@ -12,7 +12,7 @@
            #:start
            #:stop
            #:reboot))
-(in-package :nobita.db)
+(in-package :nobit@.db)
 
 (defvar *graph* nil)
 

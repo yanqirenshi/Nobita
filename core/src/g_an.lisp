@@ -1,4 +1,4 @@
-(in-package :nobita)
+(in-package :nobit@)
 
 (defun tx-make-g*an (graph)
   (shinra:tx-make-vertex graph 'g*an))

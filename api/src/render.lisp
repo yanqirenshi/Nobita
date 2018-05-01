@@ -1,12 +1,12 @@
 (in-package :cl-user)
-(defpackage nobita.api.render
+(defpackage nobit@.api.render
   (:use :cl)
   (:import-from #:caveman2
                 #:*response*
                 #:response-headers)
   (:export #:render
            #:render-json))
-(in-package :nobita.api.render)
+(in-package :nobit@.api.render)
 
 (defun render-json (object)
   (setf (getf (response-headers *response*) :content-type) "application/json")
