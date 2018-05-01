@@ -3,13 +3,24 @@
 (defun %tx-make-frendship (graph from to)
   (tx-make-edge graph 'friendship from to :friend))
 
-(defun find-frendship (graph &key from)
-  (find-r graph 'friendship
-          :from from
-          :edge-type :friend))
+(defun find-frendship-at-to-classes (graph from to-classes)
+  (when-let ((to-class (car to-classes)))
+    (nconc (find-r-edge graph 'friendship
+                        :from from
+                        :edge-type :friend
+                        :vertex-class to-class)
+           (find-frendship-at-to-classes graph from (cdr to-classes)))))
+
+(defun find-frendship (graph &key from to-classes)
+  (cond ((and from to-classes)
+         (find-frendship-at-to-classes graph from (ensure-list to-classes)))
+        ((and from (null to-classes))
+         (find-r-edge graph 'friendship
+                      :from from
+                      :edge-type :friend))))
 
 (defun assert-frendship (graph from to type)
-  (let ((results (find-frendship graph :from from)))
+  (let ((results (find-frendship graph :from from :to-classes (class-symbol to))))
     (when results
       (cond ((eq :1-1 type)
              (assert (not (find-if #'(lambda (result)
@@ -45,13 +56,3 @@
 
 ;; - momentary
 ;; - alternate
-
-(defgeneric spread (graph idea friendship)
-  (:method (graph idea friendship)
-    (list graph idea friendship)))
-
-(defgeneric spreads (graph idea friendships)
-  (:method (graph idea (friendships list))
-    (when-let (friendship (car friendships))
-      (spread graph idea friendship)
-      (spreads graph idea (cdr friendships)))))

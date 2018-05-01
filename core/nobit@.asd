@@ -6,17 +6,28 @@ This file is a part of nobit@ project.
   :version "0.1.0"
   :author ""
   :license ""
-  :depends-on ()
+  :depends-on (#:alexandria
+               #:cl-fad
+               #:shinrabanshou)
   :components ((:module "src"
                 :components
                 ((:file "db")
+                 (:file "utilities")
                  (:file "package")
                  (:file "class")
-                 (:file "idea")
+                 ;; グラフ
                  (:file "g_an")
                  (:file "4neo")
                  (:file "nobit@")
                  (:file "friendship")
+                 ;; 伝播
+                 (:module "spread" :components ((:file "idea") ;; 伝播するもの
+                                                (:file "spread")
+                                                (:file "g_an")
+                                                (:file "4neo")
+                                                (:file "nobit@")
+                                                (:file "friendship")))
+                 ;; カースト
                  (:file "caste"))))
   :description ""
   :long-description
