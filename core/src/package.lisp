@@ -10,8 +10,12 @@
                 #:tx-make-edge
                 #:find-r-edge
                 #:get-vertex-at)
+  (:import-from :rhythm
+                #:make-heart
+                #:tune)
   (:import-from :nobit@.db
-                #:*graph*))
+                #:*graph*)
+  (:export #:start))
 (in-package :nobit@)
 
 (defun get-context (gian)

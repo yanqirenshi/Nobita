@@ -8,7 +8,8 @@ This file is a part of nobit@ project.
   :license ""
   :depends-on (#:alexandria
                #:cl-fad
-               #:shinrabanshou)
+               #:shinrabanshou
+               #:rhythm)
   :components ((:module "src"
                 :components
                 ((:file "db")
@@ -16,9 +17,9 @@ This file is a part of nobit@ project.
                  (:file "package")
                  (:file "class")
                  ;; グラフ
-                 (:file "g_an")
-                 (:file "4neo")
-                 (:file "nobit@")
+                 (:module "friends" :components ((:file "g_an")
+                                                 (:file "4neo")
+                                                 (:file "nobit@")))
                  (:file "friendship")
                  ;; 伝播
                  (:module "spread" :components ((:file "idea") ;; 伝播するもの
@@ -28,7 +29,8 @@ This file is a part of nobit@ project.
                                                 (:file "nobit@")
                                                 (:file "friendship")))
                  ;; カースト
-                 (:file "caste"))))
+                 (:file "caste")
+                 (:file "hearts"))))
   :description ""
   :long-description
   #.(read-file-string
