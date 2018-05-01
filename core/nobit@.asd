@@ -8,6 +8,8 @@ This file is a part of nobit@ project.
   :license ""
   :depends-on (#:alexandria
                #:cl-fad
+               #:queues
+               #:queues.simple-cqueue
                #:shinrabanshou
                #:rhythm)
   :components ((:module "src"
