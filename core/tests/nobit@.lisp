@@ -16,7 +16,6 @@
   (setf +nobit@01+ (up:execute-transaction (nobit@::tx-make-nobit@ *graph*)))
   (setf +nobit@02+ (up:execute-transaction (nobit@::tx-make-nobit@ *graph*)))
   (setf +nobit@03+ (up:execute-transaction (nobit@::tx-make-nobit@ *graph*)))
-
   (up:execute-transaction (nobit@::tx-make-frendship *graph* +g*an+     +4neo+))
   (up:execute-transaction (nobit@::tx-make-frendship *graph* +4neo+     +nobit@01+))
   (up:execute-transaction (nobit@::tx-make-frendship *graph* +nobit@01+ +nobit@02+))
@@ -24,7 +23,7 @@
   (up:execute-transaction (nobit@::tx-make-frendship *graph* +nobit@03+ +4neo+))
   (up:execute-transaction (nobit@::tx-make-frendship *graph* +4neo+     +g*an+)))
 
-(subtest "Test1"
+(subtest "Simple Test"
   (nobit@::flash-across-ones-mind *graph* +g*an+))
 
 (finalize)

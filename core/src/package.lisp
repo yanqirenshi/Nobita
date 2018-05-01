@@ -1,12 +1,15 @@
 (defpackage nobit@
   (:nicknames :nobi)
-  (:use :cl)
+  (:use #:cl
+        #:nobit@.utilities)
   (:import-from :alexandria
-                #:when-let)
+                #:when-let
+                #:ensure-list)
   (:import-from :shinra
                 #:tx-make-vertex
                 #:tx-make-edge
-                #:find-r)
+                #:find-r-edge
+                #:get-vertex-at)
   (:import-from :nobit@.db
                 #:*graph*))
 (in-package :nobit@)

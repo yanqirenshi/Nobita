@@ -19,6 +19,7 @@
 
 ## Dependencies
 
+- [alexandria](https://gitlab.common-lisp.net/alexandria/alexandria)
 - [cl-fad](https://github.com/edicl/cl-fad)
 - [shinrabanshou](https://github.com/yanqirenshi/shinrabanshou) / [upanishad](https://github.com/yanqirenshi/upanishad)
 
