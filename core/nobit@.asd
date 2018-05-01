@@ -15,7 +15,9 @@ This file is a part of nobit@ project.
                  (:file "idea")
                  (:file "g_an")
                  (:file "4neo")
-                 (:file "nobit@"))))
+                 (:file "nobit@")
+                 (:file "friendship")
+                 (:file "caste"))))
   :description ""
   :long-description
   #.(read-file-string

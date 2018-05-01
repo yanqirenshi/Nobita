@@ -17,7 +17,7 @@
 (defvar *graph* nil)
 
 (defvar *graph-stor-dir*
-  (merge-pathnames "../data/graph/" (system-source-directory :ter)))
+  (merge-pathnames "../data/graph/" (system-source-directory :nobit@)))
 
 (defun start ()
   (when *graph* (stop))

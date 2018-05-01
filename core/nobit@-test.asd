@@ -10,7 +10,9 @@
                "prove")
   :components ((:module "tests"
                 :components
-                ((:test-file "nobit@"))))
+                ((:module "utilities" :components ((:file "db")))
+                 (:file "package")
+                 (:test-file "nobit@"))))
   :description "Test system for nobit@"
 
   :perform (test-op (op c) (symbol-call :prove-asdf :run-test-system c)))
