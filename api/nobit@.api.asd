@@ -1,9 +1,9 @@
 (in-package :cl-user)
-(defpackage nobita.api-asd
+(defpackage nobit@.api-asd
   (:use :cl :asdf))
-(in-package :nobita.api-asd)
+(in-package :nobit@.api-asd)
 
-(defsystem nobita.api
+(defsystem nobit@.api
   :version "0.1"
   :author ""
   :license ""
@@ -30,4 +30,4 @@
                                (:file "api-v1")))
                  (:file "main"))))
   :description ""
-  :in-order-to ((test-op (load-op nobita.api-test))))
+  :in-order-to ((test-op (load-op nobit@.api-test))))

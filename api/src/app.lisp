@@ -1,19 +1,19 @@
-(ql:quickload :nobita.api)
+(ql:quickload :nobit@.api)
 
-(defpackage nobita.api.app
+(defpackage nobit@.api.app
   (:use :cl)
   (:import-from #:lack.builder
                 #:builder)
   (:import-from #:ppcre
                 #:scan
                 #:regex-replace)
-  (:import-from #:nobita.api.router
+  (:import-from #:nobit@.api.router
                 #:*route*)
-  (:import-from #:nobita.api.api-v1
+  (:import-from #:nobit@.api.api-v1
                 #:*api-v1*)
-  (:import-from #:nobita.api.config
+  (:import-from #:nobit@.api.config
                 #:config))
-(in-package :nobita.api.app)
+(in-package :nobit@.api.app)
 
 (builder
  :accesslog

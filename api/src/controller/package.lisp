@@ -1,6 +1,6 @@
 (in-package :cl-user)
-(defpackage nobita.api.controller
+(defpackage nobit@.api.controller
   (:use :cl)
-  (:import-from #:nobita.api.config
+  (:import-from #:nobit@.api.config
                 #:config))
-(in-package :nobita.api.controller)
+(in-package :nobit@.api.controller)

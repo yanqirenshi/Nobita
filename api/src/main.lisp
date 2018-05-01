@@ -1,16 +1,16 @@
 (in-package :cl-user)
-(defpackage nobita.api
+(defpackage nobit@.api
   (:use :cl)
-  (:import-from #:nobita.api.config
+  (:import-from #:nobit@.api.config
                 #:config)
   (:import-from #:clack
                 #:clackup)
   (:export #:start
            #:stop))
-(in-package :nobita.api)
+(in-package :nobit@.api)
 
 (defvar *appfile-path*
-  (asdf:system-relative-pathname :nobita.api #P"src/app.lisp"))
+  (asdf:system-relative-pathname :nobit@.api #P"src/app.lisp"))
 
 (defvar *handler* nil)
 

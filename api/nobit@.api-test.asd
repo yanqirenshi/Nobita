@@ -1,14 +1,14 @@
 (in-package :cl-user)
-(defpackage nobita.api-test-asd
+(defpackage nobit@.api-test-asd
   (:use :cl :asdf))
-(in-package :nobita.api-test-asd)
+(in-package :nobit@.api-test-asd)
 
-(defsystem nobita.api-test
+(defsystem nobit@.api-test
   :author ""
   :license ""
-  :depends-on (:nobita.api
+  :depends-on (:nobit@.api
                :prove)
   :components ((:module "t"
                 :components
-                ((:file "nobita.api"))))
+                ((:file "nobit@.api"))))
   :perform (load-op :after (op c) (asdf:clear-system c)))

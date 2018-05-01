@@ -1,5 +1,5 @@
 (in-package :cl-user)
-(defpackage nobita.api.config
+(defpackage nobit@.api.config
             (:use :cl)
             (:import-from #:sephirothic
                           #:make-tree
@@ -8,14 +8,14 @@
             (:export #:config
                      #:print-config
                      #:*application-root*))
-(in-package :nobita.api.config)
+(in-package :nobit@.api.config)
 
-(defparameter *application-root* (asdf:system-source-directory :nobita.api))
+(defparameter *application-root* (asdf:system-source-directory :nobit@.api))
 
 (defvar *tree-stor* (merge-pathnames #P"src/data/" *application-root*))
 (defvar *tree* (make-tree (ensure-directories-exist *tree-stor*)))
 
-(defvar *application-code* :nobita.api)
+(defvar *application-code* :nobit@.api)
 
 (defun get-environments-code (&key (name (uiop:getenv "APP_ENV")))
   (cond ((string= name "development") :development)

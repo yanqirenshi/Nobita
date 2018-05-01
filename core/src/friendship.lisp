@@ -1,4 +1,4 @@
-(in-package :nobita)
+(in-package :nobit@)
 
 (defgeneric tx-make-frendship (graph from to)
   (:method (graph (from g*an) (to 4neo))

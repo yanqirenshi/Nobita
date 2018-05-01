@@ -1,12 +1,12 @@
 (in-package :cl-user)
-(defpackage nobita.api.router
+(defpackage nobit@.api.router
   (:use :cl
         :caveman2
         :lack.middleware.validation
-        :nobita.api.config
-        :nobita.api.render)
+        :nobit@.api.config
+        :nobit@.api.render)
   (:export #:*route*))
-(in-package :nobita.api.router)
+(in-package :nobit@.api.router)
 
 ;;;;;
 ;;;;; Router
