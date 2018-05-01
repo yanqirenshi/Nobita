@@ -1,6 +1,8 @@
 (defpackage nobit@-test
   (:use #:cl
         #:nobit@
-        #:prove
-        #:nobit@-test.db))
+        #:prove)
+  (:import-from :nobit@-test.db
+                #:*graph*
+                #:reboot))
 (in-package :nobit@-test)
