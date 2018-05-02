@@ -1,7 +1,8 @@
 (in-package :nobit@)
 
-(defun tx-make-nobit@ (graph)
-  (tx-make-vertex graph 'nobit@))
+(defun tx-make-nobit@ (graph &key action)
+  (tx-make-vertex graph 'nobit@
+                  `((action ,action))))
 
 (defgeneric nobit@-p (obj)
   (:method ((obj nobit@))
