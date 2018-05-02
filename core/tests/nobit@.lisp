@@ -11,8 +11,8 @@
 (reboot)
 
 (subtest "Make data"
-  (setf +g*an+     (up:execute-transaction (nobit@::tx-make-g*an *graph*)))
-  (setf +4neo+     (up:execute-transaction (nobit@::tx-make-4neo *graph*)))
+  (setf +g*an+     (up:execute-transaction (nobit@::tx-make-g*an   *graph*)))
+  (setf +4neo+     (up:execute-transaction (nobit@::tx-make-4neo   *graph*)))
   (setf +nobit@01+ (up:execute-transaction (nobit@::tx-make-nobit@ *graph*)))
   (setf +nobit@02+ (up:execute-transaction (nobit@::tx-make-nobit@ *graph*)))
   (setf +nobit@03+ (up:execute-transaction (nobit@::tx-make-nobit@ *graph*)))
