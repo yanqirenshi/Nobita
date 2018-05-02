@@ -10,13 +10,21 @@
 
 (reboot)
 
-(subtest "Make data"
+(defun nobit@-action (&key graph idea source nobit@)
+  (declare (ignore graph source nobit@))
+    (let ((results (getf idea :results)))
+      (setf (getf idea :results)
+            (if (numberp results)
+                (+ 1 results)
+                1)))
+    idea)
 
+(subtest "Make data"
   (setf +g*an+     (up:execute-transaction (nobit@:tx-make-g*an   *graph*)))
   (setf +4neo+     (up:execute-transaction (nobit@:tx-make-4neo   *graph*)))
-  (setf +nobit@01+ (up:execute-transaction (nobit@:tx-make-nobit@ *graph*)))
-  (setf +nobit@02+ (up:execute-transaction (nobit@:tx-make-nobit@ *graph*)))
-  (setf +nobit@03+ (up:execute-transaction (nobit@:tx-make-nobit@ *graph*)))
+  (setf +nobit@01+ (up:execute-transaction (nobit@:tx-make-nobit@ *graph* :action 'nobit@-action)))
+  (setf +nobit@02+ (up:execute-transaction (nobit@:tx-make-nobit@ *graph* :action 'nobit@-action)))
+  (setf +nobit@03+ (up:execute-transaction (nobit@:tx-make-nobit@ *graph* :action 'nobit@-action)))
 
   (let ((heart :aon))
     (up:execute-transaction (nobit@:tx-make-frendship *graph* +g*an+     +4neo+     heart))

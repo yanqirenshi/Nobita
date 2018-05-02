@@ -20,7 +20,7 @@
   (:documentation ""))
 
 (defclass nobit@ (node)
-  ()
+  ((action :accessor action :initarg :action :initform nil))
   (:documentation "作業者です。
 要求(request)をトリガに作業を実施します。"))
 
