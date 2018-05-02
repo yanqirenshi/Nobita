@@ -21,6 +21,7 @@
 
 - [alexandria](https://gitlab.common-lisp.net/alexandria/alexandria)
 - [cl-fad](https://github.com/edicl/cl-fad)
+- [queues](#https://github.com/oconnore/queues) / queues.simple-cqueue
 - [shinrabanshou](https://github.com/yanqirenshi/shinrabanshou) / [upanishad](https://github.com/yanqirenshi/upanishad)
 - [rhythm](https://github.com/yanqirenshi/rhythm)
 
