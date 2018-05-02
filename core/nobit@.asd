@@ -14,7 +14,8 @@ This file is a part of nobit@ project.
                #:rhythm)
   :components ((:module "src"
                 :components
-                ((:file "db")
+                ((:module "libs" :components ((:file "db")
+                                              (:file "contexts")))
                  (:file "utilities")
                  (:file "package")
                  (:file "class")
@@ -31,7 +32,6 @@ This file is a part of nobit@ project.
                                                 (:file "nobit@")
                                                 (:file "friendship")))
                  ;; カースト
-                 (:file "caste")
                  (:file "hearts"))))
   :description ""
   :long-description
