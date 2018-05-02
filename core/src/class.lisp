@@ -30,9 +30,3 @@
 ;;;;;
 (defclass friendship (edge)
   ((heart :accessor heart :initarg :heart :initform nil)))
-
-
-;;;;;
-;;;;; other
-;;;;;
-(defclass idea () ())
