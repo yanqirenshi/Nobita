@@ -15,7 +15,8 @@ This file is a part of nobit@ project.
   :components ((:module "src"
                 :components
                 ((:module "libs" :components ((:file "db")
-                                              (:file "contexts")))
+                                              (:file "contexts")
+                                              (:file "hearts")))
                  (:file "utilities")
                  (:file "package")
                  (:file "class")

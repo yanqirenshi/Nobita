@@ -1,9 +1,5 @@
 (in-package :nobit@)
 
-#|
-  今のところ心臓は一つ
-|#
-
 (defun heart-core (heart times)
   (declare (ignore heart times))
   (when-let ((context (pop-context)))
@@ -16,13 +12,15 @@
                              (shinra::to-class friendship)
                              :%id (shinra::to-id friendship))))))
 
-(defvar *heart*
-  (make-heart :name "nobita's-heart"
-              :core #'(lambda (heart times)
-                        (heart-core heart times))))
+(defvar *aon*     (make-heart "aon"     #'heart-core))
+(defvar *da*      (make-heart "da"      #'heart-core))
+(defvar *tri*     (make-heart "tri"     #'heart-core))
+(defvar *ceithir* (make-heart "ceithir" #'heart-core))
+(defvar *coig*    (make-heart "coig"    #'heart-core))
+(defvar *sia*     (make-heart "sia"     #'heart-core))
+(defvar *seachd*  (make-heart "seachd"  #'heart-core))
 
 (defun start ()
-  (tune *heart* 1))
-
-(defun stop ()
-  (tune *heart* 0))
+  (let ((hearts (list *aon* *da* *tri* *ceithir* *coig* *sia* *seachd*)))
+    (dolist (heart hearts)
+      (start-heart heart))))

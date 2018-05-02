@@ -7,10 +7,14 @@
                 #:qpop)
   (:export #:make-context
            #:push-context
-           #:pop-context))
+           #:pop-context
+           #:make-context-queue))
 (in-package :nobit@.context)
 
 (defvar *contexts* (queues:make-queue :simple-cqueue))
+
+(defun make-context-queue ()
+  (queues:make-queue :simple-cqueue))
 
 (defun make-context (&key graph idea source friendship)
   (list :graph graph
