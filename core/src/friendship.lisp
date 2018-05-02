@@ -1,7 +1,8 @@
 (in-package :nobit@)
 
-(defun %tx-make-frendship (graph from to)
-  (tx-make-edge graph 'friendship from to :friend))
+(defun %tx-make-frendship (graph from to heart)
+  (tx-make-edge graph 'friendship from to :friend
+                `((heart ,heart))))
 
 (defun find-frendship-at-to-classes (graph from to-classes)
   (when-let ((to-class (car to-classes)))
@@ -33,26 +34,26 @@
                                      (up:%id (getf result :vertex))))
                               results)))))))
 
-(defgeneric tx-make-frendship (graph from to)
-  (:method (graph (from g*an) (to 4neo))
+(defgeneric tx-make-frendship (graph from to heart)
+  (:method (graph (from g*an) (to 4neo) heart)
     (assert-frendship graph from to :1-1)
-    (%tx-make-frendship graph from to))
+    (%tx-make-frendship graph from to heart))
 
-  (:method (graph (from 4neo) (to nobit@))
+  (:method (graph (from 4neo) (to nobit@) heart)
     (assert-frendship graph from to :1-1)
-    (%tx-make-frendship graph from to))
+    (%tx-make-frendship graph from to heart))
 
-  (:method (graph (from nobit@) (to nobit@))
+  (:method (graph (from nobit@) (to nobit@) heart)
     (assert-frendship graph from to :1-n)
-    (%tx-make-frendship graph from to))
+    (%tx-make-frendship graph from to heart))
 
-  (:method (graph (from nobit@) (to 4neo))
+  (:method (graph (from nobit@) (to 4neo) heart)
     (assert-frendship graph from to :1-1)
-    (%tx-make-frendship graph from to))
+    (%tx-make-frendship graph from to heart))
 
-  (:method (graph (from 4neo) (to g*an))
+  (:method (graph (from 4neo) (to g*an) heart)
     (assert-frendship graph from to :1-1)
-    (%tx-make-frendship graph from to)))
+    (%tx-make-frendship graph from to heart)))
 
 ;; - momentary
 ;; - alternate

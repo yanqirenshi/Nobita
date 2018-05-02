@@ -28,7 +28,8 @@
 ;;;;;
 ;;;;; Edge
 ;;;;;
-(defclass friendship (edge) ())
+(defclass friendship (edge)
+  ((heart :accessor heart :initarg :heart :initform nil)))
 
 
 ;;;;;
