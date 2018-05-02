@@ -24,6 +24,16 @@
 - [shinrabanshou](https://github.com/yanqirenshi/shinrabanshou) / [upanishad](https://github.com/yanqirenshi/upanishad)
 - [rhythm](https://github.com/yanqirenshi/rhythm)
 
+## Directories
+
+| Name  | Description                   |
+|-------|-------------------------------|
+| core/ | いわゆる model 的なものです。 |
+| api/  | WEB-API です。                |
+| web/  | フロントです。                |
+| data/ | ...                              |
+| docs/ | ...                              |
+
 ## Author
 
 + Satoshi Iwasaki (yanqirenshi@gmail.com)
