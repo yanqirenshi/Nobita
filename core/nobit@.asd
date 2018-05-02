@@ -8,6 +8,7 @@ This file is a part of nobit@ project.
   :license ""
   :depends-on (#:alexandria
                #:cl-fad
+               #:local-time
                #:queues
                #:queues.simple-cqueue
                #:shinrabanshou
@@ -25,8 +26,7 @@ This file is a part of nobit@ project.
                                                  (:file "nobit@")))
                  (:file "friendship")
                  ;; 伝播
-                 (:module "spread" :components ((:file "idea") ;; 伝播するもの
-                                                (:file "spread")
+                 (:module "spread" :components ((:file "spread")
                                                 (:file "g_an")
                                                 (:file "4neo")
                                                 (:file "nobit@")

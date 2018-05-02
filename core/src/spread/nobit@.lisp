@@ -1,6 +1,6 @@
 (in-package :nobit@)
 
-(defmethod spread ((graph shinra:banshou) (idea idea) source (nobit@ nobit@))
+(defmethod spread ((graph shinra:banshou) (idea list) source (nobit@ nobit@))
   (format t "nobit@=~a~%" nobit@)
   (spreads graph idea nobit@
            (find-frendship graph
