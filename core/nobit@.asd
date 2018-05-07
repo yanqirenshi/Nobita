@@ -20,6 +20,7 @@ This file is a part of nobit@ project.
                  (:file "utilities")
                  (:file "package")
                  (:file "class")
+                 (:file "idea")
                  ;; グラフ
                  (:module "friends" :components ((:file "g_an")
                                                  (:file "4neo")

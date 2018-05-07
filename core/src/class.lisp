@@ -29,4 +29,5 @@
 ;;;;; Edge
 ;;;;;
 (defclass friendship (edge)
-  ((heart :accessor heart :initarg :heart :initform nil)))
+  ((heart    :accessor heart    :initarg :heart    :initform nil)
+   (contexts :accessor contexts :initarg :contexts :initform (make-hash-table :synchronized t))))

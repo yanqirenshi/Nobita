@@ -12,12 +12,16 @@
                         :vertex-class to-class)
            (find-frendship-at-to-classes graph from (cdr to-classes)))))
 
-(defun find-frendship (graph &key from to-classes)
+(defun find-frendship (graph &key from to-classes to)
   (cond ((and from to-classes)
          (find-frendship-at-to-classes graph from (ensure-list to-classes)))
         ((and from (null to-classes))
          (find-r-edge graph 'friendship
                       :from from
+                      :edge-type :friend))
+        ((and to (null from) (null to-classes))
+         (find-r-edge graph 'friendship
+                      :to to
                       :edge-type :friend))))
 
 (defun assert-frendship (graph from to type)
