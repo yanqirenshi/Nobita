@@ -7,8 +7,6 @@
   (:method (graph (g*an g*an))
     (format t  "flash-across-ones-mind~%")
     (spreads graph
-             `(:contents nil
-               :results nil
-               :timestamp (:start ,(local-time:now) :end nil))
+             (make-idea)
              g*an
              (find-frendship graph :from g*an))))
