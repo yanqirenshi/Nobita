@@ -1,0 +1,1 @@
+/Users/satoshi.iwasaki/prj/js/vanilla.js/dist/vanilla.js
