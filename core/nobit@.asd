@@ -10,12 +10,13 @@ This file is a part of nobit@ project.
                #:cl-fad
                #:local-time
                #:queues
-               #:queues.simple-cqueue
+               #:queues.priority-cqueue
                #:shinrabanshou
                #:rhythm)
   :components ((:module "src"
                 :components
                 ((:module "libs" :components ((:file "db")
+                                              (:file "karma")
                                               (:file "hearts")))
                  (:file "utilities")
                  (:file "package")
