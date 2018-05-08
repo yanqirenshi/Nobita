@@ -1,0 +1,3 @@
+<stage>
+    <svg></svg>
+</stage>
