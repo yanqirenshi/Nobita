@@ -22,6 +22,7 @@
   (when-let ((heart (gethash (heart friendship) *hearts*)))
     (push-idea friendship idea)
     (push-karma (karma-pool heart)
+                :idea_id (getf idea :_id)
                 :graph graph
                 :source source
                 :friendship friendship)))
