@@ -1,6 +1,6 @@
 (in-package :nobit@-test)
 
-(plan 11)
+(plan 4)
 
 (reboot)
 
