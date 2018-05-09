@@ -12,7 +12,8 @@
                 :components
                 ((:module "utilities" :components ((:file "db")))
                  (:file "package")
-                 (:test-file "nobit@"))))
+                 (:test-file "nobit@")
+                 (:module "libs" :components ((:test-file "karma"))))))
   :description "Test system for nobit@"
 
   :perform (test-op (op c) (symbol-call :prove-asdf :run-test-system c)))
