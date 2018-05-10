@@ -47,7 +47,7 @@
                            (= (getf node :idea_id)
                               idea-id)))))
 
-(defun rm-karma-at-idea-id (karam-pool idea-id)
+(defun rm-karma-at-idea-id (idea-id karam-pool)
   (when-let ((node (find-karmas karam-pool idea-id)))
     (queues:queue-delete (queue karam-pool) node)
-    (rm-karma-at-idea-id karam-pool idea-id)))
+    (rm-karma-at-idea-id idea-id karam-pool)))
