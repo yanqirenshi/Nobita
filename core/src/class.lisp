@@ -3,7 +3,8 @@
 ;;;;;
 ;;;;; Base
 ;;;;;
-(defclass node (shinra:shin) ())
+(defclass node (shinra:shin)
+  ((name :accessor name :initarg :name :initform "")))
 (defclass edge (shinra:ra) ())
 
 
