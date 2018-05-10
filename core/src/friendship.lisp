@@ -32,25 +32,25 @@
 ;;;;;
 ;;;;; Assert
 ;;;;;
-(defun assert-frendship-1-1 (to results)
-  (assert (not (find-if #'(lambda (result)
+(defun assert-frendship-1-1 (to frendships)
+  (assert (not (find-if #'(lambda (frendship)
                             (eq (class-name (class-of to))
-                                (class-name (class-of (getf result :vertex)))))
-                        results))))
+                                (class-name (class-of (getf frendship :vertex)))))
+                        frendships))))
 
-(defun assert-frendship-1-n (to results)
-  (assert (find-if #'(lambda (result)
-                       (= (up:%id to)
-                          (up:%id (getf result :vertex))))
-                   results)))
+(defun assert-frendship-1-n (to frendships)
+  (assert (not (find-if #'(lambda (frendship)
+                            (= (up:%id to)
+                               (up:%id frendship)))
+                        frendships))))
 
 (defun assert-frendship (graph from to type)
-  (let ((results (find-frendship graph
-                                 :from from
-                                 :to-classes (class-symbol to))))
-    (when results
-      (cond ((eq :1-1 type) (assert-frendship-1-1 to results))
-            ((eq :1-n type) (assert-frendship-1-n to results))))))
+  (let ((frendships (find-frendship graph
+                                    :from from
+                                    :to-classes (class-symbol to))))
+    (when frendships
+      (cond ((eq :1-1 type) (assert-frendship-1-1 to frendships))
+            ((eq :1-n type) (assert-frendship-1-n to frendships))))))
 
 ;;;;;
 ;;;;; make
