@@ -12,7 +12,8 @@
                 :components
                 ((:module "utilities" :components ((:file "db")))
                  (:file "package")
-                 (:test-file "nobit@")
+                 ;; (:test-file "simple-test-1")
+                 (:test-file "simple-test-2")
                  (:module "libs" :components ((:test-file "karma"))))))
   :description "Test system for nobit@"
 
