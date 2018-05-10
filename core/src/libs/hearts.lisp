@@ -18,7 +18,9 @@
 (in-package :nobit@.hearts)
 
 (defclass nobiheart (rhythm::heart)
-  ((karma-pool :accessor karma-pool :initarg :karma-pool :initform (make-karma-pool))))
+  ((karma-pool :accessor karma-pool
+               :initarg :karma-pool
+               :initform (make-instance 'karma-pool))))
 
 (defun make-heart (name core)
   (rhythm:make-heart :class 'nobiheart

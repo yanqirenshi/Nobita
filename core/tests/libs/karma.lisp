@@ -77,7 +77,7 @@
               "Can return first node"))))
 
     (subtest "Function: rm-karma-at-idea-id"
-      (nobit@.karma:rm-karma-at-idea-id pool _id)
+      (nobit@.karma:rm-karma-at-idea-id  _id pool)
       (is 1 (nobit@.karma:qsize pool) "キューのサイズが 1 であること")
       (is nil (nobit@.karma::find-karmas pool -1) "削除した id の karma が存在しないこと。")
       (isnt nil (nobit@.karma::find-karmas pool -2) "削除していない id の karma が存在すること。"))))
