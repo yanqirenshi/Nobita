@@ -50,6 +50,15 @@
 (defun get-heart (&key code (hearts *hearts*))
   (gethash code hearts))
 
+(defun add-heart (code heart &key (hearts *hearts*))
+  (print (get-heart :code code :hearts hearts))
+  (assert (not (get-heart :code code :hearts hearts)))
+  (setf (gethash code hearts) heart))
+
+(defun rm-heart (code &key (hearts *hearts*))
+  (when (get-heart :code code :hearts hearts))
+  (remhash code hearts))
+
 (defun start ()
   (dolist (heart (hash-table-values *hearts*))
     (start-heart heart)))
