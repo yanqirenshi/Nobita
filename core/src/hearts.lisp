@@ -10,11 +10,27 @@
                            (shinra::to-class friendship)
                            :%id (shinra::to-id friendship)))))
 
+(defvar *hook-heart-core-before* nil)
+(defvar *hook-heart-core-after* nil)
+
+(defun heart-core-before (heart times)
+  (let ((func *hook-heart-core-before*))
+    (when (functionp func)
+      (funcall func heart times))))
+
+(defun heart-core-after (heart times)
+  (let ((func *hook-heart-core-after*))
+    (when (functionp func)
+      (funcall func heart times))))
+
 (defun heart-core (heart times)
   "キューに溜った friendship を順(FILO)に処理します。"
   (handler-case
-      (when-let ((karma (pop-karma (karma-pool heart))))
-        (%heart-core karma))
+      (progn
+        (heart-core-before heart times)
+        (when-let ((karma (pop-karma (karma-pool heart))))
+          (%heart-core karma))
+        (heart-core-after heart times))
     (error (e) (format t "Reisd Error!!!~%heart=~a, times=~a~%<error>~%~a"
                        heart
                        times

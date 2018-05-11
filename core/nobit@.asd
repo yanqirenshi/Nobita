@@ -26,7 +26,9 @@ This file is a part of nobit@ project.
                  (:module "friends" :components ((:file "g_an")
                                                  (:file "4neo")
                                                  (:file "nobit@")))
-                 (:file "friendship")
+                 (:module "friendship" :components ((:file "finder")
+                                                    (:file "maker")
+                                                    (:file "printer")))
                  ;; 伝播
                  (:module "spread" :components ((:file "spread")
                                                 (:file "g_an")

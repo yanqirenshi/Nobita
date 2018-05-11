@@ -1,35 +1,6 @@
 (in-package :nobit@)
 
 ;;;;;
-;;;;; Find
-;;;;;
-(defun find-frendship-at-to-classes (graph from to-classes)
-  (when-let ((to-class (car to-classes)))
-    (nconc (find-r-edge graph 'friendship
-                        :from from
-                        :edge-type :friend
-                        :vertex-class to-class)
-           (find-frendship-at-to-classes graph from (cdr to-classes)))))
-
-(defun find-frendship-at-from (graph from)
-  (find-r-edge graph 'friendship
-               :from from
-               :edge-type :friend))
-
-(defun find-frendship-at-to (graph to)
-  (find-r-edge graph 'friendship
-               :to to
-               :edge-type :friend))
-
-(defun find-frendship (graph &key from to-classes to)
-  (cond ((and from to-classes)
-         (find-frendship-at-to-classes graph from (ensure-list to-classes)))
-        ((and from (null to-classes))
-         (find-frendship-at-from graph from))
-        ((and to (null from) (null to-classes))
-         (find-frendship-at-to graph to))))
-
-;;;;;
 ;;;;; Assert
 ;;;;;
 (defun assert-frendship-1-1 (to frendships)
@@ -79,6 +50,3 @@
   (:method (graph (from 4neo) (to g*an) heart)
     (assert-frendship graph from to :1-1)
     (%tx-make-frendship graph from to heart)))
-
-;; - momentary
-;; - alternate

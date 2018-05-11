@@ -30,12 +30,13 @@
     (queues:qsize (queue pool))))
 
 (defun push-karma (karma-pool &key idea_id graph source friendship)
-  (qpush (queue karma-pool)
-         (list :sequence (incf (counter karma-pool))
-               :idea_id idea_id
-               :graph graph
-               :source source
-               :friendship friendship)))
+  (let ((sequence (incf (counter karma-pool))))
+    (qpush (queue karma-pool)
+           (list :sequence sequence
+                 :idea_id idea_id
+                 :graph graph
+                 :source source
+                 :friendship friendship))))
 
 (defun pop-karma (karma-pool)
   (qpop (queue karma-pool)))
