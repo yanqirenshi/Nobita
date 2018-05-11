@@ -34,7 +34,7 @@
       (setf +nobit@04+ (up:execute-transaction (nobit@:tx-make-nobit@ *graph* :name "@4" :action 'nobit@-action))))
 
     (subtest "make friendships"
-      (let ((heart :aon))
+      (let ((heart :da))
         (up:execute-transaction (nobit@:tx-make-frendship *graph* +g*an+     +4neo+     heart))
         (up:execute-transaction (nobit@:tx-make-frendship *graph* +4neo+     +nobit@01+ heart))
         (up:execute-transaction (nobit@:tx-make-frendship *graph* +nobit@01+ +nobit@02+ heart))
