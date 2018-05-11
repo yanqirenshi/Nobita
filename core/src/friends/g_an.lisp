@@ -10,3 +10,7 @@
              (make-idea)
              g*an
              (find-frendship graph :from g*an))))
+
+(defmethod print-object ((obj g*an) out)
+  (print-unreadable-object (obj out :type t)
+    (format out "%id:~s ,name:~s" (up:%id obj) (name obj))))

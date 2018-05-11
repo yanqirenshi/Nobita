@@ -10,3 +10,7 @@
     t)
   (:method (obj)
     nil))
+
+(defmethod print-object ((obj nobit@) out)
+  (print-unreadable-object (obj out :type t)
+    (format out "%id:~s ,name:~s" (up:%id obj) (name obj))))
