@@ -19,7 +19,7 @@
 ;;;;; Routing rules
 ;;;;;
 (defroute "/" ()
-  "api-v1")
+  (render-json (list :nodes nil :edges nil)))
 
 ;;;;;
 ;;;;; Error pages

@@ -1,5 +1,4 @@
 <app>
-    <stage></stage>
 
     <style>
      stage {
@@ -12,7 +11,8 @@
 
     <script>
      STORE.subscribe((action) => {
-         this.update()
+         if (action.target=='app')
+             this.update()
      });
 
      window.addEventListener('resize', (event) => {

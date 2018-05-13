@@ -28,7 +28,9 @@ var STORE = new Store(REDUCER).init();
 /* *********** */
 let Metronome = new Vanilla_metronome({
     interval: 1000 * 10,
-    tick: function (count) {}
+    tick: function (count) {
+         ACTIONS.fetchRootData();
+    }
 });
 
 /* ****** */
@@ -41,4 +43,3 @@ route.start(function () {
         return '/';
     return hash.substring(1);
 }());
-riot.mount('*');
