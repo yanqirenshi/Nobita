@@ -5,15 +5,19 @@ class Actions extends Vanilla_Redux_Actions {
             data: data
         };
     }
-    loadData () {
-        API.get('/rsc/path', function (response) {
-            STORE.dispatch(this.loadedData(response));
+    fetchRootData () {
+        API.get('/', function (response) {
+            STORE.dispatch(this.fetchedRootData(response));
         }.bind(this));
     }
-    loadedData (response) {
+    fetchedRootData (response) {
         return {
-            type: 'LOADED-DATA',
-            data: {}
+            type: 'FETCHED-ROOT-DATA',
+            data: {
+                nodes: response.NODES,
+                edges: response.EDGES
+            },
+            target: 'app'
         };
     }
 }
