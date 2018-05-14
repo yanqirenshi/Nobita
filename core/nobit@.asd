@@ -28,7 +28,8 @@ This file is a part of nobit@ project.
                                                  (:file "nobit@")))
                  (:module "friendship" :components ((:file "finder")
                                                     (:file "maker")
-                                                    (:file "printer")))
+                                                    (:file "printer")
+                                                    (:file "json")))
                  ;; 伝播
                  (:module "spread" :components ((:file "spread")
                                                 (:file "g_an")

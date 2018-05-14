@@ -23,7 +23,8 @@
                 :components
                 ((:file "config")
                  (:module "controller"
-                  :components ((:file "package")))
+                  :components ((:file "package")
+                               (:file "controller")))
                  (:file "render")
                  (:module "router"
                   :components ((:file "route")
