@@ -11,11 +11,6 @@
     </style>
 
     <script>
-     STORE.subscribe((action) => {
-         if (action.target=='app')
-             this.update()
-     });
-
      window.addEventListener('resize', (event) => {
          this.update();
      });

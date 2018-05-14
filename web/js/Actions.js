@@ -11,13 +11,24 @@ class Actions extends Vanilla_Redux_Actions {
         }.bind(this));
     }
     fetchedRootData (response) {
+        let makeData = (list) => {
+            let ht = {};
+            for (var i in list) {
+                if (ht[list[i]._id])
+                    ht[list[i]._id] = list[i]; // TODO: merge ht
+                else
+                    ht[list[i]._id] = list[i];
+            }
+            return {ht: ht, arr: list};
+        };
+
         return {
             type: 'FETCHED-ROOT-DATA',
             data: {
-                nodes: response.NODES,
-                edges: response.EDGES
+                nodes: makeData(response.NODES),
+                edges: makeData(response.EDGES)
             },
-            target: 'app'
+            target: 'stage'
         };
     }
 }
