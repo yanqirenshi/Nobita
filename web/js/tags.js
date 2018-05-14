@@ -24,22 +24,6 @@ riot.tag2('stage', '<svg ref="svg-tag"></svg>', '', 'ref="self"', function(opts)
          });
      }
 
-     this.addElementGroups = (d3svg) => {
-         let makeSelection = (cls) => {
-             return d3svg.Svg().append("g").attr("class", cls);
-         };
-
-         let lines = makeSelection('lines');
-         let nodes = makeSelection('nodes');
-         let labels = makeSelection('labels');
-
-         return {
-             lines : lines,
-             nodes : nodes,
-             labels: labels
-         }
-     };
-
      this.makeD3force = (d3svg) => {
          return new D3Force({
              d3: d3,
