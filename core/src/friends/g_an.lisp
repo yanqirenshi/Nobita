@@ -1,5 +1,13 @@
 (in-package :nobit@)
 
+(defmethod jojo:%to-json ((obj g*an))
+  (jojo:with-object
+    (jojo:write-key-value "_id"  (slot-value obj 'up:%id))
+    (jojo:write-key-value "name" (slot-value obj 'name))))
+
+(defun find-g*an (graph)
+  (find-vertex graph 'g*an))
+
 (defun tx-make-g*an (graph)
   (tx-make-vertex graph 'g*an))
 

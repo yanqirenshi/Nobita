@@ -24,4 +24,5 @@
         ((and from (null to-classes))
          (find-frendship-at-from graph from))
         ((and to (null from) (null to-classes))
-         (find-frendship-at-to graph to))))
+         (find-frendship-at-to graph to))
+        (t (up::find-all-objects graph 'friendship))))

@@ -1,4 +1,4 @@
-riot.tag2('app', '', 'app stage,[data-is="app"] stage{ width: 100%; height: 100%; overflow: hidden; display: block; }', '', function(opts) {
+riot.tag2('app', '<stage></stage>', 'app stage,[data-is="app"] stage{ width: 100vw; height: 100vh; overflow: hidden; display: block; }', '', function(opts) {
      STORE.subscribe((action) => {
          if (action.target=='app')
              this.update()

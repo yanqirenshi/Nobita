@@ -19,7 +19,7 @@
 ;;;;; Routing rules
 ;;;;;
 (defroute "/" ()
-  (render-json (list :nodes nil :edges nil)))
+  (render-json (nobit@.api.controller::api-root)))
 
 ;;;;;
 ;;;;; Error pages
