@@ -1,1 +1,0 @@
-/Users/satoshi.iwasaki/prj/fg/js/d3.js/d3-force/src/d3-fource.js
