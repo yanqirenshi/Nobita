@@ -1,3 +1,3 @@
 <page01-sec_root>
-    <svg></svg>
+    <canvas></canvas>
 </page01-sec_root>
