@@ -11,6 +11,7 @@ This file is a part of nobit@ project.
                #:local-time
                #:queues
                #:queues.priority-cqueue
+               #:jonathan
                #:shinrabanshou
                #:rhythm)
   :components ((:module "src"
