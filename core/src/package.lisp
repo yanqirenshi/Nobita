@@ -14,7 +14,7 @@
                 #:find-vertex
                 #:find-r-edge
                 #:get-vertex-at)
-  (:import-from :nobit@.db
+  (:import-from :nobit@.graph
                 #:*graph*)
   (:export #:start)
   (:export #:tx-make-nobit@
