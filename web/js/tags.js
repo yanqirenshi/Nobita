@@ -125,6 +125,13 @@ riot.tag2('section-list', '<table class="table is-bordered is-striped is-narrow 
 riot.tag2('sections-list', '<table class="table"> <tbody> <tr each="{opts.data}"> <td><a href="{hash}">{title}</a></td> </tr> </tbody> </table>', '', '', function(opts) {
 });
 
+riot.tag2('canvas', '<svg ref="svg"></svg>', 'canvas > svg { width: 100vw; height: 100vh; }', '', function(opts) {
+     this.on('mount', () => {});
+});
+
+riot.tag2('page01-sec_root', '<canvas></canvas>', '', '', function(opts) {
+});
+
 riot.tag2('page01', '', '', '', function(opts) {
      this.mixin(MIXINS.page);
 
@@ -144,9 +151,6 @@ riot.tag2('page03', '', '', '', function(opts) {
 
      this.on('mount', () => { this.draw(); });
      this.on('update', () => { this.draw(); });
-});
-
-riot.tag2('page01-sec_root', '<svg></svg>', '', '', function(opts) {
 });
 
 riot.tag2('page02-sec_root', '', '', '', function(opts) {

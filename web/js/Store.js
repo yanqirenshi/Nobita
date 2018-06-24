@@ -4,6 +4,13 @@ class Store extends Vanilla_Redux_Store {
     }
     init () {
         let data = {
+            nodes: {
+                list: [
+                    {_id: 1, name: 'node-1'},
+                    {_id: 2, name: 'node-2'},
+                    {_id: 3, name: 'node-3'}
+                ]
+            },
             site: {
                 active_page: 'page01',
                 home_page: 'page01',
