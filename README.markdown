@@ -7,7 +7,7 @@
 ## Usage
 
 ```lisp
-(nobita.db:start)
+(nobita.graph:start)
 ```
 
 ## Installation
