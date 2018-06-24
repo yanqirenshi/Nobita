@@ -5,21 +5,27 @@
         :lack.middleware.validation
         :nobit@.api.config
         :nobit@.api.render)
-  (:export #:*api-v1*))
+  (:export #:*router*))
 (in-package :nobit@.api.api-v1)
 
 ;;;;;
 ;;;;; Application
 ;;;;;
 (defclass <router> (<app>) ())
-(defvar *api-v1* (make-instance '<router>))
-(clear-routing-rules *api-v1*)
+(defvar *router* (make-instance '<router>))
+(clear-routing-rules *router*)
 
 ;;;;;
 ;;;;; Routing rules
 ;;;;;
 (defroute "/" ()
-  (render-json (nobit@.api.controller::api-root)))
+  (render-json nil))
+
+(defroute "/nodes" ()
+  (render-json (nobit@.api.controller:nodes)))
+
+(defroute "/edges" ()
+  (render-json (nobit@.api.controller:edges)))
 
 ;;;;;
 ;;;;; Error pages
