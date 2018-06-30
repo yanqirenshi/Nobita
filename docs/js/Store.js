@@ -4,28 +4,23 @@ class Store extends Vanilla_Redux_Store {
     }
     init () {
         let data = {
-            nodes: { ht: {}, list: [] },
             site: {
                 active_page: 'page01',
                 home_page: 'page01',
                 pages: [
                     {
                         code: "page01",
-                        title: "Page: 01",
-                        menu_label: 'P1',
+                        title: 'Home',
+                        menu_label: '家',
                         active_section: 'root',
                         home_section: 'root',
-                        sections: [
-                            { code: 'root', tag: 'page01-sec_root', title: 'Section: root', description: '' },
-                        ],
-                        stye: {
-                            color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
-                        }
+                        sections: [{ code: 'root', tag: 'page01-sec_root', title: 'Section: root', description: '' }],
+                        stye: {color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }}
                     },
                     {
                         code: "page02",
-                        title: "Page: 02",
-                        menu_label: 'P2',
+                        title: "Classes",
+                        menu_label: '友達',
                         active_section: 'root',
                         home_section: 'root',
                         sections: [{ code: 'root', tag: 'page02-sec_root', title: 'Home', description: '' }],
@@ -35,11 +30,22 @@ class Store extends Vanilla_Redux_Store {
                     },
                     {
                         code: "page03",
-                        title: "Page: 03",
-                        menu_label: 'P3',
+                        title: "友情",
+                        menu_label: '友情',
                         active_section: 'root',
                         home_section: 'root',
                         sections: [{ code: 'root', tag: 'page03-sec_root', title: 'Home', description: '' }],
+                        stye: {
+                            color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
+                        }
+                    },
+                    {
+                        code: "page04",
+                        title: "Nobit@ Harts",
+                        menu_label: '心',
+                        active_section: 'root',
+                        home_section: 'root',
+                        sections: [{ code: 'root', tag: 'page04-sec_root', title: 'Home', description: '' }],
                         stye: {
                             color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
                         }

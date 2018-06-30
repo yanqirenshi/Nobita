@@ -3,7 +3,8 @@
 (defmethod jojo:%to-json ((obj g*an))
   (jojo:with-object
     (jojo:write-key-value "_id"  (slot-value obj 'up:%id))
-    (jojo:write-key-value "name" (slot-value obj 'name))))
+    (jojo:write-key-value "name" (slot-value obj 'name))
+    (jojo:write-key-value "_class" "G*AN")))
 
 (defun find-g*an (graph)
   (find-vertex graph 'g*an))

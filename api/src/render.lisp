@@ -8,6 +8,12 @@
            #:render-json))
 (in-package :nobit@.api.render)
 
+(defun set-header (response key value)
+  (setf (getf (response-headers response) key)
+        value))
+
 (defun render-json (object)
-  (setf (getf (response-headers *response*) :content-type) "application/json")
+  (set-header *response* :content-type "application/json")
+  (set-header *response* :access-control-allow-origin "http://localhost")
+  (set-header *response* :access-control-allow-credentials "true")
   (jonathan:to-json object))
