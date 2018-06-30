@@ -1,3 +1,3 @@
 <page01-sec_root>
-    <canvas></canvas>
+    <network-graph></network-graph>
 </page01-sec_root>

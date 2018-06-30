@@ -4,7 +4,8 @@
   (jojo:with-object
     (jojo:write-key-value "_id"  (slot-value obj 'up:%id))
     (jojo:write-key-value "name" (slot-value obj 'name))
-    (jojo:write-key-value "action" (princ-to-string (slot-value obj 'action)))))
+    (jojo:write-key-value "action" (princ-to-string (slot-value obj 'action)))
+    (jojo:write-key-value "_class" "NOBIT@")))
 
 (defun find-nobit@ (graph)
   (find-vertex graph 'nobit@))
