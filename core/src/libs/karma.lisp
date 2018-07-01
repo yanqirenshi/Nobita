@@ -29,26 +29,30 @@
   (:method ((pool karma-pool))
     (queues:qsize (queue pool))))
 
-(defun push-karma (karma-pool &key idea_id graph source friendship)
-  (let ((sequence (incf (counter karma-pool))))
-    (qpush (queue karma-pool)
-           (list :sequence sequence
-                 :idea_id idea_id
-                 :graph graph
-                 :source source
-                 :friendship friendship))))
+(defgeneric push-karma (karma-pool &key idea_id graph source friendship)
+  (:method ((karma-pool karma-pool) &key idea_id graph source friendship)
+    (let ((sequence (incf (counter karma-pool))))
+      (qpush (queue karma-pool)
+             (list :sequence sequence
+                   :idea_id idea_id
+                   :graph graph
+                   :source source
+                   :friendship friendship)))))
 
-(defun pop-karma (karma-pool)
-  (qpop (queue karma-pool)))
+(defgeneric pop-karma (karma-pool)
+  (:method ((karma-pool karma-pool))
+    (qpop (queue karma-pool))))
 
-(defun find-karmas (karma-pool idea-id)
-  (let ((queue (queue karma-pool)))
-    (queues:queue-find queue
-                       #'(lambda (node)
-                           (= (getf node :idea_id)
-                              idea-id)))))
+(defgeneric find-karmas (karma-pool idea-id)
+  (:method ((karma-pool karma-pool) idea-id)
+    (let ((queue (queue karma-pool)))
+      (queues:queue-find queue
+                         #'(lambda (node)
+                             (= (getf node :idea_id)
+                                idea-id))))))
 
-(defun rm-karma-at-idea-id (idea-id karam-pool)
-  (when-let ((node (find-karmas karam-pool idea-id)))
-    (queues:queue-delete (queue karam-pool) node)
-    (rm-karma-at-idea-id idea-id karam-pool)))
+(defgeneric rm-karma-at-idea-id (karam-pool idea-id)
+  (:method ((karma-pool karma-pool) idea-id)
+    (when-let ((node (find-karmas karma-pool idea-id)))
+      (queues:queue-delete (queue karma-pool) node)
+      (rm-karma-at-idea-id idea-id karma-pool))))

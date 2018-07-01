@@ -28,8 +28,10 @@
                      :core #'(lambda (heart times)
                                (funcall core heart times))))
 
-(defun start-heart (heart)
-  (rhythm:tune heart 1))
+(defgeneric start-heart (heart)
+  (:method ((heart nobiheart))
+    (rhythm:tune heart 1)))
 
-(defun stop-heart (heart)
-  (rhythm:tune heart 0))
+(defgeneric stop-heart (heart)
+  (:method ((heart nobiheart))
+    (rhythm:tune heart 0)))
