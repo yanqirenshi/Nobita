@@ -8,17 +8,11 @@
         </section-contents>
     </section-container>
 
-    <section-container title="データ">
-        <section-container title="idea">
-            <section-container title="Variables">
-                <section-container title="Variable: *idea-id-counter*">
-                </section-container>
-            </section-container>
+    <section-container title="Data: IDEA">
+        <section-container title="Variable: *idea-id-counter*" no="4">
+        </section-container>
 
-            <section-container title="Operators">
-                <section-container title="Function: make-idea">
-                </section-container>
-            </section-container>
+        <section-container title="Function: make-idea" no="4">
         </section-container>
     </section-container>
 
@@ -27,31 +21,31 @@
         </section-container>
 
         <section-container title="Operators">
-            <section-container title="Function: find-frendship-at-to-classes">
+            <section-container title="Function: find-frendship-at-to-classes" no="4">
             </section-container>
 
-            <section-container title="Function: find-frendship-at-from">
+            <section-container title="Function: find-frendship-at-from" no="4">
             </section-container>
 
-            <section-container title="Function: find-frendship-at-to">
+            <section-container title="Function: find-frendship-at-to" no="4">
             </section-container>
 
-            <section-container title="Function: find-frendship">
+            <section-container title="Function: find-frendship" no="4">
             </section-container>
 
-            <section-container title="Function: assert-frendship-1-1">
+            <section-container title="Function: assert-frendship-1-1" no="4">
             </section-container>
 
-            <section-container title="Function: assert-frendship-1-n">
+            <section-container title="Function: assert-frendship-1-n" no="4">
             </section-container>
 
-            <section-container title="Function: assert-frendship">
+            <section-container title="Function: assert-frendship" no="4">
             </section-container>
 
-            <section-container title="Function: %tx-make-frendship">
+            <section-container title="Function: %tx-make-frendship" no="4">
             </section-container>
 
-            <section-container title="Generic function: tx-make-frendship">
+            <section-container title="Generic function: tx-make-frendship" no="4">
             </section-container>
         </section-container>
     </section-container>

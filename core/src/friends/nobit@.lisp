@@ -24,3 +24,14 @@
 (defmethod print-object ((obj nobit@) out)
   (print-unreadable-object (obj out :type t)
     (format out "%id:~s ,name:~s" (up:%id obj) (name obj))))
+
+(defgeneric action! (graph nobit@ idea source)
+  (:method (graph (nobit@ nobit@) idea source)
+    (let ((action (action nobit@)))
+      (if (null action)
+          idea
+          (funcall action
+                   :graph graph
+                   :idea idea
+                   :source source
+                   :nobit@ nobit@)))))

@@ -2,7 +2,12 @@
     <section-header title="NOBIT@: 友達"></section-header>
 
     <section-container title="概要">
+        <section-contents>
+            friends_classes
+        </section-contents>
     </section-container>
+
+    <friends_classes></friends_classes>
 
     <friends_class-graph></friends_class-graph>
 
