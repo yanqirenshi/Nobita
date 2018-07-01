@@ -1,4 +1,7 @@
 <app>
+    <github-link fill="#BDB04F" color="#fff"
+                 href="https://gitlab.com/yanqirenshi/nobita"></github-link>
+
     <menu-bar brand={{label:'N'}} site={site()} moves={[]}></menu-bar>
 
     <div ref="page-area"></div>

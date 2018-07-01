@@ -33,7 +33,7 @@
   (when-let ((frendship (car frendships)))
     (unless (eq-frendshp-from frendship source)
       (let ((heart (get-heart :code (heart frendship))))
-        (nobit@.karma:rm-karma-at-idea-id _id (karma-pool heart))))
+        (nobit@.karma:rm-karma-at-idea-id (karma-pool heart) _id)))
     (remove-karmas _id source (cdr frendships))))
 
 (defmethod spread ((graph shinra:banshou) (idea list) source (nobit@ nobit@))

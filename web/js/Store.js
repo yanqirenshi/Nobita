@@ -11,8 +11,8 @@ class Store extends Vanilla_Redux_Store {
                 pages: [
                     {
                         code: "page01",
-                        title: "Page: 01",
-                        menu_label: 'P1',
+                        title: "H",
+                        menu_label: 'H',
                         active_section: 'root',
                         home_section: 'root',
                         sections: [
@@ -24,8 +24,8 @@ class Store extends Vanilla_Redux_Store {
                     },
                     {
                         code: "page02",
-                        title: "Page: 02",
-                        menu_label: 'P2',
+                        title: "Nobit@: 友達",
+                        menu_label: '友達',
                         active_section: 'root',
                         home_section: 'root',
                         sections: [{ code: 'root', tag: 'page02-sec_root', title: 'Home', description: '' }],
@@ -35,8 +35,8 @@ class Store extends Vanilla_Redux_Store {
                     },
                     {
                         code: "page03",
-                        title: "Page: 03",
-                        menu_label: 'P3',
+                        title: "Nobit@: 友情",
+                        menu_label: '友情',
                         active_section: 'root',
                         home_section: 'root',
                         sections: [{ code: 'root', tag: 'page03-sec_root', title: 'Home', description: '' }],
@@ -60,7 +60,6 @@ class Store extends Vanilla_Redux_Store {
                 section.hash = hash;
             }
         }
-
 
         this._contents = Immutable.Map(data);
         return this;

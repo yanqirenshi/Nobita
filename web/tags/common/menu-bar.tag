@@ -2,13 +2,15 @@
     <aside class="menu">
         <p ref="brand"
            class="menu-label"
+           style="font-size: {opts.brand.label>1 ? '12px' : '14px'};"
            onclick={clickBrand}>
             {opts.brand.label}
         </p>
         <ul class="menu-list">
             <li each={opts.site.pages}>
                 <a class="{opts.site.active_page==code ? 'is-active' : ''}"
-                   href={'#' + code}>
+                   href={'#' + code}
+                   style="font-size: {menu_label.length>1 ? '12px' : '14px'};">
                     {menu_label}
                 </a>
             </li>
@@ -62,8 +64,6 @@
          font-weight: bold;
 
          padding-top: 7px;
-         font-size: 14px;
-
      }
      .menu-label {
          background: #fdeff2;
@@ -111,6 +111,8 @@
      }
 
      this.clickBrand = () => {
+         return; // 当面使わないので即終了。
+
          let panel = this.refs['move-panel'];
          let classes = panel.getAttribute('class').trim().split(' ');
 

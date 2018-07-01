@@ -1,4 +1,4 @@
-riot.tag2('app', '<menu-bar brand="{{label:\'N\'}}" site="{site()}" moves="{[]}"></menu-bar> <div ref="page-area"></div>', 'app > .page { width: 100vw; height: 100vh; overflow: hidden; display: block; } app .hide,[data-is="app"] .hide{ display: none; }', '', function(opts) {
+riot.tag2('app', '<github-link fill="#BDB04F" color="#fff" href="https://gitlab.com/yanqirenshi/nobita"></github-link> <menu-bar brand="{{label:\'N\'}}" site="{site()}" moves="{[]}"></menu-bar> <div ref="page-area"></div>', 'app > .page { width: 100vw; height: 100vh; overflow: hidden; display: block; } app .hide,[data-is="app"] .hide{ display: none; }', '', function(opts) {
      this.site = () => {
          return STORE.state().get('site');
      };
@@ -21,7 +21,74 @@ riot.tag2('app', '<menu-bar brand="{{label:\'N\'}}" site="{site()}" moves="{[]}"
          location.hash='#page01'
 });
 
-riot.tag2('menu-bar', '<aside class="menu"> <p ref="brand" class="menu-label" onclick="{clickBrand}"> {opts.brand.label} </p> <ul class="menu-list"> <li each="{opts.site.pages}"> <a class="{opts.site.active_page==code ? \'is-active\' : \'\'}" href="{\'#\' + code}"> {menu_label} </a> </li> </ul> </aside> <div class="move-page-menu hide" ref="move-panel"> <p each="{moves()}"> <a href="{href}">{label}</a> </p> </div>', 'menu-bar .move-page-menu { z-index: 666665; background: #fdeff2; position: fixed; left: 55px; top: 0px; min-width: 111px; height: 100vh; box-shadow: 2px 0px 8px 0px #e0e0e0; padding: 22px 55px 22px 22px; } menu-bar .move-page-menu.hide { display: none; } menu-bar .move-page-menu > p { margin-bottom: 11px; } menu-bar > .menu { z-index: 666666; height: 100vh; width: 55px; padding: 11px 0px 11px 11px; position: fixed; left: 0px; top: 0px; background: #BDB04F; } menu-bar .menu-label, menu-bar .menu-list a { padding: 0; width: 33px; height: 33px; text-align: center; margin-top: 8px; border-radius: 3px; background: none; color: #ffffff; font-weight: bold; padding-top: 7px; font-size: 14px; } menu-bar .menu-label,[data-is="menu-bar"] .menu-label{ background: #fdeff2; color: #BDB04F; } menu-bar .menu-label.open,[data-is="menu-bar"] .menu-label.open{ background: #fdeff2; color: #BDB04F; width: 44px; border-radius: 3px 0px 0px 3px; text-shadow: 0px 0px 1px #eee; padding-right: 11px; } menu-bar .menu-list a.is-active { width: 44px; padding-right: 11px; border-radius: 3px 0px 0px 3px; background: #ffffff; color: #333333; }', '', function(opts) {
+riot.tag2('github-link', '<a id="fork" target="_blank" title="Fork Nobit@ on github" href="{opts.href}" class="github-corner"> <svg width="80" height="80" viewbox="0 0 250 250" fill="{opts.fill}" color="{opts.color}"> <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path> <path class="octo-arm" riot-d="{octo_arm.join(\',\')}" fill="currentColor" style="transform-origin: 130px 106px;"></path> <path class="octo-body" riot-d="{octo_body.join(\',\')}" fill="currentColor"></path> </svg> </a>', 'github-link > .github-corner > svg { position: fixed; top: 0; border: 0; right: 0; } github-link > .github-corner:hover .octo-arm { animation: octocat-wave 560ms ease-in-out } @keyframes octocat-wave { 0%, 100% { transform: rotate(0) } 20%, 60% { transform: rotate(-25deg) } 40%, 80% { transform: rotate(10deg) } }', '', function(opts) {
+     this.octo_arm = ["M128.3",
+                      "109.0 C113.8",
+                      "99.7 119.0",
+                      "89.6 119.0",
+                      "89.6 C122.0",
+                      "82.7 120.5",
+                      "78.6 120.5",
+                      "78.6 C119.2",
+                      "72.0 123.4",
+                      "76.3 123.4",
+                      "76.3 C127.3",
+                      "80.9 125.5",
+                      "87.3 125.5",
+                      "87.3 C122.9",
+                      "97.6 130.6",
+                      "101.9 134.4",
+                      "103.2"];
+
+     this.octo_body = ["M115.0",
+                       "115.0 C114.9",
+                       "115.1 118.7",
+                       "116.5 119.8",
+                       "115.4 L133.7",
+                       "101.6 C136.9",
+                       "99.2 139.9",
+                       "98.4 142.2",
+                       "98.6 C133.8",
+                       "88.0 127.5",
+                       "74.4 143.8",
+                       "58.0 C148.5",
+                       "53.4 154.0",
+                       "51.2 159.7",
+                       "51.0 C160.3",
+                       "49.4 163.2",
+                       "43.6 171.4",
+                       "40.1 C171.4",
+                       "40.1 176.1",
+                       "42.5 178.8",
+                       "56.2 C183.1",
+                       "58.6 187.2",
+                       "61.8 190.9",
+                       "65.4 C194.5",
+                       "69.0 197.7",
+                       "73.2 200.1",
+                       "77.6 C213.8",
+                       "80.2 216.3",
+                       "84.9 216.3",
+                       "84.9 C212.7",
+                       "93.1 206.9",
+                       "96.0 205.4",
+                       "96.6 C205.1",
+                       "102.4 203.0",
+                       "107.8 198.3",
+                       "112.5 C181.9",
+                       "128.9 168.3",
+                       "122.5 157.7",
+                       "114.1 C157.9",
+                       "116.9 156.7",
+                       "120.9 152.7",
+                       "124.9 L141.0",
+                       "136.5 C139.8",
+                       "137.7 141.6",
+                       "141.9 141.8",
+                       "141.8 Z"];
+});
+
+riot.tag2('menu-bar', '<aside class="menu"> <p ref="brand" class="menu-label" riot-style="font-size: {opts.brand.label>1 ? \'12px\' : \'14px\'};" onclick="{clickBrand}"> {opts.brand.label} </p> <ul class="menu-list"> <li each="{opts.site.pages}"> <a class="{opts.site.active_page==code ? \'is-active\' : \'\'}" href="{\'#\' + code}" riot-style="font-size: {menu_label.length>1 ? \'12px\' : \'14px\'};"> {menu_label} </a> </li> </ul> </aside> <div class="move-page-menu hide" ref="move-panel"> <p each="{moves()}"> <a href="{href}">{label}</a> </p> </div>', 'menu-bar .move-page-menu { z-index: 666665; background: #fdeff2; position: fixed; left: 55px; top: 0px; min-width: 111px; height: 100vh; box-shadow: 2px 0px 8px 0px #e0e0e0; padding: 22px 55px 22px 22px; } menu-bar .move-page-menu.hide { display: none; } menu-bar .move-page-menu > p { margin-bottom: 11px; } menu-bar > .menu { z-index: 666666; height: 100vh; width: 55px; padding: 11px 0px 11px 11px; position: fixed; left: 0px; top: 0px; background: #BDB04F; } menu-bar .menu-label, menu-bar .menu-list a { padding: 0; width: 33px; height: 33px; text-align: center; margin-top: 8px; border-radius: 3px; background: none; color: #ffffff; font-weight: bold; padding-top: 7px; } menu-bar .menu-label,[data-is="menu-bar"] .menu-label{ background: #fdeff2; color: #BDB04F; } menu-bar .menu-label.open,[data-is="menu-bar"] .menu-label.open{ background: #fdeff2; color: #BDB04F; width: 44px; border-radius: 3px 0px 0px 3px; text-shadow: 0px 0px 1px #eee; padding-right: 11px; } menu-bar .menu-list a.is-active { width: 44px; padding-right: 11px; border-radius: 3px 0px 0px 3px; background: #ffffff; color: #333333; }', '', function(opts) {
      this.moves = () => {
          let moves = [
              { code: '', href: '', label: '' },
@@ -46,6 +113,8 @@ riot.tag2('menu-bar', '<aside class="menu"> <p ref="brand" class="menu-label" on
      }
 
      this.clickBrand = () => {
+         return;
+
          let panel = this.refs['move-panel'];
          let classes = panel.getAttribute('class').trim().split(' ');
 

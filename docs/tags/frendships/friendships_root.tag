@@ -1,4 +1,4 @@
-<page03-sec_root>
+<friendships_root>
     <section-header title="NOBIT@: 友情"></section-header>
 
     <section-container title="概要">
@@ -55,4 +55,4 @@
             </section-container>
         </section-container>
     </section-container>
-</page03-sec_root>
+</friendships_root>

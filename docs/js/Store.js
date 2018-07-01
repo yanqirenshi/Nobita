@@ -23,7 +23,12 @@ class Store extends Vanilla_Redux_Store {
                         menu_label: '友達',
                         active_section: 'root',
                         home_section: 'root',
-                        sections: [{ code: 'root', tag: 'page02-sec_root', title: 'Home', description: '' }],
+                        sections: [
+                            { code: 'root', tag: 'friends_root', title: 'Home', description: '' },
+                            { code: 'g-an',   tag: 'friends_g-an',    title: 'G×an',   description: '' },
+                            { code: '4neo',   tag: 'friends_4neo',    title: '4Neo',   description: '' },
+                            { code: 'nobita', tag: 'friends_nobita',  title: 'Nobit@', description: '' }
+                        ],
                         stye: {
                             color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
                         }
@@ -34,7 +39,7 @@ class Store extends Vanilla_Redux_Store {
                         menu_label: '友情',
                         active_section: 'root',
                         home_section: 'root',
-                        sections: [{ code: 'root', tag: 'page03-sec_root', title: 'Home', description: '' }],
+                        sections: [{ code: 'root', tag: 'friendships_root', title: 'Home', description: '' }],
                         stye: {
                             color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
                         }
@@ -42,10 +47,14 @@ class Store extends Vanilla_Redux_Store {
                     {
                         code: "page04",
                         title: "Nobit@ Harts",
-                        menu_label: '心',
+                        menu_label: '心臓',
                         active_section: 'root',
                         home_section: 'root',
-                        sections: [{ code: 'root', tag: 'page04-sec_root', title: 'Home', description: '' }],
+                        sections: [
+                            { code: 'root',       tag: 'hearts_root',      title: 'Home',              description: '' },
+                            { code: 'nobiheart',  tag: 'class_nobiheart',  title: 'Class: NOBIHEART',  description: '' },
+                            { code: 'karma-pool', tag: 'class_karma-pool', title: 'Class: karma-pool', description: '' }
+                        ],
                         stye: {
                             color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
                         }
