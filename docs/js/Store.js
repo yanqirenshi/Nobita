@@ -24,10 +24,10 @@ class Store extends Vanilla_Redux_Store {
                         active_section: 'root',
                         home_section: 'root',
                         sections: [
-                            { code: 'root', tag: 'friends_root', title: 'Home', description: '' },
-                            { code: 'g-an',   tag: 'friends_g-an',    title: 'G×an',   description: '' },
-                            { code: '4neo',   tag: 'friends_4neo',    title: '4Neo',   description: '' },
-                            { code: 'nobita', tag: 'friends_nobita',  title: 'Nobit@', description: '' }
+                            { code: 'root',   tag: 'friends_root',  title: 'Home', description: '' },
+                            { code: 'g-an',   tag: 'class_g-an',    title: 'Class: G×an',   description: '' },
+                            { code: '4neo',   tag: 'class_4neo',    title: 'Class: 4Neo',   description: '' },
+                            { code: 'nobita', tag: 'class_nobita',  title: 'Class: Nobit@', description: '' }
                         ],
                         stye: {
                             color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
@@ -55,6 +55,17 @@ class Store extends Vanilla_Redux_Store {
                             { code: 'nobiheart',  tag: 'class_nobiheart',  title: 'Class: NOBIHEART',  description: '' },
                             { code: 'karma-pool', tag: 'class_karma-pool', title: 'Class: karma-pool', description: '' }
                         ],
+                        stye: {
+                            color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
+                        }
+                    },
+                    {
+                        code: "page05",
+                        title: "Nobit@ 伝播",
+                        menu_label: '伝播',
+                        active_section: 'root',
+                        home_section: 'root',
+                        sections: [ {code: 'root', tag: 'propagation_root', title: 'Home', description: '' }],
                         stye: {
                             color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
                         }
