@@ -44,7 +44,8 @@
          :ceithir (make-heart "ceithir" #'heart-core)
          :coig    (make-heart "coig"    #'heart-core)
          :sia     (make-heart "sia"     #'heart-core)
-         :seachd  (make-heart "seachd"  #'heart-core)))
+         :seachd  (make-heart "seachd"  #'heart-core)
+         :ochd    (make-heart "ochd"    #'heart-core)))
   "心臓はデフォルトで七つ用意する。")
 
 (defun get-heart (&key code (hearts *hearts*))
