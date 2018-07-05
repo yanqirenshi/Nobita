@@ -29,7 +29,6 @@
 (defmethod spread ((graph shinra:banshou) (idea list) source (nobit@ nobit@))
   "前フレンズの処理が完了しているかを確認し、全て完了している場合に自身の処理を実行する。
 完了しているかどうかはフレンドシップに対象idが存在するかどうかで判断する。"
-  (format t "spread@nobit@=~a~%" nobit@)
   (let ((frendships_before (find-frendship graph :to nobit@))
         (_id (getf idea :_id)))
     (when (do-it-now? _id frendships_before)

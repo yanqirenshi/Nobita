@@ -55,4 +55,4 @@
   (:method ((karma-pool karma-pool) idea-id)
     (when-let ((node (find-karmas karma-pool idea-id)))
       (queues:queue-delete (queue karma-pool) node)
-      (rm-karma-at-idea-id idea-id karma-pool))))
+      (rm-karma-at-idea-id karma-pool idea-id))))

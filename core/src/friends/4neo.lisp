@@ -9,8 +9,8 @@
 (defun find-4neo (graph)
   (find-vertex graph '4neo))
 
-(defun tx-make-4neo (graph)
-  (tx-make-vertex graph '4neo))
+(defun tx-make-4neo (graph &key (name "4neo:???"))
+  (tx-make-vertex graph '4neo `((name ,name))))
 
 (defmethod print-object ((obj 4neo) out)
   (print-unreadable-object (obj out :type t)

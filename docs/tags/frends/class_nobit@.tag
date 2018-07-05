@@ -7,9 +7,16 @@
     </section-container>
 
     <section-container title="Slots">
+        <section-container title="Function: find-nobit@" no="4">
+            <section-contents>
+                <slots_nobita></slots_nobita>
+            </section-contents>
+        </section-container>
     </section-container>
 
     <section-container title="Operators">
+        <generic-function-action-ex></generic-function-action-ex>
+
         <section-container title="Function: find-nobit@" no="4">
         </section-container>
 

@@ -10,7 +10,7 @@
 (defun find-nobit@ (graph)
   (find-vertex graph 'nobit@))
 
-(defun tx-make-nobit@ (graph &key (name "") action)
+(defun tx-make-nobit@ (graph &key (name "Nobit@:???") action)
   (tx-make-vertex graph 'nobit@
                   `((name ,name)
                     (action ,action))))
@@ -27,6 +27,7 @@
 
 (defgeneric action! (graph nobit@ idea source)
   (:method (graph (nobit@ nobit@) idea source)
+    (format t "Nobit@ : ~a~%" nobit@)
     (let ((action (action nobit@)))
       (if (null action)
           idea
