@@ -51,7 +51,6 @@
   (gethash code hearts))
 
 (defun add-heart (code heart &key (hearts *hearts*))
-  (print (get-heart :code code :hearts hearts))
   (assert (not (get-heart :code code :hearts hearts)))
   (setf (gethash code hearts) heart))
 

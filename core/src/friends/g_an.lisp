@@ -9,12 +9,12 @@
 (defun find-g*an (graph)
   (find-vertex graph 'g*an))
 
-(defun tx-make-g*an (graph)
-  (tx-make-vertex graph 'g*an))
+(defun tx-make-g*an (graph &key (name "G*an:???"))
+  (tx-make-vertex graph 'g*an `((name ,name))))
 
 (defgeneric flash-across-ones-mind (graph g*an)
   (:method (graph (g*an g*an))
-    (format t  "flash-across-ones-mind~%")
+    (format t  "Start!! gian=~S~%" g*an)
     (spreads graph
              (make-idea)
              g*an

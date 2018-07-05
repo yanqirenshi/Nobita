@@ -11,24 +11,22 @@
 
 (nobita.graph:start)
 
-(defparameter *g*an* (tx-make-g*an *graph*))
-(defparameter *4neo-1* (tx-make-4neo *graph*))
-(defparameter *4neo-2* (tx-make-4neo *graph*))
-(defparameter *nobit@-1* (tx-make-nobit@ *graph*))
-(defparameter *nobit@-2* (tx-make-nobit@ *graph*))
-(defparameter *nobit@-3* (tx-make-nobit@ *graph*))
-(defparameter *nobit@-4* (tx-make-nobit@ *graph*))
+(defparameter *g*an*     (tx-make-g*an   *graph* :name "ジャ○アン"))
+(defparameter *4neo-1*   (tx-make-4neo   *graph* :name "ス○夫(始)"))
+(defparameter *4neo-2*   (tx-make-4neo   *graph* :name "ス○夫(結)"))
+(defparameter *nobit@-1* (tx-make-nobit@ *graph* :name "ど"))
+(defparameter *nobit@-2* (tx-make-nobit@ *graph* :name "え"))
+(defparameter *nobit@-3* (tx-make-nobit@ *graph* :name "○"))
+(defparameter *nobit@-4* (tx-make-nobit@ *graph* :name "も〜ん"))
 
-(defparameter *heart* (get-heart :code :aon))
-
-(tx-make-frendship *graph* *g*an* *4neo-1* *heart*)
-(tx-make-frendship *graph* *4neo-1* *nobit@-1* *heart*)
-(tx-make-frendship *graph* *nobit@-1* *nobit@-2* *heart*)
-(tx-make-frendship *graph* *nobit@-1* *nobit@-3* *heart*)
-(tx-make-frendship *graph* *nobit@-2* *nobit@-4* *heart*)
-(tx-make-frendship *graph* *nobit@-3* *nobit@-4* *heart*)
-(tx-make-frendship *graph* *nobit@-4* *4neo-2* *heart*)
-(tx-make-frendship *graph* *4neo-2* *g*an* *heart*)
+(tx-make-frendship *graph* *g*an*     *4neo-1*   :aon)
+(tx-make-frendship *graph* *4neo-1*   *nobit@-1* :aon)
+(tx-make-frendship *graph* *nobit@-1* *nobit@-2* :aon)
+(tx-make-frendship *graph* *nobit@-1* *nobit@-3* :aon)
+(tx-make-frendship *graph* *nobit@-2* *nobit@-4* :aon)
+(tx-make-frendship *graph* *nobit@-3* *nobit@-4* :aon)
+(tx-make-frendship *graph* *nobit@-4* *4neo-2*   :aon)
+(tx-make-frendship *graph* *4neo-2*   *g*an*     :aon)
 ```
 
 ## Installation
