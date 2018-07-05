@@ -11,13 +11,29 @@
 
 (nobita.graph:start)
 
+(defun nobi-action-1 (&key graph idea source nobit@)
+  (format t "~a" (name nobit@))
+  idea)
+
+(defun nobi-action-2 (&key graph idea source nobit@)
+  (format t "~a" (name nobit@))
+  idea)
+
+(defun nobi-action-3 (&key graph idea source nobit@)
+  (format t "~a" (name nobit@))
+  idea)
+
+(defun nobi-action-4 (&key graph idea source nobit@)
+  (format t "~a" (name nobit@))
+  idea)
+
 (defparameter *g*an*     (tx-make-g*an   *graph* :name "ジャ○アン"))
 (defparameter *4neo-1*   (tx-make-4neo   *graph* :name "ス○夫(始)"))
 (defparameter *4neo-2*   (tx-make-4neo   *graph* :name "ス○夫(結)"))
-(defparameter *nobit@-1* (tx-make-nobit@ *graph* :name "ど"))
-(defparameter *nobit@-2* (tx-make-nobit@ *graph* :name "え"))
-(defparameter *nobit@-3* (tx-make-nobit@ *graph* :name "○"))
-(defparameter *nobit@-4* (tx-make-nobit@ *graph* :name "も〜ん"))
+(defparameter *nobit@-1* (tx-make-nobit@ *graph* :name "ど"    :action #'nobi-action-1))
+(defparameter *nobit@-2* (tx-make-nobit@ *graph* :name "え"    :action #'nobi-action-1))
+(defparameter *nobit@-3* (tx-make-nobit@ *graph* :name "○"    :action #'nobi-action-1))
+(defparameter *nobit@-4* (tx-make-nobit@ *graph* :name "も〜ん" :action #'nobi-action-1))
 
 (tx-make-frendship *graph* *g*an*     *4neo-1*   :aon)
 (tx-make-frendship *graph* *4neo-1*   *nobit@-1* :aon)
