@@ -2,7 +2,7 @@
 
 俺の仕事はおまえのもの。おまえの仕事はおまえのもの。
 
-![俺の仕事はおまえのもの。おまえの仕事はおまえのもの。](https://bytebucket.org/fools-gold/nobita/raw/6978ff87907d29985f48f204ef8eae6b3eedcc98/web/assets/image/gian.png?token=647b7a3496518390c9496855cfdcccf0c91eedbb)
+![俺の仕事はおまえのもの。おまえの仕事はおまえのもの。](https://github.com/yanqirenshi/nobita/blob/master/web/assets/image/gian.png?raw=true)
 
 ## Usage
 
@@ -14,6 +14,7 @@
 ```list
 (in-package :nobit@)
 
+;; Nobit@ の Action
 (defun nobi-action-1 (&key graph idea source nobit@)
   (declare (ignore graph source nobit@))
   (setf (getf idea :contents)
@@ -44,6 +45,7 @@
              (getf contents :nobit@3))))
   idea)
 
+;; 友達の定義
 (defparameter *g*an*     (tx-make-g*an   *graph* :name "ジャ○アン"))
 (defparameter *4neo-1*   (tx-make-4neo   *graph* :name "ス○夫(始)"))
 (defparameter *4neo-2*   (tx-make-4neo   *graph* :name "ス○夫(結)"))
@@ -52,6 +54,7 @@
 (defparameter *nobit@-3* (tx-make-nobit@ *graph* :name "○"    :action #'nobi-action-3))
 (defparameter *nobit@-4* (tx-make-nobit@ *graph* :name "も〜ん" :action #'nobi-action-4))
 
+;; 友情の定義
 (tx-make-frendship *graph* *g*an*     *4neo-1*   :aon)
 (tx-make-frendship *graph* *4neo-1*   *nobit@-1* :aon)
 (tx-make-frendship *graph* *nobit@-1* *nobit@-2* :aon)
@@ -65,6 +68,7 @@
 ### 処理の実行
 
 ```lisp
+;; G*an が急に思いつく
 (flash-across-ones-mind *graph* *g*an*)
 ```
 
@@ -72,7 +76,9 @@
 ## Setting
 
 ```lisp
+;; DBの処理開始
 (nobit@.graph:start)
+;; 八つの心臓の鼓動開始
 (nobit@:start)
 ```
 
