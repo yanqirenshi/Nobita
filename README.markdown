@@ -11,7 +11,7 @@
 
 例： `(1 + 2) / (3 * 4) = 1/4 `
 
-```list
+```lisp
 (in-package :nobit@)
 
 ;; Nobit@ の Action
