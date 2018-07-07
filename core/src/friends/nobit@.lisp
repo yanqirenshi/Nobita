@@ -27,7 +27,7 @@
 
 (defgeneric action! (graph nobit@ idea source)
   (:method (graph (nobit@ nobit@) idea source)
-    ;; (format t "Nobit@ : ~a~%" nobit@)
+    (format t "Nobit@ : ~a~%" nobit@)
     (let ((action (action nobit@)))
       (if (null action)
           idea
