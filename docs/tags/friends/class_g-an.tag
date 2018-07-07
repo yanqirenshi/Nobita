@@ -21,6 +21,7 @@
             <section-container title="Description">
                 <section-contents>
                     <p>一連の処理を開始します。</p>
+                    <p>idea を作成して friendship に 伝播させます</p>
                 </section-contents>
             </section-container>
         </section-container>

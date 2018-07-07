@@ -1,5 +1,5 @@
 <section-container>
-    <section class="section">
+    <section class="section" style="padding-top:8px;">
         <div class="container">
             <h1 class="title is-{opts.no ? opts.no : 3}">
                 {opts.title}
