@@ -13,17 +13,10 @@
     <hearts_classes></hearts_classes>
     <hearts_callstacks></hearts_callstacks>
 
-    <section-container title="Variable: *hearts*">
-        <section-container title="Operators">
-            <section-container title="Function: get-heart" no="4">
-            </section-container>
-
-            <section-container title="Function: add-heart" no="4">
-            </section-container>
-
-            <section-container title="Function: rm-heart" no="4">
-            </section-container>
-        </section-container>
+    <section-container title="Symbols">
+        <section-contents>
+            <hearts_root_operators></hearts_root_operators>
+        </section-contents>
     </section-container>
 
     <section-container title="Operators">
@@ -43,16 +36,6 @@
                 <p>graph から friendship を取得する。</p>
                 <p>spred をコールします。</p>
             </section-container>
-        </section-container>
-    </section-container>
-
-    <section-container title="Variable: *hook-heart-core-before*">
-        <section-container title="Function: heart-core-before" no="4">
-        </section-container>
-    </section-container>
-
-    <section-container title="Variable: *hook-heart-core-after*">
-        <section-container title="Function: heart-core-after" no="4">
         </section-container>
     </section-container>
 </hearts_root>
