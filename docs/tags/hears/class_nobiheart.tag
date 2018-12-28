@@ -9,14 +9,9 @@
         </section-container>
 
         <section-container title="Operators">
-            <section-container title="Function: make-heart">
-            </section-container>
-
-            <section-container title="Generic function: start-heart">
-            </section-container>
-
-            <section-container title="Generic function: stop-heart">
-            </section-container>
+            <function_make-heart></function_make-heart>
+            <generic-function_start-heart></generic-function_start-heart>
+            <generic-function_stop-heart></generic-function_stop-heart>
         </section-container>
     </section-container>
 </class_nobiheart>

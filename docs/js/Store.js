@@ -39,7 +39,11 @@ class Store extends Vanilla_Redux_Store {
                         menu_label: '友情',
                         active_section: 'root',
                         home_section: 'root',
-                        sections: [{ code: 'root', tag: 'friendships_root', title: 'Home', description: '' }],
+                        sections: [
+                            { code: 'root',        tag: 'friendships_root',  title: 'Home',        description: '' },
+                            { code: 'friendships', tag: 'class_friendships', title: 'Friendships', description: '' },
+                            { code: 'idea',        tag: 'class_idea',        title: 'Iidea',       description: '' }
+                        ],
                         stye: {
                             color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
                         }
