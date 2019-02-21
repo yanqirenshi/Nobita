@@ -25,14 +25,20 @@
   (print-unreadable-object (obj out :type t)
     (format out "%id:~s ,name:~s" (up:%id obj) (name obj))))
 
+(defun ation!-core (graph action nobit@ idea source)
+  (format t "~S: Start Action~%" nobit@)
+  (unwind-protect
+       (or (funcall action
+                    :graph graph
+                    :idea idea
+                    :source source
+                    :nobit@ nobit@)
+           idea)
+    (format t "~S: Complete Action~%" nobit@)))
+
 (defgeneric action! (graph nobit@ idea source)
   (:method (graph (nobit@ nobit@) idea source)
-    (format t "Nobit@ : ~a~%" nobit@)
     (let ((action (action nobit@)))
       (if (null action)
           idea
-          (funcall action
-                   :graph graph
-                   :idea idea
-                   :source source
-                   :nobit@ nobit@)))))
+          (ation!-core graph action nobit@ idea source)))))

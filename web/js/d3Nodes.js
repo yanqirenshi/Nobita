@@ -25,8 +25,8 @@ class d3Nodes {
             .attr('xlink:href', (d) => {
                 let cls = d._class;
                 if (cls=='NOBIT@') return '/nobit@/assets/image/nobit@.png';
-                if (cls=='4NEO') return '/nobit@/assets/image/4neo.png';
-                if (cls=='G*AN') return '/nobit@/assets/image/g_an.png';
+                if (cls=='4NEO')   return '/nobit@/assets/image/4neo.png';
+                if (cls=='G*AN')   return '/nobit@/assets/image/g_an.png';
                 return '';
             })
             .call(d3.drag()

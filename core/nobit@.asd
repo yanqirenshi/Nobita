@@ -12,6 +12,7 @@ This file is a part of nobit@ project.
                #:queues
                #:queues.priority-cqueue
                #:jonathan
+               #:cl-syslog
                #:shinrabanshou
                #:rhythm)
   :components ((:module "src"
