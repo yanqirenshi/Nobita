@@ -5,8 +5,11 @@
                 #:config)
   (:import-from #:clack
                 #:clackup)
+  (:import-from #:nobit@.api.render
+                #:*access-control-allow-origin*)
   (:export #:start
-           #:stop))
+           #:stop
+           #:*access-control-allow-origin*))
 (in-package :nobit@.api)
 
 (defvar *appfile-path*

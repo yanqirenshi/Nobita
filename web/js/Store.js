@@ -10,36 +10,36 @@ class Store extends Vanilla_Redux_Store {
                 home_page: 'page01',
                 pages: [
                     {
-                        code: "page01",
+                        code: "school-district",
                         title: "H",
-                        menu_label: 'H',
+                        menu_label: '校区',
                         active_section: 'root',
                         home_section: 'root',
                         sections: [
-                            { code: 'root', tag: 'page01-sec_root', title: 'Section: root', description: '' },
+                            { code: 'root', tag: 'school-district_sec_root', title: 'Section: root', description: '' },
                         ],
                         stye: {
                             color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
                         }
                     },
                     {
-                        code: "page02",
+                        code: "friends",
                         title: "Nobit@: 友達",
                         menu_label: '友達',
                         active_section: 'root',
                         home_section: 'root',
-                        sections: [{ code: 'root', tag: 'page02-sec_root', title: 'Home', description: '' }],
+                        sections: [{ code: 'root', tag: 'friends_sec_root', title: 'Home', description: '' }],
                         stye: {
                             color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
                         }
                     },
                     {
-                        code: "page03",
+                        code: "friendship",
                         title: "Nobit@: 友情",
                         menu_label: '友情',
                         active_section: 'root',
                         home_section: 'root',
-                        sections: [{ code: 'root', tag: 'page03-sec_root', title: 'Home', description: '' }],
+                        sections: [{ code: 'root', tag: 'friendship_sec_root', title: 'Home', description: '' }],
                         stye: {
                             color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
                         }
