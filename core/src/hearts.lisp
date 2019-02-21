@@ -48,6 +48,9 @@
          :ochd    (make-heart "ochd"    #'heart-core)))
   "心臓はデフォルトで七つ用意する。")
 
+(defun find-hearts ()
+  (alexandria:hash-table-values *hearts*))
+
 (defun get-heart (&key code (hearts *hearts*))
   (gethash code hearts))
 

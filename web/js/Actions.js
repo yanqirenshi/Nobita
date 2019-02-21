@@ -45,4 +45,17 @@ class Actions extends Vanilla_Redux_Actions {
             target: null
         };
     }
+    fetchHearts () {
+        let path = '/hearts';
+
+        API.get(path, function (response) {
+            STORE.dispatch(this.fetchedHearts(response));
+        }.bind(this));
+    }
+    fetchedHearts (response) {
+        return {
+            type: 'FETCHED-HEARTS',
+            data: { hearts: response },
+        };
+    }
 }
