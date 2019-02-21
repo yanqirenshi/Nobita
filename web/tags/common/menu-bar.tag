@@ -26,7 +26,7 @@
     <style>
      menu-bar .move-page-menu {
          z-index: 666665;
-         background: #fdeff2;
+         background: #ffffff;
          position: fixed;
          left: 55px;
          top: 0px;
@@ -66,19 +66,19 @@
          padding-top: 7px;
      }
      .menu-label {
-         background: #fdeff2;
+         background: #ffffff;
          color: #BDB04F;
      }
      .menu-label.open {
-         background: #fdeff2;
+         background: #ffffff;
          color: #BDB04F;
-         width: 44px;
+         width: 45px;
          border-radius: 3px 0px 0px 3px;
          text-shadow: 0px 0px 1px #eee;
          padding-right: 11px;
      }
      menu-bar .menu-list a.is-active {
-         width: 44px;
+         width: 45px;
          padding-right: 11px;
          border-radius: 3px 0px 0px 3px;
          background: #ffffff;
