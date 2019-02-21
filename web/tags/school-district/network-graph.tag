@@ -2,15 +2,13 @@
     <svg></svg>
 
     <script>
+     let nobita = new Nobita();
+
      this.d3svg = null;
      this.d3nodes = new d3Nodes();
      this.d3lines = new d3Lines();
-     this.simulation = d3.forceSimulation()
-                         .force("link", d3.forceLink().id(function(d) {
-                             return d._id;
-                         }))
-                         .force("charge", d3.forceManyBody())
-                         .force("center", d3.forceCenter(window.innerWidth / 2, window.innerHeight / 2));
+
+     this.simulation = nobita.makeSimulation();
 
      this.on('mount', () => {
          let root = this.root;
@@ -22,35 +20,13 @@
              y: 0,
              w: window.innerWidth,
              h: window.innerHeight,
-             scale: 1.0
+             scale: 6.0
          });
 
          let svg = this.d3svg.Svg();
 
-         svg.selectAll('g.lines')
-            .data([{_id:-2, code: 'nodes'}])
-            .enter()
-            .append('g')
-            .attr('class','lines');
-
-         svg.selectAll('g.nodes')
-            .data([{_id:-1, code: 'nodes'}])
-            .enter()
-            .append('g')
-            .attr('class','nodes');
-
-         var marker = svg.append("defs")
-                         .append("marker")
-                         .attr('id', "arrowhead")
-                         .attr('refX', 53)
-                         .attr('refY', 2)
-                         .attr('markerWidth', 8)
-                         .attr('markerHeight', 8)
-                         .attr('orient', 'auto');
-
-         marker.append("path")
-               .attr('d', "M 0,0 V 4 L4,2 Z")
-               .attr('fill', "#000");
+         nobita.makeCanvases(svg);
+         nobita.makeArrowHead(svg);
 
          this.drawNodes();
          this.drawEdges();
@@ -97,7 +73,7 @@
      this.drawEdges = () => {
          let edges_data = STORE.state().get('edges');
          let node_data = STORE.state().get('nodes');
-         
+
          this.d3lines.draw(edges_data, this.d3svg, node_data);
          this.simulation
              .force("link")
