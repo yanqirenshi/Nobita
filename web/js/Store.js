@@ -6,8 +6,8 @@ class Store extends Vanilla_Redux_Store {
         let data = {
             nodes: { ht: {}, list: [] },
             site: {
-                active_page: 'page01',
-                home_page: 'page01',
+                active_page: 'school-district',
+                home_page: 'school-district',
                 pages: [
                     {
                         code: "school-district",
@@ -40,6 +40,17 @@ class Store extends Vanilla_Redux_Store {
                         active_section: 'root',
                         home_section: 'root',
                         sections: [{ code: 'root', tag: 'friendship_sec_root', title: 'Home', description: '' }],
+                        stye: {
+                            color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
+                        }
+                    },
+                    {
+                        code: "hearts",
+                        title: "Nobit@: 心臓",
+                        menu_label: '心臓',
+                        active_section: 'root',
+                        home_section: 'root',
+                        sections: [{ code: 'root', tag: 'hearts_sec_root', title: 'Home', description: '' }],
                         stye: {
                             color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
                         }

@@ -27,6 +27,10 @@
 (defroute "/edges" ()
   (render-json (nobit@.api.controller:edges)))
 
+(defroute "/hearts" ()
+  (render-json (nobit@.api.controller:find-hearts)))
+
+
 ;;;;;
 ;;;;; Error pages
 ;;;;;

@@ -217,6 +217,26 @@ riot.tag2('friendship', '', '', '', function(opts) {
 riot.tag2('friendship_sec_root', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">友情</h1> <h2 class="subtitle">けっして切れない鎖</h2> </div> </div> </section>', '', '', function(opts) {
 });
 
+riot.tag2('hearts', '', '', '', function(opts) {
+     this.mixin(MIXINS.page);
+
+     this.on('mount', () => { this.draw(); });
+     this.on('update', () => { this.draw(); });
+});
+
+riot.tag2('hearts_sec_root', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">心臓</h1> <h2 class="subtitle"></h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">一覧</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Name</th> <th rowspan="2">Bpm</th> <th rowspan="2">Times</th> <th rowspan="1">Queue</th> </tr> <tr> <th>Size</th> </tr> </thead> <tbody> <tr each="{heart in hearts()}"> <td>{heart.name}</td> <td>{heart.bpm}</td> <td>{heart.times}</td> <td>{heart.queue.SIZE}</td> </tr> </tbody> </table> </div> </div> </section>', 'hearts_sec_root { display: block; margin-left: 55px; }', '', function(opts) {
+     this.hearts = () => {
+         let store = STORE.state().toJS().hearts;
+         return store ? store : [];
+     }
+     this.on('mount', () => {
+         ACTIONS.fetchHearts();
+     });
+     STORE.subscribe((action) => {
+         this.update();
+     });
+});
+
 riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
      this.d3svg = null;
      this.d3nodes = new d3Nodes();
@@ -299,7 +319,8 @@ riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
                           return '0, ' + r + ', ' + (Math.floor(v) - r*2) + ', ' + r;
                       })
                  ;
-             });
+             })
+             .force("collide", d3.forceCollide(188));
          this.d3nodes.draw(
              node_data,
              this.d3svg,

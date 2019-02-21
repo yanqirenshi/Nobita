@@ -4,5 +4,6 @@
   (:import-from #:nobit@.api.config
                 #:config)
   (:export #:nodes
-           #:edges))
+           #:edges
+           #:find-hearts))
 (in-package :nobit@.api.controller)

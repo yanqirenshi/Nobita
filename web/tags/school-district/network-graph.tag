@@ -83,7 +83,8 @@
                           return '0, ' + r + ', ' + (Math.floor(v) - r*2) + ', ' + r;
                       })
                  ;
-             });
+             })
+             .force("collide", d3.forceCollide(188));
          this.d3nodes.draw(
              node_data,
              this.d3svg,

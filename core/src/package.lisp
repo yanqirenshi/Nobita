@@ -17,6 +17,7 @@
   (:import-from :nobit@.graph
                 #:*graph*)
   (:export #:start)
+  (:export #:find-hearts)
   (:export #:tx-make-nobit@
            #:tx-make-frendship)
   (:export #:find-g*an
