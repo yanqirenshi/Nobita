@@ -9,7 +9,6 @@
     <style>
      app > .page {
          width: 100vw;
-         height: 100vh;
          overflow: hidden;
          display: block;
      }
@@ -21,13 +20,12 @@
          return STORE.state().get('site');
      };
 
-     STORE.subscribe((action)=>{
+     STORE.subscribe((action) => {
          if (action.type!='MOVE-PAGE')
              return;
 
-         let tags= this.tags;
+         this.tags['menu-bar'].update();
 
-         tags['menu-bar'].update();
          ROUTER.switchPage(this, this.refs['page-area'], this.site());
      })
 
@@ -36,6 +34,10 @@
      });
 
      if (location.hash=='')
-         location.hash='#page01'
+         location.hash='#school-district'
+
+     this.on('mount', () => {
+         ROUTER.switchPage(this, this.refs['page-area'], this.site());
+     });
     </script>
 </app>

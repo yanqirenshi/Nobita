@@ -1,15 +1,14 @@
-riot.tag2('app', '<github-link fill="#BDB04F" color="#fff" href="https://gitlab.com/yanqirenshi/nobita"></github-link> <menu-bar brand="{{label:\'N\'}}" site="{site()}" moves="{[]}"></menu-bar> <div ref="page-area"></div>', 'app > .page { width: 100vw; height: 100vh; overflow: hidden; display: block; } app .hide,[data-is="app"] .hide{ display: none; }', '', function(opts) {
+riot.tag2('app', '<github-link fill="#BDB04F" color="#fff" href="https://gitlab.com/yanqirenshi/nobita"></github-link> <menu-bar brand="{{label:\'N\'}}" site="{site()}" moves="{[]}"></menu-bar> <div ref="page-area"></div>', 'app > .page { width: 100vw; overflow: hidden; display: block; } app .hide,[data-is="app"] .hide{ display: none; }', '', function(opts) {
      this.site = () => {
          return STORE.state().get('site');
      };
 
-     STORE.subscribe((action)=>{
+     STORE.subscribe((action) => {
          if (action.type!='MOVE-PAGE')
              return;
 
-         let tags= this.tags;
+         this.tags['menu-bar'].update();
 
-         tags['menu-bar'].update();
          ROUTER.switchPage(this, this.refs['page-area'], this.site());
      })
 
@@ -18,7 +17,11 @@ riot.tag2('app', '<github-link fill="#BDB04F" color="#fff" href="https://gitlab.
      });
 
      if (location.hash=='')
-         location.hash='#page01'
+         location.hash='#school-district'
+
+     this.on('mount', () => {
+         ROUTER.switchPage(this, this.refs['page-area'], this.site());
+     });
 });
 
 riot.tag2('github-link', '<a id="fork" target="_blank" title="Fork Nobit@ on github" href="{opts.href}" class="github-corner"> <svg width="80" height="80" viewbox="0 0 250 250" fill="{opts.fill}" color="{opts.color}"> <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path> <path class="octo-arm" riot-d="{octo_arm.join(\',\')}" fill="currentColor" style="transform-origin: 130px 106px;"></path> <path class="octo-body" riot-d="{octo_body.join(\',\')}" fill="currentColor"></path> </svg> </a>', 'github-link > .github-corner > svg { position: fixed; top: 0; border: 0; right: 0; } github-link > .github-corner:hover .octo-arm { animation: octocat-wave 560ms ease-in-out } @keyframes octocat-wave { 0%, 100% { transform: rotate(0) } 20%, 60% { transform: rotate(-25deg) } 40%, 80% { transform: rotate(10deg) } }', '', function(opts) {
@@ -204,7 +207,14 @@ riot.tag2('friends', '', '', '', function(opts) {
      this.on('update', () => { this.draw(); });
 });
 
-riot.tag2('friends_sec_root', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">友達</h1> <h2 class="subtitle">。。。皆は友達怖くない</h2> </div> </div> </section>', 'friends_sec_root page02-sec_root,[data-is="friends_sec_root"] page02-sec_root{ display: block; margin-left: 55px; }', '', function(opts) {
+riot.tag2('friends_sec_root', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">友達</h1> <h2 class="subtitle">。。。皆は友達怖くない</h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">一覧</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Type</th> <th rowspan="2">ID</th> <th rowspan="2">Name</th> <th rowspan="1">Action</th> </tr> <tr> <th>Size</th> </tr> </thead> <tbody> <tr each="{friend in friends()}"> <td>{friend._class}</td> <td>{friend._id}</td> <td>{friend.name}</td> <td>{friend.action}</td> </tr> </tbody> </table> </div> </div> </section>', 'friends_sec_root page02-sec_root,[data-is="friends_sec_root"] page02-sec_root{ display: block; margin-left: 55px; }', '', function(opts) {
+     this.friends = () => {
+         return STORE.state().toJS().nodes.list;
+     };
+     STORE.subscribe((action) => {
+         if (action.type=='FETCHED-NODES')
+             this.update();
+     });
 });
 
 riot.tag2('friendship', '', '', '', function(opts) {
@@ -233,7 +243,8 @@ riot.tag2('hearts_sec_root', '<section class="hero"> <div class="hero-body"> <di
          ACTIONS.fetchHearts();
      });
      STORE.subscribe((action) => {
-         this.update();
+         if (action.type=='FETCHED-HEARTS')
+             this.update();
      });
 });
 
@@ -288,7 +299,8 @@ riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
                .attr('d', "M 0,0 V 4 L4,2 Z")
                .attr('fill', "#000");
 
-         ACTIONS.fetchNodes();
+         this.drawNodes();
+         this.drawEdges();
      });
 
      this.drawNodes = () => {
@@ -321,17 +333,18 @@ riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
                  ;
              })
              .force("collide", d3.forceCollide(188));
+
          this.d3nodes.draw(
              node_data,
              this.d3svg,
              this.simulation);
 
-         ACTIONS.fetchEdges()
      };
 
      this.drawEdges = () => {
          let edges_data = STORE.state().get('edges');
          let node_data = STORE.state().get('nodes');
+
          this.d3lines.draw(edges_data, this.d3svg, node_data);
          this.simulation
              .force("link")
@@ -339,14 +352,6 @@ riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
              .distance(888)
              .strength(1);
      };
-
-     STORE.subscribe((action) => {
-         if (action.type=='FETCHED-NODES')
-             return this.drawNodes();
-         if (action.type=='FETCHED-EDGES')
-             return this.drawEdges();
-     });
-
 });
 
 riot.tag2('school-district', '', '', '', function(opts) {
