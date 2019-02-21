@@ -49,7 +49,8 @@
          ACTIONS.fetchHearts();
      });
      STORE.subscribe((action) => {
-         this.update();
+         if (action.type=='FETCHED-HEARTS')
+             this.update();
      });
     </script>
 

@@ -38,3 +38,11 @@ var Metronome = new Vanilla_metronome({
 /* ****** */
 var ROUTER = new Router(STORE, ACTIONS);
 ROUTER.start();
+
+ACTIONS.fetchNodes();
+STORE.subscribe((action) => {
+    if (action.type=='FETCHED-NODES')
+        ACTIONS.fetchEdges();
+    if (action.type=='FETCHED-EDGES')
+        riot.mount('app');
+});

@@ -52,7 +52,8 @@
                .attr('d', "M 0,0 V 4 L4,2 Z")
                .attr('fill', "#000");
 
-         ACTIONS.fetchNodes();
+         this.drawNodes();
+         this.drawEdges();
      });
 
      this.drawNodes = () => {
@@ -85,17 +86,18 @@
                  ;
              })
              .force("collide", d3.forceCollide(188));
+
          this.d3nodes.draw(
              node_data,
              this.d3svg,
              this.simulation);
 
-         ACTIONS.fetchEdges()
      };
 
      this.drawEdges = () => {
          let edges_data = STORE.state().get('edges');
          let node_data = STORE.state().get('nodes');
+         
          this.d3lines.draw(edges_data, this.d3svg, node_data);
          this.simulation
              .force("link")
@@ -103,13 +105,5 @@
              .distance(888)
              .strength(1);
      };
-
-     STORE.subscribe((action) => {
-         if (action.type=='FETCHED-NODES')
-             return this.drawNodes();
-         if (action.type=='FETCHED-EDGES')
-             return this.drawEdges();
-     });
-
     </script>
 </network-graph>
