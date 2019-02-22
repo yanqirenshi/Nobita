@@ -15,6 +15,21 @@
            #:rm-karma-at-idea-id))
 (in-package :nobit@.karma)
 
+
+;;;;;
+;;;;; karma
+;;;;;
+(defun make-karma (sequence idea_id graph source friendship)
+  (list :sequence sequence
+        :idea_id idea_id
+        :graph graph
+        :source source
+        :friendship friendship))
+
+
+;;;;;
+;;;;; karma pool
+;;;;;
 (defun make-karma-pool ()
   (make-queue :priority-cqueue
               :compare #'(lambda (a b)
@@ -23,7 +38,7 @@
 
 (defclass karma-pool ()
   ((counter :accessor counter :initarg :counter :initform 0)
-   (queue :accessor queue :initarg :queue :initform (make-karma-pool))))
+   (queue   :accessor queue :initarg :queue :initform (make-karma-pool))))
 
 (defgeneric qsize (pool)
   (:method ((pool karma-pool))
@@ -33,11 +48,7 @@
   (:method ((karma-pool karma-pool) &key idea_id graph source friendship)
     (let ((sequence (incf (counter karma-pool))))
       (qpush (queue karma-pool)
-             (list :sequence sequence
-                   :idea_id idea_id
-                   :graph graph
-                   :source source
-                   :friendship friendship)))))
+             (make-karma sequence idea_id graph source friendship)))))
 
 (defgeneric pop-karma (karma-pool)
   (:method ((karma-pool karma-pool))
