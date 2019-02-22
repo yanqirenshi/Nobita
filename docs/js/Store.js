@@ -2,10 +2,45 @@ class Store extends Vanilla_Redux_Store {
     constructor(reducer) {
         super(reducer, Immutable.Map({}));
     }
+    initSiteHearts () {
+        return {
+            code: "hearts",
+            title: "Nobit@ Harts",
+            menu_label: '心臓',
+            active_section: 'root',
+            home_section: 'root',
+            sections: [
+                { code: 'root',       tag: 'hearts_root',      title: 'Home',              description: '' },
+                { code: 'nobiheart',  tag: 'class_nobiheart',  title: 'Class: NOBIHEART',  description: '' },
+                { code: 'karma-pool', tag: 'class_karma-pool', title: 'Class: karma-pool', description: '' }
+            ],
+            stye: {
+                color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
+            }
+        };
+    }
+    initSitePropagation () {
+        return {
+            code: "propagation",
+            title: "Nobit@ 伝播",
+            menu_label: '伝播',
+            active_section: 'root',
+            home_section: 'root',
+            sections: [
+                {code: 'root',    tag: 'propagation_root' },
+                {code: 'idea',    tag: 'class_ieda' },
+                {code: 'spreads', tag: 'generic-function_spreads' },
+                {code: 'spread',  tag: 'generic-function_spread' },
+            ],
+            stye: {
+                color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
+            }
+        };
+    }
     initSite () {
         return {
-            active_page: 'page01',
-            home_page: 'page01',
+            active_page: 'home',
+            home_page: 'home',
             pages: [
                 {
                     code: "home",
@@ -47,32 +82,8 @@ class Store extends Vanilla_Redux_Store {
                         color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
                     }
                 },
-                {
-                    code: "hearts",
-                    title: "Nobit@ Harts",
-                    menu_label: '心臓',
-                    active_section: 'root',
-                    home_section: 'root',
-                    sections: [
-                        { code: 'root',       tag: 'hearts_root',      title: 'Home',              description: '' },
-                        { code: 'nobiheart',  tag: 'class_nobiheart',  title: 'Class: NOBIHEART',  description: '' },
-                        { code: 'karma-pool', tag: 'class_karma-pool', title: 'Class: karma-pool', description: '' }
-                    ],
-                    stye: {
-                        color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
-                    }
-                },
-                {
-                    code: "propagation",
-                    title: "Nobit@ 伝播",
-                    menu_label: '伝播',
-                    active_section: 'root',
-                    home_section: 'root',
-                    sections: [ {code: 'root', tag: 'propagation_root', title: 'Home', description: '' }],
-                    stye: {
-                        color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
-                    }
-                }
+                this.initSiteHearts(),
+                this.initSitePropagation(),
             ]
         };
     }

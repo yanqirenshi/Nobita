@@ -1,5 +1,5 @@
 <hearts_root>
-    <section-header title="NOBIT@: G×an's 心臓"></section-header>
+    <section-header title="NOBIT@: Nobit@'s 心臓"></section-header>
 
     <page-tab-with-section core={page_tabs} callback={clickTab}></page-tab-with-section>
 
