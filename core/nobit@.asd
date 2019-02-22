@@ -17,7 +17,8 @@ This file is a part of nobit@ project.
                #:rhythm)
   :components ((:module "src"
                 :components
-                ((:module "libs" :components ((:file "karma")
+                ((:module "libs" :components ((:file "idea")
+                                              (:file "karma")
                                               (:file "hearts")))
                  (:file "utilities")
                  (:file "package")
