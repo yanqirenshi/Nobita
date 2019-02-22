@@ -1,7 +1,7 @@
 <propagation_root>
     <section-header title="NOBIT@: ropagation"></section-header>
 
-    <page-tabs core={page_tabs} callback={clickTab}></page-tabs>
+    <page-tab-with-section core={page_tabs} callback={clickTab}></page-tab-with-section>
 
     <div>
         <propagation_tab_readme     class="hide"></propagation_tab_readme>

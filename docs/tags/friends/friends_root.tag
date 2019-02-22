@@ -1,7 +1,7 @@
 <friends_root>
     <section-header title="NOBIT@: 友達"></section-header>
 
-    <page-tabs core={page_tabs} callback={clickTab}></page-tabs>
+    <page-tab-with-section core={page_tabs} callback={clickTab}></page-tab-with-section>
 
     <div>
         <friends_tab_readme     class="hide"></friends_tab_readme>

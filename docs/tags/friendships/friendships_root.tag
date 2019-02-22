@@ -1,7 +1,7 @@
 <friendships_root>
     <section-header title="NOBIT@: 友情"></section-header>
 
-    <page-tabs core={page_tabs} callback={clickTab}></page-tabs>
+    <page-tab-with-section core={page_tabs} callback={clickTab}></page-tab-with-section>
 
     <div>
         <friendships_tab_readme     class="hide"></friendships_tab_readme>
