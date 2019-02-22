@@ -14,6 +14,4 @@
         </div>
     </section>
 
-    <hearts_callstacks></hearts_callstacks>
-
 </hearts_tab_readme>

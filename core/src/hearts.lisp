@@ -1,5 +1,8 @@
 (in-package :nobit@)
 
+;;;;;
+;;;;; Heart Core
+;;;;;
 (defun %heart-core (karma)
   (let ((graph (getf karma :graph))
         (friendship (getf karma :friendship)))
@@ -36,6 +39,9 @@
                        times
                        e))))
 
+;;;;;
+;;;;; Hearts
+;;;;;
 (defvar *hearts*
   (plist-hash-table
    (list :aon     (make-heart "aon"     #'heart-core)

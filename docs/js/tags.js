@@ -96,7 +96,7 @@ riot.tag2('menu-bar', '<aside class="menu"> <p ref="brand" class="menu-label" on
      };
 });
 
-riot.tag2('page-tabs', '<div class="tabs is-boxed" style="padding-left:55px;"> <ul> <li each="{opts.core.tabs}" class="{opts.core.active_tab==code ? \'is-active\' : \'\'}"> <a code="{code}" onclick="{clickTab}">{label}</a> </li> </ul> </div>', 'page-tabs li:first-child { margin-left: 55px; }', '', function(opts) {
+riot.tag2('page-tabs', '<div class="tabs is-boxed"> <ul> <li each="{opts.core.tabs}" class="{opts.core.active_tab==code ? \'is-active\' : \'\'}"> <a code="{code}" onclick="{clickTab}">{label}</a> </li> </ul> </div>', 'page-tabs li:first-child { margin-left: 55px; }', '', function(opts) {
      this.clickTab = (e) => {
          let code = e.target.getAttribute('code');
          this.opts.callback(e, 'CLICK-TAB', { code: code });
@@ -212,6 +212,9 @@ riot.tag2('operators-table', '<table class="table is-bordered is-striped is-narr
      };
 });
 
+riot.tag2('page-tab-with-section', '<section class="section" style="padding:0px;"> <div class="container"> <page-tabs core="{opts.core}" callback="{opts.callback}"></page-tabs> </div> </section>', '', '', function(opts) {
+});
+
 riot.tag2('sections-list', '<table class="table"> <tbody> <tr each="{opts.data}"> <td><a href="{hash}">{title}</a></td> </tr> </tbody> </table>', '', '', function(opts) {
 });
 
@@ -254,7 +257,7 @@ riot.tag2('friends_classes', '<section-container title="Classe" data="{classes}"
      ];
 });
 
-riot.tag2('friends_root', '<section-header title="NOBIT@: 友達"></section-header> <page-tabs core="{page_tabs}" callback="{clickTab}"></page-tabs> <div> <friends_tab_readme class="hide"></friends_tab_readme> <friends_tab_dictionary class="hide"></friends_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
+riot.tag2('friends_root', '<section-header title="NOBIT@: 友達"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <friends_tab_readme class="hide"></friends_tab_readme> <friends_tab_dictionary class="hide"></friends_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
      this.page_tabs = new PageTabs([
          {code: 'readme',     label: 'README',     tag: 'friends_tab_readme' },
          {code: 'dictionary', label: 'Dictionary', tag: 'friends_tab_dictionary' },
@@ -291,7 +294,7 @@ riot.tag2('friendships_classes', '<section-container title="Classe" data="{class
      ];
 });
 
-riot.tag2('friendships_root', '<section-header title="NOBIT@: 友情"></section-header> <page-tabs core="{page_tabs}" callback="{clickTab}"></page-tabs> <div> <friendships_tab_readme class="hide"></friendships_tab_readme> <friendships_tab_dictionary class="hide"></friendships_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
+riot.tag2('friendships_root', '<section-header title="NOBIT@: 友情"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <friendships_tab_readme class="hide"></friendships_tab_readme> <friendships_tab_dictionary class="hide"></friendships_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
      this.page_tabs = new PageTabs([
          {code: 'readme',     label: 'README',     tag: 'friendships_tab_readme' },
          {code: 'dictionary', label: 'Dictionary', tag: 'friendships_tab_dictionary' },
@@ -331,9 +334,11 @@ riot.tag2('hearts_classes', '<section-container title="Classes" data="{classes}"
      ];
 });
 
-riot.tag2('hearts_root', '<section-header title="NOBIT@: G×an\'s 心臓"></section-header> <page-tabs core="{page_tabs}" callback="{clickTab}"></page-tabs> <div> <hearts_tab_readme class="hide"></hearts_tab_readme> <hearts_tab_dictionary class="hide"></hearts_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
+riot.tag2('hearts_root', '<section-header title="NOBIT@: G×an\'s 心臓"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <hearts_tab_readme class="hide"></hearts_tab_readme> <hearts_tab_core class="hide"></hearts_tab_core> <hearts_tab_management class="hide"></hearts_tab_management> <hearts_tab_dictionary class="hide"></hearts_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
      this.page_tabs = new PageTabs([
          {code: 'readme',     label: 'README',     tag: 'hearts_tab_readme' },
+         {code: 'core',       label: '心臓核',     tag: 'hearts_tab_core' },
+         {code: 'management', label: '心臓の管理', tag: 'hearts_tab_management' },
          {code: 'dictionary', label: 'Dictionary', tag: 'hearts_tab_dictionary' },
      ]);
 
@@ -364,10 +369,16 @@ riot.tag2('hearts_root_operators', '<table class="table is-bordered is-striped i
      ];
 });
 
+riot.tag2('hearts_tab_core', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> <hearts_callstacks></hearts_callstacks> </div> </div> </section>', '', '', function(opts) {
+});
+
 riot.tag2('hearts_tab_dictionary', '<dictionaries groups="{[\'hearts\']}"></dictionaries>', '', '', function(opts) {
 });
 
-riot.tag2('hearts_tab_readme', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情を流れるもの。それは情報です。</p> <p>友情を流すもの。それは心臓です。G×an の</p> <p>G×an は上級魔族なので八つの心臓を持っています。</p> <p>この心臓が友情をドライブします。</p> </div> </div> </section> <hearts_callstacks></hearts_callstacks>', '', '', function(opts) {
+riot.tag2('hearts_tab_management', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> </div> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('hearts_tab_readme', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情を流れるもの。それは情報です。</p> <p>友情を流すもの。それは心臓です。G×an の</p> <p>G×an は上級魔族なので八つの心臓を持っています。</p> <p>この心臓が友情をドライブします。</p> </div> </div> </section>', '', '', function(opts) {
 });
 
 riot.tag2('home', '', '', '', function(opts) {
@@ -380,7 +391,7 @@ riot.tag2('home', '', '', '', function(opts) {
 riot.tag2('home_description', '<section-container title="Dependencies"> <section-contents> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Dependncy</th> <th>Description</th> </tr> </thead> <tbody> <tr> <td><a href="https://gitlab.common-lisp.net/alexandria/alexandria">alexandria</a></td> <td></td> </tr> <tr> <td><a href="https://github.com/edicl/cl-fad">cl-fad</a></td> <td></td> </tr> <tr> <td><a href="https://github.com/dlowe-net/local-time">local-time</a></td> <td></td> </tr> <tr> <td><a href="https://github.com/oconnore/queues">queues</a></td> <td></td> </tr> <tr> <td><a href="https://github.com/yanqirenshi/shinrabanshou">shinrabanshou</a></td> <td></td> </tr> <tr> <td><a href="https://github.com/yanqirenshi/rhythm">rhythm</a></td> <td></td> </tr> </tbody> </table> </section-contents> </section-container>', '', '', function(opts) {
 });
 
-riot.tag2('home_sec_root', '<section-header title="NOBIT@: Home"></section-header> <page-tabs core="{page_tabs}" callback="{clickTab}"></page-tabs> <div> <home_tab_readme class="hide"></home_tab_readme> <home_tab_usage class="hide"></home_tab_usage> <home_tab_packages class="hide"></home_tab_packages> <home_tab_classes class="hide"></home_tab_classes> <home_tab_operators class="hide"></home_tab_operators> <home_tab_variables class="hide"></home_tab_variables> </div> <section-footer></section-footer>', '', '', function(opts) {
+riot.tag2('home_sec_root', '<section-header title="NOBIT@: Home"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <home_tab_readme class="hide"></home_tab_readme> <home_tab_usage class="hide"></home_tab_usage> <home_tab_packages class="hide"></home_tab_packages> <home_tab_classes class="hide"></home_tab_classes> <home_tab_operators class="hide"></home_tab_operators> <home_tab_variables class="hide"></home_tab_variables> </div> <section-footer></section-footer>', '', '', function(opts) {
      this.page_tabs = new PageTabs([
          {code: 'readme',    label: 'README',    tag: 'home_tab_readme' },
          {code: 'usage',     label: 'Usage',     tag: 'home_tab_usage' },
@@ -495,7 +506,7 @@ riot.tag2('propagation', '', '', '', function(opts) {
      this.on('update', () => { this.draw(); });
 });
 
-riot.tag2('propagation_root', '<section-header title="NOBIT@: ropagation"></section-header> <page-tabs core="{page_tabs}" callback="{clickTab}"></page-tabs> <div> <propagation_tab_readme class="hide"></propagation_tab_readme> <propagation_tab_dictionary class="hide"></propagation_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
+riot.tag2('propagation_root', '<section-header title="NOBIT@: ropagation"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <propagation_tab_readme class="hide"></propagation_tab_readme> <propagation_tab_dictionary class="hide"></propagation_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
      this.page_tabs = new PageTabs([
          {code: 'readme',     label: 'README',     tag: 'propagation_tab_readme' },
          {code: 'dictionary', label: 'Dictionary', tag: 'propagation_tab_dictionary' },
