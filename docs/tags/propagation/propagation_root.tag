@@ -1,13 +1,30 @@
 <propagation_root>
     <section-header title="NOBIT@: ropagation"></section-header>
 
-    <section-container title="概要">
-        <section-contents>
-            <p></p>
-        </section-contents>
-    </section-container>
+    <page-tabs core={page_tabs} callback={clickTab}></page-tabs>
 
-    <generic-function_propagations></generic-function_propagations>
+    <div>
+        <propagation_tab_readme     class="hide"></propagation_tab_readme>
+        <propagation_tab_dictionary class="hide"></propagation_tab_dictionary>
+    </div>
 
-    <generic-function_propagation></generic-function_propagation>
+    <section-footer></section-footer>
+
+    <script>
+     this.page_tabs = new PageTabs([
+         {code: 'readme',     label: 'README',     tag: 'propagation_tab_readme' },
+         {code: 'dictionary', label: 'Dictionary', tag: 'propagation_tab_dictionary' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+    </script>
+
 </propagation_root>

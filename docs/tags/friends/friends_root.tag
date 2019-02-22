@@ -1,24 +1,30 @@
 <friends_root>
     <section-header title="NOBIT@: 友達"></section-header>
 
-    <section-container title="概要">
-        <section-contents>
-            friends_classes
-        </section-contents>
-    </section-container>
+    <page-tabs core={page_tabs} callback={clickTab}></page-tabs>
 
-    <friends_classes></friends_classes>
+    <div>
+        <friends_tab_readme     class="hide"></friends_tab_readme>
+        <friends_tab_dictionary class="hide"></friends_tab_dictionary>
+    </div>
 
-    <friends_class-graph></friends_class-graph>
+    <section-footer></section-footer>
 
-    <section-container title="他のクラス">
-        <section-container title="Class: node">
-        </section-container>
+    <script>
+     this.page_tabs = new PageTabs([
+         {code: 'readme',     label: 'README',     tag: 'friends_tab_readme' },
+         {code: 'dictionary', label: 'Dictionary', tag: 'friends_tab_dictionary' },
+     ]);
 
-        <section-container title="Class: edge">
-        </section-container>
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
 
-        <section-container title="Class: friend">
-        </section-container>
-    </section-container>
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+    </script>
+
 </friends_root>

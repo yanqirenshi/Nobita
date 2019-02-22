@@ -1,41 +1,30 @@
 <hearts_root>
     <section-header title="NOBIT@: G×an's 心臓"></section-header>
 
-    <section-container title="概要">
-        <section-contents>
-            <p>友情を流れるもの。それは情報です。</p>
-            <p>友情を流すもの。それは心臓です。G×an の</p>
-            <p>G×an は上級魔族なので八つの心臓を持っています。</p>
-            <p>この心臓が友情をドライブします。</p>
-        </section-contents>
-    </section-container>
+    <page-tabs core={page_tabs} callback={clickTab}></page-tabs>
 
-    <hearts_classes></hearts_classes>
-    <hearts_callstacks></hearts_callstacks>
+    <div>
+        <hearts_tab_readme     class="hide"></hearts_tab_readme>
+        <hearts_tab_dictionary class="hide"></hearts_tab_dictionary>
+    </div>
 
-    <section-container title="Symbols">
-        <section-contents>
-            <hearts_root_operators></hearts_root_operators>
-        </section-contents>
-    </section-container>
+    <section-footer></section-footer>
 
-    <section-container title="Operators">
-        <section-container title="Function: heart-core" no="4">
-        </section-container>
+    <script>
+     this.page_tabs = new PageTabs([
+         {code: 'readme',     label: 'README',     tag: 'hearts_tab_readme' },
+         {code: 'dictionary', label: 'Dictionary', tag: 'hearts_tab_dictionary' },
+     ]);
 
-        <section-container title="Function: %heart-core" no="4">
-            <section-container title="Syntax:">
-            </section-container>
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
 
-            <section-container title="Arguments and Values:">
-            </section-container>
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+    </script>
 
-            <section-container title="Description:">
-                <p>karma を処理します。</p>
-                <p>karma から graph を取得する</p>
-                <p>graph から friendship を取得する。</p>
-                <p>spred をコールします。</p>
-            </section-container>
-        </section-container>
-    </section-container>
 </hearts_root>

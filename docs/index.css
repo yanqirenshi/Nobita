@@ -1,0 +1,7 @@
+app .section > .container > .contents {
+    padding-left: 22px;
+}
+
+app .section > .container > .contents ol {
+    margin-left: 33px;
+}
