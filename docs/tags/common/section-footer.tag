@@ -13,7 +13,7 @@
          padding-top: 13px;
          padding-bottom: 13px;
          height: 66px;
-         background: #ffffff;
+         background: none;
          opacity: 0.7;
      }
     </style>
