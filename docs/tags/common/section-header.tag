@@ -1,4 +1,6 @@
 <section-header>
+    <!-- <img src="https://github.com/yanqirenshi/nobita/raw/master/web/assets/image/gian.png?raw=true"> -->
+
     <section class="section">
         <div class="container">
             <h1 class="title is-{opts.no ? opts.no : 3}">

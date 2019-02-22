@@ -1,19 +1,30 @@
 <friendships_root>
     <section-header title="NOBIT@: 友情"></section-header>
 
-    <section-container title="概要">
-        <section-contents>
-            <p>友情とは情報を伝達するための絆です。</p>
-            <p>だれかの思い付き(アイデア)が友情を駆け巡り、何かを生みだすのです。</p>
-        </section-contents>
-    </section-container>
+    <page-tabs core={page_tabs} callback={clickTab}></page-tabs>
 
+    <div>
+        <friendships_tab_readme     class="hide"></friendships_tab_readme>
+        <friendships_tab_dictionary class="hide"></friendships_tab_dictionary>
+    </div>
 
-    <section-container title="Classes">
-        <section-container>
-            <p>
-                <friendships_classes>
-            </p>
-        </section-container>
-    </section-container>
+    <section-footer></section-footer>
+
+    <script>
+     this.page_tabs = new PageTabs([
+         {code: 'readme',     label: 'README',     tag: 'friendships_tab_readme' },
+         {code: 'dictionary', label: 'Dictionary', tag: 'friendships_tab_dictionary' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+    </script>
+
 </friendships_root>

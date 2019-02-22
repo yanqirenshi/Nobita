@@ -337,5 +337,8 @@ riot.tag2('school-district', '', '', '', function(opts) {
      this.on('update', () => { this.draw(); });
 });
 
-riot.tag2('school-district_sec_root', '<network-graph></network-graph>', '', '', function(opts) {
+riot.tag2('school-district_inspector', '', '', '', function(opts) {
+});
+
+riot.tag2('school-district_sec_root', '<network-graph></network-graph> <school-district_inspector></school-district_inspector>', '', '', function(opts) {
 });
