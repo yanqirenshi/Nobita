@@ -1,10 +1,15 @@
 (in-package :nobit@)
 
+(defun make-node-location ()
+  (list :hold nil
+        :x 0.0 :y 0.0 :z 0.0))
+
 ;;;;;
 ;;;;; Base
 ;;;;;
 (defclass node (shinra:shin)
-  ((name :accessor name :initarg :name :initform "")))
+  ((name     :accessor name     :initarg :name     :initform "")
+   (location :accessor location :initarg :location :initform (make-node-location))))
 (defclass edge (shinra:ra) ())
 
 
