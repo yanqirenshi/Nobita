@@ -2,6 +2,27 @@ class Store extends Vanilla_Redux_Store {
     constructor(reducer) {
         super(reducer, Immutable.Map({}));
     }
+    initSiteHome () {
+        return {
+            code: "home",
+            title: 'Home',
+            menu_label: '家',
+            active_section: 'root',
+            home_section: 'root',
+            sections: [
+                { code: 'root',        tag: 'home_sec_root', title: 'Section: root', description: '' },
+                { code: 'node',        tag: 'class_node' },
+                { code: 'g-an',        tag: 'class_g-an' },
+                { code: '4neo',        tag: 'class_4neo' },
+                { code: 'nobit@',      tag: 'class_nobit@' },
+                { code: 'friendships', tag: 'class_friendships' },
+                { code: 'ieda',        tag: 'class_ieda' },
+                { code: 'karma-pool',  tag: 'class_karma-pool' },
+                { code: 'nobiheart',   tag: 'class_nobiheart' },
+            ],
+            stye: {color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }}
+        };
+    }
     initSiteHearts () {
         return {
             code: "hearts",
@@ -42,15 +63,7 @@ class Store extends Vanilla_Redux_Store {
             active_page: 'home',
             home_page: 'home',
             pages: [
-                {
-                    code: "home",
-                    title: 'Home',
-                    menu_label: '家',
-                    active_section: 'root',
-                    home_section: 'root',
-                    sections: [{ code: 'root', tag: 'home_sec_root', title: 'Section: root', description: '' }],
-                    stye: {color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }}
-                },
+                this.initSiteHome(),
                 {
                     code: "friends",
                     title: "Classes",
