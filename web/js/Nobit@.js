@@ -1,46 +1,37 @@
 class Nobita {
-    constructor () {}
+    constructor (options) {
+        this._d3svg = null;
+        this._simulation = null;
+
+        this.nobitaNodes = new NobitaNodes();
+    }
+    /////
+    ///// Setter Getter
+    /////
+    d3svg (v) {
+        if (arguments.length > 0)
+            this._d3svg = v;
+
+        return this._d3svg;
+    }
+    simulation (v) {
+        if (arguments.length > 0)
+            this._simulation = v;
+
+        return this._simulation;
+    }
+    /////
+    ///// Simulation
+    /////
     makeSimulation () {
-        return d3.forceSimulation()
+        this._simulation = d3.forceSimulation()
             .force("link", d3.forceLink().id(function(d) {
                 return d._id;
             }))
             .force("charge", d3.forceManyBody())
             .force("center", d3.forceCenter(window.innerWidth / 2, window.innerHeight / 2));
 
-        return this;
-    }
-    makeArrowHead (svg) {
-        var marker = svg
-            .append("defs")
-            .append("marker")
-            .attr('id', "arrowhead")
-            .attr('refX', 53)
-            .attr('refY', 2)
-            .attr('markerWidth', 8)
-            .attr('markerHeight', 8)
-            .attr('orient', 'auto');
-
-        marker.append("path")
-            .attr('d', "M 0,0 V 4 L4,2 Z")
-            .attr('fill', "#000");
-
-        return this;
-    }
-    makeCanvases (svg) {
-        svg.selectAll('g.lines')
-            .data([{_id:-2, code: 'nodes'}])
-            .enter()
-            .append('g')
-            .attr('class','lines');
-
-        svg.selectAll('g.nodes')
-            .data([{_id:-1, code: 'nodes'}])
-            .enter()
-            .append('g')
-            .attr('class','nodes');
-
-        return this;
+        return this._simulation;
     }
     addData2Simulation (svg, simulation, data) {
         simulation
@@ -68,5 +59,81 @@ class Nobita {
                     });
             })
             .force("collide", d3.forceCollide(188));
+    }
+    /////
+    ///// Prepare Draw
+    /////
+    makeArrowHead () {
+        let svg = this.d3svg().Svg();
+
+        var marker = svg
+            .append("defs")
+            .append("marker")
+            .attr('id', "arrowhead")
+            .attr('refX', 53)
+            .attr('refY', 2)
+            .attr('markerWidth', 8)
+            .attr('markerHeight', 8)
+            .attr('orient', 'auto');
+
+        marker.append("path")
+            .attr('d', "M 0,0 V 4 L4,2 Z")
+            .attr('fill', "#000");
+
+        return this;
+    }
+    makeCanvases () {
+        let svg = this.d3svg().Svg();
+
+        svg.selectAll('g.lines')
+            .data([{_id:-2, code: 'nodes'}])
+            .enter()
+            .append('g')
+            .attr('class','lines');
+
+        svg.selectAll('g.nodes')
+            .data([{_id:-1, code: 'nodes'}])
+            .enter()
+            .append('g')
+            .attr('class','nodes');
+
+        return this;
+    }
+    prepare () {
+        this.makeSimulation();
+        this.makeCanvases();
+        this.makeArrowHead();
+
+        return this;
+    }
+    /////
+    ///// Draw
+    /////
+    drawNodes(node_data) {
+        let d3svg = this.d3svg();
+        let simulation = this.simulation();
+
+        this.addData2Simulation(d3svg.Svg(), simulation, node_data.list);
+
+        this.nobitaNodes.draw(node_data, d3svg, simulation);
+    }
+    drawEdges (node_data, edges_data) {
+        let d3svg = this.d3svg();
+
+        let d3lines = new NobitaLines();
+        d3lines.draw(edges_data, d3svg, node_data);
+
+        let simulation = this.simulation();
+        simulation
+            .force("link")
+            .links(edges_data.list)
+            .distance(888)
+            .strength(1);
+    }
+    draw (nodes, edges) {
+        this.drawNodes(nodes);
+        this.drawEdges(nodes, edges);
+
+        return this;
     }
 }
