@@ -1,4 +1,4 @@
-class d3Nodes {
+class NobitaNodes {
     constructor() {}
     draw(nodes, d3svg, simulation) {
         let nodes_g = d3svg.Svg().select('g.nodes');

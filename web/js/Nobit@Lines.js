@@ -1,4 +1,4 @@
-class d3Lines {
+class NobitaLines {
     constructor() {}
     draw(lines, d3svg, nodes) {
         let lines_g = d3svg.Svg().select('g.lines');
