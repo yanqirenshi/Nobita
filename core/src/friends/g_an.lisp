@@ -10,6 +10,12 @@
 (defun find-g*an (graph)
   (find-vertex graph 'g*an))
 
+
+(defun get-g*an (graph &key %id)
+  (when %id
+    (shinra:get-vertex-at graph 'g*an :%id %id)))
+
+
 (defun tx-make-g*an (graph &key (name "G*an:???"))
   (tx-make-vertex graph 'g*an `((name ,name))))
 

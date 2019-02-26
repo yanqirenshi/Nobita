@@ -26,6 +26,7 @@ This file is a part of nobit@ project.
                  (:file "idea")
                  ;; グラフ
                  (:module "friends" :components ((:file "2json")
+                                                 (:file "location")
                                                  (:file "g_an")
                                                  (:file "4neo")
                                                  (:file "nobit@")))
