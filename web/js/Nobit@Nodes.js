@@ -1,5 +1,28 @@
 class NobitaNodes {
-    constructor() {}
+    constructor(options) {
+        this.callbacks = options.callbacks;
+    }
+    /////
+    ///// Callbacks
+    /////
+    callback(keys_str) {
+        if (!this.callbacks)
+            return null;
+
+        let keys = keys_str.split('.');
+        let ht = this.callbacks;
+        for (let key of keys) {
+            if (!ht[key])
+                return null;
+
+            ht = ht[key];
+        }
+
+        return ht;
+    }
+    /////
+    ///// Draw
+    /////
     draw(nodes, d3svg, simulation) {
         let nodes_g = d3svg.Svg().select('g.nodes');
         let nodes_list = nodes.list;
@@ -21,6 +44,14 @@ class NobitaNodes {
 
         node_groups
             .append('image')
+            .on("click", (data) => {
+                let func = this.callback('click');
+
+                if (func)
+                    func(data, d3.event);
+
+                d3.event.stopPropagation();
+            })
             .attr('class', 'frend')
             .attr('xlink:href', (d) => {
                 let cls = d._class;

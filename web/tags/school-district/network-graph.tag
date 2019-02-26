@@ -2,7 +2,15 @@
     <svg></svg>
 
     <script>
-     let nobita = new Nobita();
+     let nobita = new Nobita({
+         callbacks: {
+             node: {
+                 click: (data, event) => {
+                     ACTIONS.selectSchoolDistrictGraphNode(data);
+                 }
+             }
+         }
+     });
 
      this.d3svg = null;
 
@@ -16,7 +24,14 @@
              y: 0,
              w: window.innerWidth,
              h: window.innerHeight,
-             scale: 6.0
+             scale: 6.0,
+             callbacks: {
+                 moveEndSvg: null,
+                 zoomSvg: null,
+                 clickSvg: () => {
+                     ACTIONS.clearSelectSchoolDistrict();
+                 },
+             }
          });
 
          let nodes = STORE.state().get('nodes');
