@@ -299,13 +299,22 @@ riot.tag2('school-district', '', '', '', function(opts) {
      this.on('update', () => { this.draw(); });
 });
 
-riot.tag2('school-district_4neo', '', '', '', function(opts) {
+riot.tag2('school-district_4neo', '<school-district_basic source="{opts.source}"></school-district_basic>', '', '', function(opts) {
 });
 
-riot.tag2('school-district_g-an', '', '', '', function(opts) {
+riot.tag2('school-district_basic', '<h1 class="title is-4">Basic</h1> <div> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Class</th> <td>{cls()}</td> </tr> <tr> <th>Name</th> <td>{name()}</td> </tr> </thead> </table> </div>', 'school-district_basic { display: block; margin-bottom: 22px; } school-district_basic > h1.title { margin-bottom: 11px; } school-district_basic > div { padding-left: 22px; }', '', function(opts) {
+     this.cls = () => {
+         return this.opts.source ? this.opts.source._class : '';
+     };
+     this.name = () => {
+         return this.opts.source ? this.opts.source.name : '';
+     };
 });
 
-riot.tag2('school-district_inspector', '<section class="section" style="padding-top: 22px;"> <div class="container"> <h1 class="title">{title()}</h1> <div ref="contents"> </div> </div> </section>', 'school-district_inspector { display: block; position: fixed; right: 0; top: 0; height: 100vh; width: 333px; max-width: 50%; background: #fff; box-shadow: 0px 0px 22px #333333; } school-district_inspector .hide { display: none; }', 'class="{hide()}"', function(opts) {
+riot.tag2('school-district_g-an', '<school-district_basic source="{opts.source}"></school-district_basic>', '', '', function(opts) {
+});
+
+riot.tag2('school-district_inspector', '<section class="section" style="padding-top: 22px;"> <div class="container"> <h1 class="title">{title()}</h1> <div ref="contents"> </div> </div> </section>', 'school-district_inspector { display: block; position: fixed; right: 0; top: 0; height: 100vh; min-width: 222px; max-width: 44%; background: #fff; box-shadow: 0px 0px 22px #333333; } school-district_inspector .hide { display: none; }', 'class="{hide()}"', function(opts) {
      this.tagData = {
          'G*AN':   'school-district_g-an',
          '4NEO':   'school-district_4neo',
@@ -333,7 +342,10 @@ riot.tag2('school-district_inspector', '<section class="section" style="padding-
      };
 });
 
-riot.tag2('school-district_nobita', '<h1 class="title is-4">Basic</h1>', '', '', function(opts) {
+riot.tag2('school-district_nobita', '<school-district_basic source="{opts.source}"></school-district_basic> <h1 class="title is-4">Action</h1> <div style="padding-left:22px;"> <p>{action()}</p> </div>', '', '', function(opts) {
+     this.action = () => {
+         return this.opts.source ? this.opts.source.action : '';
+     };
 });
 
 riot.tag2('school-district_sec_root', '<network-graph callback="{callbackGraph}"></network-graph> <school-district_inspector source="{inspectorSource()}"></school-district_inspector>', '', '', function(opts) {
