@@ -51,8 +51,8 @@
          right: 0;
          top: 0;
          height: 100vh;
-         width: 333px;
-         max-width: 50%;
+         min-width: 222px;
+         max-width: 44%;
          background: #fff;
          box-shadow: 0px 0px 22px #333333;
      }
