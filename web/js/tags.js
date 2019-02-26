@@ -248,6 +248,82 @@ riot.tag2('hearts_sec_root', '<section class="hero"> <div class="hero-body"> <di
      });
 });
 
+riot.tag2('school-district_basic', '<h1 class="title is-4">Basic</h1> <div> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Class</th> <td>{cls()}</td> </tr> <tr> <th>Name</th> <td>{name()}</td> </tr> </thead> </table> </div>', 'school-district_basic { display: block; margin-bottom: 22px; } school-district_basic > h1.title { margin-bottom: 11px; } school-district_basic > div { padding-left: 22px; }', '', function(opts) {
+     this.cls = () => {
+         return this.opts.source ? this.opts.source._class : '';
+     };
+     this.name = () => {
+         return this.opts.source ? this.opts.source.name : '';
+     };
+});
+
+riot.tag2('school-district_inspector', '<section class="section" style="padding-top: 22px;"> <div class="container"> <h1 class="title">{title()}</h1> <div ref="contents"> </div> </div> </section>', 'school-district_inspector { display: block; position: fixed; right: 0; top: 0; height: 100vh; min-width: 222px; max-width: 44%; background: #fff; box-shadow: 0px 0px 22px #333333; } school-district_inspector .hide { display: none; }', 'class="{hide()}"', function(opts) {
+     this.tagData = {
+         'G*AN':   'school-district_g-an',
+         '4NEO':   'school-district_4neo',
+         'NOBIT@': 'school-district_nobita',
+     }
+     this.on('update', () => {
+         let nobita = new Nobita();
+
+         nobita.switchSchoolDistrictInspectorContents ({
+             data: this.opts.source,
+             root: this.refs.contents,
+             place: 'school-district_inspector div[ref=contents]',
+             tagData: this.tagData,
+         });
+     });
+
+     this.title = () => {
+         if (!this.opts.source)
+             return '?????????';
+
+         return this.opts.source._class;
+     };
+     this.hide = () => {
+         return this.opts.source ? '' : 'hide';
+     };
+});
+
+riot.tag2('school-district_location', '<h1 class="title is-4">Location</h1> <div> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th></th> <th>DB</th> <th>Now</th> </tr> </thead> <tbody> <tr> <th>X</th> <td>{val(\'x\')}</td> <td>{val(\'x.now\')}</td> </tr> <tr> <th>Y</th> <td>{val(\'y\')}</td> <td>{val(\'y.now\')}</td> </tr> <tr> <th>Z</th> <td>{val(\'z\')}</td> <td>{val(\'z.now\')}</td> </tr> <tr> <th>Hold</th> <td colspan="2" class="hold-operators {val(\'hold\')}"> <button class="button is-primary is-small hold">固定する</button> <button class="button is-warning is-small unhold">固定解除</button> </td> </tr> </tbody> </table> </div>', 'school-district_location { display: block; margin-bottom: 22px; } school-district_location > h1.title { margin-bottom: 11px; } school-district_location > div { padding-left: 22px; } school-district_location .hold-operators > .unhold { display: none; } school-district_location .hold-operators.hold > .hold { display: none; }', '', function(opts) {
+     this.val = (key) => {
+         if (!this.opts.source)
+             return '';
+
+         let val = this.opts.source ? this.opts.source[key] : null;
+
+         if (key=='x' || key=='y' || key=='z') {
+             let location = this.opts.source.location;
+             let val = location[key];
+
+             if (val || val==0) {
+                 return Math.floor(val*100)/100;
+             } else {
+                 return '---';
+             }
+         }
+
+         if (key=='x.now' || key=='y.now' || key=='z.now') {
+             let location = this.opts.source;
+             let k = key.split('.')[0];
+             let val = location[k];
+
+             if (val || val==0) {
+                 return Math.floor(val*100)/100;
+             } else {
+                 return '---';
+             }
+         }
+
+         if (key=='hold') {
+             let location = this.opts.source.location;
+             return val ? 'hold' : '';
+         }
+
+         return val
+     };
+});
+
 riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
      let nobita = new Nobita({
          callbacks: {
@@ -299,50 +375,13 @@ riot.tag2('school-district', '', '', '', function(opts) {
      this.on('update', () => { this.draw(); });
 });
 
-riot.tag2('school-district_4neo', '<school-district_basic source="{opts.source}"></school-district_basic>', '', '', function(opts) {
+riot.tag2('school-district_4neo', '<school-district_basic source="{opts.source}"></school-district_basic> <school-district_location source="{opts.source}"></school-district_location>', '', '', function(opts) {
 });
 
-riot.tag2('school-district_basic', '<h1 class="title is-4">Basic</h1> <div> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Class</th> <td>{cls()}</td> </tr> <tr> <th>Name</th> <td>{name()}</td> </tr> </thead> </table> </div>', 'school-district_basic { display: block; margin-bottom: 22px; } school-district_basic > h1.title { margin-bottom: 11px; } school-district_basic > div { padding-left: 22px; }', '', function(opts) {
-     this.cls = () => {
-         return this.opts.source ? this.opts.source._class : '';
-     };
-     this.name = () => {
-         return this.opts.source ? this.opts.source.name : '';
-     };
+riot.tag2('school-district_g-an', '<school-district_basic source="{opts.source}"></school-district_basic> <school-district_location source="{opts.source}"></school-district_location>', '', '', function(opts) {
 });
 
-riot.tag2('school-district_g-an', '<school-district_basic source="{opts.source}"></school-district_basic>', '', '', function(opts) {
-});
-
-riot.tag2('school-district_inspector', '<section class="section" style="padding-top: 22px;"> <div class="container"> <h1 class="title">{title()}</h1> <div ref="contents"> </div> </div> </section>', 'school-district_inspector { display: block; position: fixed; right: 0; top: 0; height: 100vh; min-width: 222px; max-width: 44%; background: #fff; box-shadow: 0px 0px 22px #333333; } school-district_inspector .hide { display: none; }', 'class="{hide()}"', function(opts) {
-     this.tagData = {
-         'G*AN':   'school-district_g-an',
-         '4NEO':   'school-district_4neo',
-         'NOBIT@': 'school-district_nobita',
-     }
-     this.on('update', () => {
-         let nobita = new Nobita();
-
-         nobita.switchSchoolDistrictInspectorContents ({
-             data: this.opts.source,
-             root: this.refs.contents,
-             place: 'school-district_inspector div[ref=contents]',
-             tagData: this.tagData,
-         });
-     });
-
-     this.title = () => {
-         if (!this.opts.source)
-             return '?????????';
-
-         return this.opts.source._class;
-     };
-     this.hide = () => {
-         return this.opts.source ? '' : 'hide';
-     };
-});
-
-riot.tag2('school-district_nobita', '<school-district_basic source="{opts.source}"></school-district_basic> <h1 class="title is-4">Action</h1> <div style="padding-left:22px;"> <p>{action()}</p> </div>', '', '', function(opts) {
+riot.tag2('school-district_nobita', '<school-district_basic source="{opts.source}"></school-district_basic> <school-district_location source="{opts.source}"></school-district_location> <h1 class="title is-4">Action</h1> <div style="padding-left:22px;"> <p>{action()}</p> </div>', '', '', function(opts) {
      this.action = () => {
          return this.opts.source ? this.opts.source.action : '';
      };
