@@ -153,6 +153,9 @@ class Nobita {
                 root.removeChild(child);
         };
         let getTagName = (data) => {
+            if (!data)
+                return '';
+
             return params.tagData[data._class];
         };
         let mountDataTAg = (root, data) => {
