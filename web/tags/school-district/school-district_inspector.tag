@@ -2,13 +2,44 @@
 
     <section class="section" style="padding-top: 22px;">
         <div class="container">
-            <h1 class="title">Inspector Base</h1>
-            <h2 class="subtitle"></h2>
+            <h1 class="title">{title()}</h1>
+
+            <div ref="contents">
+                <!--
+                     <school-district_g-an></school-district_g-an>
+                     <school-district_4neo></school-district_4neo>
+                     <school-district_nobita></school-district_nobita>
+                -->
+            </div>
         </div>
     </section>
 
     <script>
-     hide = () => {
+     this.tagData = {
+         'G*AN':   'school-district_g-an',
+         '4NEO':   'school-district_4neo',
+         'NOBIT@': 'school-district_nobita',
+     }
+     this.on('update', () => {
+         let nobita = new Nobita();
+
+         nobita.switchSchoolDistrictInspectorContents ({
+             data: this.opts.source,
+             root: this.refs.contents,
+             place: 'school-district_inspector div[ref=contents]',
+             tagData: this.tagData,
+         });
+     });
+    </script>
+
+    <script>
+     this.title = () => {
+         if (!this.opts.source)
+             return '?????????';
+
+         return this.opts.source._class;
+     };
+     this.hide = () => {
          return this.opts.source ? '' : 'hide';
      };
     </script>

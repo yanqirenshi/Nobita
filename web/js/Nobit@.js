@@ -3,7 +3,16 @@ class Nobita {
         this._d3svg = null;
         this._simulation = null;
 
-        this.nobitaNodes = new NobitaNodes();
+        if (options)
+            this._callbaks = options.callbacks;
+        else
+            this._callbaks = {};
+
+        this.nobitaNodes = new NobitaNodes({
+            callbacks: this._callbaks.node
+        });
+        this.nobiLines   = new NobitaLines();
+
     }
     /////
     ///// Setter Getter
@@ -120,8 +129,7 @@ class Nobita {
     drawEdges (node_data, edges_data) {
         let d3svg = this.d3svg();
 
-        let d3lines = new NobitaLines();
-        d3lines.draw(edges_data, d3svg, node_data);
+        this.nobiLines.draw(edges_data, d3svg, node_data);
 
         let simulation = this.simulation();
         simulation
@@ -135,5 +143,28 @@ class Nobita {
         this.drawEdges(nodes, edges);
 
         return this;
+    }
+    /////
+    ///// School District Inspector
+    /////
+    switchSchoolDistrictInspectorContents (params) {
+        let removeAllContents = (root) => {
+            for (let child of root.children)
+                root.removeChild(child);
+        };
+        let getTagName = (data) => {
+            return params.tagData[data._class];
+        };
+        let mountDataTAg = (root, data) => {
+            let tagName = getTagName(data);
+            let place   = params.place;
+            let opts    = { source: data };
+
+            riot.mount(place, tagName, opts);
+        };
+
+        removeAllContents(params.root);
+
+        mountDataTAg(params.root, params.data);
     }
 }

@@ -58,4 +58,24 @@ class Actions extends Vanilla_Redux_Actions {
             data: { hearts: response },
         };
     }
+    clearSelectSchoolDistrict () {
+        let new_state = STORE.state().get('school');
+
+        new_state.district.select.node = null;
+
+        STORE.dispatch({
+            type: 'CLEARED-SELECT-SCHOOL-DISTRICT',
+            data: { school: new_state },
+        });
+    }
+    selectSchoolDistrictGraphNode (node_data) {
+        let new_state = STORE.state().get('school');
+
+        new_state.district.select.node = node_data;
+
+        STORE.dispatch({
+            type: 'SELECTED-SCHOOL-DISTRICT-GRAPH-NODE',
+            data: { school: new_state },
+        });
+    }
 }

@@ -249,7 +249,15 @@ riot.tag2('hearts_sec_root', '<section class="hero"> <div class="hero-body"> <di
 });
 
 riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
-     let nobita = new Nobita();
+     let nobita = new Nobita({
+         callbacks: {
+             node: {
+                 click: (data, event) => {
+                     ACTIONS.selectSchoolDistrictGraphNode(data);
+                 }
+             }
+         }
+     });
 
      this.d3svg = null;
 
@@ -263,7 +271,14 @@ riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
              y: 0,
              w: window.innerWidth,
              h: window.innerHeight,
-             scale: 6.0
+             scale: 6.0,
+             callbacks: {
+                 moveEndSvg: null,
+                 zoomSvg: null,
+                 clickSvg: () => {
+                     ACTIONS.clearSelectSchoolDistrict();
+                 },
+             }
          });
 
          let nodes = STORE.state().get('nodes');
@@ -284,13 +299,54 @@ riot.tag2('school-district', '', '', '', function(opts) {
      this.on('update', () => { this.draw(); });
 });
 
-riot.tag2('school-district_inspector', '<section class="section" style="padding-top: 22px;"> <div class="container"> <h1 class="title">Inspector Base</h1> <h2 class="subtitle"></h2> </div> </section>', 'school-district_inspector { display: block; position: fixed; right: 0; top: 0; height: 100vh; width: 333px; max-width: 50%; background: #fff; box-shadow: 0px 0px 22px #333333; } school-district_inspector .hide { display: none; }', 'class="{hide()}"', function(opts) {
-     hide = () => {
+riot.tag2('school-district_4neo', '', '', '', function(opts) {
+});
+
+riot.tag2('school-district_g-an', '', '', '', function(opts) {
+});
+
+riot.tag2('school-district_inspector', '<section class="section" style="padding-top: 22px;"> <div class="container"> <h1 class="title">{title()}</h1> <div ref="contents"> </div> </div> </section>', 'school-district_inspector { display: block; position: fixed; right: 0; top: 0; height: 100vh; width: 333px; max-width: 50%; background: #fff; box-shadow: 0px 0px 22px #333333; } school-district_inspector .hide { display: none; }', 'class="{hide()}"', function(opts) {
+     this.tagData = {
+         'G*AN':   'school-district_g-an',
+         '4NEO':   'school-district_4neo',
+         'NOBIT@': 'school-district_nobita',
+     }
+     this.on('update', () => {
+         let nobita = new Nobita();
+
+         nobita.switchSchoolDistrictInspectorContents ({
+             data: this.opts.source,
+             root: this.refs.contents,
+             place: 'school-district_inspector div[ref=contents]',
+             tagData: this.tagData,
+         });
+     });
+
+     this.title = () => {
+         if (!this.opts.source)
+             return '?????????';
+
+         return this.opts.source._class;
+     };
+     this.hide = () => {
          return this.opts.source ? '' : 'hide';
      };
 });
 
-riot.tag2('school-district_sec_root', '<network-graph callback="{callbackGraph}"></network-graph> <school-district_inspector source="{null}"></school-district_inspector>', '', '', function(opts) {
-     this.callbackGraph = (code, data) => {
+riot.tag2('school-district_nobita', '<h1 class="title is-4">Basic</h1>', '', '', function(opts) {
+});
+
+riot.tag2('school-district_sec_root', '<network-graph callback="{callbackGraph}"></network-graph> <school-district_inspector source="{inspectorSource()}"></school-district_inspector>', '', '', function(opts) {
+     this.inspectorSource = () => {
+         let state = STORE.state().get('school');
+         return state.district.select.node;
      };
+
+     STORE.subscribe((action) => {
+         if (action.type=='SELECTED-SCHOOL-DISTRICT-GRAPH-NODE')
+             this.tags['school-district_inspector'].update();;
+
+         if (action.type=='CLEARED-SELECT-SCHOOL-DISTRICT')
+             this.tags['school-district_inspector'].update();
+     });
 });
