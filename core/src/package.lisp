@@ -20,11 +20,15 @@
   (:export #:find-hearts)
   (:export #:tx-make-nobit@
            #:tx-make-frendship)
+  (:export #:tx-save-location)
   (:export #:find-g*an
+           #:get-g*an
            #:tx-make-g*an)
   (:export #:find-4neo
+           #:get-4neo
            #:tx-make-4neo)
   (:export #:find-nobit@
+           #:get-nobit@
            #:tx-make-nobit@)
   (:export #:find-frendship
            #:tx-make-frendship)

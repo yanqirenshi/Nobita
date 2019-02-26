@@ -11,6 +11,9 @@
 (defun find-nobit@ (graph)
   (find-vertex graph 'nobit@))
 
+(defun get-nobit@ (graph &key %id)
+  (get-vertex-at graph 'nobit@ :%id %id))
+
 (defun tx-make-nobit@ (graph &key (name "Nobit@:???") action)
   (tx-make-vertex graph 'nobit@
                   `((name ,name)

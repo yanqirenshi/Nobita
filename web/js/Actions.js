@@ -19,6 +19,12 @@ class Actions extends Vanilla_Redux_Actions {
         }.bind(this));
     }
     fetchedNodes (response) {
+        for (let node of response)
+            if (node.location.hold) {
+                node.fx = node.location.x;
+                node.fy = node.location.y;
+            }
+
         return {
             type: 'FETCHED-NODES',
             data: { nodes: this.makeRscData(response) },
@@ -77,5 +83,22 @@ class Actions extends Vanilla_Redux_Actions {
             type: 'SELECTED-SCHOOL-DISTRICT-GRAPH-NODE',
             data: { school: new_state },
         });
+    }
+    saveNodeLocation (node_data) {
+        let path = '/nodes/' + node_data._id + '/location';
+        let post_data = {
+            type: node_data._class,
+            contents: node_data.location,
+        };
+
+        API.post(path, post_data, (response) => {
+            STORE.dispatch(this.savedNodeLocation(response));
+        });
+    }
+    savedNodeLocation (response) {
+        return {
+            type: 'SAVED-NODE-LOCATION',
+            data: {},
+        };
     }
 }

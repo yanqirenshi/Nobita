@@ -8,6 +8,12 @@
   (:export #:*router*))
 (in-package :nobit@.api.api-v1)
 
+(defun str2type-keyword (str)
+  (let ((v (string-upcase str)))
+    (assert (find v '("G*AN" "4NEO" "NOBIT@") :test 'equal))
+    (alexandria:make-keyword v)))
+
+
 ;;;;;
 ;;;;; Application
 ;;;;;
@@ -21,9 +27,22 @@
 (defroute "/" ()
   (render-json nil))
 
+;;;
+;;; Nodes
+;;;
 (defroute "/nodes" ()
   (render-json (nobit@.api.controller:nodes)))
 
+(defroute ("/nodes/:node-id/location" :method :POST)
+    (&key node-id |type| |contents|)
+  (let ((_id (parse-integer node-id))
+        (type (str2type-keyword |type|)))
+    (render-json (nobit.api.ctrl:save-node-location _id type |contents|))))
+
+
+;;;
+;;; Ndges
+;;;
 (defroute "/edges" ()
   (render-json (nobit@.api.controller:edges)))
 

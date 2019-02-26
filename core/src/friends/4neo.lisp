@@ -10,6 +10,10 @@
 (defun find-4neo (graph)
   (find-vertex graph '4neo))
 
+(defun get-4neo (graph &key %id)
+  (when %id
+    (get-vertex-at graph '4neo :%id %id)))
+
 (defun tx-make-4neo (graph &key (name "4neo:???"))
   (tx-make-vertex graph '4neo `((name ,name))))
 

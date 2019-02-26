@@ -72,8 +72,15 @@ class NobitaNodes {
                       d.fy = d3.event.y;
                   })
                   .on("end", (d) => {
-                      d.fx = null;
-                      d.fy = null;
+                      if (d.location.hold) {
+                          d.location.x    = d.fx;
+                          d.location.y    = d.fy;
+
+                          ACTIONS.saveNodeLocation(d);
+                      } else {
+                          d.fx = null;
+                          d.fy = null;
+                      }
                   }));
     }
 }
