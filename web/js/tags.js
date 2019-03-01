@@ -376,9 +376,10 @@ riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
      this.on('mount', () => {
          let root = this.root;
 
-         this.d3svg = new D3Svg({
-             d3: d3,
-             svg: d3.select("network-graph svg"),
+         let painter = new Sketcher({
+             element: {
+                 selector: 'network-graph svg',
+             },
              x: 0,
              y: 0,
              w: window.innerWidth,
@@ -392,6 +393,13 @@ riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
                  },
              }
          });
+
+         this.d3svg = painter.makeD3Svg();
+         painter.makeBases(this.d3svg, [
+             { _id: -10, code: 'lines' },
+             { _id:  -5, code: 'nodes' },
+         ])
+         painter.drawBackground(this.d3svg);
 
          let nodes = STORE.state().get('nodes');
          let edges = STORE.state().get('edges');

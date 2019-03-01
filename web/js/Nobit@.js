@@ -50,8 +50,9 @@ class Nobita {
                 images.attr("x", function(d) { return d.x; })
                     .attr("y", function(d) { return d.y; });
 
-                let lines = svg.selectAll('line');
-                lines.attr("x1", function(d) { return d.source.x + 256 / 2; })
+                let lines = svg.selectAll('line.nobita');
+                lines
+                    .attr("x1", function(d) { return d.source.x + 256 / 2; })
                     .attr("y1", function(d) { return d.source.y + 256 / 2; })
                     .attr("x2", function(d) { return d.target.x + 256 / 2; })
                     .attr("y2", function(d) { return d.target.y + 256 / 2; })
@@ -110,7 +111,7 @@ class Nobita {
     }
     prepare () {
         this.makeSimulation();
-        this.makeCanvases();
+        // this.makeCanvases();
         this.makeArrowHead();
 
         return this;
