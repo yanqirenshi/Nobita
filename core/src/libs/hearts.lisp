@@ -22,6 +22,13 @@
                :initarg :karma-pool
                :initform (make-instance 'karma-pool))))
 
+(defmethod print-object ((obj nobiheart) out)
+  (print-unreadable-object (obj out :type t)
+    (format out "name:~s, bpm:~s, qsize:~s"
+            (rhythm:name obj)
+            (rhythm:bpm obj)
+            (nobit@.karma:qsize (karma-pool obj)))))
+
 (defun make-heart (name core)
   (rhythm:make-heart :class 'nobiheart
                      :name (concatenate 'string "nobit@" name)

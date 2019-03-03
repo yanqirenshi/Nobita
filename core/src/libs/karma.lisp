@@ -40,6 +40,12 @@
   ((counter :accessor counter :initarg :counter :initform 0)
    (queue   :accessor queue :initarg :queue :initform (make-karma-pool))))
 
+(defmethod print-object ((obj karma-pool) out)
+  (print-unreadable-object (obj out :type t)
+    (format out "counter:~s, queue-size:~s"
+            (counter obj)
+            (qsize obj))))
+
 (defgeneric qsize (pool)
   (:method ((pool karma-pool))
     (queues:qsize (queue pool))))
