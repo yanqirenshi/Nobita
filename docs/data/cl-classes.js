@@ -1,5 +1,6 @@
 const _CL_CLASSES = [
     {
+        export: false,
         package: 'nobit@',
         name: 'node',
         parents: 'shinra:shin',
@@ -8,6 +9,7 @@ const _CL_CLASSES = [
         group: { hearts: false, propagation: false, friends: true, friendships: false },
     },
     {
+        export: false,
         package: 'nobit@',
         name: 'edge',
         parents: 'shinra:ra',
@@ -16,6 +18,7 @@ const _CL_CLASSES = [
         group: { hearts: false, propagation: false, friends: false, friendships: true },
     },
     {
+        export: false,
         package: 'nobit@',
         name: 'g*an',
         parents: 'node',
@@ -24,6 +27,7 @@ const _CL_CLASSES = [
         group: { hearts: false, propagation: false, friends: true, friendships: false },
     },
     {
+        export: false,
         package: 'nobit@',
         name: '4neo',
         parents: 'node',
@@ -32,6 +36,7 @@ const _CL_CLASSES = [
         group: { hearts: false, propagation: false, friends: true, friendships: false },
     },
     {
+        export: false,
         package: 'nobit@',
         name: 'nobit@',
         parents: 'node',
@@ -40,6 +45,7 @@ const _CL_CLASSES = [
         group: { hearts: false, propagation: false, friends: true, friendships: false },
     },
     {
+        export: false,
         package: 'nobit@',
         name: 'friendship',
         parents: 'edge',
@@ -48,6 +54,7 @@ const _CL_CLASSES = [
         group: { hearts: false, propagation: false, friends: false, friendships: true },
     },
     {
+        export: false,
         package: 'nobit@.hearts',
         name: 'nobiheart',
         parents: 'rhythm::heart',
@@ -56,6 +63,7 @@ const _CL_CLASSES = [
         group: { hearts: true, propagation: false, friends: false, friendships: false },
     },
     {
+        export: false,
         package: 'nobit@.karma',
         name: 'karma-pool',
         parents: 't',
@@ -64,6 +72,7 @@ const _CL_CLASSES = [
         group: { hearts: true, propagation: false, friends: false, friendships: false },
     },
     {
+        export: false,
         package: 'nobit@.idea',
         name: 'idea',
         parents: 't',

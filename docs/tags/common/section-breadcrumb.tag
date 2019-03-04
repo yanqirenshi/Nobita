@@ -1,15 +1,13 @@
 <section-breadcrumb>
-    <section-container data={path()}>
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-            <ul>
-                <li each={opts.data}>
-                    <a class="{active ? 'is-active' : ''}"
-                       href={href}
-                       aria-current="page">{label}</a>
-                </li>
-            </ul>
-        </nav>
-    </section-container>
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li each={path()}>
+                <a class="{active ? 'is-active' : ''}"
+                   href={href}
+                   aria-current="page">{label}</a>
+            </li>
+        </ul>
+    </nav>
 
     <style>
      section-container > .section {

@@ -105,7 +105,7 @@ riot.tag2('page-tabs', '<div class="tabs is-boxed"> <ul> <li each="{opts.core.ta
      };
 });
 
-riot.tag2('section-breadcrumb', '<section-container data="{path()}"> <nav class="breadcrumb" aria-label="breadcrumbs"> <ul> <li each="{opts.data}"> <a class="{active ? \'is-active\' : \'\'}" href="{href}" aria-current="page">{label}</a> </li> </ul> </nav> </section-container>', 'section-breadcrumb section-container > .section,[data-is="section-breadcrumb"] section-container > .section{ padding-top: 3px; }', '', function(opts) {
+riot.tag2('section-breadcrumb', '<nav class="breadcrumb" aria-label="breadcrumbs"> <ul> <li each="{path()}"> <a class="{active ? \'is-active\' : \'\'}" href="{href}" aria-current="page">{label}</a> </li> </ul> </nav>', 'section-breadcrumb section-container > .section,[data-is="section-breadcrumb"] section-container > .section{ padding-top: 3px; }', '', function(opts) {
      this.path = () => {
          let hash = location.hash;
          let path = hash.split('/');
@@ -183,7 +183,13 @@ riot.tag2('classes-table', '<table class="table is-bordered is-striped is-narrow
 riot.tag2('dictionaries', '<section class="section"> <div class="container"> <h1 class="title is-4">Variables</h1> <h2 class="subtitle"></h2> <div class="contents"> <variables-table groups="{opts.groups}" link-prefix="{location.hash}"></variables-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Classes</h1> <h2 class="subtitle"></h2> <div class="contents"> <classes-table groups="{opts.groups}" link-prefix="{location.hash}"></classes-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators</h1> <h2 class="subtitle"></h2> <div class="contents"> <operators-table groups="{opts.groups}" link-prefix="{location.hash}"></operators-table> </div> </div> </section>', '', '', function(opts) {
 });
 
-riot.tag2('operator-syntax', '<p style=""> <span>{opts.name}</span> <span class="args" style=""> <i style="font-weight:bold;">{args()}</i> <i>{keyPrefix()}</i> <i style="font-weight:bold;">{keys()}</i> </span> <span>⇒</span> <span class="results" style="font-weight:bold;"> <i>{ret()}</i> </span> </p>', 'operator-syntax > p { font-size: 24px; background: rgba(233,233,233,0.3); padding: 8px 24px; border-radius: 3px; } operator-syntax span.args { margin-left: 8px; margin-right: 8px; } operator-syntax span.results { margin-left: 8px; margin-right: 8px; }', '', function(opts) {
+riot.tag2('operator-syntax', '<p style=""> <span>{name()}</span> <span class="args" style=""> <i style="font-weight:bold;">{args()}</i> <i>{keyPrefix()}</i> <i style="font-weight:bold;">{keys()}</i> </span> <span>⇒</span> <span class="results" style="font-weight:bold;"> <i>{ret()}</i> </span> </p>', 'operator-syntax > p { font-size: 24px; background: rgba(233,233,233,0.3); padding: 8px 24px; border-radius: 3px; } operator-syntax span.args { margin-left: 8px; margin-right: 8px; } operator-syntax span.results { margin-left: 8px; margin-right: 8px; }', '', function(opts) {
+     this.name = () => {
+         if (!opts.name)
+             return '????????';
+
+         return opts.name.toLowerCase();
+     };
      this.args = () => {
          let args = this.opts.args ? this.opts.args : [];
          return args.join(' ');
@@ -201,8 +207,17 @@ riot.tag2('operator-syntax', '<p style=""> <span>{opts.name}</span> <span class=
      };
 });
 
-riot.tag2('operators-table', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Package</th> <th>Type</th> <th>Name</th> <th>Description</th> </tr> </thead> <tbody> <tr each="{obj in operators()}"> <td>{obj.package}</td> <td>{obj.type}</td> <td><a href="{href(obj)}">{obj.name}</a></td> <td>{obj.description}</td> </tr> </tbody> </table>', '', '', function(opts) {
+riot.tag2('operators-table', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Export</th> <th>Package</th> <th>Type</th> <th>Name</th> <th>Description</th> </tr> </thead> <tbody> <tr each="{obj in operators()}"> <td>{export(obj)}</td> <td>{obj.package}</td> <td>{obj.type}</td> <td><a href="{href(obj)}">{obj.name}</a></td> <td>{obj.description}</td> </tr> </tbody> </table>', '', '', function(opts) {
      let ndoc = new NobitaDoc();
+     this.export = (data) => {
+         if (data.export===null)
+             return '??';
+
+         if (data.export===true)
+             return '○';
+
+         return '--'
+     };
 
      this.href = (data) => {
          return ndoc.makeDicDataLink (this.opts.linkPrefix, data);
@@ -336,11 +351,12 @@ riot.tag2('hearts_classes', '<section-container title="Classes" data="{classes}"
      ];
 });
 
-riot.tag2('hearts_root', '<section-header title="NOBIT@: Nobit@\'s 心臓"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <hearts_tab_readme class="hide"></hearts_tab_readme> <hearts_tab_core class="hide"></hearts_tab_core> <hearts_tab_management class="hide"></hearts_tab_management> <hearts_tab_dictionary class="hide"></hearts_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
+riot.tag2('hearts_root', '<section-header title="NOBIT@: Nobit@\'s 心臓"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <hearts_tab_home class="hide"></hearts_tab_home> <hearts_tab_karma class="hide"></hearts_tab_karma> <hearts_tab_core class="hide"></hearts_tab_core> <hearts_tab_management class="hide"></hearts_tab_management> <hearts_tab_dictionary class="hide"></hearts_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
      this.page_tabs = new PageTabs([
-         {code: 'readme',     label: 'README',     tag: 'hearts_tab_readme' },
+         {code: 'readme',     label: 'Home',       tag: 'hearts_tab_home' },
          {code: 'core',       label: '心臓核',     tag: 'hearts_tab_core' },
          {code: 'management', label: '心臓の管理', tag: 'hearts_tab_management' },
+         {code: 'karma',      label: 'カルマ',     tag: 'hearts_tab_karma' },
          {code: 'dictionary', label: 'Dictionary', tag: 'hearts_tab_dictionary' },
      ]);
 
@@ -377,10 +393,13 @@ riot.tag2('hearts_tab_core', '<section class="section"> <div class="container"> 
 riot.tag2('hearts_tab_dictionary', '<dictionaries groups="{[\'hearts\']}"></dictionaries>', '', '', function(opts) {
 });
 
-riot.tag2('hearts_tab_management', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('hearts_tab_home', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Rhythm の heart クラスを継承しています。</p> <p>Rhythm の heart クラスでその核を定期的に実行します。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓には核があります。</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>それは心臓の機能そのものです。</p> <p>その核が定期的に実行されます。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓が流すもの</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情を流れるもの。それは情報です。</p> <p>友情を流すものとして心臓があります。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓が負うもの</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>心臓はカルマを負います。</p> <p>そしてカルマの数だけ核を実行し友情に情報を流します。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓の数</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Nobit@ は上級魔族なので八つの心臓を持っています。</p> <p>この心臓が友情に情報を流通させます。</p> </div> </div> </section>', '', '', function(opts) {
 });
 
-riot.tag2('hearts_tab_readme', '<section class="section"> <div class="container"> <h1 class="title is-4">心臓</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Rhythm の heart クラスを継承しています。</p> <p>心臓には核があります。</p> <p>Rhythm の heart クラスでその核を定期的に実行します。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓が流すもの</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情を流れるもの。それは情報です。</p> <p>友情を流すものとして心臓があります。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓が負うもの</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>心臓はカルマを負います。</p> <p>そしてカルマの数だけ核を実行し友情に情報を流します。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓の数</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Nobit@ は上級魔族なので八つの心臓を持っています。</p> <p>この心臓が友情に情報を流通させます。</p> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('hearts_tab_karma', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>心臓が友情をドライブするための原動力です。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">データ構造</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Pist です。</p> <p><code>make-karma</code> で作成しています。</p> <function_make-karma_slots-table></function_make-karma_slots-table> </div> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('hearts_tab_management', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> </div> </div> </section>', '', '', function(opts) {
 });
 
 riot.tag2('home', '', '', '', function(opts) {
@@ -435,7 +454,52 @@ riot.tag2('home_tab_variables', '<section class="section"> <div class="container
 riot.tag2('home_usage', '<section-container title="Usage"> <section-contents> <p> <pre>\n(in-package :nobit@)\n\n(nobita.graph:start)\n\n(defparameter *g*an* (tx-make-g*an *graph*))\n(defparameter *4neo-1* (tx-make-4neo *graph*))\n(defparameter *4neo-2* (tx-make-4neo *graph*))\n(defparameter *nobit@-1* (tx-make-nobit@ *graph*))\n(defparameter *nobit@-2* (tx-make-nobit@ *graph*))\n(defparameter *nobit@-3* (tx-make-nobit@ *graph*))\n(defparameter *nobit@-4* (tx-make-nobit@ *graph*))\n\n(defparameter *heart* (get-heart :code :aon))\n\n(tx-make-frendship *graph* *g*an* *4neo-1* *heart*)\n(tx-make-frendship *graph* *4neo-1* *nobit@-1* *heart*)\n(tx-make-frendship *graph* *nobit@-1* *nobit@-2* *heart*)\n(tx-make-frendship *graph* *nobit@-1* *nobit@-3* *heart*)\n(tx-make-frendship *graph* *nobit@-2* *nobit@-4* *heart*)\n(tx-make-frendship *graph* *nobit@-3* *nobit@-4* *heart*)\n(tx-make-frendship *graph* *nobit@-4* *4neo-2* *heart*)\n(tx-make-frendship *graph* *4neo-2* *g*an* *heart*)\n                </pre> </p> </section-contents> </section-container>', '', '', function(opts) {
 });
 
+riot.tag2('function_make-karma', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">{source.type}: {source.name}</h1> <h2 class="subtitle"> <section-breadcrumb></section-breadcrumb> </h2> <section class="section"> <div class="container"> <h1 class="title is-4">Syntax:</h1> <div class="contents"> <operator-syntax name="{source.name}" args="{source.syntax.args}" results="{source.syntax.results}"> </operator-syntax> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Arguments and Values:</h1> <div class="contents"> <slots-list slots="{source.slots}"></slots-list> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Description:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Examples:</h1> <div class="contents"> <p><pre>\n                            </pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Affected By:</h1> <div class="contents"> <p>None.</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Exceptional Situations:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">See Also:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Notes:</h1> </div> </section> </div> </div> </section>', '', '', function(opts) {
+     this.source = {
+         type: 'Function',
+         name: '@@@@@@@@',
+         syntax: {
+             args: ['a', 'b'],
+             results: "Plist",
+         },
+         slots: [
+             { name: '', type: '', description: '' },
+         ],
+     }
+
+});
+
 riot.tag2('function_make-heart', '<section-container title="Function: make-heart"> <section-container title="Description"> <section-contents> </section-contents> </section-container> </section-container>', '', '', function(opts) {
+});
+
+riot.tag2('function_make-karma', '<section class="hero" style="background:#faf8ed;"> <div class="hero-body"> <div class="container"> <h1 class="title">{source.type}: {source.name}</h1> <h2 class="subtitle"> <section-breadcrumb></section-breadcrumb> </h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Syntax:</h1> <div class="contents"> <operator-syntax name="{source.name}" args="{source.syntax.args}" results="{source.syntax.results}"> </operator-syntax> </div> <section class="section"> <div class="container"> <h1 class="title is-5">karama(plist)</h1> <div class="contents"> </div> </div> </section> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Arguments and Values:</h1> <div class="contents"> <slots-list slots="{source.slots}"></slots-list> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Description:</h1> <div class="contents"> <p>以下の構成のPlist を返します。</p> <function_make-karma_slots-table></function_make-karma_slots-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Examples:</h1> <div class="contents"> <p><pre>\n                </pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Affected By:</h1> <div class="contents"> <p>None.</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Exceptional Situations:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">See Also:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Notes:</h1> </div> </section>', '', '', function(opts) {
+     this.source = {
+         type: 'Function',
+         name: 'MAKE-KARMA',
+         syntax: {
+             args: ['sequence', 'idea_id', 'graph', 'source', 'friendship'],
+             results: "karama(plist)",
+         },
+         slots: [
+             { name: 'sequence',      type: '', description: '' },
+             { name: 'idea_id',       type: '', description: '' },
+             { name: 'graph',         type: '', description: '' },
+             { name: 'source',        type: '', description: '' },
+             { name: 'friendship',    type: '', description: '' },
+             { name: 'karama(plist)', type: '', description: '' },
+         ],
+     }
+
+});
+
+riot.tag2('function_make-karma_slots-table', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <th>Indicator</th> <th>Description</th> </thead> <tbody> <tr each="{rec in datastruct}"> <td>{rec.indicator}</td> <td>{rec.description}</td> </tr> </tbody> </table>', '', '', function(opts) {
+     this.datastruct = [
+         { indicator: 'sequence',   description: 'なんやろう。。。これ。。。。'},
+         { indicator: 'idea_id',    description: 'なんやろう。。。これ。。。。'},
+         { indicator: 'graph',      description: 'なんやろう。。。これ。。。。'},
+         { indicator: 'source',     description: 'なんやろう。。。これ。。。。'},
+         { indicator: 'friendship', description: 'なんやろう。。。これ。。。。'},
+     ];
 });
 
 riot.tag2('generic-function-action-ex', '<section-container title="Function: action!" no="4"> <section-container title="Syntax:" no="5"> <section-contents> <p><b>action!</b> <i>graph nobit@ idea source</i> => <i>nil</i></p> </section-contents> </section-container> <section-container title="Arguments and Values:" no="5"> <section-contents> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Name</th> <th>Type</th> <th>description</th></tr> </thead> <tbody> <tr> <td>graph</td> <td>SHINRA:BANSHOU</td> <td></td> </tr> <tr> <td>nobit@</td> <td>NOBIT@</td> <td></td> </tr> <tr> <td>idea</td> <td>PLIST</td> <td></td> </tr> <tr> <td>source</td> <td>NODE</td> <td></td> </tr> </tbody> </table> </section-contents> </section-container> <section-container title="Description:" no="5"> <section-contents> <p>スロット: <code>action</code> に設定されているコードを実行します。</p> <p><code>action</code> が設定されていない場合は引数の <code>idea</code> をそのまま返します。</p> </section-contents> </section-container> </section-container>', '', '', function(opts) {

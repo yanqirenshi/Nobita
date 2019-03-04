@@ -1,6 +1,6 @@
 <operator-syntax>
     <p style="">
-        <span>{opts.name}</span>
+        <span>{name()}</span>
         <span class="args" style="">
             <i style="font-weight:bold;">{args()}</i>
             <i>{keyPrefix()}</i>
@@ -31,6 +31,12 @@
     </style>
 
     <script>
+     this.name = () => {
+         if (!opts.name)
+             return '????????';
+
+         return opts.name.toLowerCase();
+     };
      this.args = () => {
          let args = this.opts.args ? this.opts.args : [];
          return args.join(' ');

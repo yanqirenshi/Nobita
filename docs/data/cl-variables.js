@@ -1,6 +1,7 @@
 const _CL_VARIABLES = [
     /* Template
     {
+        export: false,
         package: '???',
         type: 'defvar',
         name: '%heart-core',
@@ -9,6 +10,7 @@ const _CL_VARIABLES = [
     },
     */
     {
+        export: false,
         package: 'nobit@',
         type: 'defvar',
         name: '*hook-heart-core-before*',
@@ -16,6 +18,7 @@ const _CL_VARIABLES = [
         group: { hearts: true, propagation: false, friends: false, friendships: false }
     },
     {
+        export: false,
         package: 'nobit@',
         type: 'defvar',
         name: '*hook-heart-core-after*',
@@ -23,6 +26,7 @@ const _CL_VARIABLES = [
         group: { hearts: true, propagation: false, friends: false, friendships: false }
     },
     {
+        export: false,
         package: 'nobit@',
         type: 'defvar',
         name: '*hearts*',
