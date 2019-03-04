@@ -1,14 +1,28 @@
-<hearts_tab_readme>
+<hearts_tab_home>
 
     <section class="section">
         <div class="container">
-            <h1 class="title is-4">心臓</h1>
+            <h1 class="title is-4">概要</h1>
             <h2 class="subtitle"></h2>
 
             <div class="contents">
                 <p>Rhythm の heart クラスを継承しています。</p>
-                <p>心臓には核があります。</p>
                 <p>Rhythm の heart クラスでその核を定期的に実行します。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ---------------------------------------------------------------- -->
+    <!-- ----START------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------- -->
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-4">心臓には核があります。</h1>
+            <h2 class="subtitle"></h2>
+
+            <div class="contents">
+                <p>それは心臓の機能そのものです。</p>
+                <p>その核が定期的に実行されます。</p>
             </div>
         </div>
     </section>
@@ -48,5 +62,8 @@
             </div>
         </div>
     </section>
+    <!-- ---------------------------------------------------------------- -->
+    <!-- ----END--------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------- -->
 
-</hearts_tab_readme>
+</hearts_tab_home>

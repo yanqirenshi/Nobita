@@ -31,9 +31,10 @@ class Store extends Vanilla_Redux_Store {
             active_section: 'root',
             home_section: 'root',
             sections: [
-                { code: 'root',       tag: 'hearts_root',      title: 'Home',              description: '' },
-                { code: 'nobiheart',  tag: 'class_nobiheart',  title: 'Class: NOBIHEART',  description: '' },
-                { code: 'karma-pool', tag: 'class_karma-pool', title: 'Class: karma-pool', description: '' }
+                { code: 'root',       tag: 'hearts_root' },
+                { code: 'nobiheart',  tag: 'class_nobiheart' },
+                { code: 'karma-pool', tag: 'class_karma-pool' },
+                { code: 'make-karma', tag: 'function_make-karma' },
             ],
             stye: {
                 color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
