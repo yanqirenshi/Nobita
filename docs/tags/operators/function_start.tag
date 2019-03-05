@@ -1,4 +1,4 @@
-<function_xxxxxxxx>
+<function_start>
 
     <section class="hero" style="background:#faf8ed;">
         <div class="hero-body">
@@ -105,23 +105,16 @@
     <script>
      this.source = {
          type: 'Function',
-         name: 'xxxxxxxx',
+         name: 'start',
          syntax: {
-             args: ['sequence', 'idea_id', 'graph', 'source', 'friendship'],
-             results: "karama(plist)",
+             args: [],
+             results: "???",
          },
-         args: [
-             { name: 'sequence',      type: '', description: '' },
-             { name: 'idea_id',       type: '', description: '' },
-             { name: 'graph',         type: '', description: '' },
-             { name: 'source',        type: '', description: '' },
-             { name: 'friendship',    type: '', description: '' },
-         ],
+         args: [],
          values: [
-             { name: 'karama(plist)', type: '', description: '' },
+             { name: '???', type: '', description: '' },
          ],
      }
-
     </script>
 
-</function_xxxxxxxx>
+</function_start>

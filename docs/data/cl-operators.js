@@ -5,7 +5,7 @@ const _CL_OPERATORS = [
         type: 'Function',
         name: 'start',
         description: '',
-        group: { hearts: true, propagation: true, friends: true, friendships: false }
+        group: { hearts: true, propagation: false, friends: true, friendships: false }
     },
     {
         export: true,
