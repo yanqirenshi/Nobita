@@ -1,4 +1,4 @@
-<function_xxxxxxxx>
+<generic-function_flash-across-ones-mind>
 
     <section class="hero" style="background:#faf8ed;">
         <div class="hero-body">
@@ -35,6 +35,17 @@
                 </div>
             </section>
 
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-4">Method Signatures:</h1>
+
+            <div class="contents">
+                <generic-function-method-signatures source={source.method.signatures}>
+                </generic-function-method-signatures>
+            </div>
         </div>
     </section>
 
@@ -104,24 +115,25 @@
 
     <script>
      this.source = {
-         type: 'Function',
-         name: 'xxxxxxxx',
+         type: 'Generic Function',
+         name: 'flash-across-ones-mind',
          syntax: {
-             args: ['sequence', 'idea_id', 'graph', 'source', 'friendship'],
-             results: "karama(plist)",
+             args: ['graph', 'g*an'],
+             results: "???",
          },
          args: [
-             { name: 'sequence',      type: '', description: '' },
-             { name: 'idea_id',       type: '', description: '' },
-             { name: 'graph',         type: '', description: '' },
-             { name: 'source',        type: '', description: '' },
-             { name: 'friendship',    type: '', description: '' },
+             { name: 'graph', type: '', description: '' },
+             { name: 'g*an',  type: '', description: '' },
          ],
          values: [
-             { name: 'karama(plist)', type: '', description: '' },
+             { name: '???', type: '', description: '' },
          ],
+         method: {
+             signatures: [
+                 { graph: 'shinra:banshou', g_an: 'g*an' },
+             ]
+         }
      }
-
     </script>
 
-</function_xxxxxxxx>
+</generic-function_flash-across-ones-mind>

@@ -1,4 +1,4 @@
-<generic-function_spread-method-signatures>
+<generic-function-method-signatures>
     <table class="table is-bordered is-striped is-narrow is-hoverable">
         <thead>
             <tr>
@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr each={d in data}>
+            <tr each={d in (opts.source ? opts.source : sample)}>
                 <td>{d.graph}</td>
                 <td>{d.idea}</td>
                 <td>{d.source}</td>
@@ -19,11 +19,12 @@
     </table>
 
     <script>
-     this.data = [
+
+     this.sample = [
          { graph: 'shinra:banshou', idea: 'list', source: 't', target: '4neo' },
          { graph: 'shinra:banshou', idea: 'list', source: 't', target: 'friendship' },
          { graph: 'shinra:banshou', idea: 'list', source: 't', target: 'g*an' },
          { graph: 'shinra:banshou', idea: 'list', source: 't', target: 'nobit@' },
      ];
     </script>
-</generic-function_spread-method-signatures>
+</generic-function-method-signatures>

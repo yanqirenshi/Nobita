@@ -49,10 +49,11 @@ class Store extends Vanilla_Redux_Store {
             active_section: 'root',
             home_section: 'root',
             sections: [
-                {code: 'root',    tag: 'propagation_root' },
-                {code: 'idea',    tag: 'class_ieda' },
-                {code: 'spreads', tag: 'generic-function_spreads' },
-                {code: 'spread',  tag: 'generic-function_spread' },
+                {code: 'root',                   tag: 'propagation_root' },
+                {code: 'idea',                   tag: 'class_ieda' },
+                {code: 'spreads',                tag: 'generic-function_spreads' },
+                {code: 'spread',                 tag: 'generic-function_spread' },
+                {code: 'flash-across-ones-mind', tag: 'generic-function_flash-across-ones-mind' },
             ],
             stye: {
                 color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }

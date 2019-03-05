@@ -454,16 +454,23 @@ riot.tag2('home_tab_variables', '<section class="section"> <div class="container
 riot.tag2('home_usage', '<section-container title="Usage"> <section-contents> <p> <pre>\n(in-package :nobit@)\n\n(nobita.graph:start)\n\n(defparameter *g*an* (tx-make-g*an *graph*))\n(defparameter *4neo-1* (tx-make-4neo *graph*))\n(defparameter *4neo-2* (tx-make-4neo *graph*))\n(defparameter *nobit@-1* (tx-make-nobit@ *graph*))\n(defparameter *nobit@-2* (tx-make-nobit@ *graph*))\n(defparameter *nobit@-3* (tx-make-nobit@ *graph*))\n(defparameter *nobit@-4* (tx-make-nobit@ *graph*))\n\n(defparameter *heart* (get-heart :code :aon))\n\n(tx-make-frendship *graph* *g*an* *4neo-1* *heart*)\n(tx-make-frendship *graph* *4neo-1* *nobit@-1* *heart*)\n(tx-make-frendship *graph* *nobit@-1* *nobit@-2* *heart*)\n(tx-make-frendship *graph* *nobit@-1* *nobit@-3* *heart*)\n(tx-make-frendship *graph* *nobit@-2* *nobit@-4* *heart*)\n(tx-make-frendship *graph* *nobit@-3* *nobit@-4* *heart*)\n(tx-make-frendship *graph* *nobit@-4* *4neo-2* *heart*)\n(tx-make-frendship *graph* *4neo-2* *g*an* *heart*)\n                </pre> </p> </section-contents> </section-container>', '', '', function(opts) {
 });
 
-riot.tag2('function_make-karma', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">{source.type}: {source.name}</h1> <h2 class="subtitle"> <section-breadcrumb></section-breadcrumb> </h2> <section class="section"> <div class="container"> <h1 class="title is-4">Syntax:</h1> <div class="contents"> <operator-syntax name="{source.name}" args="{source.syntax.args}" results="{source.syntax.results}"> </operator-syntax> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Arguments and Values:</h1> <div class="contents"> <slots-list slots="{source.slots}"></slots-list> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Description:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Examples:</h1> <div class="contents"> <p><pre>\n                            </pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Affected By:</h1> <div class="contents"> <p>None.</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Exceptional Situations:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">See Also:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Notes:</h1> </div> </section> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('function_xxxxxxxx', '<section class="hero" style="background:#faf8ed;"> <div class="hero-body"> <div class="container"> <h1 class="title">{source.type}: {source.name}</h1> <h2 class="subtitle"> <section-breadcrumb></section-breadcrumb> </h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Syntax:</h1> <div class="contents"> <operator-syntax name="{source.name}" args="{source.syntax.args}" results="{source.syntax.results}"> </operator-syntax> </div> <section class="section"> <div class="container"> <h1 class="title is-5">karama(plist)</h1> <div class="contents"> </div> </div> </section> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Arguments:</h1> <div class="contents"> <slots-list slots="{source.args}"></slots-list> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Values:</h1> <div class="contents"> <slots-list slots="{source.values}"></slots-list> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Examples:</h1> <div class="contents"> <p><pre>\n                </pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Affected By:</h1> <div class="contents"> <p>None.</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Exceptional Situations:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">See Also:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Notes:</h1> </div> </section>', '', '', function(opts) {
      this.source = {
          type: 'Function',
-         name: '@@@@@@@@',
+         name: 'xxxxxxxx',
          syntax: {
-             args: ['a', 'b'],
-             results: "Plist",
+             args: ['sequence', 'idea_id', 'graph', 'source', 'friendship'],
+             results: "karama(plist)",
          },
-         slots: [
-             { name: '', type: '', description: '' },
+         args: [
+             { name: 'sequence',      type: '', description: '' },
+             { name: 'idea_id',       type: '', description: '' },
+             { name: 'graph',         type: '', description: '' },
+             { name: 'source',        type: '', description: '' },
+             { name: 'friendship',    type: '', description: '' },
+         ],
+         values: [
+             { name: 'karama(plist)', type: '', description: '' },
          ],
      }
 
@@ -502,10 +509,66 @@ riot.tag2('function_make-karma_slots-table', '<table class="table is-bordered is
      ];
 });
 
-riot.tag2('generic-function-action-ex', '<section-container title="Function: action!" no="4"> <section-container title="Syntax:" no="5"> <section-contents> <p><b>action!</b> <i>graph nobit@ idea source</i> => <i>nil</i></p> </section-contents> </section-container> <section-container title="Arguments and Values:" no="5"> <section-contents> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Name</th> <th>Type</th> <th>description</th></tr> </thead> <tbody> <tr> <td>graph</td> <td>SHINRA:BANSHOU</td> <td></td> </tr> <tr> <td>nobit@</td> <td>NOBIT@</td> <td></td> </tr> <tr> <td>idea</td> <td>PLIST</td> <td></td> </tr> <tr> <td>source</td> <td>NODE</td> <td></td> </tr> </tbody> </table> </section-contents> </section-container> <section-container title="Description:" no="5"> <section-contents> <p>スロット: <code>action</code> に設定されているコードを実行します。</p> <p><code>action</code> が設定されていない場合は引数の <code>idea</code> をそのまま返します。</p> </section-contents> </section-container> </section-container>', '', '', function(opts) {
+riot.tag2('function_start', '<section class="hero" style="background:#faf8ed;"> <div class="hero-body"> <div class="container"> <h1 class="title">{source.type}: {source.name}</h1> <h2 class="subtitle"> <section-breadcrumb></section-breadcrumb> </h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Syntax:</h1> <div class="contents"> <operator-syntax name="{source.name}" args="{source.syntax.args}" results="{source.syntax.results}"> </operator-syntax> </div> <section class="section"> <div class="container"> <h1 class="title is-5">karama(plist)</h1> <div class="contents"> </div> </div> </section> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Arguments:</h1> <div class="contents"> <slots-list slots="{source.args}"></slots-list> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Values:</h1> <div class="contents"> <slots-list slots="{source.values}"></slots-list> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Examples:</h1> <div class="contents"> <p><pre>\n                </pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Affected By:</h1> <div class="contents"> <p>None.</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Exceptional Situations:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">See Also:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Notes:</h1> </div> </section>', '', '', function(opts) {
+     this.source = {
+         type: 'Function',
+         name: 'start',
+         syntax: {
+             args: [],
+             results: "???",
+         },
+         args: [],
+         values: [
+             { name: '???', type: '', description: '' },
+         ],
+     }
+});
+
+riot.tag2('generic-function-action-ex', '<section class="hero" style="background:#faf8ed;"> <div class="hero-body"> <div class="container"> <h1 class="title">{source.type}: {source.name}</h1> <h2 class="subtitle"> <section-breadcrumb></section-breadcrumb> </h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Syntax:</h1> <div class="contents"> <p><b>action!</b> <i>graph nobit@ idea source</i> => <i>nil</i></p> </div> <section class="section"> <div class="container"> <h1 class="title is-5">karama(plist)</h1> <div class="contents"> </div> </div> </section> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Arguments and Values:</h1> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Name</th> <th>Type</th> <th>description</th></tr> </thead> <tbody> <tr> <td>graph</td> <td>SHINRA:BANSHOU</td> <td></td> </tr> <tr> <td>nobit@</td> <td>NOBIT@</td> <td></td> </tr> <tr> <td>idea</td> <td>PLIST</td> <td></td> </tr> <tr> <td>source</td> <td>NODE</td> <td></td> </tr> </tbody> </table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Description:</h1> <div class="contents"> <p>スロット: <code>action</code> に設定されているコードを実行します。</p> <p><code>action</code> が設定されていない場合は引数の <code>idea</code> をそのまま返します。</p> </div> </div> </section>', '', '', function(opts) {
+     this.source = {
+         type: 'Function',
+         name: 'ACTION!',
+         syntax: {
+             args: ['sequence', 'idea_id', 'graph', 'source', 'friendship'],
+             results: "karama(plist)",
+         },
+     }
+});
+
+riot.tag2('generic-function-method-signatures', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>graph</th> <th>idea</th> <th>source</th> <th>target</th> </tr> </thead> <tbody> <tr each="{d in (opts.source ? opts.source : sample)}"> <td>{d.graph}</td> <td>{d.idea}</td> <td>{d.source}</td> <td>{d.target}</td> </tr> </tbody> </table>', '', '', function(opts) {
+
+     this.sample = [
+         { graph: 'shinra:banshou', idea: 'list', source: 't', target: '4neo' },
+         { graph: 'shinra:banshou', idea: 'list', source: 't', target: 'friendship' },
+         { graph: 'shinra:banshou', idea: 'list', source: 't', target: 'g*an' },
+         { graph: 'shinra:banshou', idea: 'list', source: 't', target: 'nobit@' },
+     ];
 });
 
 riot.tag2('generic-function_find-karmas', '<section-container title="Generic function: find-karmas"> <section-contents no="4" title="Syntax:"> <section-contents> <operator-syntax name="find-karmas" args="{[\'karma-pool\', \'idea-id\']}"> </section-contents> </section-contents> <section-contents no="4" title="Method Signatures:"> </section-contents> <section-contents no="4" title="Arguments and Values:"> </section-contents> <section-contents no="4" title="Description:"> </section-contents> </section-container>', '', '', function(opts) {
+});
+
+riot.tag2('generic-function_flash-across-ones-mind', '<section class="hero" style="background:#faf8ed;"> <div class="hero-body"> <div class="container"> <h1 class="title">{source.type}: {source.name}</h1> <h2 class="subtitle"> <section-breadcrumb></section-breadcrumb> </h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Syntax:</h1> <div class="contents"> <operator-syntax name="{source.name}" args="{source.syntax.args}" results="{source.syntax.results}"> </operator-syntax> </div> <section class="section"> <div class="container"> <h1 class="title is-5">karama(plist)</h1> <div class="contents"> </div> </div> </section> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Method Signatures:</h1> <div class="contents"> <generic-function-method-signatures source="{source.method.signatures}"> </generic-function-method-signatures> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Arguments:</h1> <div class="contents"> <slots-list slots="{source.args}"></slots-list> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Values:</h1> <div class="contents"> <slots-list slots="{source.values}"></slots-list> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Examples:</h1> <div class="contents"> <p><pre>\n                </pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Affected By:</h1> <div class="contents"> <p>None.</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Exceptional Situations:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">See Also:</h1> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Notes:</h1> </div> </section>', '', '', function(opts) {
+     this.source = {
+         type: 'Generic Function',
+         name: 'flash-across-ones-mind',
+         syntax: {
+             args: ['graph', 'g*an'],
+             results: "???",
+         },
+         args: [
+             { name: 'graph', type: '', description: '' },
+             { name: 'g*an',  type: '', description: '' },
+         ],
+         values: [
+             { name: '???', type: '', description: '' },
+         ],
+         method: {
+             signatures: [
+                 { graph: 'shinra:banshou', g_an: 'g*an' },
+             ]
+         }
+     }
 });
 
 riot.tag2('generic-function_pop-karma', '<section-container title="Generic function: pop-karma"> <section-contents no="4" title="Syntax:"> <section-contents> <operator-syntax name="pop-karma" keys="{[\'karma-pool\']}" results="{\'queue\'}"> </section-contents> </section-contents> <section-contents no="4" title="Method Signatures:"> </section-contents> <section-contents no="4" title="Arguments and Values:"> </section-contents> <section-contents no="4" title="Description:"> </section-contents> </section-container>', '', '', function(opts) {
@@ -559,19 +622,53 @@ riot.tag2('generic-function_qsize', '<section-container title="Generic function:
 riot.tag2('generic-function_rm-karma-at-idea-id', '<section-container title="Generic function: rm-karma-at-idea-id"> </section-container> <section-contents no="4" title="Syntax:"> <section-contents> <operator-syntax name="rm-karma-at-idea-id" args="{[\'karam-pool\', \'idea-id\']}"> </section-contents> </section-contents> <section-contents no="4" title="Method Signatures:"> </section-contents> <section-contents no="4" title="Arguments and Values:"> </section-contents> <section-contents no="4" title="Description:"> </section-contents>', '', '', function(opts) {
 });
 
-riot.tag2('generic-function_spread-method-signatures', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>graph</th> <th>idea</th> <th>source</th> <th>target</th> </tr> </thead> <tbody> <tr each="{d in data}"> <td>{d.graph}</td> <td>{d.idea}</td> <td>{d.source}</td> <td>{d.target}</td> </tr> </tbody> </table>', '', '', function(opts) {
-     this.data = [
-         { graph: 'shinra:banshou', idea: 'list', source: 't', target: '4neo' },
-         { graph: 'shinra:banshou', idea: 'list', source: 't', target: 'friendship' },
-         { graph: 'shinra:banshou', idea: 'list', source: 't', target: 'g*an' },
-         { graph: 'shinra:banshou', idea: 'list', source: 't', target: 'nobit@' },
-     ];
+riot.tag2('generic-function_spread', '<section class="hero" style="background:#faf8ed;"> <div class="hero-body"> <div class="container"> <h1 class="title">{source.type}: {source.name}</h1> <h2 class="subtitle"> <section-breadcrumb></section-breadcrumb> </h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Syntax:</h1> <div class="contents"> <operator-syntax name="{source.name}" args="{source.syntax.args}" results="{source.syntax.results}"> </operator-syntax> </div> <section class="section"> <div class="container"> <h1 class="title is-5">???</h1> <div class="contents"> </div> </div> </section> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Method Signatures:</h1> <div class="contents"> <generic-function-method-signatures source="{source.method.signatures}"> </generic-function-method-signatures> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Arguments:</h1> <div class="contents"> <slots-list slots="{source.args}"></slots-list> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Values:</h1> <div class="contents"> <slots-list slots="{source.values}"></slots-list> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Examples:</h1> <div class="contents"> <p><pre>\n                </pre></p> </div> </div> </section>', '', '', function(opts) {
+     this.source = {
+         type: 'Generic Function',
+         name: 'SPREAD',
+         syntax: {
+             args: ['graph', 'idea', 'source', 'target'],
+             results: "???",
+         },
+         args: [
+             { name: 'graph',  type: 'Object', description: '' },
+             { name: 'idea',   type: 'Plist',  description: '' },
+             { name: 'source', type: 'Object', description: '' },
+             { name: 'target', type: 'Object', description: '' },
+         ],
+         values: [],
+         method: {
+             signatures: [
+                 { graph: 'shinra:banshou', idea: 'list', source: 't', target: '4neo' },
+                 { graph: 'shinra:banshou', idea: 'list', source: 't', target: 'friendship' },
+                 { graph: 'shinra:banshou', idea: 'list', source: 't', target: 'g*an' },
+                 { graph: 'shinra:banshou', idea: 'list', source: 't', target: 'nobit@' },
+             ]
+         }
+     }
 });
 
-riot.tag2('generic-function_spread', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">Generic Function SPREAD</h1> <h2 class="subtitle"></h2> </div> </div> </section> <div> <section class="section"> <div class="container"> <h1 class="title is-4">Syntax:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Method Signatures:</h1> <div class="contents"> <generic-function_spread-method-signatures></generic-function_spread-method-signatures> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Arguments and Values:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Description:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Examples:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Affected By:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Exceptional Situations:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">See Also:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Notes:</h1> <div class="contents"></div> </div> </section> </div>', '', '', function(opts) {
-});
-
-riot.tag2('generic-function_spreads', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">Generic Function SPREADS</h1> <h2 class="subtitle"></h2> </div> <section class="section"> <div class="container"> <h1 class="title is-4">Syntax:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Method Signatures:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Arguments and Values:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Description:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Examples:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Affected By:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Exceptional Situations:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">See Also:</h1> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Notes:</h1> <div class="contents"></div> </div> </section> </div> </section>', '', '', function(opts) {
+riot.tag2('generic-function_spreads', '<section class="hero" style="background:#faf8ed;"> <div class="hero-body"> <div class="container"> <h1 class="title">{source.type}: {source.name}</h1> <h2 class="subtitle"> <section-breadcrumb></section-breadcrumb> </h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Syntax:</h1> <div class="contents"> <operator-syntax name="{source.name}" args="{source.syntax.args}" results="{source.syntax.results}"> </operator-syntax> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Method Signatures:</h1> <div class="contents"> <generic-function-method-signatures source="{source.method.signatures}"> </generic-function-method-signatures> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Arguments:</h1> <div class="contents"> <slots-list slots="{source.args}"></slots-list> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Values:</h1> <div class="contents"> <slots-list slots="{source.values}"></slots-list> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Examples:</h1> <div class="contents"> <p><pre>\n                </pre></p> </div> </div> </section>', '', '', function(opts) {
+     this.source = {
+         type: 'Generic Function',
+         name: 'SPREADS',
+         syntax: {
+             args: ['graph', 'idea', 'source', 'targets'],
+             results: "???",
+         },
+         args: [
+             { name: 'graph',   type: 'Object', description: '' },
+             { name: 'idea',    type: 'Plist',  description: '' },
+             { name: 'source',  type: 'Object', description: '' },
+             { name: 'targets', type: 'List',   description: '' },
+         ],
+         values: [],
+         method: {
+             signatures: [
+                 { graph: 'shinra:banshou', idea: 'list', source: 't', target: 'list' },
+             ]
+         }
+     }
 });
 
 riot.tag2('generic-function_start-heart', '<section-container title="Generic function: find-karmas"> <section-contents no="4" title="Syntax:"> <section-contents> <operator-syntax name="find-karmas" args="{[\'xxx\']}"></operator-syntax> </section-contents> </section-contents> <section-contents no="4" title="Method Signatures:"> </section-contents> <section-contents no="4" title="Arguments and Values:"> </section-contents> <section-contents no="4" title="Description:"> </section-contents> </section-container>', '', '', function(opts) {
@@ -587,10 +684,12 @@ riot.tag2('propagation', '', '', '', function(opts) {
      this.on('update', () => { this.draw(); });
 });
 
-riot.tag2('propagation_root', '<section-header title="NOBIT@: ropagation"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <propagation_tab_readme class="hide"></propagation_tab_readme> <propagation_tab_dictionary class="hide"></propagation_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
+riot.tag2('propagation_root', '<section-header title="NOBIT@: ropagation"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <propagation_tab_home class="hide"></propagation_tab_home> <propagation_tab_from-friends class="hide"></propagation_tab_from-friends> <propagation_tab_from-friendships class="hide"></propagation_tab_from-friendships> <propagation_tab_dictionary class="hide"></propagation_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
      this.page_tabs = new PageTabs([
-         {code: 'readme',     label: 'README',     tag: 'propagation_tab_readme' },
-         {code: 'dictionary', label: 'Dictionary', tag: 'propagation_tab_dictionary' },
+         {code: 'home',        label: 'Home',           tag: 'propagation_tab_home' },
+         {code: 'friends',     label: '友達からの伝播', tag: 'propagation_tab_from-friends' },
+         {code: 'friendships', label: '友情からの伝播', tag: 'propagation_tab_from-friendships' },
+         {code: 'dictionary',  label: 'Dictionary',     tag: 'propagation_tab_dictionary' },
      ]);
 
      this.on('mount', () => {
@@ -607,7 +706,13 @@ riot.tag2('propagation_root', '<section-header title="NOBIT@: ropagation"></sect
 riot.tag2('propagation_tab_dictionary', '<dictionaries groups="{[\'propagation\']}"></dictionaries>', '', '', function(opts) {
 });
 
-riot.tag2('propagation_tab_readme', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('propagation_tab_from-friends', '', '', '', function(opts) {
+});
+
+riot.tag2('propagation_tab_from-friendships', '', '', '', function(opts) {
+});
+
+riot.tag2('propagation_tab_home', '<section class="section"> <div class="container"> <h1 class="title is-4">伝播の概要</h1> <section class="section"> <div class="container"> <h1 class="title is-4">友達からの伝播</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友達は処理が終ったら友情へ情報を伝播させます。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">友情からの伝播</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情は友達から伝播されたデータを心臓のカルマに追加します。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓のはたらき</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>心臓は鼓動のたびにカルマを処理します。</p> <p>処理する順番は FIFO です。</p> <p>詳細は <b><a href="#hearts">Page:心臓</a></b> を参照してください。</p> </div> </div> </section> </div> </section>', '', '', function(opts) {
 });
 
 riot.tag2('variable_hearts', '<section-container title="Variable: *hearts*"> <section-container title="Operators"> <section-container title="Function: get-heart" no="4"> </section-container> <section-container title="Function: add-heart" no="4"> </section-container> <section-container title="Function: rm-heart" no="4"> </section-container> </section-container> </section-container>', '', '', function(opts) {
