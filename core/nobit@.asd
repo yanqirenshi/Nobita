@@ -41,7 +41,8 @@ This file is a part of nobit@ project.
                                                 (:file "nobit@")
                                                 (:file "friendship")))
                  ;; カースト
-                 (:file "hearts"))))
+                 (:module "hearts" :components ((:file "tick!")
+                                                (:file "deamons"))))))
   :description ""
   :long-description
   #.(read-file-string

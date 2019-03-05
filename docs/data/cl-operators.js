@@ -155,6 +155,14 @@ const _CL_OPERATORS = [
         export: false,
         package: 'nobit@',
         type: 'Function',
+        name: 'tick!',
+        description: '',
+        group: { hearts: true, propagation: false, friends: false, friendships: false }
+    },
+    {
+        export: false,
+        package: 'nobit@',
+        type: 'Function',
         name: 'get-heart',
         description: '',
         group: { hearts: true, propagation: false, friends: false, friendships: false }
