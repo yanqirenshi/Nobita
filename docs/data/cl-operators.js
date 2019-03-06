@@ -19,14 +19,6 @@ const _CL_OPERATORS = [
         export: true,
         package: 'nobit@',
         type: 'Generic Function',
-        name: 'tx-make-frendship',
-        description: '',
-        group: { hearts: false, propagation: false, friends: false, friendships: true }
-    },
-    {
-        export: true,
-        package: 'nobit@',
-        type: 'Generic Function',
         name: 'tx-save-location',
         description: '',
         group: { hearts: false, propagation: false, friends: true, friendships: false }
@@ -103,6 +95,25 @@ const _CL_OPERATORS = [
         description: '',
         group: { hearts: false, propagation: false, friends: true, friendships: false }
     },
+    /////
+    /////
+    /////
+    {
+        export: false,
+        package: 'nobit@',
+        type: 'Function',
+        name: 'make-idea',
+        description: '',
+        group: { hearts: false, propagation: false, friends: false, friendships: true }
+    },
+    {
+        export: true,
+        package: 'nobit@',
+        type: 'Generic Function',
+        name: 'tx-make-frendship',
+        description: '',
+        group: { hearts: false, propagation: false, friends: false, friendships: true }
+    },
     {
         export: true,
         package: 'nobit@',
@@ -111,6 +122,65 @@ const _CL_OPERATORS = [
         description: '',
         group: { hearts: false, propagation: false, friends: false, friendships: true }
     },
+    {
+        export: false,
+        package: 'nobit@',
+        type: 'Function',
+        name: 'find-frendship-at-to-classes',
+        description: '',
+        group: { hearts: false, propagation: false, friends: false, friendships: true }
+    },
+    {
+        export: false,
+        package: 'nobit@',
+        type: 'Function',
+        name: 'find-frendship-at-from',
+        description: '',
+        group: { hearts: false, propagation: false, friends: false, friendships: true }
+    },
+    {
+        export: false,
+        package: 'nobit@',
+        type: 'Function',
+        name: 'find-frendship-at-to',
+        description: '',
+        group: { hearts: false, propagation: false, friends: false, friendships: true }
+    },
+    {
+        export: false,
+        package: 'nobit@',
+        type: 'Function',
+        name: 'assert-frendship-1-1',
+        description: '',
+        group: { hearts: false, propagation: false, friends: false, friendships: true }
+    },
+    {
+        export: false,
+        package: 'nobit@',
+        type: 'Function',
+        name: 'assert-frendship-1-n',
+        description: '',
+        group: { hearts: false, propagation: false, friends: false, friendships: true }
+    },
+    {
+        export: false,
+        package: 'nobit@',
+        type: 'Function',
+        name: 'assert-frendship',
+        description: '',
+        group: { hearts: false, propagation: false, friends: false, friendships: true }
+    },
+    {
+        export: false,
+        package: 'nobit@',
+        type: 'Function',
+        name: '%tx-make-frendship',
+        description: '',
+        group: { hearts: false, propagation: false, friends: false, friendships: true }
+    },
+    /////
+    /////
+    /////
     {
         export: true,
         package: 'nobit@',

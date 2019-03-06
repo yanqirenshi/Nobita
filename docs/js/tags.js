@@ -175,12 +175,13 @@ riot.tag2('classes-table', '<table class="table is-bordered is-striped is-narrow
      };
 
      this.classes = () => {
+         let all = STORE.state().get('classes');
+
          if (this.opts.groups)
              return ndoc.filterDicData(this.opts.groups,
                                        STORE.state().toJS().classes);
 
          if (this.opts.targets) {
-             let all = STORE.state().get('classes');
 
              return all.filter((d) => {
                  return this.opts.targets.find((x) => {
@@ -189,7 +190,7 @@ riot.tag2('classes-table', '<table class="table is-bordered is-striped is-narrow
              })
          }
 
-         return [];
+         return all;
      };
 });
 
@@ -237,11 +238,12 @@ riot.tag2('operators-table', '<table class="table is-bordered is-striped is-narr
      };
 
      this.operators = () => {
+         let all = STORE.state().get('operators');
+
          if (this.opts.groups)
              return ndoc.filterDicData(this.opts.groups,
                                        STORE.state().toJS().operators);
          if (this.opts.targets) {
-             let all = STORE.state().get('operators');
 
              return all.filter((d) => {
                  return this.opts.targets.find((x) => {
@@ -250,7 +252,7 @@ riot.tag2('operators-table', '<table class="table is-bordered is-striped is-narr
              })
          }
 
-         return [];
+         return all;
      };
 });
 
@@ -276,13 +278,13 @@ riot.tag2('variables-table', '<table class="table is-bordered is-striped is-narr
      };
 
      this.variables = () => {
+         let all = STORE.state().get('variables');
+
          if (this.opts.groups)
              return ndoc.filterDicData(this.opts.groups,
                                        STORE.state().toJS().variables);
 
          if (this.opts.targets) {
-             let all = STORE.state().get('variables');
-
              return all.filter((d) => {
                  return this.opts.targets.find((x) => {
                      return x == d.name;
@@ -290,7 +292,7 @@ riot.tag2('variables-table', '<table class="table is-bordered is-striped is-narr
              })
          }
 
-         return [];
+         return all;
      };
 });
 
@@ -349,9 +351,12 @@ riot.tag2('friendships_classes', '<section-container title="Classe" data="{class
      ];
 });
 
-riot.tag2('friendships_root', '<section-header title="NOBIT@: 友情"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <friendships_tab_readme class="hide"></friendships_tab_readme> <friendships_tab_dictionary class="hide"></friendships_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
+riot.tag2('friendships_root', '<section-header title="NOBIT@: 友情"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <friendships_tab_readme class="hide"></friendships_tab_readme> <friendships_tab_idea class="hide"></friendships_tab_idea> <friendships_tab_friendship class="hide"></friendships_tab_friendship> <friendships_tab_relationship-roules class="hide"></friendships_tab_relationship-roules> <friendships_tab_dictionary class="hide"></friendships_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
      this.page_tabs = new PageTabs([
          {code: 'readme',     label: 'README',     tag: 'friendships_tab_readme' },
+         {code: 'friendship', label: '友情',       tag: 'friendships_tab_friendship' },
+         {code: 'roules',     label: '友情の掟',   tag: 'friendships_tab_relationship-roules' },
+         {code: 'idea',       label: 'アイデア',   tag: 'friendships_tab_idea' },
          {code: 'dictionary', label: 'Dictionary', tag: 'friendships_tab_dictionary' },
      ]);
 
@@ -369,7 +374,41 @@ riot.tag2('friendships_root', '<section-header title="NOBIT@: 友情"></section-
 riot.tag2('friendships_tab_dictionary', '<dictionaries groups="{[\'friendships\']}"></dictionaries>', '', '', function(opts) {
 });
 
+riot.tag2('friendships_tab_friendship', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友達と友達の関係を維持するためのものです。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Classes:</h1> <div class="contents"> <classes-table targets="{targets.classes}" link-prefix="{location.hash}"></classes-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = {
+         operators: [
+             'tx-make-frendship',
+             '%tx-make-frendship',
+             'find-frendship',
+             'find-frendship-at-to-classes',
+             'find-frendship-at-from',
+             'find-frendship-at-to',
+         ],
+         classes:   [
+             'edge',
+             'friendship',
+         ],
+     };
+});
+
+riot.tag2('friendships_tab_idea', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情のネットワークを駆け巡るのはアイデアです。</p> <p>最初は小さなアイデアも、友情のネットワークを経ることで大きく、多きく、強く、格好良くなるものです。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Variables:</h1> <div class="contents"> <variables-table targets="{targets.variables}" link-prefix="{location.hash}"></variables-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = {
+         operators: ['make-idea'],
+         variables: ['*idea-id-counter*'],
+     };
+});
+
 riot.tag2('friendships_tab_readme', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情とは情報を伝達するための絆です。</p> <p>だれかの思い付き(アイデア)が友情を駆け巡り、何かを生みだすのです。</p> </div> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('friendships_tab_relationship-roules', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情にも掟があります。</p> <p>網状のように見えても、部分で見ると階層のようにも見えるものなのです。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = {
+         operators: [
+             'assert-frendship-1-1',
+             'assert-frendship-1-n',
+             'assert-frendship',
+         ],
+     };
 });
 
 riot.tag2('hearts', '', '', '', function(opts) {
@@ -490,7 +529,7 @@ riot.tag2('hearts_tab_karma', '<section class="section"> <div class="container">
      };
 });
 
-riot.tag2('hearts_tab_management', '<section class="section"> <div class="container"> <h1 class="title is-4">心臓は八つ用意されています。</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>追加/削除が可能です。</p> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Code</th> <th>Name</th> <th>Core</th> </tr> </thead> <tbody> <tr each="{heart in hearts}"> <td>{heart.code}</td> <td>{heart.name}</td> <td>{heart.core}</td> </tr> </tbody> </table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <variables-table targets="{targets.variables}" link-prefix="{location.hash}"></variables-table> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('hearts_tab_management', '<section class="section"> <div class="container"> <h1 class="title is-4">心臓は八つ用意されています。</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>追加/削除が可能です。</p> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Code</th> <th>Name</th> <th>Core</th> </tr> </thead> <tbody> <tr each="{heart in hearts}"> <td>{heart.code}</td> <td>{heart.name}</td> <td>{heart.core}</td> </tr> </tbody> </table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Variables:</h1> <div class="contents"> <variables-table targets="{targets.variables}" link-prefix="{location.hash}"></variables-table> </div> </div> </section>', '', '', function(opts) {
      this.hearts = [
          { code: ':aon',     name: 'aon',     core: "#'heart-core"},
          { code: ':da',      name: 'da',      core: "#'heart-core"},
