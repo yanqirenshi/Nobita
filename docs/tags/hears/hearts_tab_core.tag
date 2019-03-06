@@ -27,4 +27,41 @@
         </div>
     </section>
 
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-4">Operators:</h1>
+
+            <div class="contents">
+                <operators-table targets={targets.operators}
+                                 link-prefix={location.hash}></operators-table>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-4">Operators:</h1>
+
+            <div class="contents">
+                <variables-table targets={targets.variables}
+                                 link-prefix={location.hash}></variables-table>
+            </div>
+        </div>
+    </section>
+
+    <script>
+     this.targets = {
+         operators: [
+             'heart-core',
+             '%heart-core',
+             'heart-core-before',
+             'heart-core-after',
+         ],
+         variables: [
+             '*hook-heart-core-before*',
+             '*hook-heart-core-after*',
+         ],
+     };
+    </script>
+
 </hearts_tab_core>

@@ -29,8 +29,21 @@
      };
 
      this.classes = () => {
-         return ndoc.filterDicData(this.opts.groups,
-                                   STORE.state().toJS().classes);
+         if (this.opts.groups)
+             return ndoc.filterDicData(this.opts.groups,
+                                       STORE.state().toJS().classes);
+
+         if (this.opts.targets) {
+             let all = STORE.state().get('classes');
+
+             return all.filter((d) => {
+                 return this.opts.targets.find((x) => {
+                     return x == d.name;
+                 });
+             })
+         }
+
+         return [];
      };
     </script>
 
