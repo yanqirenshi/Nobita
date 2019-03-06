@@ -41,7 +41,7 @@
 
     <section class="section">
         <div class="container">
-            <h1 class="title is-4">Operators:</h1>
+            <h1 class="title is-4">Variables:</h1>
 
             <div class="contents">
                 <variables-table targets={targets.variables}
