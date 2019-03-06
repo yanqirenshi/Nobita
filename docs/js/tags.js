@@ -175,8 +175,21 @@ riot.tag2('classes-table', '<table class="table is-bordered is-striped is-narrow
      };
 
      this.classes = () => {
-         return ndoc.filterDicData(this.opts.groups,
-                                   STORE.state().toJS().classes);
+         if (this.opts.groups)
+             return ndoc.filterDicData(this.opts.groups,
+                                       STORE.state().toJS().classes);
+
+         if (this.opts.targets) {
+             let all = STORE.state().get('classes');
+
+             return all.filter((d) => {
+                 return this.opts.targets.find((x) => {
+                     return x == d.name;
+                 });
+             })
+         }
+
+         return [];
      };
 });
 
@@ -224,8 +237,20 @@ riot.tag2('operators-table', '<table class="table is-bordered is-striped is-narr
      };
 
      this.operators = () => {
-         return ndoc.filterDicData(this.opts.groups,
-                                   STORE.state().toJS().operators);
+         if (this.opts.groups)
+             return ndoc.filterDicData(this.opts.groups,
+                                       STORE.state().toJS().operators);
+         if (this.opts.targets) {
+             let all = STORE.state().get('operators');
+
+             return all.filter((d) => {
+                 return this.opts.targets.find((x) => {
+                     return x == d.name;
+                 });
+             })
+         }
+
+         return [];
      };
 });
 
@@ -251,8 +276,21 @@ riot.tag2('variables-table', '<table class="table is-bordered is-striped is-narr
      };
 
      this.variables = () => {
-         return ndoc.filterDicData(this.opts.groups,
-                                   STORE.state().toJS().variables);
+         if (this.opts.groups)
+             return ndoc.filterDicData(this.opts.groups,
+                                       STORE.state().toJS().variables);
+
+         if (this.opts.targets) {
+             let all = STORE.state().get('variables');
+
+             return all.filter((d) => {
+                 return this.opts.targets.find((x) => {
+                     return x == d.name;
+                 });
+             })
+         }
+
+         return [];
      };
 });
 
@@ -341,7 +379,7 @@ riot.tag2('hearts', '', '', '', function(opts) {
      this.on('update', () => { this.draw(); });
 });
 
-riot.tag2('hearts_callstacks', '<p> <pre>\nheart-core ---+---> heart-core-before\n              |\n              +---> %heart-core\n              |\n              +---> heart-core-after\n        </pre> </p>', '', '', function(opts) {
+riot.tag2('hearts_callstacks', '<p> <pre>\ntick! ---+---> heart-core-before\n         |\n         +---> heart-core ---> %heart-core\n         |\n         +---> heart-core-after\n        </pre> </p>', '', '', function(opts) {
 });
 
 riot.tag2('hearts_classes', '<section-container title="Classes" data="{classes}"> <section-contents data="{opts.data}"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Symbol</th> <th>Description</th> </tr> </thead> <tbody> <tr each="{opts.data}"> <td><a href="{href}">{title}</a></td> <td>{description}</td> </tr> </tbody> </table> </section-contents> </section-container>', '', '', function(opts) {
@@ -351,9 +389,10 @@ riot.tag2('hearts_classes', '<section-container title="Classes" data="{classes}"
      ];
 });
 
-riot.tag2('hearts_root', '<section-header title="NOBIT@: Nobit@\'s 心臓"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <hearts_tab_home class="hide"></hearts_tab_home> <hearts_tab_karma class="hide"></hearts_tab_karma> <hearts_tab_core class="hide"></hearts_tab_core> <hearts_tab_management class="hide"></hearts_tab_management> <hearts_tab_dictionary class="hide"></hearts_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
+riot.tag2('hearts_root', '<section-header title="NOBIT@: Nobit@\'s 心臓"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <hearts_tab_home class="hide"></hearts_tab_home> <hearts_tab_heart class="hide"></hearts_tab_heart> <hearts_tab_karma class="hide"></hearts_tab_karma> <hearts_tab_core class="hide"></hearts_tab_core> <hearts_tab_management class="hide"></hearts_tab_management> <hearts_tab_dictionary class="hide"></hearts_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
      this.page_tabs = new PageTabs([
          {code: 'readme',     label: 'Home',       tag: 'hearts_tab_home' },
+         {code: 'heart',      label: '心臓',       tag: 'hearts_tab_heart' },
          {code: 'core',       label: '心臓核',     tag: 'hearts_tab_core' },
          {code: 'management', label: '心臓の管理', tag: 'hearts_tab_management' },
          {code: 'karma',      label: 'カルマ',     tag: 'hearts_tab_karma' },
@@ -387,19 +426,93 @@ riot.tag2('hearts_root_operators', '<table class="table is-bordered is-striped i
      ];
 });
 
-riot.tag2('hearts_tab_core', '<section class="section"> <div class="container"> <h1 class="title is-4">心臓核のはたらき</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>定期的に鼓動します。</p> <p>鼓動することで情報を友情ネットワークに循環させます。</p> <p>「循環」とは、友情にある情報を友達に渡して友達の処理を実行することです。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">鼓動へのフック</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>鼓動には前後にフック関数あります。</p> <p>この関数を利用することである程度カスタマイズができると思います。</p> <hearts_callstacks></hearts_callstacks> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('hearts_tab_core', '<section class="section"> <div class="container"> <h1 class="title is-4">心臓核のはたらき</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>定期的に鼓動します。</p> <p>鼓動することで情報を友情ネットワークに循環させます。</p> <p>「循環」とは、友情にある情報を友達に渡して友達の処理を実行することです。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">鼓動へのフック</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>鼓動には前後にフック関数あります。</p> <p>この関数を利用することである程度カスタマイズができると思います。</p> <hearts_callstacks></hearts_callstacks> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <variables-table targets="{targets.variables}" link-prefix="{location.hash}"></variables-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = {
+         operators: [
+             'heart-core',
+             '%heart-core',
+             'heart-core-before',
+             'heart-core-after',
+         ],
+         variables: [
+             '*hook-heart-core-before*',
+             '*hook-heart-core-after*',
+         ],
+     };
 });
 
 riot.tag2('hearts_tab_dictionary', '<dictionaries groups="{[\'hearts\']}"></dictionaries>', '', '', function(opts) {
 });
 
-riot.tag2('hearts_tab_home', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Rhythm の heart クラスを継承しています。</p> <p>Rhythm の heart クラスでその核を定期的に実行します。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓には核があります。</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>それは心臓の機能そのものです。</p> <p>その核が定期的に実行されます。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓が流すもの</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情を流れるもの。それは情報です。</p> <p>友情を流すものとして心臓があります。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓が負うもの</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>心臓はカルマを負います。</p> <p>そしてカルマの数だけ核を実行し友情に情報を流します。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓の数</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Nobit@ は上級魔族なので八つの心臓を持っています。</p> <p>この心臓が友情に情報を流通させます。</p> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('hearts_tab_heart', '<section class="section"> <div class="container"> <h1 class="title is-4">心臓のはたらき</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>心臓は鼓動します。</p> <p>bpm で beat を tick します。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Classes:</h1> <div class="contents"> <classes-table targets="{targets.classes}" link-prefix="{location.hash}"></classes-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = {
+         operators: [
+             'tick!',
+             'make-heart',
+             'start-heart',
+             'stop-heart',
+         ],
+         classes: [
+             'nobiheart',
+         ],
+     };
 });
 
-riot.tag2('hearts_tab_karma', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>心臓が友情をドライブするための原動力です。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">データ構造</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Pist です。</p> <p><code>make-karma</code> で作成しています。</p> <function_make-karma_slots-table></function_make-karma_slots-table> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('hearts_tab_home', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Rhythm の heart クラスを継承しています。</p> <p>Rhythm の heart クラスでその核を定期的に実行します。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓には核があります。</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>それは心臓の機能そのものです。</p> <p>その核が定期的に実行されます。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓が流すもの</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情を流れるもの。それは情報です。</p> <p>友情を流すものとして心臓があります。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓が負うもの</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>心臓はカルマを負います。</p> <p>そしてカルマの数だけ核を実行し友情に情報を流します。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">心臓の数</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Nobit@ は上級魔族なので八つの心臓を持っています。</p> <p>この心臓が友情に情報を流通させます。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Classes:</h1> <div class="contents"> <classes-table targets="{targets.classes}" link-prefix="{location.hash}"></classes-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = {
+         operators: [
+             'tick!',
+             'make-heart',
+             'start-heart',
+             'stop-heart',
+         ],
+         classes: [
+             'nobiheart',
+         ],
+     };
 });
 
-riot.tag2('hearts_tab_management', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('hearts_tab_karma', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>心臓が友情をドライブするための原動力です。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">データ構造</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Pist です。</p> <p><code>make-karma</code> で作成しています。</p> <function_make-karma_slots-table></function_make-karma_slots-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Classes:</h1> <div class="contents"> <classes-table targets="{targets.classes}" link-prefix="{location.hash}"></classes-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = {
+         operators: [
+             'make-karma',
+             'make-karma-pool',
+             'push-karma',
+             'pop-karma',
+             'qsize',
+             'karma-pool',
+             'find-karmas',
+             'rm-karma-at-idea-id',
+         ],
+         classes: [
+             'karma-pool',
+         ],
+     };
+});
+
+riot.tag2('hearts_tab_management', '<section class="section"> <div class="container"> <h1 class="title is-4">心臓は八つ用意されています。</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>追加/削除が可能です。</p> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Code</th> <th>Name</th> <th>Core</th> </tr> </thead> <tbody> <tr each="{heart in hearts}"> <td>{heart.code}</td> <td>{heart.name}</td> <td>{heart.core}</td> </tr> </tbody> </table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <variables-table targets="{targets.variables}" link-prefix="{location.hash}"></variables-table> </div> </div> </section>', '', '', function(opts) {
+     this.hearts = [
+         { code: ':aon',     name: 'aon',     core: "#'heart-core"},
+         { code: ':da',      name: 'da',      core: "#'heart-core"},
+         { code: ':tri',     name: 'tri',     core: "#'heart-core"},
+         { code: ':ceithir', name: 'ceithir', core: "#'heart-core"},
+         { code: ':coig',    name: 'coig',    core: "#'heart-core"},
+         { code: ':sia',     name: 'sia',     core: "#'heart-core"},
+         { code: ':seachd',  name: 'seachd',  core: "#'heart-core"},
+         { code: ':ochd',    name: 'ochd',    core: "#'heart-core"},
+     ];
+     this.targets = {
+         operators: [
+             'find-hearts',
+             'get-heart',
+             'add-heart',
+             'rm-heart',
+             'start',
+         ],
+         variables: [
+             '*hearts*',
+         ],
+     };
 });
 
 riot.tag2('home', '', '', '', function(opts) {

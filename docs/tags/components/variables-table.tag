@@ -27,8 +27,21 @@
      };
 
      this.variables = () => {
-         return ndoc.filterDicData(this.opts.groups,
-                                   STORE.state().toJS().variables);
+         if (this.opts.groups)
+             return ndoc.filterDicData(this.opts.groups,
+                                       STORE.state().toJS().variables);
+
+         if (this.opts.targets) {
+             let all = STORE.state().get('variables');
+
+             return all.filter((d) => {
+                 return this.opts.targets.find((x) => {
+                     return x == d.name;
+                 });
+             })
+         }
+
+         return [];
      };
     </script>
 
