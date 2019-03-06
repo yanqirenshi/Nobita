@@ -8,6 +8,9 @@
     <img class="g_an" src="https://github.com/yanqirenshi/nobita/raw/master/web/assets/image/gian.png?raw=true"
          style="" />
 
+    <github-link fill="#BDB04F" color="#fff"
+                 href="https://github.com/yanqirenshi/nobita"></github-link>
+
     <script>
      this.site = () => {
          return STORE.state().get('site');
