@@ -381,9 +381,13 @@ riot.tag2('friends_classes', '<section-container title="Classe" data="{classes}"
      ];
 });
 
-riot.tag2('friends_root', '<section-header title="NOBIT@: 友達"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <friends_tab_readme class="hide"></friends_tab_readme> <friends_tab_dictionary class="hide"></friends_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
+riot.tag2('friends_root', '<section-header title="NOBIT@: 友達"></section-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div> <friends_tab_readme class="hide"></friends_tab_readme> <friends_tab_friend class="hide"></friends_tab_friend> <friends_tab_g-an class="hide"></friends_tab_g-an> <friends_tab_4neo class="hide"></friends_tab_4neo> <friends_tab_nobita class="hide"></friends_tab_nobita> <friends_tab_dictionary class="hide"></friends_tab_dictionary> </div> <section-footer></section-footer>', '', '', function(opts) {
      this.page_tabs = new PageTabs([
          {code: 'readme',     label: 'README',     tag: 'friends_tab_readme' },
+         {code: 'friend',     label: 'Friend',     tag: 'friends_tab_friend' },
+         {code: 'g-an',       label: 'G * An',     tag: 'friends_tab_g-an' },
+         {code: '4neo',       label: '4Neo',       tag: 'friends_tab_4neo' },
+         {code: 'nobita',     label: 'NoBit@',     tag: 'friends_tab_nobita' },
          {code: 'dictionary', label: 'Dictionary', tag: 'friends_tab_dictionary' },
      ]);
 
@@ -398,7 +402,68 @@ riot.tag2('friends_root', '<section-header title="NOBIT@: 友達"></section-head
      };
 });
 
+riot.tag2('friends_tab_4neo', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Variables:</h1> <div class="contents"> <variables-table targets="{targets.variables}" link-prefix="{location.hash}"></variables-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Classes:</h1> <div class="contents"> <classes-table targets="{targets.classes}" link-prefix="{location.hash}"></classes-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = {
+         operators: [
+             'find-4neo',
+             'get-4neo',
+             'tx-make-4neo',
+         ],
+         variables: [
+         ],
+         classes:   [
+             '4neo',
+         ],
+     };
+});
+
 riot.tag2('friends_tab_dictionary', '<dictionaries groups="{[\'friends\']}"></dictionaries>', '', '', function(opts) {
+});
+
+riot.tag2('friends_tab_friend', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Variables:</h1> <div class="contents"> <variables-table targets="{targets.variables}" link-prefix="{location.hash}"></variables-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Classes:</h1> <div class="contents"> <classes-table targets="{targets.classes}" link-prefix="{location.hash}"></classes-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = {
+         operators: [
+             'tx-save-location',
+         ],
+         variables: [
+         ],
+         classes:   [
+             'node',
+             'friend',
+         ],
+     };
+});
+
+riot.tag2('friends_tab_g-an', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Variables:</h1> <div class="contents"> <variables-table targets="{targets.variables}" link-prefix="{location.hash}"></variables-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Classes:</h1> <div class="contents"> <classes-table targets="{targets.classes}" link-prefix="{location.hash}"></classes-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = {
+         operators: [
+             'flash-across-ones-mind',
+             'start',
+             'find-g*an',
+             'get-g*an',
+             'tx-make-g*an',
+         ],
+         variables: [
+         ],
+         classes:   [
+             'g*an',
+         ],
+     };
+});
+
+riot.tag2('friends_tab_nobita', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Variables:</h1> <div class="contents"> <variables-table targets="{targets.variables}" link-prefix="{location.hash}"></variables-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Classes:</h1> <div class="contents"> <classes-table targets="{targets.classes}" link-prefix="{location.hash}"></classes-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = {
+         operators: [
+             'find-nobit@',
+             'get-nobit@',
+             'tx-make-nobit@',
+         ],
+         variables: [
+         ],
+         classes:   [
+             'nobit@',
+         ],
+     };
 });
 
 riot.tag2('friends_tab_readme', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> </div> </div> </section>', '', '', function(opts) {
