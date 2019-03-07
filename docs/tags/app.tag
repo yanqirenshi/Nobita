@@ -1,7 +1,7 @@
 <app>
     <menu-bar brand={{label:'N@'}} site={site()} moves={[]}></menu-bar>
 
-    <div ref="page-area"></div>
+    <div ref="page-area" style="margin-left:55px;"></div>
 
     <div class="smoke"></div>
 
@@ -33,32 +33,4 @@
      if (location.hash=='')
          location.hash='#home'
     </script>
-
-    <style>
-     app > .page {
-         width: 100vw;
-         height: 100vh;
-         display: block;
-     }
-     .hide { display: none; }
-     app > .smoke {
-         display: block;
-         position: fixed;
-         z-index: -1;
-         background:rgba(255,255,255,0.7);
-         width:100vw;
-         height:100vw;
-         left:0;
-         top:0;
-     }
-     app > .g_an {
-         display: block;
-         position: fixed;
-         right: 0px;
-         bottom: 0px;
-         z-index: -2;
-         width: 1110px;
-         height: 666px;
-     }
-    </style>
 </app>

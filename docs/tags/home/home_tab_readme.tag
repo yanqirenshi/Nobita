@@ -9,32 +9,10 @@
 
     <section class="section">
         <div class="container">
-            <h1 class="title">Installation</h1>
+            <h1 class="title">Description</h1>
             <h2 class="subtitle"></h2>
 
             <div class="contents">
-                <p><pre>
-(ql:quickload :nobit@.graph)
-(ql:quickload :nobit@)
-(ql:quickload :nobit@.api)
-(ql:quickload :nobit@-test)
-
-(nobit@.graph:start)</pre></p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <h1 class="title">Setting</h1>
-            <h2 class="subtitle"></h2>
-
-            <div class="contents">
-                <p><pre>
-;; DBの処理開始
-(nobit@.graph:start)
-;; 八つの心臓の鼓動開始
-(nobit@:start)</pre></p>
             </div>
         </div>
     </section>

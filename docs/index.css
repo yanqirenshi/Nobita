@@ -1,3 +1,7 @@
+app .section > .container {
+    width: 100%;
+}
+
 app .section > .container > .section {
     padding-top: 22px;
     padding-bottom: 11px;
@@ -13,4 +17,39 @@ app .section > .container > .contents {
 
 app .section > .container > .contents ol {
     margin-left: 33px;
+}
+
+app .tab-contents-area {
+    width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+app > .page {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+}
+
+app .hide { display: none; }
+
+app > .smoke {
+    display: block;
+    position: fixed;
+    z-index: -1;
+    background:rgba(255,255,255,0.7);
+    width:100vw;
+    height:100vw;
+    left:0;
+    top:0;
+}
+
+app > .g_an {
+    display: block;
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    z-index: -2;
+    width: 1110px;
+    height: 666px;
 }

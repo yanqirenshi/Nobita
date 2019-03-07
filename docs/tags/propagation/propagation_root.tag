@@ -4,7 +4,7 @@
 
     <page-tab-with-section core={page_tabs} callback={clickTab}></page-tab-with-section>
 
-    <div>
+    <div class="tab-contents-area">
         <propagation_tab_home             class="hide"></propagation_tab_home>
         <propagation_tab_from-friends     class="hide"></propagation_tab_from-friends>
         <propagation_tab_from-friendships class="hide"></propagation_tab_from-friendships>
