@@ -11,7 +11,11 @@
                     <h2 class="subtitle"></h2>
 
                     <div class="contents">
-                        <p><pre>(in-package :nobit@)</pre></p>
+                        <p><pre>(in-package :nobit@)
+;; DBの処理開始
+(nobit@.graph:start)
+;; 八つの心臓の鼓動開始
+(nobit@:start)</pre></p>
                     </div>
                 </div>
             </section>
@@ -67,8 +71,8 @@
 (defparameter *4neo-1*   (tx-make-4neo   *graph* :name "ス○夫(始)"))
 (defparameter *4neo-2*   (tx-make-4neo   *graph* :name "ス○夫(結)"))
 (defparameter *nobit@-1* (tx-make-nobit@ *graph* :name "ど"    :action #'nobi-action-1))
-(defparameter *nobit@-2* (tx-make-nobit@ *graph* :name "え"    :action #'nobi-action-2))
-(defparameter *nobit@-3* (tx-make-nobit@ *graph* :name "○"    :action #'nobi-action-3))
+(defparameter *nobit@-2* (tx-make-nobit@ *graph* :name "○"    :action #'nobi-action-2))
+(defparameter *nobit@-3* (tx-make-nobit@ *graph* :name "え"    :action #'nobi-action-3))
 (defparameter *nobit@-4* (tx-make-nobit@ *graph* :name "も〜ん" :action #'nobi-action-4))</pre></p>
                     </div>
                 </div>

@@ -3,7 +3,7 @@
 
     <page-tab-with-section core={page_tabs} callback={clickTab}></page-tab-with-section>
 
-    <div>
+    <div class="tab-contents-area">
         <hearts_tab_home       class="hide"></hearts_tab_home>
         <hearts_tab_heart      class="hide"></hearts_tab_heart>
         <hearts_tab_karma      class="hide"></hearts_tab_karma>

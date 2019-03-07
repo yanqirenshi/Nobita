@@ -4,7 +4,7 @@
 
     <page-tab-with-section core={page_tabs} callback={clickTab}></page-tab-with-section>
 
-    <div>
+    <div class="tab-contents-area">
         <friendships_tab_readme              class="hide"></friendships_tab_readme>
         <friendships_tab_idea                class="hide"></friendships_tab_idea>
         <friendships_tab_friendship          class="hide"></friendships_tab_friendship>
