@@ -54,7 +54,7 @@
 
             <div class="contents">
                 <p>以下の構成のPlist を返します。</p>
-                <function_make-karma_slots-table></function_make-karma_slots-table>
+                <idea-data-structure-table></idea-data-structure-table>
             </div>
         </div>
     </section>

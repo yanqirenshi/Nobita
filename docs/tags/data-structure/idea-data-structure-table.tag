@@ -1,4 +1,4 @@
-<function_make-karma_slots-table>
+<idea-data-structure-table>
     <table class="table is-bordered is-striped is-narrow is-hoverable">
         <thead>
             <th>Indicator</th>
@@ -22,4 +22,4 @@
          { indicator: 'friendship', description: 'なんやろう。。。これ。。。。'},
      ];
     </script>
-</function_make-karma_slots-table>
+</idea-data-structure-table>
