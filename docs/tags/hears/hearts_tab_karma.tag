@@ -23,7 +23,7 @@
                 <p>Pist です。</p>
                 <p><code>make-karma</code> で作成しています。</p>
 
-                <function_make-karma_slots-table></function_make-karma_slots-table>
+                <karma-data-structure-table></karma-data-structure-table>
             </div>
         </div>
     </section>
