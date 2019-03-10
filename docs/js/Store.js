@@ -107,6 +107,9 @@ class Store extends Vanilla_Redux_Store {
             classes: _CL_CLASSES,
             variables: _CL_VARIABLES,
             operators: _CL_OPERATORS,
+            data: {
+                structures: _CL_DATASTRUCTURES,
+            },
             site: this.initSite(),
         };
 

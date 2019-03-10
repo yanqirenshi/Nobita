@@ -14,12 +14,6 @@
     </table>
 
     <script>
-     this.datastruct = [
-         { indicator: 'sequence',   description: 'なんやろう。。。これ。。。。'},
-         { indicator: 'idea_id',    description: 'なんやろう。。。これ。。。。'},
-         { indicator: 'graph',      description: 'なんやろう。。。これ。。。。'},
-         { indicator: 'source',     description: 'なんやろう。。。これ。。。。'},
-         { indicator: 'friendship', description: 'なんやろう。。。これ。。。。'},
-     ];
+     this.datastruct = STORE.state().toJS().data.structures.idea;
     </script>
 </idea-data-structure-table>

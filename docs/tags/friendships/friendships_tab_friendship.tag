@@ -11,27 +11,9 @@
         </div>
     </section>
 
-    <section class="section">
-        <div class="container">
-            <h1 class="title is-4">Operators:</h1>
+    <operators-table-section targets={targets}></operators-table-section>
 
-            <div class="contents">
-                <operators-table targets={targets.operators}
-                                 link-prefix={location.hash}></operators-table>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <h1 class="title is-4">Classes:</h1>
-
-            <div class="contents">
-                <classes-table targets={targets.classes}
-                               link-prefix={location.hash}></classes-table>
-            </div>
-        </div>
-    </section>
+    <classes-table-section targets={targets}></classes-table-section>
 
     <script>
      this.targets = {

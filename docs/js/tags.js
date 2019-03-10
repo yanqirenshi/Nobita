@@ -234,6 +234,15 @@ riot.tag2('section-list', '<table class="table is-bordered is-striped is-narrow 
      };
 });
 
+riot.tag2('classes-table-section', '<section class="section"> <div class="container"> <h1 class="title is-4">Classes:</h1> <div class="contents"> <classes-table targets="{targets()}" link-prefix="{location.hash}"></classes-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = () => {
+         if (this.opts.targets && this.opts.targets.classes)
+             return this.opts.targets.classes;
+
+         return [];
+     };
+});
+
 riot.tag2('classes-table', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Package</th> <th>Name</th> <th>Parents</th> <th>File</th> <th>Description</th> </tr> </thead> <tbody> <tr each="{obj in classes()}"> <td>{obj.package}</td> <td><a href="{href(obj)}">{obj.name}</a></td> <td>{obj.parents}</td> <td>{obj.file}</td> <td>{obj.description}</td> </tr> </tbody> </table>', '', '', function(opts) {
      let ndoc = new NobitaDoc();
 
@@ -288,6 +297,15 @@ riot.tag2('operator-syntax', '<p style=""> <span>{name()}</span> <span class="ar
      };
 });
 
+riot.tag2('operators-table-section', '<section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets()}" link-prefix="{location.hash}"></operators-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = () => {
+         if (this.opts.targets && this.opts.targets.operators)
+             return this.opts.targets.operators;
+
+         return [];
+     }
+});
+
 riot.tag2('operators-table', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Export</th> <th>Package</th> <th>Type</th> <th>Name</th> <th>Description</th> </tr> </thead> <tbody> <tr each="{obj in operators()}"> <td>{export(obj)}</td> <td>{obj.package}</td> <td>{obj.type}</td> <td><a href="{href(obj)}">{obj.name}</a></td> <td>{obj.description}</td> </tr> </tbody> </table>', '', '', function(opts) {
      let ndoc = new NobitaDoc();
      this.export = (data) => {
@@ -337,6 +355,15 @@ riot.tag2('slots-list', '<table class="table is-bordered is-striped is-narrow is
      ];
 });
 
+riot.tag2('variables-table-section', '<section class="section"> <div class="container"> <h1 class="title is-4">Variables:</h1> <div class="contents"> <variables-table targets="{targets.variables}" link-prefix="{location.hash}"></variables-table> </div> </div> </section>', '', '', function(opts) {
+     this.targets = () => {
+         if (this.opts.targets && this.opts.targets.variables)
+             return this.opts.targets.variables;
+
+         return [];
+     };
+});
+
 riot.tag2('variables-table', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Package</th> <th>Type</th> <th>Name</th> <th>Description</th> </tr> </thead> <tbody> <tr each="{obj in variables()}"> <td>{obj.package}</td> <td>{obj.type}</td> <td><a href="{href(obj)}">{obj.name}</a></td> <td>{obj.description}</td> </tr> </tbody> </table>', '', '', function(opts) {
      let ndoc = new NobitaDoc();
 
@@ -364,23 +391,11 @@ riot.tag2('variables-table', '<table class="table is-bordered is-striped is-narr
 });
 
 riot.tag2('idea-data-structure-table', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <th>Indicator</th> <th>Description</th> </thead> <tbody> <tr each="{rec in datastruct}"> <td>{rec.indicator}</td> <td>{rec.description}</td> </tr> </tbody> </table>', '', '', function(opts) {
-     this.datastruct = [
-         { indicator: 'sequence',   description: 'なんやろう。。。これ。。。。'},
-         { indicator: 'idea_id',    description: 'なんやろう。。。これ。。。。'},
-         { indicator: 'graph',      description: 'なんやろう。。。これ。。。。'},
-         { indicator: 'source',     description: 'なんやろう。。。これ。。。。'},
-         { indicator: 'friendship', description: 'なんやろう。。。これ。。。。'},
-     ];
+     this.datastruct = STORE.state().toJS().data.structures.idea;
 });
 
 riot.tag2('karma-data-structure-table', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <th>Indicator</th> <th>Description</th> </thead> <tbody> <tr each="{rec in datastruct}"> <td>{rec.indicator}</td> <td>{rec.description}</td> </tr> </tbody> </table>', '', '', function(opts) {
-     this.datastruct = [
-         { indicator: 'sequence',   description: 'なんやろう。。。これ。。。。'},
-         { indicator: 'idea_id',    description: 'なんやろう。。。これ。。。。'},
-         { indicator: 'graph',      description: 'なんやろう。。。これ。。。。'},
-         { indicator: 'source',     description: 'なんやろう。。。これ。。。。'},
-         { indicator: 'friendship', description: 'なんやろう。。。これ。。。。'},
-     ];
+     this.datastruct = STORE.state().toJS().data.structures.karma;
 });
 
 riot.tag2('friends', '', '', '', function(opts) {
@@ -526,7 +541,7 @@ riot.tag2('friendships_root', '<section-header title="NOBIT@: 友情"></section-
 riot.tag2('friendships_tab_dictionary', '<dictionaries groups="{[\'friendships\']}"></dictionaries>', '', '', function(opts) {
 });
 
-riot.tag2('friendships_tab_friendship', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友達と友達の関係を維持するためのものです。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Classes:</h1> <div class="contents"> <classes-table targets="{targets.classes}" link-prefix="{location.hash}"></classes-table> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('friendships_tab_friendship', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友達と友達の関係を維持するためのものです。</p> </div> </div> </section> <operators-table-section targets="{targets}"></operators-table-section> <classes-table-section targets="{targets}"></classes-table-section>', '', '', function(opts) {
      this.targets = {
          operators: [
              'tx-make-frendship',
@@ -543,7 +558,10 @@ riot.tag2('friendships_tab_friendship', '<section class="section"> <div class="c
      };
 });
 
-riot.tag2('friendships_tab_idea', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情のネットワークを駆け巡るのはアイデアです。</p> <p>最初は小さなアイデアも、友情のネットワークを経ることで大きく、多きく、強く、格好良くなるものです。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">データ構造</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>こんな構造をしています。</p> <idea-data-structure-table></idea-data-structure-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Variables:</h1> <div class="contents"> <variables-table targets="{targets.variables}" link-prefix="{location.hash}"></variables-table> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('friendships_tab_idea-data-structure', '<section class="section"> <div class="container"> <h1 class="title is-4">データ構造</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>こんな構造をしています。</p> <idea-data-structure-table></idea-data-structure-table> </div> <section class="section"> <div class="container"> <h1 class="title is-5">:_id</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>アイデアのユニーク・キーです。</p> <p><code>*idea-id-counter*</code> で採番されます。</p> <p>現時点(2019-03-11)では idea は Plist です。<br>将来的にはクラスにするかもしれません。</p> <p>また、DBには保管されていない状況です。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-5">:contents</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>入力情報です。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-5">:results</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>出力情報です。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-5">:timestamp</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>処理時間です。</p> </div> </div> </section> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('friendships_tab_idea', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情のネットワークを駆け巡るのはアイデアです。</p> <p>最初は小さなアイデアも、友情のネットワークを経ることで大きく、多きく、強く、格好良くなるものです。</p> </div> <section class="section"> <div class="container"> <h1 class="title is-4">NoBit@ との受け/渡し</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>現在は idea をそのまま渡しています。</p> <p>そして、 NoBit@ は必ず idea を返す必要があります。</p> <p>このやり方は良くないと思っています。</p> <p>idea の _id と contents を NoBit@ に渡し、NoBit@ が返した値を Result に入れるべきと考えます。</p> </div> </div> </section> </div> </section> <friendships_tab_idea-data-structure></friendships_tab_idea-data-structure> <operators-table-section targets="{targets}"></operators-table-section> <variables-table-section targets="{targets}"></variables-table-section>', '', '', function(opts) {
      this.targets = {
          operators: ['make-idea'],
          variables: ['*idea-id-counter*'],
@@ -553,7 +571,7 @@ riot.tag2('friendships_tab_idea', '<section class="section"> <div class="contain
 riot.tag2('friendships_tab_readme', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情とは情報を伝達するための絆です。</p> <p>だれかの思い付き(アイデア)が友情を駆け巡り、何かを生みだすのです。</p> </div> </div> </section>', '', '', function(opts) {
 });
 
-riot.tag2('friendships_tab_relationship-roules', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情にも掟があります。</p> <p>網状のように見えても、部分で見ると階層のようにも見えるものなのです。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Operators:</h1> <div class="contents"> <operators-table targets="{targets.operators}" link-prefix="{location.hash}"></operators-table> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('friendships_tab_relationship-roules', '<section class="section"> <div class="container"> <h1 class="title is-4">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>友情にも掟があります。</p> <p>網状のように見えても、部分で見ると階層のようにも見えるものなのです。</p> </div> </div> </section> <operators-table-section targets="{targets}"></operators-table-section>', '', '', function(opts) {
      this.targets = {
          operators: [
              'assert-frendship-1-1',

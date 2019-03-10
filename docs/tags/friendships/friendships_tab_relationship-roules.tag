@@ -12,16 +12,7 @@
         </div>
     </section>
 
-    <section class="section">
-        <div class="container">
-            <h1 class="title is-4">Operators:</h1>
-
-            <div class="contents">
-                <operators-table targets={targets.operators}
-                                 link-prefix={location.hash}></operators-table>
-            </div>
-        </div>
-    </section>
+    <operators-table-section targets={targets}></operators-table-section>
 
     <script>
      this.targets = {
