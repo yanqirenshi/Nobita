@@ -9,42 +9,27 @@
                 <p>友情のネットワークを駆け巡るのはアイデアです。</p>
                 <p>最初は小さなアイデアも、友情のネットワークを経ることで大きく、多きく、強く、格好良くなるものです。</p>
             </div>
+
+            <section class="section">
+                <div class="container">
+                    <h1 class="title is-4">NoBit@ との受け/渡し</h1>
+                    <h2 class="subtitle"></h2>
+
+                    <div class="contents">
+                        <p>現在は idea をそのまま渡しています。</p>
+                        <p>そして、 NoBit@ は必ず idea を返す必要があります。</p>
+                        <p>このやり方は良くないと思っています。</p>
+                        <p>idea の _id と contents を NoBit@ に渡し、NoBit@ が返した値を Result に入れるべきと考えます。</p>
+                    </div>
+                </div>
+            </section>
         </div>
     </section>
 
-    <section class="section">
-        <div class="container">
-            <h1 class="title is-4">データ構造</h1>
-            <h2 class="subtitle"></h2>
+    <friendships_tab_idea-data-structure></friendships_tab_idea-data-structure>
 
-            <div class="contents">
-                <p>こんな構造をしています。</p>
-                <idea-data-structure-table></idea-data-structure-table>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <h1 class="title is-4">Operators:</h1>
-
-            <div class="contents">
-                <operators-table targets={targets.operators}
-                                 link-prefix={location.hash}></operators-table>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <h1 class="title is-4">Variables:</h1>
-
-            <div class="contents">
-                <variables-table targets={targets.variables}
-                                 link-prefix={location.hash}></variables-table>
-            </div>
-        </div>
-    </section>
+    <operators-table-section targets={targets}></operators-table-section>
+    <variables-table-section targets={targets}></variables-table-section>
 
     <script>
      this.targets = {
