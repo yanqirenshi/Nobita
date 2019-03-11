@@ -30,6 +30,8 @@ This file is a part of nobit@ project.
                                                  (:file "g_an")
                                                  (:file "4neo")
                                                  (:file "nobit@")))
+                 (:module "action" :components ((:file "action!")
+                                                (:file "nobit@")))
                  (:module "friendship" :components ((:file "finder")
                                                     (:file "maker")
                                                     (:file "printer")
