@@ -185,6 +185,14 @@ const _CL_OPERATORS = [
         export: true,
         package: 'nobit@',
         type: 'Generic Function',
+        name: 'action!',
+        description: '',
+        group: { hearts: false, propagation: false, friends: true, friendships: false }
+    },
+    {
+        export: true,
+        package: 'nobit@',
+        type: 'Generic Function',
         name: 'flash-across-ones-mind',
         description: '',
         group: { hearts: false, propagation: true, friends: true, friendships: false }
