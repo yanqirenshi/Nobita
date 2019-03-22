@@ -12,6 +12,7 @@ This file is a part of nobit@ project.
                #:queues
                #:queues.priority-cqueue
                #:jonathan
+               #:bordeaux-threads
                #:cl-syslog
                #:shinrabanshou
                #:rhythm)
