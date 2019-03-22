@@ -341,6 +341,16 @@ riot.tag2('operators-table', '<table class="table is-bordered is-striped is-narr
      };
 });
 
+riot.tag2('packages-table', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Name</th> <th>Nicknames</th> <th>File</th> <th>Description</th> </tr> </thead> <tbody> <tr each="{obj in packages()}"> <td>{obj.name}</td> <td> <span each="{nn in obj.nicknames}"> {nn} </span> </td> <td>{obj.file}</td> <td>{obj.description}</td> </tr> </tbody> </table>', '', '', function(opts) {
+     let ndoc = new NobitaDoc();
+
+     this.packages = () => {
+         let all = STORE.state().get('packages');
+
+         return all;
+     };
+});
+
 riot.tag2('page-tab-with-section', '<section class="section" style="padding:0px;"> <div class="container"> <page-tabs core="{opts.core}" callback="{opts.callback}"></page-tabs> </div> </section>', '', '', function(opts) {
 });
 
@@ -769,7 +779,7 @@ riot.tag2('home_tab_installation', '<section class="section"> <div class="contai
 riot.tag2('home_tab_operators', '<section class="section"> <div class="container"> <h1 class="title is-4">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <operators-table link-prefix="{location.hash}"></operators-table> </div> </div> </section>', '', '', function(opts) {
 });
 
-riot.tag2('home_tab_packages', '<section class="section"> <div class="container"> <h1 class="title is-4">List</h1> <h2 class="subtitle"></h2> <div class="contents"> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('home_tab_packages', '<section class="section"> <div class="container"> <h1 class="title is-4">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <packages-table></packages-table> </div> </div> </section>', '', '', function(opts) {
 });
 
 riot.tag2('home_tab_readme', '<section class="section"> <div class="container"> <h1 class="title">我的工作是你的工作・你的工作是你的工作</h1> <h2 class="subtitle">俺の仕事はおまえのもの。おまえの仕事はおまえのもの。</h2> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Description</h1> <h2 class="subtitle"></h2> <div class="contents"> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Dependencies</h1> <h2 class="subtitle"></h2> <div class="contents"> <ol> <li>alexandria</li> <li>cl-fad</li> <li>local-time</li> <li>queues / queues.simple-cqueue</li> <li>shinrabanshou / upanishad</li> <li>rhythm</li> </ol> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Author</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Satoshi Iwasaki (yanqirenshi@gmail.com)</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Copyright</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Copyright (c) 2014 Satoshi Iwasaki (yanqirenshi@gmail.com)</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">License</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>MIT</p> </div> </div> </section>', '', '', function(opts) {

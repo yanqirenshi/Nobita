@@ -6,6 +6,7 @@
             <h2 class="subtitle"></h2>
 
             <div class="contents">
+                <packages-table></packages-table>
             </div>
         </div>
     </section>

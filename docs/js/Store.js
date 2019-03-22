@@ -104,6 +104,7 @@ class Store extends Vanilla_Redux_Store {
     }
     init () {
         let data = {
+            packages: _CL_PACKAGES,
             classes: _CL_CLASSES,
             variables: _CL_VARIABLES,
             operators: _CL_OPERATORS,
