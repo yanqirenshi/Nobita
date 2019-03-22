@@ -1,0 +1,123 @@
+const _CL_PACKAGES = [
+    {
+        name: 'nobit@-test',
+        nicknames: [],
+        file: "./core/tests/package.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@-test.db',
+        nicknames: [],
+        file: "./core/tests/utilities/db.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@.utilities',
+        nicknames: ['nobi.utilities'],
+        file: "./core/src/utilities.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@',
+        nicknames: ['nobi'],
+        file: "./core/src/package.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@.hearts',
+        nicknames: ['nobi.hearts'],
+        file: "./core/src/libs/hearts.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@.karma',
+        nicknames: ['nobi.karma'],
+        file: "./core/src/libs/karma.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@.idea',
+        nicknames: ['nobi.idea'],
+        file: "./core/src/libs/idea.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@.graph-test',
+        nicknames: [],
+        file: "./graph/tests/nobit@.graph.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@.graph',
+        nicknames: [],
+        file: "./graph/src/package.lisp",
+        description: '',
+    },
+    {
+        name: 'nobita.api-test',
+        nicknames: [],
+        file: "./api/t/nobita.api.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@.api-asd',
+        nicknames: [],
+        file: "./api/nobit@.api.asd",
+        description: '',
+    },
+    {
+        name: 'nobit@.api-test-asd',
+        nicknames: [],
+        file: "./api/nobit@.api-test.asd",
+        description: '',
+    },
+    {
+        name: 'nobit@.api.controller',
+        nicknames: ['nobit.api.ctrl'],
+        file: "./api/src/controller/package.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@.api.app',
+        nicknames: [],
+        file: "./api/src/app.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@.api.render',
+        nicknames: [],
+        file: "./api/src/render.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@.api',
+        nicknames: [],
+        file: "./api/src/main.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@.api.config',
+        nicknames: [],
+        file: "./api/src/config.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@.api.router',
+        nicknames: [],
+        file: "./api/src/router/route.lisp",
+        description: '',
+    },
+    {
+        name: 'nobit@.api.api-v1',
+        nicknames: [],
+        file: "./api/src/router/api-v1.lisp",
+        description: '',
+    },
+    // template
+    // {
+    //    name: '',
+    //    nicknames: [],
+    //    file: "",
+    //    description: '',
+    // },
+];
