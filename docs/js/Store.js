@@ -5,12 +5,8 @@ class Store extends Vanilla_Redux_Store {
     initSiteHome () {
         return {
             code: "home",
-            title: 'Home',
-            menu_label: '家',
-            active_section: 'root',
-            home_section: 'root',
-            sections: [
-                { code: 'root',        tag: 'home_sec_root', title: 'Section: root', description: '' },
+            tag: 'home_sec_root',
+            children: [
                 { code: 'node',        tag: 'class_node' },
                 { code: 'g-an',        tag: 'class_g-an' },
                 { code: '4neo',        tag: 'class_4neo' },
@@ -20,44 +16,32 @@ class Store extends Vanilla_Redux_Store {
                 { code: 'karma-pool',  tag: 'class_karma-pool' },
                 { code: 'nobiheart',   tag: 'class_nobiheart' },
             ],
-            stye: {color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }}
+            menu_label: '家',
         };
     }
     initSiteHearts () {
         return {
             code: "hearts",
-            title: "Nobit@ Harts",
-            menu_label: '心臓',
-            active_section: 'root',
-            home_section: 'root',
-            sections: [
-                { code: 'root',       tag: 'hearts_root' },
+            tag: 'hearts_root',
+            children: [
                 { code: 'nobiheart',  tag: 'class_nobiheart' },
                 { code: 'karma-pool', tag: 'class_karma-pool' },
                 { code: 'make-karma', tag: 'function_make-karma' },
             ],
-            stye: {
-                color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
-            }
+            menu_label: '心臓',
         };
     }
     initSitePropagation () {
         return {
             code: "propagation",
-            title: "Nobit@ 伝播",
-            menu_label: '伝播',
-            active_section: 'root',
-            home_section: 'root',
-            sections: [
-                {code: 'root',                   tag: 'propagation_root' },
+            tag: 'propagation_root',
+            children: [
                 {code: 'idea',                   tag: 'class_ieda' },
                 {code: 'spreads',                tag: 'generic-function_spreads' },
                 {code: 'spread',                 tag: 'generic-function_spread' },
                 {code: 'flash-across-ones-mind', tag: 'generic-function_flash-across-ones-mind' },
             ],
-            stye: {
-                color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
-            }
+            menu_label: '伝播',
         };
     }
     initSite () {
@@ -68,34 +52,22 @@ class Store extends Vanilla_Redux_Store {
                 this.initSiteHome(),
                 {
                     code: "friends",
-                    title: "Classes",
-                    menu_label: '友達',
-                    active_section: 'root',
-                    home_section: 'root',
-                    sections: [
-                        { code: 'root',   tag: 'friends_root',  title: 'Home', description: '' },
+                    tag: 'friends_root',
+                    children: [
                         { code: 'g-an',   tag: 'class_g-an',    title: 'Class: G×an',   description: '' },
                         { code: '4neo',   tag: 'class_4neo',    title: 'Class: 4Neo',   description: '' },
                         { code: 'nobita', tag: 'class_nobita',  title: 'Class: Nobit@', description: '' }
                     ],
-                    stye: {
-                        color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
-                    }
+                    menu_label: '友達',
                 },
                 {
                     code: "friendships",
-                    title: "友情",
-                    menu_label: '友情',
-                    active_section: 'root',
-                    home_section: 'root',
-                    sections: [
-                        { code: 'root',        tag: 'friendships_root',  title: 'Home',        description: '' },
+                    tag: 'friendships_root',
+                    children: [
                         { code: 'friendships', tag: 'class_friendships', title: 'Friendships', description: '' },
                         { code: 'idea',        tag: 'class_idea',        title: 'Iidea',       description: '' }
                     ],
-                    stye: {
-                        color: { 1: '#fdeff2', 2: '#e0e0e0', 3: '#e198b4', 4: '#ffffff', 5: '#eeeeee', 5: '#333333' }
-                    }
+                    menu_label: '友情',
                 },
                 this.initSiteHearts(),
                 this.initSitePropagation(),

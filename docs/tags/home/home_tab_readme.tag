@@ -2,17 +2,21 @@
 
     <section class="section">
         <div class="container">
-            <h1 class="title">我的工作是你的工作・你的工作是你的工作</h1>
-            <h2 class="subtitle">俺の仕事はおまえのもの。おまえの仕事はおまえのもの。</h2>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
             <h1 class="title">Description</h1>
             <h2 class="subtitle"></h2>
 
             <div class="contents">
+                <h1 class="title">
+                    <ruby>
+                        <rb>我的工作是你的工作</rb>
+                        <rt>俺の仕事はおまえのもの</rt>
+                    </ruby>
+                    ・
+                    <ruby>
+                        <rb>你的工作是你的工作</rb>
+                        <rt>おまえの仕事はおまえのもの</rt>
+                    </ruby>
+                </h1>
                 <p>現在のバージョンは 0.0.4 です。</p>
             </div>
         </div>

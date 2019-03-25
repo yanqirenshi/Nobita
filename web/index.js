@@ -33,12 +33,25 @@ var Metronome = new Vanilla_metronome({
     }
 });
 
-/* ****** */
+/* ******** */
 /*  Router  */
-/* ****** */
-var ROUTER = new Router(STORE, ACTIONS);
+/* ******** */
+var ROUTER = new VanillaRouterRiot(
+    STORE.get('site.pages'),
+    {
+        callbacks: {
+            changed: (route) => {
+                ACTIONS.movePage({
+                    route: route,
+                });
+            },
+        }
+    });
 ROUTER.start();
 
+/* ************** */
+/*  First Fertch  */
+/* ************** */
 ACTIONS.fetchNodes();
 STORE.subscribe((action) => {
     if (action.type=='FETCHED-NODES')

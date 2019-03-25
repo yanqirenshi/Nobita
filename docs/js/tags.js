@@ -1,24 +1,32 @@
-riot.tag2('app', '<menu-bar brand="{{label:\'N@\'}}" site="{site()}" moves="{[]}"></menu-bar> <div ref="page-area" style="margin-left:55px;"></div> <div class="smoke"></div> <img class="g_an" src="https://github.com/yanqirenshi/nobita/raw/master/web/assets/image/gian.png?raw=true" style=""> <github-link fill="#BDB04F" color="#fff" href="https://github.com/yanqirenshi/nobita"></github-link>', '', '', function(opts) {
+riot.tag2('app-page-area', '', '', '', function(opts) {
+     this.on('update', (action) => {
+         if (this.opts.route)
+             ROUTER.draw(this, STORE.get('site.pages'), this.opts.route);
+     });
+});
+
+riot.tag2('app', '<menu-bar brand="{{label:\'N@\'}}" site="{site()}" moves="{[]}"></menu-bar> <app-page-area></app-page-area> <div class="smoke"></div> <img class="g_an" src="https://github.com/yanqirenshi/nobita/raw/master/web/assets/image/gian.png?raw=true" style=""> <github-link fill="#BDB04F" color="#fff" href="https://github.com/yanqirenshi/nobita"></github-link>', '', '', function(opts) {
      this.site = () => {
          return STORE.state().get('site');
      };
+     this.updateMenuBar = () => {
+         if (this.tags['menu-bar'])
+             this.tags['menu-bar'].update();
+     }
 
      STORE.subscribe((action)=>{
-         if (action.type!='MOVE-PAGE')
-             return;
-
-         let tags= this.tags;
-
-         tags['menu-bar'].update();
-         ROUTER.switchPage(this, this.refs['page-area'], this.site());
-     })
+         if (action.type=='MOVE-PAGE') {
+             this.updateMenuBar();
+             this.tags['app-page-area'].update({ opts: { route: action.route }});
+         }
+     });
 
      window.addEventListener('resize', (event) => {
          this.update();
      });
 
      if (location.hash=='')
-         location.hash='#home'
+         location.hash=STORE.get('site.active_page');
 });
 
 riot.tag2('class_4neo', '<section-header-with-breadcrumb title="Class: 4NEO"></section-header-with-breadcrumb> <section-container title="Description"> <section-contents> </section-contents> </section-container> <section-container title="Slots"> </section-container> <section-container title="Operators"> <section-container title="Function: find-4neo" no="4"> </section-container> <section-container title="Function: tx-make-4neo" no="4"> </section-container> <section-container title="Generic function: print-object" no="4"> </section-container> <section-container title="Generic function: jojo:%to-json" no="4"> </section-container> </section-container>', '', '', function(opts) {
@@ -782,7 +790,7 @@ riot.tag2('home_tab_operators', '<section class="section"> <div class="container
 riot.tag2('home_tab_packages', '<section class="section"> <div class="container"> <h1 class="title is-4">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <packages-table></packages-table> </div> </div> </section>', '', '', function(opts) {
 });
 
-riot.tag2('home_tab_readme', '<section class="section"> <div class="container"> <h1 class="title">我的工作是你的工作・你的工作是你的工作</h1> <h2 class="subtitle">俺の仕事はおまえのもの。おまえの仕事はおまえのもの。</h2> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Description</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>現在のバージョンは 0.0.4 です。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Dependencies</h1> <h2 class="subtitle"></h2> <div class="contents"> <ol> <li>alexandria</li> <li>cl-fad</li> <li>local-time</li> <li>queues / queues.simple-cqueue</li> <li>shinrabanshou / upanishad</li> <li>rhythm</li> </ol> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Author</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Satoshi Iwasaki (yanqirenshi@gmail.com)</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Copyright</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Copyright (c) 2014 Satoshi Iwasaki (yanqirenshi@gmail.com)</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">License</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>MIT</p> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('home_tab_readme', '<section class="section"> <div class="container"> <h1 class="title">Description</h1> <h2 class="subtitle"></h2> <div class="contents"> <h1 class="title"> <ruby> <rb>我的工作是你的工作</rb> <rt>俺の仕事はおまえのもの</rt> </ruby> ・ <ruby> <rb>你的工作是你的工作</rb> <rt>おまえの仕事はおまえのもの</rt> </ruby> </h1> <p>現在のバージョンは 0.0.4 です。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Dependencies</h1> <h2 class="subtitle"></h2> <div class="contents"> <ol> <li>alexandria</li> <li>cl-fad</li> <li>local-time</li> <li>queues / queues.simple-cqueue</li> <li>shinrabanshou / upanishad</li> <li>rhythm</li> </ol> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Author</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Satoshi Iwasaki (yanqirenshi@gmail.com)</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Copyright</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Copyright (c) 2014 Satoshi Iwasaki (yanqirenshi@gmail.com)</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">License</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>MIT</p> </div> </div> </section>', '', '', function(opts) {
 });
 
 riot.tag2('home_tab_usage', '<section class="section"> <div class="container"> <h1 class="title is-4">例： <code>(1 + 2) / (3 * 4) = 1/4</code> をやってみます。</h1> <h2 class="subtitle"></h2> <section class="section"> <div class="container"> <h1 class="title is-4">(0) 準備</h1> <h2 class="subtitle"></h2> <div class="contents"> <p><pre>(in-package :nobit@)\n;; DBの処理開始\n(nobit@.graph:start)\n;; 八つの心臓の鼓動開始\n(nobit@:start)</pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">(1) Nobit@ の Action を定義</h1> <h2 class="subtitle"></h2> <div class="contents"> <p><pre>\n(defun nobi-action-1 (&key graph idea source nobit@)\n  (declare (ignore graph source nobit@))\n  (setf (getf idea :contents)\n        (list :nobit@1 (list 1 3)\n              :nobit@2 nil\n              :nobit@3 nil))\n  idea)\n\n(defun nobi-action-2 (&key graph idea source nobit@)\n  (declare (ignore graph source nobit@))\n  (let ((contents (getf idea :contents)))\n    (setf (getf contents :nobit@2)\n          (+ 2 (first (getf contents :nobit@1)))))\n  idea)\n\n(defun nobi-action-3 (&key graph idea source nobit@)\n  (declare (ignore graph source nobit@))\n  (let ((contents (getf idea :contents)))\n    (setf (getf contents :nobit@3)\n          (* 4 (second (getf contents :nobit@1)))))\n  idea)\n\n(defun nobi-action-4 (&key graph idea source nobit@)\n  (declare (ignore graph source nobit@))\n  (let ((contents (getf idea :contents)))\n    (setf (getf idea :results)\n          (/ (getf contents :nobit@2)\n             (getf contents :nobit@3))))\n  idea)</pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">(2) 友達を定義する</h1> <h2 class="subtitle"></h2> <div class="contents"> <p><pre>\n(defparameter *g*an*     (tx-make-g*an   *graph* :name "ジャ○アン"))\n(defparameter *4neo-1*   (tx-make-4neo   *graph* :name "ス○夫(始)"))\n(defparameter *4neo-2*   (tx-make-4neo   *graph* :name "ス○夫(結)"))\n(defparameter *nobit@-1* (tx-make-nobit@ *graph* :name "ど"    :action #\'nobi-action-1))\n(defparameter *nobit@-2* (tx-make-nobit@ *graph* :name "○"    :action #\'nobi-action-2))\n(defparameter *nobit@-3* (tx-make-nobit@ *graph* :name "え"    :action #\'nobi-action-3))\n(defparameter *nobit@-4* (tx-make-nobit@ *graph* :name "も〜ん" :action #\'nobi-action-4))</pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">(3) 友情を定義する</h1> <h2 class="subtitle"></h2> <div class="contents"> <p><pre>\n(tx-make-frendship *graph* *g*an*     *4neo-1*   :aon)\n(tx-make-frendship *graph* *4neo-1*   *nobit@-1* :aon)\n(tx-make-frendship *graph* *nobit@-1* *nobit@-2* :aon)\n(tx-make-frendship *graph* *nobit@-1* *nobit@-3* :aon)\n(tx-make-frendship *graph* *nobit@-2* *nobit@-4* :aon)\n(tx-make-frendship *graph* *nobit@-3* *nobit@-4* :aon)\n(tx-make-frendship *graph* *nobit@-4* *4neo-2*   :aon)\n(tx-make-frendship *graph* *4neo-2*   *g*an*     :aon)</pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">(4) 処理の実行</h1> <h2 class="subtitle"></h2> <div class="contents"> <p><pre>\n;; G*an が急に思いつく\n(flash-across-ones-mind *graph* *g*an*)</pre></p> </div> </div> </section> </div> </section>', '', '', function(opts) {
