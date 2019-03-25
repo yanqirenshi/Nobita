@@ -51,15 +51,15 @@
 
 
 (defun spread-action (graph _id source nobit@ frendships_before)
-  (let ((next_idea (pop-idea-from-frendships _id frendships_before)))
-    (remove-karmas _id source frendships_before)
-    (let ((new_idea (action! graph nobit@ next_idea source)))
-      (spreads graph
-               new_idea
-               nobit@
-               (find-frendship graph
-                               :from nobit@
-                               :to-classes '(4neo nobit@))))))
+  (remove-karmas _id source frendships_before)
+  (let* ((next_idea (pop-idea-from-frendships _id frendships_before))
+         (new_idea (action! graph nobit@ next_idea source)))
+    (spreads graph
+             new_idea
+             nobit@
+             (find-frendship graph
+                             :from nobit@
+                             :to-classes '(4neo nobit@)))))
 
 
 (defmethod spread ((graph shinra:banshou) (idea list) source (nobit@ nobit@))
