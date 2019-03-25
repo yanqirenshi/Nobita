@@ -13,6 +13,7 @@
             <h2 class="subtitle"></h2>
 
             <div class="contents">
+                <p>現在のバージョンは 0.0.4 です。</p>
             </div>
         </div>
     </section>
