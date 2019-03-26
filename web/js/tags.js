@@ -250,7 +250,31 @@ riot.tag2('hearts', '<section class="hero"> <div class="hero-body"> <div class="
      });
 });
 
-riot.tag2('school-district_basic', '<h1 class="title is-4">Basic</h1> <div> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Class</th> <td>{cls()}</td> </tr> <tr> <th>Name</th> <td>{name()}</td> </tr> </thead> </table> </div>', 'school-district_basic { display: block; margin-bottom: 22px; } school-district_basic > h1.title { margin-bottom: 11px; } school-district_basic > div { padding-left: 22px; }', '', function(opts) {
+riot.tag2('school-district_basic', '<h1 class="title is-4">Basic</h1> <div> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Name</th> <td>{name()}</td> </tr> <tr> <th>id</th> <td>{id()}</td> </tr> <tr> <th>Class</th> <td>{cls()}</td> </tr> </thead> </table> <div> <button class="button" onclick="{clickMoveView}">照会</button> </div> </div>', 'school-district_basic { display: block; margin-bottom: 22px; } school-district_basic > h1.title { margin-bottom: 11px; } school-district_basic > div { padding-left: 22px; }', '', function(opts) {
+     this.clickMoveView = () => {
+         let path = this.path() + '/' + this.opts.source._id;
+
+         ACTIONS.moveSchoolDistrictFriendView(path);
+     };
+     this.path = () => {
+         if (!this.opts.source)
+             return null;
+
+         let cls = this.opts.source._class;
+
+         let node = ''
+         if (cls=='G*AN')
+             node = 'g_ans'
+         if (cls=='4NEO')
+             node = '4neos';
+         if (cls=='NOBIT@')
+             node = 'nobitas'
+
+         return '#school-district/' + node;
+     };
+     this.id = () => {
+         return this.opts.source ? this.opts.source._id : '';
+     };
      this.cls = () => {
          return this.opts.source ? this.opts.source._class : '';
      };
@@ -417,12 +441,13 @@ riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
 riot.tag2('school-district', '<network-graph callback="{callbackGraph}"></network-graph> <school-district_inspector source="{inspectorSource()}"></school-district_inspector>', '', '', function(opts) {
      this.inspectorSource = () => {
          let state = STORE.state().get('school');
+
          return state.district.select.node;
      };
 
      STORE.subscribe((action) => {
          if (action.type=='SELECTED-SCHOOL-DISTRICT-GRAPH-NODE')
-             this.tags['school-district_inspector'].update();;
+             this.tags['school-district_inspector'].update();
 
          if (action.type=='CLEARED-SELECT-SCHOOL-DISTRICT')
              this.tags['school-district_inspector'].update();

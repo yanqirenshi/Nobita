@@ -10,7 +10,19 @@ class Store extends Vanilla_Redux_Store {
                 {
                     code: "school-district",
                     tag: 'school-district',
-                    children: [],
+                    children: [
+                        {
+                            code: "nobitas",
+                            children: [
+                                {
+                                    code: "id",
+                                    regex: /^\d+$/,
+                                    tag: 'nobita',
+                                    children: [],
+                                },
+                            ],
+                        }
+                    ],
                     menu_label: '校区',
                 },
                 {

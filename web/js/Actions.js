@@ -107,4 +107,9 @@ class Actions extends Vanilla_Redux_Actions {
             data: {},
         };
     }
+    moveSchoolDistrictFriendView (path) {
+        this.clearSelectSchoolDistrict();
+
+        location.hash = path;
+    };
 }
