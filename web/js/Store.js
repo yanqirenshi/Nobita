@@ -10,25 +10,37 @@ class Store extends Vanilla_Redux_Store {
                 {
                     code: "school-district",
                     tag: 'school-district',
-                    sections: [],
+                    children: [],
                     menu_label: '校区',
                 },
                 {
                     code: "friends",
                     tag: 'friends',
-                    sections: [],
+                    children: [
+                        {
+                            code: "nobitas",
+                            children: [
+                                {
+                                    code: "id",
+                                    regex: /^\d+$/,
+                                    tag: 'nobita',
+                                    children: [],
+                                },
+                            ],
+                        }
+                    ],
                     menu_label: '友達',
                 },
                 {
                     code: "friendship",
                     tag: 'friendship',
-                    sections: [],
+                    children: [],
                     menu_label: '友情',
                 },
                 {
                     code: "hearts",
                     tag: 'hearts',
-                    sections: [],
+                    children: [],
                     menu_label: '心臓',
                 }
             ]
