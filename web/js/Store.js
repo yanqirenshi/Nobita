@@ -9,25 +9,25 @@ class Store extends Vanilla_Redux_Store {
             pages: [
                 {
                     code: "school-district",
-                    tag: 'school-district_sec_root',
+                    tag: 'school-district',
                     sections: [],
                     menu_label: '校区',
                 },
                 {
                     code: "friends",
-                    tag: 'friends_sec_root',
+                    tag: 'friends',
                     sections: [],
                     menu_label: '友達',
                 },
                 {
                     code: "friendship",
-                    tag: 'friendship_sec_root',
+                    tag: 'friendship',
                     sections: [],
                     menu_label: '友情',
                 },
                 {
                     code: "hearts",
-                    tag: 'hearts_sec_root',
+                    tag: 'hearts',
                     sections: [],
                     menu_label: '心臓',
                 }
