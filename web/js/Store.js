@@ -53,6 +53,7 @@ class Store extends Vanilla_Redux_Store {
     initData () {
         return {
             nodes: { ht: {}, list: [] },
+            edges: { ht: {}, list: [] },
             school: {
                 district: {
                     select: {
