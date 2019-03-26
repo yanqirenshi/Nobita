@@ -56,6 +56,7 @@ ACTIONS.fetchNodes();
 STORE.subscribe((action) => {
     if (action.type=='FETCHED-NODES')
         ACTIONS.fetchEdges();
+
     if (action.type=='FETCHED-EDGES')
         riot.mount('app');
 });

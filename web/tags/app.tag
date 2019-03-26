@@ -21,6 +21,7 @@
      STORE.subscribe((action)=>{
          if (action.type=='MOVE-PAGE') {
              this.updateMenuBar();
+
              this.tags['app-page-area'].update({ opts: { route: action.route }});
          }
      });
@@ -31,6 +32,11 @@
 
      if (location.hash=='')
          location.hash=STORE.get('site.active_page');
+
+     this.on('mount', () => {
+         dump('1-');
+         ACTIONS.movePage({ route: [STORE.get('site.active_page')] });
+     });
     </script>
 
     <style>
