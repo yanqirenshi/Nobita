@@ -40,7 +40,12 @@ var ROUTER = new VanillaRouterRiot(
     STORE.get('site.pages'),
     {
         callbacks: {
-            changed: (route) => {
+            changed: (route_id) => {
+                let route = route_id;
+
+                if (route[0]=='')
+                    route = [STORE.get('site.home_page')];
+
                 ACTIONS.movePage({
                     route: route,
                 });

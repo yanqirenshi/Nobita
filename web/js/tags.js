@@ -32,11 +32,7 @@ riot.tag2('app', '<github-link fill="#BDB04F" color="#fff" href="https://gitlab.
          this.update();
      });
 
-     if (location.hash=='')
-         location.hash=STORE.get('site.active_page');
-
      this.on('mount', () => {
-         dump('1-');
          ACTIONS.movePage({ route: [STORE.get('site.active_page')] });
      });
 });

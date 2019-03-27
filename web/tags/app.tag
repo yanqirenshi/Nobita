@@ -30,11 +30,7 @@
          this.update();
      });
 
-     if (location.hash=='')
-         location.hash=STORE.get('site.active_page');
-
      this.on('mount', () => {
-         dump('1-');
          ACTIONS.movePage({ route: [STORE.get('site.active_page')] });
      });
     </script>
