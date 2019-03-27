@@ -24,9 +24,9 @@
          let nobita = new Nobita();
 
          nobita.switchSchoolDistrictInspectorContents ({
+             coller: this,
              data: this.opts.source,
              root: this.refs.contents,
-             place: 'school-district_inspector div[ref=contents]',
              tagData: this.tagData,
          });
      });
@@ -60,4 +60,5 @@
          display: none;
      }
     </style>
+
 </school-district_inspector>

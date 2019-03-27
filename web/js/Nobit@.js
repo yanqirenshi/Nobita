@@ -147,11 +147,19 @@ class Nobita {
     }
     /////
     ///// School District Inspector
+    ///// きったねぇ処理だなぁ。
     /////
     switchSchoolDistrictInspectorContents (params) {
+        let coller = params.coller;
+
         let removeAllContents = (root) => {
-            for (let child of root.children)
-                root.removeChild(child);
+            for (let k in params.tagData) {
+                let tag_name = params.tagData[k];
+                if (!coller.tags[tag_name])
+                    continue;
+
+                delete coller.tags[tag_name];
+            }
         };
         let getTagName = (data) => {
             if (!data)
@@ -159,15 +167,24 @@ class Nobita {
 
             return params.tagData[data._class];
         };
+
         let mountDataTAg = (root, data) => {
             let tagName = getTagName(data);
-            let place   = params.place;
             let opts    = { source: data };
 
-            riot.mount(place, tagName, opts);
+            var inspector_contents = document.createElement(tagName);
+            root.appendChild(inspector_contents);
+
+            let tags = riot.mount(inspector_contents, tagName, opts);
+
+            for (let tag of tags)
+                coller.tags[tagName] = tag;
         };
 
         removeAllContents(params.root);
+
+        if (!params.data)
+            return;
 
         mountDataTAg(params.root, params.data);
     }

@@ -12,10 +12,12 @@
 
      STORE.subscribe((action) => {
          if (action.type=='SELECTED-SCHOOL-DISTRICT-GRAPH-NODE')
-             this.tags['school-district_inspector'].update();
+             if (this.tags['school-district_inspector'])
+                 this.tags['school-district_inspector'].update();
 
          if (action.type=='CLEARED-SELECT-SCHOOL-DISTRICT')
-             this.tags['school-district_inspector'].update();
+             if (this.tags['school-district_inspector'])
+                 this.tags['school-district_inspector'].update();
      });
     </script>
 </school-district>

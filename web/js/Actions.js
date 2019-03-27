@@ -83,7 +83,12 @@ class Actions extends Vanilla_Redux_Actions {
     selectSchoolDistrictGraphNode (node_data) {
         let new_state = STORE.state().get('school');
 
-        new_state.district.select.node = node_data;
+        let node_now = new_state.district.select.node;
+
+        if (node_now && node_now == node_data)
+            new_state.district.select.node = null;
+        else
+            new_state.district.select.node = node_data;
 
         STORE.dispatch({
             type: 'SELECTED-SCHOOL-DISTRICT-GRAPH-NODE',

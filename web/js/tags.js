@@ -148,35 +148,65 @@ riot.tag2('menu-bar', '<aside class="menu"> <p ref="brand" class="menu-label" ri
      };
 });
 
-riot.tag2('section-breadcrumb', '<section-container data="{path()}"> <nav class="breadcrumb" aria-label="breadcrumbs"> <ul> <li each="{opts.data}"> <a class="{active ? \'is-active\' : \'\'}" href="{href}" aria-current="page">{label}</a> </li> </ul> </nav> </section-container>', 'section-breadcrumb section-container > .section,[data-is="section-breadcrumb"] section-container > .section{ padding-top: 3px; }', '', function(opts) {
+riot.tag2('section-breadcrumb', '<nav class="breadcrumb" aria-label="breadcrumbs"> <ul> <li each="{path()}" class="{active ? \'is-active\' : \'\'}"> <a href="{href}" aria-current="page">{label}</a> </li> </ul> </nav>', 'section-breadcrumb section-container > .section,[data-is="section-breadcrumb"] section-container > .section{ padding-top: 3px; }', '', function(opts) {
+     this.label = (node, is_last, node_name) => {
+         if (node.menu_label)
+             return node.menu_label;
+
+         return is_last ? node_name : node.code;
+     };
+     this.active = (node, is_last) => {
+         if (is_last)
+             return true;
+
+         if (!node.tag)
+             return true;
+
+         return false;
+     };
+     this.makeData = (routes, href, path) => {
+         if (!path || path.length==0)
+             return null;
+
+         let node_name = path[0];
+         let node = routes.find((d) => {
+             if (d.regex) {
+                 return d.regex.exec(node_name);
+             } else {
+                 return d.code == node_name;
+             }
+         });
+
+         if (!node) {
+             console.warn(routes);
+             console.warn(path);
+             throw new Error ('なんじゃこりゃぁ!!')
+         }
+
+         let new_href = href + '/' + node.code;
+         let is_last = path.length == 1;
+
+         let crumb = [{
+             label: this.label(node, is_last, node_name),
+             href: new_href,
+             active: this.active(node, is_last),
+         }]
+
+         if (is_last==1)
+             return crumb;
+
+         return crumb.concat(this.makeData(node.children, new_href, path.slice(1)))
+     };
      this.path = () => {
          let hash = location.hash;
          let path = hash.split('/');
 
+         let routes = STORE.get('site.pages');
+
          if (path[0] && path[0].substr(0,1)=='#')
              path[0] = path[0].substr(1);
 
-         let out = [];
-         let len = path.length;
-         let href = null;
-         for (var i in path) {
-             href = href ? href + '/' + path[i] : '#' + path[i];
-
-             if (i==len-1)
-                 out.push({
-                     label: path[i],
-                     href: hash,
-                     active: true
-                 });
-
-             else
-                 out.push({
-                     label: path[i],
-                     href: href,
-                     active: false
-                 });
-         }
-         return out;
+         return this.makeData(routes, '#', path);
      }
 });
 
@@ -189,10 +219,10 @@ riot.tag2('section-contents', '<section class="section"> <div class="container">
 riot.tag2('section-footer', '<footer class="footer"> <div class="container"> <div class="content has-text-centered"> <p> </p> </div> </div> </footer>', 'section-footer > .footer { padding-top: 13px; padding-bottom: 13px; height: 66px; background: #fef4f4; opacity: 0.7; }', '', function(opts) {
 });
 
-riot.tag2('section-header-with-breadcrumb', '<section-header title="{opts.title}"></section-header> <section-breadcrumb></section-breadcrumb>', 'section-header-with-breadcrumb section-header > .section,[data-is="section-header-with-breadcrumb"] section-header > .section{ margin-bottom: 3px; }', '', function(opts) {
+riot.tag2('section-header-with-breadcrumb', '<section class="section"> <div class="container"> <h1 class="title is-{opts.no ? opts.no : 3}"> {opts.title} </h1> <h2 class="subtitle"> <section-breadcrumb></section-breadcrumb> </h2> <yield></yield> </div> </section>', 'section-header-with-breadcrumb > .section { padding-top: 13px; padding-bottom: 13px; background: #F8F7ED; margin-bottom: 3px; }', '', function(opts) {
 });
 
-riot.tag2('section-header', '<section class="section"> <div class="container"> <h1 class="title is-{opts.no ? opts.no : 3}"> {opts.title} </h1> <h2 class="subtitle">{opts.subtitle}</h2> <yield></yield> </div> </section>', 'section-header > .section { padding-top: 13px; padding-bottom: 13px; height: 66px; background: #fef4f4; margin-bottom: 33px; }', '', function(opts) {
+riot.tag2('section-header', '<section class="section"> <div class="container"> <h1 class="title is-{opts.no ? opts.no : 3}"> {opts.title} </h1> <h2 class="subtitle">{opts.subtitle}</h2> <yield></yield> </div> </section>', 'section-header > .section { padding-top: 13px; padding-bottom: 13px; height: 66px; background: #F8F7ED; margin-bottom: 33px; }', '', function(opts) {
 });
 
 riot.tag2('section-list', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>機能</th> <th>概要</th> </tr> </thead> <tbody> <tr each="{data()}"> <td><a href="{hash}">{title}</a></td> <td>{description}</td> </tr> </tbody> </table>', '', '', function(opts) {
@@ -223,7 +253,7 @@ riot.tag2('friends', '<section class="hero"> <div class="hero-body"> <div class=
      });
 });
 
-riot.tag2('nobita', '<section class="section"> <div class="container"> <h1 class="title">Nobit@</h1> <h2 class="subtitle"> </h2> </div> </section>', '', '', function(opts) {
+riot.tag2('nobita', '<section-header-with-breadcrumb title="Nobit@"></section-header-with-breadcrumb>', '', '', function(opts) {
 });
 
 riot.tag2('friendship', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">友情</h1> <h2 class="subtitle">けっして切れない鎖</h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">id</th> <th rowspan="2">distance</th> <th rowspan="2">index</th> <th colspan="2">Source</th> <th colspan="2">target</th> </tr> <tr> <th>id</th> <th>name</th> <th>id</th> <th>name</th> </tr> </thead> <tbody> <tr each="{obj in sources()}"> <td>{obj._id}</td> <td>{obj.distance}</td> <td>{obj.index}</td> <td>{obj.source._id}</td> <td>{obj.source.name}</td> <td>{obj.target._id}</td> <td>{obj.target.name}</td> </tr> </tbody> </table> </div> </div> </section>', '', '', function(opts) {
@@ -289,9 +319,9 @@ riot.tag2('school-district_inspector', '<section class="section" style="padding-
          let nobita = new Nobita();
 
          nobita.switchSchoolDistrictInspectorContents ({
+             coller: this,
              data: this.opts.source,
              root: this.refs.contents,
-             place: 'school-district_inspector div[ref=contents]',
              tagData: this.tagData,
          });
      });
@@ -443,10 +473,12 @@ riot.tag2('school-district', '<network-graph callback="{callbackGraph}"></networ
 
      STORE.subscribe((action) => {
          if (action.type=='SELECTED-SCHOOL-DISTRICT-GRAPH-NODE')
-             this.tags['school-district_inspector'].update();
+             if (this.tags['school-district_inspector'])
+                 this.tags['school-district_inspector'].update();
 
          if (action.type=='CLEARED-SELECT-SCHOOL-DISTRICT')
-             this.tags['school-district_inspector'].update();
+             if (this.tags['school-district_inspector'])
+                 this.tags['school-district_inspector'].update();
      });
 });
 

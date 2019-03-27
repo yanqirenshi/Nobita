@@ -40,11 +40,12 @@ var ROUTER = new VanillaRouterRiot(
     STORE.get('site.pages'),
     {
         callbacks: {
-            changed: (route_id) => {
-                let route = route_id;
+            changed: (route) => {
 
-                if (route[0]=='')
-                    route = [STORE.get('site.home_page')];
+                if (route[0]=='') {
+                    location.hash = [STORE.get('site.home_page')];
+                    return;
+                }
 
                 ACTIONS.movePage({
                     route: route,
