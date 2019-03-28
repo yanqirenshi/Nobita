@@ -15,7 +15,9 @@
     </section-container>
 
     <section-container title="Operators">
-        <generic-function-action-ex></generic-function-action-ex>
+        <section-container title="Function: action!" no="4">
+            <!-- <generic-function-action-ex></generic-function-action-ex> -->
+        </section-container>
 
         <section-container title="Function: find-nobit@" no="4">
         </section-container>

@@ -51,7 +51,7 @@ riot.tag2('class_karma-pool', '<section class="hero"> <div class="hero-body"> <d
 riot.tag2('class_nobiheart', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">Class: NOBIHEART</h1> <h2 class="subtitle"> <p>心臓はカルマを持ち、カルマを消費するために鼓動する。</p> <p>Package: nobit@.hearts</p> </h2> <section class="section"> <div class="container"> <h1 class="title is-4">Slots:</h1> <h2 class="subtitle"> </h2> <div class="contents"> <p><pre>\n((karma-pool :accessor karma-pool\n               :initarg :karma-pool\n               :initform (make-instance \'karma-pool)))</pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Class Precedence List:</h1> <h2 class="subtitle"> </h2> <div class="contents"> <p>rhythm::heart</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Description:</h1> <h2 class="subtitle"> </h2> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">See Also:</h1> <h2 class="subtitle"> </h2> <div class="contents"> <p>Function nobit@.hearts:make-heart</p> <p>Generic Function nobit@.hearts:start-heart</p> <p>Generic Function nobit@.hearts:stop-heart</p> </div> </div> </section> </div> </div> </section>', '', '', function(opts) {
 });
 
-riot.tag2('class_nobita', '<section-header-with-breadcrumb title="Class: NOBIT@"></section-header-with-breadcrumb> <section-container title="Description"> <section-contents> </section-contents> </section-container> <section-container title="Slots"> <section-container title="Function: find-nobit@" no="4"> <section-contents> <slots_nobita></slots_nobita> </section-contents> </section-container> </section-container> <section-container title="Operators"> <generic-function-action-ex></generic-function-action-ex> <section-container title="Function: find-nobit@" no="4"> </section-container> <section-container title="Function: tx-make-nobit@" no="4"> </section-container> <section-container title="Generic function: nobit@-p" no="4"> </section-container> <section-container title="Generic function: print-object" no="4"> </section-container> <section-container title="Generic function: jojo:%to-json" no="4"> </section-container> </section-container>', '', '', function(opts) {
+riot.tag2('class_nobita', '<section-header-with-breadcrumb title="Class: NOBIT@"></section-header-with-breadcrumb> <section-container title="Description"> <section-contents> </section-contents> </section-container> <section-container title="Slots"> <section-container title="Function: find-nobit@" no="4"> <section-contents> <slots_nobita></slots_nobita> </section-contents> </section-container> </section-container> <section-container title="Operators"> <section-container title="Function: action!" no="4"> </section-container> <section-container title="Function: find-nobit@" no="4"> </section-container> <section-container title="Function: tx-make-nobit@" no="4"> </section-container> <section-container title="Generic function: nobit@-p" no="4"> </section-container> <section-container title="Generic function: print-object" no="4"> </section-container> <section-container title="Generic function: jojo:%to-json" no="4"> </section-container> </section-container>', '', '', function(opts) {
 });
 
 riot.tag2('class_node', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">Class: Node</h1> <h2 class="subtitle"> <p>Package: nobit@</p> </h2> <section class="section"> <div class="container"> <h1 class="title">Description:</h1> <div class="contents"> <p>G*an, 4neo, Nobit@ の親クラスです。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Description:</h1> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Attr</th> <th>Description</th></tr> </thead> <tbody> <tr> <td>%id</td> <td>idea の id になります。</td> </tr> <tr> <td>name</td> <td></td> </tr> <tr> <td>location</td> <td> 初期値: <code>(list :hold nil :x 0.0 :y 0.0 :z 0.0)</code> </td> </tr> </tbody> </table> </div> </div> </section> </div> </div> </section>', '', '', function(opts) {
@@ -180,35 +180,67 @@ riot.tag2('page-tabs', '<div class="tabs is-boxed"> <ul> <li each="{opts.core.ta
      };
 });
 
-riot.tag2('section-breadcrumb', '<nav class="breadcrumb" aria-label="breadcrumbs"> <ul> <li each="{path()}"> <a class="{active ? \'is-active\' : \'\'}" href="{href}" aria-current="page">{label}</a> </li> </ul> </nav>', 'section-breadcrumb section-container > .section,[data-is="section-breadcrumb"] section-container > .section{ padding-top: 3px; }', '', function(opts) {
+riot.tag2('section-breadcrumb', '<nav class="breadcrumb" aria-label="breadcrumbs"> <ul> <li each="{path()}" class="{active ? \'is-active\' : \'\'}"> <a href="{href}" aria-current="page">{label}</a> </li> </ul> </nav>', 'section-breadcrumb section-container > .section,[data-is="section-breadcrumb"] section-container > .section{ padding-top: 3px; }', '', function(opts) {
+     this.label = (node, is_last, node_name) => {
+         if (node.menu_label)
+             return node.menu_label;
+
+         return is_last ? node_name : node.code;
+     };
+     this.active = (node, is_last) => {
+         if (is_last)
+             return true;
+
+         if (!node.tag)
+             return true;
+
+         return false;
+     };
+     this.makeData = (routes, href, path) => {
+         if (!path || path.length==0)
+             return null;
+
+         let node_name = path[0];
+         let node = routes.find((d) => {
+             if (d.regex) {
+                 return d.regex.exec(node_name);
+             } else {
+                 return d.code == node_name;
+             }
+         });
+
+         if (!node) {
+             console.warn(routes);
+             console.warn(path);
+             throw new Error ('なんじゃこりゃぁ!!')
+         }
+
+         let sep = href=='#' ? '' : '/';
+         let new_href = href + sep + node.code;
+
+         let is_last = path.length == 1;
+
+         let crumb = [{
+             label: this.label(node, is_last, node_name),
+             href: new_href,
+             active: this.active(node, is_last),
+         }]
+
+         if (is_last==1)
+             return crumb;
+
+         return crumb.concat(this.makeData(node.children, new_href, path.slice(1)))
+     };
      this.path = () => {
          let hash = location.hash;
          let path = hash.split('/');
 
+         let routes = STORE.get('site.pages');
+
          if (path[0] && path[0].substr(0,1)=='#')
              path[0] = path[0].substr(1);
 
-         let out = [];
-         let len = path.length;
-         let href = null;
-         for (var i in path) {
-             href = href ? href + '/' + path[i] : '#' + path[i];
-
-             if (i==len-1)
-                 out.push({
-                     label: path[i],
-                     href: hash,
-                     active: true
-                 });
-
-             else
-                 out.push({
-                     label: path[i],
-                     href: href,
-                     active: false
-                 });
-         }
-         return out;
+         return this.makeData(routes, '#', path);
      }
 });
 
@@ -221,7 +253,7 @@ riot.tag2('section-contents', '<section class="section"> <div class="container">
 riot.tag2('section-footer', '<footer class="footer"> <div class="container"> <div class="content has-text-centered"> <p> </p> </div> </div> </footer>', 'section-footer > .footer { padding-top: 13px; padding-bottom: 13px; height: 66px; background: none; opacity: 0.7; }', '', function(opts) {
 });
 
-riot.tag2('section-header-with-breadcrumb', '<section-header title="{opts.title}"></section-header> <section-breadcrumb></section-breadcrumb>', 'section-header-with-breadcrumb section-header > .section,[data-is="section-header-with-breadcrumb"] section-header > .section{ margin-bottom: 3px; }', '', function(opts) {
+riot.tag2('section-header-with-breadcrumb', '<section class="section"> <div class="container"> <h1 class="title is-{opts.no ? opts.no : 3}"> {opts.title} </h1> <h2 class="subtitle"> <section-breadcrumb></section-breadcrumb> </h2> <yield></yield> </div> </section>', 'section-header-with-breadcrumb > .section { background: #F8F7ED; margin-bottom: 3px; }', '', function(opts) {
 });
 
 riot.tag2('section-header', '<section class="section"> <div class="container"> <h1 class="title is-{opts.no ? opts.no : 3}"> {opts.title} </h1> <h2 class="subtitle">{opts.subtitle}</h2> <yield></yield> </div> </section>', 'section-header > .section { background: #f8f7ed; margin-bottom: 33px; }', '', function(opts) {

@@ -10,7 +10,7 @@ class Store extends Vanilla_Redux_Store {
                 { code: 'node',        tag: 'class_node' },
                 { code: 'g-an',        tag: 'class_g-an' },
                 { code: '4neo',        tag: 'class_4neo' },
-                { code: 'nobit@',      tag: 'class_nobit@' },
+                { code: 'nobit@',      tag: 'class_nobita' },
                 { code: 'friendships', tag: 'class_friendships' },
                 { code: 'ieda',        tag: 'class_ieda' },
                 { code: 'karma-pool',  tag: 'class_karma-pool' },
@@ -44,31 +44,37 @@ class Store extends Vanilla_Redux_Store {
             menu_label: '伝播',
         };
     }
+    initSiteFriends () {
+        return {
+            code: "friends",
+            tag: 'friends_root',
+            children: [
+                { code: 'g*an',   tag: 'class_g-an',    title: 'Class: G×an',  description: '' },
+                { code: '4neo',   tag: 'class_4neo',    title: 'Class: 4Neo',   description: '' },
+                { code: 'nobit@', tag: 'class_nobita',  title: 'Class: Nobit@', description: '' }
+            ],
+            menu_label: '友達',
+        };
+    }
+    initSiteFriendships () {
+        return {
+            code: "friendships",
+            tag: 'friendships_root',
+            children: [
+                { code: 'friendships', tag: 'class_friendships', title: 'Friendships', description: '' },
+                { code: 'idea',        tag: 'class_idea',        title: 'Iidea',       description: '' }
+            ],
+            menu_label: '友情',
+        };
+    }
     initSite () {
         return {
             active_page: 'home',
             home_page: 'home',
             pages: [
                 this.initSiteHome(),
-                {
-                    code: "friends",
-                    tag: 'friends_root',
-                    children: [
-                        { code: 'g-an',   tag: 'class_g-an',    title: 'Class: G×an',   description: '' },
-                        { code: '4neo',   tag: 'class_4neo',    title: 'Class: 4Neo',   description: '' },
-                        { code: 'nobita', tag: 'class_nobita',  title: 'Class: Nobit@', description: '' }
-                    ],
-                    menu_label: '友達',
-                },
-                {
-                    code: "friendships",
-                    tag: 'friendships_root',
-                    children: [
-                        { code: 'friendships', tag: 'class_friendships', title: 'Friendships', description: '' },
-                        { code: 'idea',        tag: 'class_idea',        title: 'Iidea',       description: '' }
-                    ],
-                    menu_label: '友情',
-                },
+                this.initSiteFriends(),
+                this.initSiteFriendships(),
                 this.initSiteHearts(),
                 this.initSitePropagation(),
             ]

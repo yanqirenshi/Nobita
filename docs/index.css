@@ -7,9 +7,9 @@ app .section > .container > .section {
     padding-bottom: 11px;
 }
 
-app .section > .container > .title {
-    margin-bottom: 11px;
-}
+/* app .section > .container > .title { */
+/*     margin-bottom: 11px; */
+/* } */
 
 app .section > .container > .contents {
     padding-left: 22px;
