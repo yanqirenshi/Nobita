@@ -41,7 +41,6 @@ var ROUTER = new VanillaRouterRiot(
     {
         callbacks: {
             changed: (route) => {
-
                 if (route[0]=='') {
                     location.hash = [STORE.get('site.home_page')];
                     return;

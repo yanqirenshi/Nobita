@@ -11,17 +11,9 @@ class Store extends Vanilla_Redux_Store {
                     code: "school-district",
                     tag: 'school-district',
                     children: [
-                        {
-                            code: "nobitas",
-                            children: [
-                                {
-                                    code: "id",
-                                    regex: /^\d+$/,
-                                    tag: 'nobita',
-                                    children: [],
-                                },
-                            ],
-                        }
+                        { code: "g*ans",   children: [ { code: "id", regex: /^\d+$/, tag: 'g_an'     } ] },
+                        { code: "4neos",   children: [ { code: "id", regex: /^\d+$/, tag: 'four-neo' } ] },
+                        { code: "nobitas", children: [ { code: "id", regex: /^\d+$/, tag: 'nobita'   } ] },
                     ],
                     menu_label: '校区',
                 },
@@ -29,30 +21,20 @@ class Store extends Vanilla_Redux_Store {
                     code: "friends",
                     tag: 'friends',
                     children: [
-                        {
-                            code: "nobitas",
-                            children: [
-                                {
-                                    code: "id",
-                                    regex: /^\d+$/,
-                                    tag: 'nobita',
-                                    children: [],
-                                },
-                            ],
-                        }
+                        { code: "g*ans",   children: [ { code: "id", regex: /^\d+$/, tag: 'g_an'     } ] },
+                        { code: "4neos",   children: [ { code: "id", regex: /^\d+$/, tag: 'four-neo' } ] },
+                        { code: "nobitas", children: [ { code: "id", regex: /^\d+$/, tag: 'nobita'   } ] },
                     ],
                     menu_label: '友達',
                 },
                 {
                     code: "friendship",
                     tag: 'friendship',
-                    children: [],
                     menu_label: '友情',
                 },
                 {
                     code: "hearts",
                     tag: 'hearts',
-                    children: [],
                     menu_label: '心臓',
                 }
             ]

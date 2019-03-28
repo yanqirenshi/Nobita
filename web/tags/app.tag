@@ -31,7 +31,10 @@
      });
 
      this.on('mount', () => {
-         ACTIONS.movePage({ route: [STORE.get('site.active_page')] });
+         let hash = location.hash.split('/');
+         hash[0] = hash[0].substring(1)
+
+         ACTIONS.movePage({ route: hash });
      });
     </script>
 

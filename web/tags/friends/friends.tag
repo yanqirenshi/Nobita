@@ -29,7 +29,7 @@
                     <tbody>
                         <tr each={friend in friends()}>
                             <td>{friend._class}</td>
-                            <td>{friend._id}</td>
+                            <td><a href={this.href(friend)}>{friend._id}</a></td>
                             <td>{friend.name}</td>
                             <td>{friend.action}</td>
                         </tr>
@@ -40,6 +40,9 @@
     </section>
 
     <script>
+     this.href = (friend) => {
+         return new Nobita().makeFriendHash('#friends', friend);
+     }
      this.friends = () => {
          return STORE.state().toJS().nodes.list;
      };

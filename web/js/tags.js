@@ -33,7 +33,10 @@ riot.tag2('app', '<github-link fill="#BDB04F" color="#fff" href="https://gitlab.
      });
 
      this.on('mount', () => {
-         ACTIONS.movePage({ route: [STORE.get('site.active_page')] });
+         let hash = location.hash.split('/');
+         hash[0] = hash[0].substring(1)
+
+         ACTIONS.movePage({ route: hash });
      });
 });
 
@@ -183,7 +186,9 @@ riot.tag2('section-breadcrumb', '<nav class="breadcrumb" aria-label="breadcrumbs
              throw new Error ('なんじゃこりゃぁ!!')
          }
 
-         let new_href = href + '/' + node.code;
+         let sep = href=='#' ? '' : '/';
+         let new_href = href + sep + node.code;
+
          let is_last = path.length == 1;
 
          let crumb = [{
@@ -243,7 +248,13 @@ riot.tag2('section-list', '<table class="table is-bordered is-striped is-narrow 
 riot.tag2('sections-list', '<table class="table"> <tbody> <tr each="{opts.data}"> <td><a href="{hash}">{title}</a></td> </tr> </tbody> </table>', '', '', function(opts) {
 });
 
-riot.tag2('friends', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">友達</h1> <h2 class="subtitle">。。。皆は友達怖くない</h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">一覧</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Type</th> <th rowspan="2">ID</th> <th rowspan="2">Name</th> <th rowspan="1">Action</th> </tr> <tr> <th>Size</th> </tr> </thead> <tbody> <tr each="{friend in friends()}"> <td>{friend._class}</td> <td>{friend._id}</td> <td>{friend.name}</td> <td>{friend.action}</td> </tr> </tbody> </table> </div> </div> </section>', 'friends { display: block; margin-left: 55px; }', '', function(opts) {
+riot.tag2('four-neo', '<section-header-with-breadcrumb title="4 Neo"></section-header-with-breadcrumb>', '', '', function(opts) {
+});
+
+riot.tag2('friends', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">友達</h1> <h2 class="subtitle">。。。皆は友達怖くない</h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">一覧</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Type</th> <th rowspan="2">ID</th> <th rowspan="2">Name</th> <th rowspan="1">Action</th> </tr> <tr> <th>Size</th> </tr> </thead> <tbody> <tr each="{friend in friends()}"> <td>{friend._class}</td> <td><a href="{this.href(friend)}">{friend._id}</a></td> <td>{friend.name}</td> <td>{friend.action}</td> </tr> </tbody> </table> </div> </div> </section>', 'friends { display: block; margin-left: 55px; }', '', function(opts) {
+     this.href = (friend) => {
+         return new Nobita().makeFriendHash('#friends', friend);
+     }
      this.friends = () => {
          return STORE.state().toJS().nodes.list;
      };
@@ -251,6 +262,9 @@ riot.tag2('friends', '<section class="hero"> <div class="hero-body"> <div class=
          if (action.type=='FETCHED-NODES')
              this.update();
      });
+});
+
+riot.tag2('g_an', '<section-header-with-breadcrumb title="G × An"></section-header-with-breadcrumb>', '', '', function(opts) {
 });
 
 riot.tag2('nobita', '<section-header-with-breadcrumb title="Nobit@"></section-header-with-breadcrumb>', '', '', function(opts) {
@@ -290,7 +304,7 @@ riot.tag2('school-district_basic', '<h1 class="title is-4">Basic</h1> <div> <tab
 
          let node = ''
          if (cls=='G*AN')
-             node = 'g_ans'
+             node = 'g*ans'
          if (cls=='4NEO')
              node = '4neos';
          if (cls=='NOBIT@')

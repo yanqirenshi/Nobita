@@ -1,5 +1,8 @@
 class Nobita {
     constructor (options) {
+        if (!options)
+            return;
+
         this._d3svg = null;
         this._simulation = null;
 
@@ -187,5 +190,17 @@ class Nobita {
             return;
 
         mountDataTAg(params.root, params.data);
+    }
+    /////
+    ///// PageLink
+    /////
+    makeFriendHash (prefix, friend) {
+        let type = {
+            'G*AN': 'g*ans',
+            '4NEO': '4neos',
+            'NOBIT@': 'nobitas',
+        }[friend._class];
+
+        return prefix + '/' + type + '/' + friend._id;
     }
 }

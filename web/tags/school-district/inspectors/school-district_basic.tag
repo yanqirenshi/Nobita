@@ -40,7 +40,7 @@
 
          let node = ''
          if (cls=='G*AN')
-             node = 'g_ans'
+             node = 'g*ans'
          if (cls=='4NEO')
              node = '4neos';
          if (cls=='NOBIT@')

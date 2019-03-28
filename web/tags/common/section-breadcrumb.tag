@@ -50,7 +50,9 @@
              throw new Error ('なんじゃこりゃぁ!!')
          }
 
-         let new_href = href + '/' + node.code;
+         let sep = href=='#' ? '' : '/';
+         let new_href = href + sep + node.code;
+
          let is_last = path.length == 1;
 
          let crumb = [{
