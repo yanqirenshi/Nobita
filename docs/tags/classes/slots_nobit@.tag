@@ -16,11 +16,12 @@
      this.header = [
          { label: 'type' },
          { label: 'name' },
-         { label: 'description' }
+         { label: 'description' },
      ];
      this.body = [
-         { name: 'name',   description: 'ノードの名称',   type: 'String' },
-         { name: 'action', description: '実行するコード', type: 'Function' }
+         { name: 'name',        description: 'ノードの名称',   type: 'String' },
+         { name: 'action',      description: '実行するコード', type: 'PList' },
+         { name: 'description', description: '説明',           type: 'String' },
      ];
     </script>
 </slots_nobita>
