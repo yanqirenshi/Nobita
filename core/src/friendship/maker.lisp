@@ -31,22 +31,23 @@
                 `((heart ,heart))))
 
 (defgeneric tx-make-frendship (graph from to heart)
+  ;;; g*an - 4new
   (:method (graph (from g*an) (to 4neo) heart)
     (assert-frendship graph from to :1-1)
     (%tx-make-frendship graph from to heart))
-
+  ;;; 4neo - nobit@
   (:method (graph (from 4neo) (to nobit@) heart)
     (assert-frendship graph from to :1-1)
     (%tx-make-frendship graph from to heart))
-
+  ;;; nobit@ - nobit@
   (:method (graph (from nobit@) (to nobit@) heart)
     (assert-frendship graph from to :1-n)
     (%tx-make-frendship graph from to heart))
-
+  ;;; nobit@ - 4neo
   (:method (graph (from nobit@) (to 4neo) heart)
     (assert-frendship graph from to :1-1)
     (%tx-make-frendship graph from to heart))
-
+  ;;; 4neo - g*an
   (:method (graph (from 4neo) (to g*an) heart)
     (assert-frendship graph from to :1-1)
     (%tx-make-frendship graph from to heart)))
