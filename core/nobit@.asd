@@ -25,6 +25,7 @@ This file is a part of nobit@ project.
                  (:file "package")
                  (:file "class")
                  (:file "idea")
+                 (:file "pocket")
                  ;; グラフ
                  (:module "friends" :components ((:file "2json")
                                                  (:file "location")

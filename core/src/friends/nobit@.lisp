@@ -6,6 +6,7 @@
     (jojo:write-key-value "name"     (slot-value obj 'name))
     (jojo:write-key-value "location" (location2json   (slot-value obj 'location)))
     (jojo:write-key-value "action"   (princ-to-string (slot-value obj 'action)))
+    (jojo:write-key-value "workings" (length (find-from-pocket :nobit@-id (up:%id obj))))
     (jojo:write-key-value "_class"   "NOBIT@")))
 
 

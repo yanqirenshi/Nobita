@@ -17,6 +17,7 @@
                 <table class="table is-bordered is-striped is-narrow is-hoverable">
                     <thead>
                         <tr>
+                            <th rowspan="2">Working</th>
                             <th rowspan="2">Type</th>
                             <th rowspan="2">ID</th>
                             <th rowspan="2">Name</th>
@@ -28,6 +29,7 @@
                     </thead>
                     <tbody>
                         <tr each={friend in friends()}>
+                            <td>{friend.workings ? friend.workings : '--'}</td>
                             <td>{friend._class}</td>
                             <td><a href={this.href(friend)}>{friend._id}</a></td>
                             <td>{friend.name}</td>
