@@ -158,8 +158,11 @@ class Nobita {
         let removeAllContents = (root) => {
             for (let k in params.tagData) {
                 let tag_name = params.tagData[k];
-                if (!coller.tags[tag_name])
+                let tag = coller.tags[tag_name];
+                if (!tag)
                     continue;
+
+                tag.unmount();
 
                 delete coller.tags[tag_name];
             }

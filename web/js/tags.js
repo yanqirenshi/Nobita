@@ -11,7 +11,7 @@ riot.tag2('app-page-area', '', '', '', function(opts) {
      });
 });
 
-riot.tag2('app', '<github-link fill="#BDB04F" color="#fff" href="https://gitlab.com/yanqirenshi/nobita"></github-link> <menu-bar brand="{{label:\'N\'}}" site="{site()}" moves="{[]}"></menu-bar> <app-page-area></app-page-area>', 'app > .page { width: 100vw; overflow: hidden; display: block; } app .hide,[data-is="app"] .hide{ display: none; }', '', function(opts) {
+riot.tag2('app', '<github-link fill="#BDB04F" color="#fff" href="https://gitlab.com/yanqirenshi/nobita"></github-link> <menu-bar brand="{{label:\'N\'}}" site="{site()}" moves="{[]}"></menu-bar> <app-page-area></app-page-area>', '', '', function(opts) {
      this.site = () => {
          return STORE.state().get('site');
      };
@@ -151,10 +151,20 @@ riot.tag2('menu-bar', '<aside class="menu"> <p ref="brand" class="menu-label" ri
      };
 });
 
+riot.tag2('page-tabs', '<div class="tabs is-boxed"> <ul> <li each="{opts.core.tabs}" class="{opts.core.active_tab==code ? \'is-active\' : \'\'}"> <a code="{code}" onclick="{clickTab}">{label}</a> </li> </ul> </div>', 'page-tabs li:first-child { margin-left: 55px; }', '', function(opts) {
+     this.clickTab = (e) => {
+         let code = e.target.getAttribute('code');
+         this.opts.callback(e, 'CLICK-TAB', { code: code });
+     };
+});
+
 riot.tag2('section-breadcrumb', '<nav class="breadcrumb" aria-label="breadcrumbs"> <ul> <li each="{path()}" class="{active ? \'is-active\' : \'\'}"> <a href="{href}" aria-current="page">{label}</a> </li> </ul> </nav>', 'section-breadcrumb section-container > .section,[data-is="section-breadcrumb"] section-container > .section{ padding-top: 3px; }', '', function(opts) {
      this.label = (node, is_last, node_name) => {
          if (node.menu_label)
              return node.menu_label;
+
+         if (node.regex)
+             return node_name;
 
          return is_last ? node_name : node.code;
      };
@@ -187,7 +197,8 @@ riot.tag2('section-breadcrumb', '<nav class="breadcrumb" aria-label="breadcrumbs
          }
 
          let sep = href=='#' ? '' : '/';
-         let new_href = href + sep + node.code;
+         let node_label = node.regex ? node_name : node.code;
+         let new_href = href + sep + node_label;
 
          let is_last = path.length == 1;
 
@@ -245,6 +256,9 @@ riot.tag2('section-list', '<table class="table is-bordered is-striped is-narrow 
      };
 });
 
+riot.tag2('page-tab-with-section', '<section class="section" style="padding:0px;"> <div class="container"> <page-tabs core="{opts.core}" callback="{opts.callback}"></page-tabs> </div> </section>', '', '', function(opts) {
+});
+
 riot.tag2('sections-list', '<table class="table"> <tbody> <tr each="{opts.data}"> <td><a href="{hash}">{title}</a></td> </tr> </tbody> </table>', '', '', function(opts) {
 });
 
@@ -267,7 +281,89 @@ riot.tag2('friends', '<section class="hero"> <div class="hero-body"> <div class=
 riot.tag2('g_an', '<section-header-with-breadcrumb title="G × An"></section-header-with-breadcrumb>', '', '', function(opts) {
 });
 
-riot.tag2('nobita', '<section-header-with-breadcrumb title="Nobit@"></section-header-with-breadcrumb>', '', '', function(opts) {
+riot.tag2('nobita-action-call-func', '<section class="section" style="padding-top: 11px;"> <div class="container"> <div class="contents"> <input class="input" type="text" placeholder="Operator Symbol"> <textarea class="textarea" style="margin-top:33px;" placeholder="Description" rows="11"></textarea> </div> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('nobita-action-eval-code', '<section class="section" style="padding-top: 11px;"> <div class="container"> <textarea class="textarea" placeholder="Code" rows="11"></textarea> <textarea class="textarea" style="margin-top:33px;" placeholder="Description" rows="11"></textarea> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('nobita-action-type-selector', '<section class="section" style="padding-bottom: 11px;"> <div class="container"> <div class="dropdown" ref="dropdown"> <div class="dropdown-trigger"> <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" onclick="{click}"> <span>{selected_item.label}</span> <span class="icon is-small"> <i class="fas fa-angle-down" aria-hidden="true"></i> </span> </button> </div> <div class="dropdown-menu" id="dropdown-menu" role="menu"> <div class="dropdown-content"> <a class="dropdown-item" each="{type in opts.types}" code="{type.code}" onclick="{selectItem}"> {type.label} </a> </div> </div> </div> </div> </section>', '', '', function(opts) {
+     this.selected_item = { label: 'Choose Action Type' };
+
+     this.click = (e) => {
+         this.refs.dropdown.classList.toggle('is-active');
+     };
+     this.selectItem = (e) => {
+         this.refs.dropdown.classList.remove('is-active');
+
+         let code = e.target.getAttribute('code');
+         this.selected_item = this.opts.types.find((d) => {
+             return d.code == code;
+         });
+
+         this.update();
+
+         this.opts.callbacks.select(this.selected_item);
+     };
+});
+
+riot.tag2('nobita-action', '<section-header-with-breadcrumb title="Nobit@ Action"></section-header-with-breadcrumb> <nobita-action-type-selector types="{types}" callbacks="{callbacks.type}"></nobita-action-type-selector> <div> <nobita-action-call-func class="hide"></nobita-action-call-func> <nobita-action-eval-code class="hide"></nobita-action-eval-code> </div>', '', '', function(opts) {
+     this.types = [
+         { code: 'call-operator', label: 'Call Operator', tag: 'nobita-action-call-func' },
+         { code: 'evaluate-code', label: 'Evaluate Code', tag: 'nobita-action-eval-code' },
+     ];
+     this.callbacks = {
+         type: {
+             select: (item) => {
+                 let hides = [];
+                 let show  = null;
+
+                 for (let type of this.types) {
+                     if (item.code == type.code)
+                         show = type;
+                     else
+                         hides.push(type);
+                 }
+
+                 for (type of hides) {
+                     dump(this.tags[type.tag].root);
+                     this.tags[type.tag].root.classList.add('hide');
+                 }
+
+                 this.tags[show.tag].root.classList.remove('hide');
+             },
+         }
+     };
+});
+
+riot.tag2('nobita', '<section-header-with-breadcrumb title="Nobit@"></section-header-with-breadcrumb> <div> <div style="margin-top:33px;"></div> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <nobita_tab_basic class="hide"></nobita_tab_basic> <nobita_tab_action class="hide"></nobita_tab_action> <nobita_tab_working class="hide"></nobita_tab_working> </div> </div>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'basic',   label: 'Basic',   tag: 'nobita_tab_basic' },
+         {code: 'action',  label: 'Action',  tag: 'nobita_tab_action' },
+         {code: 'working', label: 'Working', tag: 'nobita_tab_working' },
+     ]);
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+
+});
+
+riot.tag2('nobita_tab_action', '<section class="section"> <div class="container"> <div class="contents"> <button class="button" onclick="{clickDetail}"> 詳細 </button> </div> </div> </section>', '', '', function(opts) {
+     this.clickDetail = () => {
+         location.hash = location.hash + '/action';
+     };
+});
+
+riot.tag2('nobita_tab_basic', '<section class="section"> <div class="container"> <h1 class="title is-4">ID</h1> <h2 class="subtitle"></h2> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Name</h1> <h2 class="subtitle"></h2> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Description</h1> <h2 class="subtitle"></h2> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('nobita_tab_working', '', '', '', function(opts) {
 });
 
 riot.tag2('friendship', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">友情</h1> <h2 class="subtitle">けっして切れない鎖</h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">id</th> <th rowspan="2">distance</th> <th rowspan="2">index</th> <th colspan="2">Source</th> <th colspan="2">target</th> </tr> <tr> <th>id</th> <th>name</th> <th>id</th> <th>name</th> </tr> </thead> <tbody> <tr each="{obj in sources()}"> <td>{obj._id}</td> <td>{obj.distance}</td> <td>{obj.index}</td> <td>{obj.source._id}</td> <td>{obj.source.name}</td> <td>{obj.target._id}</td> <td>{obj.target.name}</td> </tr> </tbody> </table> </div> </div> </section>', '', '', function(opts) {
@@ -288,6 +384,9 @@ riot.tag2('hearts', '<section class="hero"> <div class="hero-body"> <div class="
          if (action.type=='FETCHED-HEARTS')
              this.update();
      });
+});
+
+riot.tag2('school-district_4neo', '<school-district_basic source="{opts.source}"></school-district_basic> <school-district_location source="{opts.source}"></school-district_location>', '', '', function(opts) {
 });
 
 riot.tag2('school-district_basic', '<h1 class="title is-4">Basic</h1> <div> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th>Name</th> <td>{name()}</td> </tr> <tr> <th>id</th> <td>{id()}</td> </tr> <tr> <th>Class</th> <td>{cls()}</td> </tr> </thead> </table> <div> <button class="button" onclick="{clickMoveView}">照会</button> </div> </div>', 'school-district_basic { display: block; margin-bottom: 22px; } school-district_basic > h1.title { margin-bottom: 11px; } school-district_basic > div { padding-left: 22px; }', '', function(opts) {
@@ -323,7 +422,10 @@ riot.tag2('school-district_basic', '<h1 class="title is-4">Basic</h1> <div> <tab
      };
 });
 
-riot.tag2('school-district_inspector', '<section class="section" style="padding-top: 22px;"> <div class="container"> <h1 class="title">{title()}</h1> <div ref="contents"> </div> </div> </section>', 'school-district_inspector { display: block; position: fixed; right: 0; top: 0; height: 100vh; min-width: 222px; max-width: 44%; background: #fff; box-shadow: 0px 0px 22px #333333; } school-district_inspector .hide { display: none; }', 'class="{hide()}"', function(opts) {
+riot.tag2('school-district_g-an', '<school-district_basic source="{opts.source}"></school-district_basic> <school-district_location source="{opts.source}"></school-district_location>', '', '', function(opts) {
+});
+
+riot.tag2('school-district_inspector', '<section class="section" style="padding-top: 22px;"> <div class="container"> <h1 class="title">{title()}</h1> <div ref="contents"> </div> </div> </section>', 'school-district_inspector { display: block; position: fixed; right: 0; top: 0; height: 100vh; min-width: 222px; max-width: 33%; background: #fff; box-shadow: 0px 0px 22px #333333; } school-district_inspector .hide { display: none; }', 'class="{hide()}"', function(opts) {
      this.tagData = {
          'G*AN':   'school-district_g-an',
          '4NEO':   'school-district_4neo',
@@ -331,7 +433,6 @@ riot.tag2('school-district_inspector', '<section class="section" style="padding-
      }
      this.on('update', () => {
          let nobita = new Nobita();
-
          nobita.switchSchoolDistrictInspectorContents ({
              coller: this,
              data: this.opts.source,
@@ -426,6 +527,12 @@ riot.tag2('school-district_location', '<h1 class="title is-4">Location</h1> <div
      };
 });
 
+riot.tag2('school-district_nobita', '<school-district_basic source="{opts.source}"></school-district_basic> <school-district_location source="{opts.source}"></school-district_location> <h1 class="title is-4">Action</h1> <div style="padding-left:22px;"> <p>{action()}</p> </div>', '', '', function(opts) {
+     this.action = () => {
+         return this.opts.source ? this.opts.source.action : '';
+     };
+});
+
 riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
      let nobita = new Nobita({
          callbacks: {
@@ -494,16 +601,4 @@ riot.tag2('school-district', '<network-graph callback="{callbackGraph}"></networ
              if (this.tags['school-district_inspector'])
                  this.tags['school-district_inspector'].update();
      });
-});
-
-riot.tag2('school-district_4neo', '<school-district_basic source="{opts.source}"></school-district_basic> <school-district_location source="{opts.source}"></school-district_location>', '', '', function(opts) {
-});
-
-riot.tag2('school-district_g-an', '<school-district_basic source="{opts.source}"></school-district_basic> <school-district_location source="{opts.source}"></school-district_location>', '', '', function(opts) {
-});
-
-riot.tag2('school-district_nobita', '<school-district_basic source="{opts.source}"></school-district_basic> <school-district_location source="{opts.source}"></school-district_location> <h1 class="title is-4">Action</h1> <div style="padding-left:22px;"> <p>{action()}</p> </div>', '', '', function(opts) {
-     this.action = () => {
-         return this.opts.source ? this.opts.source.action : '';
-     };
 });

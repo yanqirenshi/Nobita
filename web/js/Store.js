@@ -2,38 +2,56 @@ class Store extends Vanilla_Redux_Store {
     constructor(reducer) {
         super(reducer, Immutable.Map({}));
     }
+    initSiteNobitas () {
+        return {
+            code: 'nobitas',
+            children: [
+                {
+                    code: 'id',
+                    regex: /^\d+$/,
+                    tag: 'nobita',
+                    children: [
+                        {
+                            code: 'action',
+                            tag: 'nobita-action'
+                        },
+                    ],
+                },
+            ],
+        };
+    }
     initSite () {
         let data = {
             active_page: 'school-district',
             home_page: 'school-district',
             pages: [
                 {
-                    code: "school-district",
+                    code: 'school-district',
                     tag: 'school-district',
                     children: [
-                        { code: "g*ans",   children: [ { code: "id", regex: /^\d+$/, tag: 'g_an'     } ] },
-                        { code: "4neos",   children: [ { code: "id", regex: /^\d+$/, tag: 'four-neo' } ] },
-                        { code: "nobitas", children: [ { code: "id", regex: /^\d+$/, tag: 'nobita'   } ] },
+                        { code: 'g*ans',   children: [ { code: 'id', regex: /^\d+$/, tag: 'g_an'     } ] },
+                        { code: '4neos',   children: [ { code: 'id', regex: /^\d+$/, tag: 'four-neo' } ] },
+                        this.initSiteNobitas(),
                     ],
                     menu_label: '校区',
                 },
                 {
-                    code: "friends",
+                    code: 'friends',
                     tag: 'friends',
                     children: [
-                        { code: "g*ans",   children: [ { code: "id", regex: /^\d+$/, tag: 'g_an'     } ] },
-                        { code: "4neos",   children: [ { code: "id", regex: /^\d+$/, tag: 'four-neo' } ] },
-                        { code: "nobitas", children: [ { code: "id", regex: /^\d+$/, tag: 'nobita'   } ] },
+                        { code: 'g*ans',   children: [ { code: 'id', regex: /^\d+$/, tag: 'g_an'     } ] },
+                        { code: '4neos',   children: [ { code: 'id', regex: /^\d+$/, tag: 'four-neo' } ] },
+                        this.initSiteNobitas(),
                     ],
                     menu_label: '友達',
                 },
                 {
-                    code: "friendship",
+                    code: 'friendship',
                     tag: 'friendship',
                     menu_label: '友情',
                 },
                 {
-                    code: "hearts",
+                    code: 'hearts',
                     tag: 'hearts',
                     menu_label: '心臓',
                 }

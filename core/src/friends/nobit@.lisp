@@ -1,5 +1,26 @@
 (in-package :nobit@)
 
+;;;;;
+;;;;; Action
+;;;;;
+(defun make-nobit@-action-prot ()
+  ;;;
+  ;;; call-operator
+  ;;;   - :args の実装は後にしようか。
+  ;;;
+  (list :type     :call-operator
+        :contents (list :symbol '+
+                        :args   (list :normal   nil
+                                      :keys     nil
+                                      :rest     nil
+                                      :optional nil)))
+  (list :type     :evaluation-code
+        :contents "...code..."))
+
+
+;;;;;
+;;;;;
+;;;;;
 (defmethod jojo:%to-json ((obj nobit@))
   (jojo:with-object
     (jojo:write-key-value "_id"      (slot-value obj 'up:%id))
