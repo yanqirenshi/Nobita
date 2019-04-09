@@ -1,13 +1,15 @@
 (in-package :nobit@)
 
+
 (defun ation!-core-funcall (graph action nobit@ idea source)
-  (handler-case
-      (funcall action
-               :graph    graph
-               :idea     idea
-               :nobit@   nobit@
-               :source   source)
-    (error (e) e)))
+  (let ((operator (getf (getf action :contents) :symbol)))
+    (handler-case
+        (funcall operator
+                 :graph  graph
+                 :idea   idea
+                 :nobit@ nobit@
+                 :source source)
+      (error (e) e))))
 
 
 (defun ation!-core (graph action nobit@ idea source)
