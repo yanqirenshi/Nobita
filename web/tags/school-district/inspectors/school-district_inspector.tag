@@ -22,7 +22,6 @@
      }
      this.on('update', () => {
          let nobita = new Nobita();
-
          nobita.switchSchoolDistrictInspectorContents ({
              coller: this,
              data: this.opts.source,
@@ -52,7 +51,7 @@
          top: 0;
          height: 100vh;
          min-width: 222px;
-         max-width: 44%;
+         max-width: 33%;
          background: #fff;
          box-shadow: 0px 0px 22px #333333;
      }

@@ -30,30 +30,17 @@
     (remove-karmas _id source (cdr frendships))))
 
 
-;; (defun spread-action (graph _id source nobit@ frendships_before)
-;;   (let ((next_idea (pop-idea-from-frendships _id frendships_before)))
-;;     (remove-karmas _id source frendships_before)
-;;     (action! graph nobit@ next_idea source)))
-;;
-;; (defmethod spread ((graph shinra:banshou) (idea list) source (nobit@ nobit@))
-;;   "前フレンズの処理が完了しているかを確認し、全て完了している場合に自身の処理を実行する。
-;; 完了しているかどうかはフレンドシップに対象idが存在するかどうかで判断する。"
-;;   (let ((frendships_before (find-frendship graph :to nobit@))
-;;         (_id (getf idea :_id)))
-;;     (when (do-it-now? _id frendships_before)
-;;       (let ((new_idea (spread-action graph _id source nobit@ frendships_before)))
-;;         (spreads graph
-;;                  new_idea
-;;                  nobit@
-;;                  (find-frendship graph
-;;                                  :from nobit@
-;;                                  :to-classes '(4neo nobit@)))))))
-
-
-(defun spread-action (graph _id source nobit@ frendships_before)
-  (remove-karmas _id source frendships_before)
-  (let* ((next_idea (pop-idea-from-frendships _id frendships_before))
+(defun spread-action (graph idea-id source nobit@ frendships_before)
+  ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
+  ;;;  TODO: ここじゃないほうが良いんじゃない?   ;;;
+  ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
+  (remove-karmas idea-id source frendships_before)
+  (let* ((next_idea (pop-idea-from-frendships idea-id frendships_before))
          (new_idea (action! graph nobit@ next_idea source)))
+    ;;; Remove Thread at Pocket
+    (let ((thread (get-from-pocket :nobit@-id (up:%id nobit@) :ide-id idea-id)))
+      (rm-from-pocket thread))
+    ;;; Spread
     (spreads graph
              new_idea
              nobit@
@@ -66,9 +53,14 @@
   "前フレンズの処理が完了しているかを確認し、全て完了している場合に自身の処理を実行する。
 完了しているかどうかはフレンドシップに対象idが存在するかどうかで判断する。"
   (let ((frendships_before (find-frendship graph :to nobit@))
-        (_id (getf idea :_id)))
-    (when (do-it-now? _id frendships_before)
-      ;; TODO: スレッド数に制限かけんとね。
-      (bordeaux-threads:make-thread
-       #'(lambda ()
-           (spread-action graph _id source nobit@ frendships_before))))))
+        (idea-id (getf idea :_id)))
+    (when (do-it-now? idea-id frendships_before)
+      ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
+      ;;;  TODO: スレッド数に制限かけんとね。 ;;;
+      ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
+      (let ((thread (bordeaux-threads:make-thread
+                     #'(lambda ()
+                         (spread-action graph idea-id source nobit@ frendships_before)))))
+        (add-to-pocket (up:%id nobit@)
+                       idea-id
+                       thread)))))

@@ -2,9 +2,8 @@
     <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
             <li each={path()} class="{active ? 'is-active' : ''}">
-                <a 
-                    href={href}
-                    aria-current="page">{label}</a>
+                <a href={href}
+                   aria-current="page">{label}</a>
             </li>
         </ul>
     </nav>
@@ -19,6 +18,9 @@
      this.label = (node, is_last, node_name) => {
          if (node.menu_label)
              return node.menu_label;
+
+         if (node.regex)
+             return node_name;
 
          return is_last ? node_name : node.code;
      };
@@ -51,7 +53,8 @@
          }
 
          let sep = href=='#' ? '' : '/';
-         let new_href = href + sep + node.code;
+         let node_label = node.regex ? node_name : node.code;
+         let new_href = href + sep + node_label;
 
          let is_last = path.length == 1;
 
