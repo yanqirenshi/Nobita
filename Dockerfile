@@ -24,9 +24,10 @@ MAINTAINER Renshi <yanqirenshi@gmail.com>
 USER cl-user
 WORKDIR /home/cl-user/prj/
 
-RUN git clone https://github.com/yanqirenshi/Nobita.git
+RUN git clone https://github.com/yanqirenshi/Rhythm.git
+RUN ln -s /home/cl-user/prj/Rhythm/rhythm.asd                  /home/cl-user/.asdf/rhythm.asd
 
-WORKDIR /home/cl-user/prj/Nobita/
+RUN git clone https://github.com/yanqirenshi/Nobita.git
 RUN ln -s /home/cl-user/prj/Nobita/graph/nobit@.graph.asd      /home/cl-user/.asdf/nobit@.graph.asd
 RUN ln -s /home/cl-user/prj/Nobita/graph/nobit@.graph-test.asd /home/cl-user/.asdf/nobit@.graph-test.asd
 RUN ln -s /home/cl-user/prj/Nobita/core/nobit@.asd             /home/cl-user/.asdf/nobit@.asd
