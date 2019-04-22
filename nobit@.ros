@@ -6,7 +6,10 @@ exec ros -Q -- $0 "$@"
 (progn ;;init forms
   (ros:ensure-asdf)
   ;;#+quicklisp (ql:quickload '() :silent t)
-  )
+  (ql:quickload :nobit@.graph)
+  (ql:quickload :nobit@)
+  (ql:quickload :nobit@.api)
+  (ql:quickload :nobit@-test))
 
 (defpackage :ros.script.nobit@.3764876700
   (:use :cl))
@@ -14,11 +17,13 @@ exec ros -Q -- $0 "$@"
 
 (defun main (&rest argv)
   (declare (ignorable argv))
-  (ql:quickload :nobit@.graph)
-  (ql:quickload :nobit@)
-  (ql:quickload :nobit@.api)
-  (ql:quickload :nobit@-test)
-  ;;
   (nobit@.graph:start)
-  (nobit@:start))
+  (nobit@:start)
+  (do ((i 0 (1+ i)))
+      (nil)
+    (when (= 666 i)
+      (gc))
+    (when (= 88888888 i)
+      (setf i 0)
+      (gc :full t))))
 ;;; vim: set ft=lisp lisp:
