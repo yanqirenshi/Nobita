@@ -31,9 +31,9 @@
 
 
 (defun spread-action (graph idea-id source nobit@ frendships_before)
-  ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
-  ;;;  TODO: ここじゃないほうが良いんじゃない?   ;;;
-  ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
+  ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;   TODO: remove-karmas はここじゃないほうが良いんじゃない?
+  ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (remove-karmas idea-id source frendships_before)
   (let* ((next_idea (pop-idea-from-frendships idea-id frendships_before))
          (new_idea (action! graph nobit@ next_idea source)))

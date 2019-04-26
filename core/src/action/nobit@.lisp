@@ -26,17 +26,17 @@
 
 (defun ation!-core (graph action nobit@ idea source)
   (handler-case
-      (let ((operator (ation!-core-operator (getf action :type))))
-        (copy-idea idea
-                   :contents (funcall operator graph action nobit@ idea source)))
+      (let ((operator (ation!-core-operator action)))
+        (funcall operator graph action nobit@ idea source))
     (error (e) e)))
 
 
 (defmethod action! (graph (nobit@ nobit@) idea source)
   (format t "~S: Start Action~%" nobit@)
-  (let ((action (action nobit@)))
-    (if (null action)
-        (copy-idea idea)
-        (let ((new-idea (ation!-core graph action nobit@ idea source)))
-          (format t "~S: Complete Action~%" nobit@)
-          new-idea))))
+  (let ((action (action nobit@))
+        (new-idea (copy-idea idea)))
+    (when action
+      (setf (getf new-idea :contents)
+            (ation!-core graph action nobit@ idea source)))
+    (format t "~S: Complete Action~%" nobit@)
+    new-idea))
