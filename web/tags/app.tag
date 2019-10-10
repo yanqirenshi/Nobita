@@ -6,6 +6,8 @@
 
     <app-page-area></app-page-area>
 
+    <app-modals source={STORE.get('modals')}></app-modals>
+
     <script>
      this.site = () => {
          return STORE.state().get('site');
@@ -23,6 +25,14 @@
              this.updateMenuBar();
 
              this.tags['app-page-area'].update({ opts: { route: action.route }});
+
+             return;
+         }
+
+         if (action.type=='OPEN-MODAL' || action.type=='CLOSE-MODAL') {
+             this.tags['app-modals'].update();
+
+             return;
          }
      });
 

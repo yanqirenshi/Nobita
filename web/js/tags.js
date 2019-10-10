@@ -1,3 +1,27 @@
+riot.tag2('app-modals-add-4neo', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Add 4neo</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> </section> <footer class="modal-card-foot"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success">Add</button> </footer> </div> </div>', '', '', function(opts) {
+     this.clickClose = () => {
+         ACTIONS.closeModal('add-4neo')
+     };
+});
+
+riot.tag2('app-modals-add-gxan', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Add G * an</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> </section> <footer class="modal-card-foot"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success">Add</button> </footer> </div> </div>', '', '', function(opts) {
+     this.clickClose = () => {
+         ACTIONS.closeModal('add-gxan')
+     };
+});
+
+riot.tag2('app-modals-add-nobita', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Add Nobita</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> </section> <footer class="modal-card-foot"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success">Add</button> </footer> </div> </div>', '', '', function(opts) {
+     this.clickClose = () => {
+         ACTIONS.closeModal('add-nobita')
+     };
+});
+
+riot.tag2('app-modals', '<app-modals-add-gxan if="{isShow(\'add-gxan\')}"></app-modals-add-gxan> <app-modals-add-4neo if="{isShow(\'add-4neo\')}"></app-modals-add-4neo> <app-modals-add-nobita if="{isShow(\'add-nobita\')}"></app-modals-add-nobita>', '', '', function(opts) {
+     this.isShow = (key) => {
+         return this.opts.source[key] ? true : false;
+     };
+});
+
 riot.tag2('app-page-area', '', '', '', function(opts) {
      this.draw = () => {
          if (this.opts.route)
@@ -11,7 +35,7 @@ riot.tag2('app-page-area', '', '', '', function(opts) {
      });
 });
 
-riot.tag2('app', '<github-link fill="#BDB04F" color="#fff" href="https://gitlab.com/yanqirenshi/nobita"></github-link> <menu-bar brand="{{label:\'N\'}}" site="{site()}" moves="{[]}"></menu-bar> <app-page-area></app-page-area>', '', '', function(opts) {
+riot.tag2('app', '<github-link fill="#BDB04F" color="#fff" href="https://gitlab.com/yanqirenshi/nobita"></github-link> <menu-bar brand="{{label:\'N\'}}" site="{site()}" moves="{[]}"></menu-bar> <app-page-area></app-page-area> <app-modals source="{STORE.get(\'modals\')}"></app-modals>', '', '', function(opts) {
      this.site = () => {
          return STORE.state().get('site');
      };
@@ -25,6 +49,14 @@ riot.tag2('app', '<github-link fill="#BDB04F" color="#fff" href="https://gitlab.
              this.updateMenuBar();
 
              this.tags['app-page-area'].update({ opts: { route: action.route }});
+
+             return;
+         }
+
+         if (action.type=='OPEN-MODAL' || action.type=='CLOSE-MODAL') {
+             this.tags['app-modals'].update();
+
+             return;
          }
      });
 
@@ -683,7 +715,19 @@ riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
      });
 });
 
-riot.tag2('school-district', '<network-graph callback="{callbackGraph}"></network-graph> <school-district_inspector source="{inspectorSource()}"></school-district_inspector>', '', '', function(opts) {
+riot.tag2('school-district-controller', '<div> <button class="button" each="{obj in add_buttons}" action="{obj.action}" onclick="{clickAddButton}"> {obj.label} </button> </div>', 'school-district-controller > div { position: fixed; right: 22px; bottom: 22px; display: flex; flex-direction: column; } school-district-controller > div > * { margin-bottom: 11px; } school-district-controller > div > *:last-child { margin-bottom: 0px; }', '', function(opts) {
+     this.add_buttons = [
+         { label: 'Add G * an',   action: 'add-gxan' },
+         { label: 'Add 4neo',     action: 'add-4neo' },
+         { label: 'Add No bit @', action: 'add-nobita' },
+     ];
+     this.clickAddButton = (e) => {
+         let key = e.target.getAttribute('action');
+         ACTIONS.openModal(key);
+     };
+});
+
+riot.tag2('school-district', '<network-graph callback="{callbackGraph}"></network-graph> <school-district_inspector source="{inspectorSource()}"></school-district_inspector> <school-district-controller></school-district-controller>', '', '', function(opts) {
      this.inspectorSource = () => {
          let state = STORE.state().get('school');
 

@@ -117,4 +117,27 @@ class Actions extends Vanilla_Redux_Actions {
 
         location.hash = path;
     };
+    /* **************************************************************** *
+     *   Modals
+     * **************************************************************** */
+    openModal(key, data) {
+        let state = STORE.get('modals');
+
+        state[key] = data || 'open';
+
+        STORE.dispatch({
+            type: 'OPEN-MODAL',
+            data: { modals: state },
+        });
+    }
+    closeModal(key) {
+        let state = STORE.get('modals');
+
+        state[key] = null;
+
+        STORE.dispatch({
+            type: 'CLOSE-MODAL',
+            data: { modals: state },
+        });
+    }
 }

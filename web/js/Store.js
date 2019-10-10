@@ -85,6 +85,11 @@ class Store extends Vanilla_Redux_Store {
                     }
                 },
             },
+            modals: {
+                'add-gxan': null,
+                'add-4neo': null,
+                'add-nobita': null,
+            },
         };
     }
     init () {

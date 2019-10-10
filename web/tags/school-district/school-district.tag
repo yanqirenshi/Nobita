@@ -3,6 +3,8 @@
 
     <school-district_inspector source={inspectorSource()}></school-district_inspector>
 
+    <school-district-controller></school-district-controller>
+
     <script>
      this.inspectorSource = () => {
          let state = STORE.state().get('school');
