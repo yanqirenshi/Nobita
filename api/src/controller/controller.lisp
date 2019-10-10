@@ -60,3 +60,13 @@
 (defun edges ()
   (let ((graph nobit@.graph:*graph*))
     (nobit@:find-frendship graph)))
+
+
+
+;;;;;
+;;;;; Resource
+;;;;;
+(defun create-g*an (&key name (description ""))
+  (assert name)
+  (let ((graph nobit@.graph:*graph*))
+    (list name description)))

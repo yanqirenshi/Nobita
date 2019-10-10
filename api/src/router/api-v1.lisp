@@ -4,7 +4,8 @@
         :caveman2
         :lack.middleware.validation
         :nobit@.api.config
-        :nobit@.api.render)
+        :nobit@.api.render
+        :nobit@.api.controller)
   (:export #:*router*))
 (in-package :nobit@.api.api-v1)
 
@@ -43,17 +44,27 @@
 ;;;
 ;;; Resource
 ;;;
-(defroute ("/friends/g*an/" :method :POST) (&ke |name| |description|)
-  (render-json :null))
+(defroute ("/friends/g*an/" :method :POST) (&key |name| |description|)
+  (let ((name        (validate |name|        :string :require t   :url-decode t))
+        (description (validate |description| :string :require nil :url-decode t)))
+    (render-json (create-g*an :name name
+                              :description description))))
 
-(defroute ("/friends/4neo/" :method :POST) (&ke |name| |description|)
-  (render-json :null))
+(defroute ("/friends/4neo/" :method :POST) (&key |name| |description|)
+  (let ((name        (validate |name|        :string :require t   :url-decode t))
+        (description (validate |description| :string :require nil :url-decode t)))
+    (render-json :null)))
 
-(defroute ("/friends/nobita/" :method :POST) (&ke |name| |description|)
-  (render-json :null))
+(defroute ("/friends/nobita/" :method :POST) (&key |name| |description|)
+  (let ((name        (validate |name|        :string :require t   :url-decode t))
+        (description (validate |description| :string :require nil :url-decode t)))
+    (render-json :null)))
 
-(defroute ("/friendship" :method :POST) (&ke |from-id| |to-id| |description|)
-  (render-json :null))
+(defroute ("/friendship" :method :POST) (&key |from-id| |to-id| |description|)
+  (let ((from-id     (validate |from-id| :integer :require t))
+        (to-id       (validate |to-id|   :integer :require t))
+        (description (validate |description| :string :require nil :url-decode t)))
+    (render-json :null)))
 
 
 

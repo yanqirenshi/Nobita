@@ -8,5 +8,7 @@
            #:find-hearts
            #:save-node-location)
   (:export #:edges
-           #:find-hearts))
+           #:find-hearts)
+  ;; resources
+  (:export #:create-g*an))
 (in-package :nobit@.api.controller)
