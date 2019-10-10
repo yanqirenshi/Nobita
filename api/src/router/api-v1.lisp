@@ -41,6 +41,23 @@
 
 
 ;;;
+;;; Resource
+;;;
+(defroute ("/friends/g*an/" :method :POST) (&ke |name| |description|)
+  (render-json :null))
+
+(defroute ("/friends/4neo/" :method :POST) (&ke |name| |description|)
+  (render-json :null))
+
+(defroute ("/friends/nobita/" :method :POST) (&ke |name| |description|)
+  (render-json :null))
+
+(defroute ("/friendship" :method :POST) (&ke |from-id| |to-id| |description|)
+  (render-json :null))
+
+
+
+;;;
 ;;; Ndges
 ;;;
 (defroute "/edges" ()

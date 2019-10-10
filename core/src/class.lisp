@@ -8,8 +8,9 @@
 ;;;;; Base
 ;;;;;
 (defclass node (shinra:shin)
-  ((name     :accessor name     :initarg :name     :initform "")
-   (location :accessor location :initarg :location :initform (make-node-location))))
+  ((name        :accessor name        :initarg :name        :initform "")
+   (description :accessor description :initarg :description :initform "")
+   (location    :accessor location    :initarg :location    :initform (make-node-location))))
 (defclass edge (shinra:ra) ())
 
 

@@ -12,7 +12,9 @@
             </header>
 
             <section class="modal-card-body">
-                <!-- Content ... -->
+
+                <app-modals-add-nobita-contents></app-modals-add-nobita-contents>
+
             </section>
 
             <footer class="modal-card-foot">

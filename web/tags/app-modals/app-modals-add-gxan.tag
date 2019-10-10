@@ -12,7 +12,19 @@
             </header>
 
             <section class="modal-card-body">
-                <!-- Content ... -->
+
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Name">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <textarea class="textarea" placeholder="Description"></textarea>
+                    </div>
+                </div>
+
             </section>
 
             <footer class="modal-card-foot">
