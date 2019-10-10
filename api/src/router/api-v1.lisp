@@ -46,9 +46,13 @@
 ;;;
 (defroute ("/friends/g*an/" :method :POST) (&key |name| |description|)
   (let ((name        (validate |name|        :string :require t   :url-decode t))
-        (description (validate |description| :string :require nil :url-decode t)))
-    (render-json (create-g*an :name name
-                              :description description))))
+        (description (validate |description| :string :require nil :url-decode t))
+        (graph nobit@.graph:*graph*))
+    (render-json
+     (up:execute-transaction
+      (tx-create-g*an graph
+                      :name name
+                      :description description)))))
 
 (defroute ("/friends/4neo/" :method :POST) (&key |name| |description|)
   (let ((name        (validate |name|        :string :require t   :url-decode t))

@@ -24,7 +24,10 @@
                 ((:file "config")
                  (:module "controller"
                   :components ((:file "package")
-                               (:file "controller")))
+                               (:file "hearts")
+                               (:file "nodes")
+                               (:file "edges")
+                               (:file "resources")))
                  (:file "render")
                  (:module "router"
                   :components ((:file "route")
