@@ -26,7 +26,7 @@ class Actions extends Vanilla_Redux_Actions {
             route: data.route,
         });
     }
-    makeRscData (list) {
+    list2Pool (list) {
         let ht = {};
 
         for (var i in list)
@@ -51,7 +51,7 @@ class Actions extends Vanilla_Redux_Actions {
 
         return {
             type: 'FETCHED-NODES',
-            data: { nodes: this.makeRscData(response) },
+            data: { nodes: this.list2Pool(response) },
             target: null
         };
     }
@@ -71,7 +71,7 @@ class Actions extends Vanilla_Redux_Actions {
         });
         return {
             type: 'FETCHED-EDGES',
-            data: { edges: this.makeRscData(edges) },
+            data: { edges: this.list2Pool(edges) },
             target: null
         };
     }
@@ -176,6 +176,26 @@ class Actions extends Vanilla_Redux_Actions {
         return {
             type: 'CREATED-FRIENDS-GxAN',
             data: {},
+        };
+    }
+    /* **************************************************************** *
+     *   Pages
+     * **************************************************************** */
+    fetchPagesSchoolDistrict () {
+        API.get('/pages/school-district', (response) => {
+            STORE.dispatch(this.fetchedPagesSchoolDistrict(response));
+        });
+    }
+    fetchedPagesSchoolDistrict (response) {
+
+        let keys = ['nodes', 'edges'];
+        for (let key of keys)
+            response[key] = this.list2Pool(response[key]);
+
+        return {
+            type: 'FETCHED-PAGES-SCHOOL-DISTRICT',
+            data: {},
+            response: response,
         };
     }
 }

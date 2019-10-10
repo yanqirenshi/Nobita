@@ -1,5 +1,6 @@
 <school-district>
-    <network-graph callback={callbackGraph}></network-graph>
+    <network-graph source={source}
+                   callback={callbackGraph}></network-graph>
 
     <school-district_inspector source={inspectorSource()}></school-district_inspector>
 
@@ -13,13 +14,43 @@
      };
 
      STORE.subscribe((action) => {
-         if (action.type=='SELECTED-SCHOOL-DISTRICT-GRAPH-NODE')
+         if (action.type=='SELECTED-SCHOOL-DISTRICT-GRAPH-NODE') {
              if (this.tags['school-district_inspector'])
                  this.tags['school-district_inspector'].update();
+             return;
+         }
 
-         if (action.type=='CLEARED-SELECT-SCHOOL-DISTRICT')
+         if (action.type=='CLEARED-SELECT-SCHOOL-DISTRICT') {
              if (this.tags['school-district_inspector'])
                  this.tags['school-district_inspector'].update();
+             return;
+         }
+
+         if (action.type=='CREATED-FRIENDS-GxAN') {
+             ACTIONS.closeModal('add-gxan')
+
+             ACTIONS.fetchPagesSchoolDistrict();
+
+             return;
+         }
+         if (action.type=='FETCHED-PAGES-SCHOOL-DISTRICT') {
+             this.source = action.response;
+
+             this.update();
+
+             return;
+         }
+     });
+    </script>
+
+    <script>
+     this.source = {
+         nodes:  { list:[], ht:{} },
+         edges:  { list:[], ht:{} },
+         hearts: { list:[], ht:{} },
+     };
+     this.on('mount', () => {
+         ACTIONS.fetchPagesSchoolDistrict();
      });
     </script>
 </school-district>

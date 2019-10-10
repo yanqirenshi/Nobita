@@ -1,7 +1,10 @@
 <network-graph>
+
     <svg></svg>
 
     <script>
+     this.d3svg = null;
+
      let nobita = new Nobita({
          callbacks: {
              node: {
@@ -11,10 +14,22 @@
              }
          }
      });
+    </script>
 
-     this.d3svg = null;
+    <script>
+
+     this.on('update', () => {
+         this.draw();
+     });
 
      this.on('mount', () => {
+         this.redy();
+         this.draw();
+     });
+    </script>
+
+    <script>
+     this.redy = () => {
          let root = this.root;
 
          let painter = new Sketcher({
@@ -41,15 +56,18 @@
              { _id:  -5, code: 'nodes' },
          ])
          painter.drawBackground(this.d3svg);
+     }
 
-         let nodes = STORE.state().get('nodes');
-         let edges = STORE.state().get('edges');
+     this.draw = () => {
+         let nodes = this.opts.source.nodes;
+         let edges = this.opts.source.edges;
 
          nobita.d3svg(this.d3svg);
 
          nobita
              .prepare()
              .draw(nodes, edges);
-     });
+     };
     </script>
+
 </network-graph>

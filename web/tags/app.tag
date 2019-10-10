@@ -34,6 +34,13 @@
 
              return;
          }
+
+         if (action.type=='CREATED-FRIENDS-GxAN') {
+             ACTIONS.closeModal('add-gxan')
+
+             return;
+         }
+
      });
 
      window.addEventListener('resize', (event) => {

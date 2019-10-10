@@ -16,8 +16,9 @@
     (shinra:get-vertex-at graph 'g*an :%id %id)))
 
 
-(defun tx-make-g*an (graph &key (name "G*an:???"))
-  (tx-make-vertex graph 'g*an `((name ,name))))
+(defun tx-make-g*an (graph &key (name "G*an:???") (description ""))
+  (tx-make-vertex graph 'g*an `((name ,name)
+                                (description ,description))))
 
 (defgeneric flash-across-ones-mind (graph g*an)
   (:method (graph (g*an g*an))

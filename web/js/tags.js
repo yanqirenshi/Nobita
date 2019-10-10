@@ -80,6 +80,13 @@ riot.tag2('app', '<github-link fill="#BDB04F" color="#fff" href="https://gitlab.
 
              return;
          }
+
+         if (action.type=='CREATED-FRIENDS-GxAN') {
+             ACTIONS.closeModal('add-gxan')
+
+             return;
+         }
+
      });
 
      window.addEventListener('resize', (event) => {
@@ -686,6 +693,8 @@ riot.tag2('school-district_nobita', '<school-district_basic source="{opts.source
 });
 
 riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
+     this.d3svg = null;
+
      let nobita = new Nobita({
          callbacks: {
              node: {
@@ -696,9 +705,16 @@ riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
          }
      });
 
-     this.d3svg = null;
+     this.on('update', () => {
+         this.draw();
+     });
 
      this.on('mount', () => {
+         this.redy();
+         this.draw();
+     });
+
+     this.redy = () => {
          let root = this.root;
 
          let painter = new Sketcher({
@@ -725,16 +741,18 @@ riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
              { _id:  -5, code: 'nodes' },
          ])
          painter.drawBackground(this.d3svg);
+     }
 
-         let nodes = STORE.state().get('nodes');
-         let edges = STORE.state().get('edges');
+     this.draw = () => {
+         let nodes = this.opts.source.nodes;
+         let edges = this.opts.source.edges;
 
          nobita.d3svg(this.d3svg);
 
          nobita
              .prepare()
              .draw(nodes, edges);
-     });
+     };
 });
 
 riot.tag2('school-district-controller', '<div> <button class="button" each="{obj in add_buttons}" action="{obj.action}" onclick="{clickAddButton}"> {obj.label} </button> </div>', 'school-district-controller > div { position: fixed; right: 22px; bottom: 22px; display: flex; flex-direction: column; } school-district-controller > div > * { margin-bottom: 11px; } school-district-controller > div > *:last-child { margin-bottom: 0px; }', '', function(opts) {
@@ -749,7 +767,7 @@ riot.tag2('school-district-controller', '<div> <button class="button" each="{obj
      };
 });
 
-riot.tag2('school-district', '<network-graph callback="{callbackGraph}"></network-graph> <school-district_inspector source="{inspectorSource()}"></school-district_inspector> <school-district-controller></school-district-controller>', '', '', function(opts) {
+riot.tag2('school-district', '<network-graph source="{source}" callback="{callbackGraph}"></network-graph> <school-district_inspector source="{inspectorSource()}"></school-district_inspector> <school-district-controller></school-district-controller>', '', '', function(opts) {
      this.inspectorSource = () => {
          let state = STORE.state().get('school');
 
@@ -757,12 +775,40 @@ riot.tag2('school-district', '<network-graph callback="{callbackGraph}"></networ
      };
 
      STORE.subscribe((action) => {
-         if (action.type=='SELECTED-SCHOOL-DISTRICT-GRAPH-NODE')
+         if (action.type=='SELECTED-SCHOOL-DISTRICT-GRAPH-NODE') {
              if (this.tags['school-district_inspector'])
                  this.tags['school-district_inspector'].update();
+             return;
+         }
 
-         if (action.type=='CLEARED-SELECT-SCHOOL-DISTRICT')
+         if (action.type=='CLEARED-SELECT-SCHOOL-DISTRICT') {
              if (this.tags['school-district_inspector'])
                  this.tags['school-district_inspector'].update();
+             return;
+         }
+
+         if (action.type=='CREATED-FRIENDS-GxAN') {
+             ACTIONS.closeModal('add-gxan')
+
+             ACTIONS.fetchPagesSchoolDistrict();
+
+             return;
+         }
+         if (action.type=='FETCHED-PAGES-SCHOOL-DISTRICT') {
+             this.source = action.response;
+
+             this.update();
+
+             return;
+         }
+     });
+
+     this.source = {
+         nodes:  { list:[], ht:{} },
+         edges:  { list:[], ht:{} },
+         hearts: { list:[], ht:{} },
+     };
+     this.on('mount', () => {
+         ACTIONS.fetchPagesSchoolDistrict();
      });
 });

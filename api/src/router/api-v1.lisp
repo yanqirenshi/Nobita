@@ -28,18 +28,6 @@
 (defroute "/" ()
   (render-json nil))
 
-;;;
-;;; Nodes
-;;;
-(defroute "/nodes" ()
-  (render-json (nobit@.api.controller:nodes)))
-
-(defroute ("/nodes/:node-id/location" :method :POST)
-    (&key node-id |type| |contents|)
-  (let ((_id (parse-integer node-id))
-        (type (str2type-keyword |type|)))
-    (render-json (nobit.api.ctrl:save-node-location _id type |contents|))))
-
 
 ;;;
 ;;; Resource
@@ -54,15 +42,18 @@
                       :name name
                       :description description)))))
 
+
 (defroute ("/friends/4neo/" :method :POST) (&key |name| |description|)
   (let ((name        (validate |name|        :string :require t   :url-decode t))
         (description (validate |description| :string :require nil :url-decode t)))
     (render-json :null)))
 
+
 (defroute ("/friends/nobita/" :method :POST) (&key |name| |description|)
   (let ((name        (validate |name|        :string :require t   :url-decode t))
         (description (validate |description| :string :require nil :url-decode t)))
     (render-json :null)))
+
 
 (defroute ("/friendship" :method :POST) (&key |from-id| |to-id| |description|)
   (let ((from-id     (validate |from-id| :integer :require t))
@@ -71,15 +62,36 @@
     (render-json :null)))
 
 
+;;;
+;;; Pages
+;;;
+(defroute "/pages/school-district" ()
+  (render-json (list :|nodes|  (nobit@.api.controller:nodes)
+                     :|edges|  (nobit@.api.controller:edges)
+                     :|hearts| (nobit@.api.controller:find-hearts))))
+
 
 ;;;
-;;; Ndges
+;;; Olds
 ;;;
+(defroute "/nodes" ()
+  (render-json (nobit@.api.controller:nodes)))
+
+
+(defroute ("/nodes/:node-id/location" :method :POST)
+    (&key node-id |type| |contents|)
+  (let ((_id (parse-integer node-id))
+        (type (str2type-keyword |type|)))
+    (render-json (nobit.api.ctrl:save-node-location _id type |contents|))))
+
+
 (defroute "/edges" ()
   (render-json (nobit@.api.controller:edges)))
 
+
 (defroute "/hearts" ()
   (render-json (nobit@.api.controller:find-hearts)))
+
 
 
 ;;;;;
