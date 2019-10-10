@@ -2,7 +2,8 @@
   (:nicknames :nobi)
   (:use #:cl
         #:nobit@.utilities
-        #:nobit@.hearts)
+        #:nobit@.hearts
+        #:nobit@.action)
   (:import-from :alexandria
                 #:when-let
                 #:ensure-list
