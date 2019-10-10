@@ -1,4 +1,19 @@
 class Actions extends Vanilla_Redux_Actions {
+    encodePostData (data_ht) {
+        if (!data_ht) return {};
+
+        let out = Object.assign({}, data_ht);
+        for (let key in out) {
+            let val = out[key];
+
+            if (key=='description' || key=='name')
+                val = val ? '' : val.trim();
+
+            out[key] = encodeURIComponent(out[key]);
+        }
+
+        return out;
+    }
     movePage (data) {
         let state = STORE.get('site');
 
@@ -19,6 +34,9 @@ class Actions extends Vanilla_Redux_Actions {
 
         return { ht: ht, list: list };
     };
+    /* **************************************************************** *
+     *   ...
+     * **************************************************************** */
     fetchNodes () {
         API.get('/nodes', function (response) {
             STORE.dispatch(this.fetchedNodes(response));
@@ -139,5 +157,25 @@ class Actions extends Vanilla_Redux_Actions {
             type: 'CLOSE-MODAL',
             data: { modals: state },
         });
+    }
+    /* **************************************************************** *
+     *   Resources
+     * **************************************************************** */
+    createFriendsGxan (data) {
+        let path = '/friends/g*an/';
+        let post_data = {
+            name:        data.name,
+            description: data.description,
+        };
+
+        API.post(path, this.encodePostData(post_data), (response) => {
+            STORE.dispatch(this.createdFriendsGxan(response));
+        });
+    }
+    createdFriendsGxan (response) {
+        return {
+            type: 'CREATED-FRIENDS-GxAN',
+            data: {},
+        };
     }
 }
