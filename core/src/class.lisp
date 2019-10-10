@@ -38,3 +38,20 @@
 (defclass friendship (edge)
   ((heart    :accessor heart    :initarg :heart    :initform nil)
    (contexts :accessor contexts :initarg :contexts :initform (make-hash-table :synchronized t))))
+
+
+;;;;;
+;;;;; Action Plan
+;;;;;
+(defclass action-plan (shinra:shin)
+  ((name        :accessor name        :initarg :name        :initform "")
+   (description :accessor description :initarg :description :initform ""))
+  (:documentation ""))
+
+(defclass action-plan-cl (action-plan)
+  ()
+  (:documentation ""))
+
+(defclass action-plan-op (action-plan)
+  ()
+  (:documentation ""))

@@ -33,6 +33,7 @@ This file is a part of nobit@ project.
                                                  (:file "4neo")
                                                  (:file "nobit@")))
                  (:module "action" :components ((:file "package")
+                                                (:file "action-plan")
                                                 (:file "action")
                                                 (:file "action!")
                                                 (:file "nobit@")))
