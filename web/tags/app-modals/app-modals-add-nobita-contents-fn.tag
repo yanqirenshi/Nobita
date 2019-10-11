@@ -1,8 +1,6 @@
 <app-modals-add-nobita-contents-fn>
 
-    <div class="control">
-        <input class="input" type="text" placeholder="Package">
-    </div>
+    <app-modals-add-nobita-contents-package-selector></app-modals-add-nobita-contents-package-selector>
 
     <div class="control">
         <input class="input" type="text" placeholder="Operator Name">
@@ -10,19 +8,19 @@
 
     <div class="control">
         <p>Parameters</p>
+
+        <p><pre>準備中</pre></p>
+
     </div>
 
     <style>
      app-modals-add-nobita-contents-fn {
-         width: 333px;
+         width: 444px;
          height: 333px;
          display: block;
      }
      app-modals-add-nobita-contents-fn > * {
-         margin-bottom:11px;
-     }
-     app-modals-add-nobita-contents-fn > *:last-child {
-         margin-bottom:0px;
+         margin-top:11px;
      }
     </style>
 

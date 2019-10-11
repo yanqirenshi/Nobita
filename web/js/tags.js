@@ -1,4 +1,4 @@
-riot.tag2('app-modals-add-4neo', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Add 4neo</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input class="input" type="text" placeholder="Name" ref="name"> </div> </div> <div class="field"> <div class="control"> <textarea class="textarea" placeholder="Description" ref="description"></textarea> </div> </div> </section> <footer class="modal-card-foot"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success" onclick="{clickAdd}">Add</button> </footer> </div> </div>', '', '', function(opts) {
+riot.tag2('app-modals-add-4neo', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Add 4neo</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input class="input" type="text" placeholder="Name" ref="name"> </div> </div> <div class="field"> <div class="control"> <textarea class="textarea" placeholder="Description" ref="description"></textarea> </div> </div> </section> <footer class="modal-card-foot" style="display: flex;justify-content: space-between;"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success" onclick="{clickAdd}">Add</button> </footer> </div> </div>', '', '', function(opts) {
      this.clickAdd = () => {
          let name = this.refs.name.value.trim();
          let description = this.refs.description.value.trim();
@@ -13,7 +13,7 @@ riot.tag2('app-modals-add-4neo', '<div class="modal is-active"> <div class="moda
      };
 });
 
-riot.tag2('app-modals-add-gxan', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Add G * an</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input class="input" type="text" placeholder="Name" ref="name"> </div> </div> <div class="field"> <div class="control"> <textarea class="textarea" placeholder="Description" ref="description"></textarea> </div> </div> </section> <footer class="modal-card-foot"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success" onclick="{clickAdd}">Add</button> </footer> </div> </div>', '', '', function(opts) {
+riot.tag2('app-modals-add-gxan', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Add G * an</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input class="input" type="text" placeholder="Name" ref="name"> </div> </div> <div class="field"> <div class="control"> <textarea class="textarea" placeholder="Description" ref="description"></textarea> </div> </div> </section> <footer class="modal-card-foot" style="display: flex;justify-content: space-between;"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success" onclick="{clickAdd}">Add</button> </footer> </div> </div>', '', '', function(opts) {
      this.clickAdd = () => {
          let name = this.refs.name.value.trim();
          let description = this.refs.description.value.trim();
@@ -28,13 +28,16 @@ riot.tag2('app-modals-add-gxan', '<div class="modal is-active"> <div class="moda
      };
 });
 
-riot.tag2('app-modals-add-nobita-contents-cl', '<div class="control"> <input class="input" type="text" placeholder="Package"> </div> <div class="field" style="height:100%;"> <div class="control" style="height:100%;"> <textarea class="textarea" placeholder="Lisp code" style="height:100%;"></textarea> </div> </div>', 'app-modals-add-nobita-contents-cl { width: 333px; display: block; } app-modals-add-nobita-contents-cl > * { margin-bottom:11px; } app-modals-add-nobita-contents-cl > *:last-child { margin-bottom:0px; }', '', function(opts) {
+riot.tag2('app-modals-add-nobita-contents-cl', '<app-modals-add-nobita-contents-package-selector></app-modals-add-nobita-contents-package-selector> <div class="field" style="height:100%;"> <div class="control" style="height:100%;"> <textarea class="textarea" placeholder="Lisp code"></textarea> </div> </div>', 'app-modals-add-nobita-contents-cl { width: 555px; display: block; } app-modals-add-nobita-contents-cl > * { margin-top:11px; } app-modals-add-nobita-contents-cl .textarea { height: 444px; }', '', function(opts) {
 });
 
 riot.tag2('app-modals-add-nobita-contents-default', '', '', '', function(opts) {
 });
 
-riot.tag2('app-modals-add-nobita-contents-fn', '<div class="control"> <input class="input" type="text" placeholder="Package"> </div> <div class="control"> <input class="input" type="text" placeholder="Operator Name"> </div> <div class="control"> <p>Parameters</p> </div>', 'app-modals-add-nobita-contents-fn { width: 333px; height: 333px; display: block; } app-modals-add-nobita-contents-fn > * { margin-bottom:11px; } app-modals-add-nobita-contents-fn > *:last-child { margin-bottom:0px; }', '', function(opts) {
+riot.tag2('app-modals-add-nobita-contents-fn', '<app-modals-add-nobita-contents-package-selector></app-modals-add-nobita-contents-package-selector> <div class="control"> <input class="input" type="text" placeholder="Operator Name"> </div> <div class="control"> <p>Parameters</p> <p><pre>準備中</pre></p> </div>', 'app-modals-add-nobita-contents-fn { width: 444px; height: 333px; display: block; } app-modals-add-nobita-contents-fn > * { margin-top:11px; }', '', function(opts) {
+});
+
+riot.tag2('app-modals-add-nobita-contents-package-selector', '<div class="field"> <div class="control"> <div class="select" style="width:100%"> <select style="width:100%"> <option>CL-USER</option> </select> </div> </div> </div>', '', '', function(opts) {
 });
 
 riot.tag2('app-modals-add-nobita-contents-select-action-type', '<label class="radio" each="{obj in opts.source}"> <input type="radio" name="answer" code="{obj.code}" onchange="{changeActionType}"> {obj.label} </label>', '', '', function(opts) {
@@ -65,7 +68,7 @@ riot.tag2('app-modals-add-nobita-contents', '<div style="display: flex; flex-dir
      };
 });
 
-riot.tag2('app-modals-add-nobita', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card" style="width:auto;"> <header class="modal-card-head"> <p class="modal-card-title">Add Nobita</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> <app-modals-add-nobita-contents></app-modals-add-nobita-contents> </section> <footer class="modal-card-foot"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success" onclick="{clickAdd}">Add</button> </footer> </div> </div>', 'app-modals-add-nobita .modal-card { width: auto; height: auto; }', '', function(opts) {
+riot.tag2('app-modals-add-nobita', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card" style="width:auto;"> <header class="modal-card-head"> <p class="modal-card-title">Add Nobita</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> <app-modals-add-nobita-contents></app-modals-add-nobita-contents> </section> <footer class="modal-card-foot" style="display: flex;justify-content: space-between;"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success" onclick="{clickAdd}">Add</button> </footer> </div> </div>', 'app-modals-add-nobita .modal-card { width: auto; height: auto; }', '', function(opts) {
      this.clickAdd = () => {
          let name        = "XXX";
          let description = "YYY";

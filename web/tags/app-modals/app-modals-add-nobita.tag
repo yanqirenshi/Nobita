@@ -15,7 +15,7 @@
                 <app-modals-add-nobita-contents></app-modals-add-nobita-contents>
             </section>
 
-            <footer class="modal-card-foot">
+            <footer class="modal-card-foot" style="display: flex;justify-content: space-between;">
                 <button class="button" onclick={clickClose}>Cancel</button>
                 <button class="button is-success" onclick={clickAdd}>Add</button>
             </footer>
