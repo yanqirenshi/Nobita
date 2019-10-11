@@ -256,4 +256,16 @@ class Actions extends Vanilla_Redux_Actions {
             response: response,
         };
     }
+    fetchPagesSchoolDistrictKarma () {
+        API.get('/pages/school-district-karma', (response) => {
+            STORE.dispatch(this.fetchedPagesSchoolDistrictKarma(response));
+        });
+    }
+    fetchedPagesSchoolDistrictKarma (response) {
+
+        return {
+            type: 'FETCHED-PAGES-SCHOOL-DISTRICT-KARMA',
+            response: response,
+        };
+    }
 }

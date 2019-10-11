@@ -91,6 +91,13 @@
                      :|hearts| (nobit@.api.controller:find-hearts))))
 
 
+(defroute "/pages/school-district-karma" ()
+  (render-json (list :|packages| (mapcar #'(lambda (p)
+                                             (list :|name| (package-name p)
+                                                   :|nicknames| (package-nicknames p)))
+                                         (list-all-packages)))))
+
+
 ;;;
 ;;; Olds
 ;;;
