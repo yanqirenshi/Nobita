@@ -57,9 +57,12 @@
     <script>
      this.list = () => {
          let str = this.refs['filter-pattern'].value;
+         let list = this.source.packages || [];
 
-         return this.source.packages.filter((d) => {
+         return list.filter((d) => {
              return d.name.indexOf(str)==-1 ? false : true;
+         }).sort((a, b) => {
+             return a.name < b.name ? -1 : 1;
          });
      };
      this.on('mount', () => {
