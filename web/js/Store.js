@@ -33,7 +33,7 @@ class Store extends Vanilla_Redux_Store {
                         { code: '4neos',   children: [ { code: 'id', regex: /^\d+$/, tag: 'four-neo' } ] },
                         this.initSiteNobitas(),
                     ],
-                    menu_label: '校区',
+                    menu_label: '学区',
                 },
                 {
                     code: 'friends',
@@ -54,6 +54,11 @@ class Store extends Vanilla_Redux_Store {
                     code: 'hearts',
                     tag: 'hearts',
                     menu_label: '心臓',
+                },
+                {
+                    code: 'school-district-karma',
+                    tag: 'school-district-karma',
+                    menu_label: '学業',
                 }
             ]
         };
