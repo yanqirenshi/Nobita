@@ -37,6 +37,7 @@
                             <input class="input"
                                    type="text"
                                    placeholder="Filter"
+                                   onkeyup={keyUp}
                                    ref="filter-pattern">
                             <button class="button">Clear</button>
                         </div>
@@ -55,8 +56,11 @@
     </section>
 
     <script>
+     this.keyUp = (e) => {
+         this.update();
+     };
      this.list = () => {
-         let str = this.refs['filter-pattern'].value;
+         let str = this.refs['filter-pattern'].value.toUpperCase();
          let list = this.source.packages || [];
 
          return list.filter((d) => {
