@@ -23,6 +23,67 @@ class NobitaNodes {
     /////
     ///// Draw
     /////
+    makeDragEvents (simulation) {
+        return d3.drag()
+            .on("start", (d) => {
+                if (!d3.event.active)
+                    simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            })
+            .on("drag", (d) => {
+                d.fx = d3.event.x;
+                d.fy = d3.event.y;
+            })
+            .on("end", (d) => {
+                if (d.location.hold) {
+                    d.location.x    = d.fx;
+                    d.location.y    = d.fy;
+
+                    ACTIONS.saveNodeLocation(d);
+                } else {
+                    d.fx = null;
+                    d.fy = null;
+                }
+            });
+    }
+    nodeImage (d) {
+        let cls = d._class;
+
+        if (cls=='NOBIT@')
+            return '/nobit@/assets/image/nobit@.png';
+
+        if (cls=='4NEO')
+            return '/nobit@/assets/image/4neo.png';
+
+        if (cls=='G*AN')
+            return '/nobit@/assets/image/g_an.png';
+
+        return '';
+    };
+    drawImage (simulation, node_groups) {
+        node_groups
+            .append('image')
+            .on("click", (data) => {
+                let func = this.callback('click');
+
+                if (func)
+                    func(data, d3.event);
+
+                d3.event.stopPropagation();
+            })
+            .attr('class', 'frend')
+            .attr('xlink:href', this.nodeImage)
+            .call(this.makeDragEvents (simulation));
+
+    }
+    drawLabel (node_groups) {
+        node_groups
+            .append('text')
+            .text((d) => {
+                return d.name + "(" + d._id + ")";
+            });
+    }
     draw(nodes, d3svg, simulation) {
         let nodes_g = d3svg.Svg().select('g.nodes');
         let nodes_list = nodes.list;
@@ -42,45 +103,8 @@ class NobitaNodes {
             .append('g')
             .attr('class', 'node');
 
-        node_groups
-            .append('image')
-            .on("click", (data) => {
-                let func = this.callback('click');
+        this.drawImage(simulation, node_groups);
+        this.drawLabel(node_groups);
 
-                if (func)
-                    func(data, d3.event);
-
-                d3.event.stopPropagation();
-            })
-            .attr('class', 'frend')
-            .attr('xlink:href', (d) => {
-                let cls = d._class;
-                if (cls=='NOBIT@') return '/nobit@/assets/image/nobit@.png';
-                if (cls=='4NEO')   return '/nobit@/assets/image/4neo.png';
-                if (cls=='G*AN')   return '/nobit@/assets/image/g_an.png';
-                return '';
-            })
-            .call(d3.drag()
-                  .on("start", (d) => {
-                      if (!d3.event.active)
-                          simulation.alphaTarget(0.3).restart();
-                      d.fx = d.x;
-                      d.fy = d.y;
-                  })
-                  .on("drag", (d) => {
-                      d.fx = d3.event.x;
-                      d.fy = d3.event.y;
-                  })
-                  .on("end", (d) => {
-                      if (d.location.hold) {
-                          d.location.x    = d.fx;
-                          d.location.y    = d.fy;
-
-                          ACTIONS.saveNodeLocation(d);
-                      } else {
-                          d.fx = null;
-                          d.fy = null;
-                      }
-                  }));
     }
 }

@@ -45,32 +45,39 @@ class Nobita {
 
         return this._simulation;
     }
+    simulationTickNodes (svg, nodes) {
+        nodes.attr("x", function(d) { return d.x; })
+            .attr("y", function(d) { return d.y; });
+    }
+    simulationTickLines (svg, lines) {
+        lines
+            .attr("x1", function(d) { return d.source.x + 256 / 2; })
+            .attr("y1", function(d) { return d.source.y + 256 / 2; })
+            .attr("x2", function(d) { return d.target.x + 256 / 2; })
+            .attr("y2", function(d) { return d.target.y + 256 / 2; })
+            .attr('stroke-dasharray', (d) => {
+                let from = d.source;
+                let to = d.target;
+                let x1 = from.x;
+                let y1 = from.y;
+                let x2 = to.x;
+                let y2 = to.y;
+                let r = 256 / 2 + 22;
+                let v = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                return '0, ' + r + ', ' + (Math.floor(v) - r*2) + ', ' + r;
+            });
+    }
+    simulationTick (svg) {
+        let nodes = svg.selectAll('image.frend');
+        this.simulationTickNodes(svg, nodes);
+
+        let lines = svg.selectAll('line.nobita');
+        this.simulationTickLines(svg, lines);
+    }
     addData2Simulation (svg, simulation, data) {
         simulation
             .nodes(data)
-            .on("tick", () => {
-                let images = svg.selectAll('image.frend');
-                images.attr("x", function(d) { return d.x; })
-                    .attr("y", function(d) { return d.y; });
-
-                let lines = svg.selectAll('line.nobita');
-                lines
-                    .attr("x1", function(d) { return d.source.x + 256 / 2; })
-                    .attr("y1", function(d) { return d.source.y + 256 / 2; })
-                    .attr("x2", function(d) { return d.target.x + 256 / 2; })
-                    .attr("y2", function(d) { return d.target.y + 256 / 2; })
-                    .attr('stroke-dasharray', (d) => {
-                        let from = d.source;
-                        let to = d.target;
-                        let x1 = from.x;
-                        let y1 = from.y;
-                        let x2 = to.x;
-                        let y2 = to.y;
-                        let r = 256 / 2 + 22;
-                        let v = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-                        return '0, ' + r + ', ' + (Math.floor(v) - r*2) + ', ' + r;
-                    });
-            })
+            .on("tick", () => { this.simulationTick(svg); })
             .force("collide", d3.forceCollide(188));
     }
     /////
