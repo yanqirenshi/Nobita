@@ -24,3 +24,14 @@
                          :name name
                          :description description
                          :action nil))
+
+
+(defun tx-create-friendship@ (graph &key from-id to-id description)
+  (declare (ignore description))
+  (assert graph)
+  (assert (and from-id to-id))
+  (let ((from (nobit@:get-friend graph :%id from-id))
+        (to   (nobit@:get-friend graph :%id to-id))
+        (heart nil))
+    (assert (and from to))
+    (nobit@:tx-make-frendship graph from to heart)))

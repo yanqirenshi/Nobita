@@ -13,12 +13,152 @@ riot.tag2('app-modals-add-4neo', '<div class="modal is-active"> <div class="moda
      };
 });
 
-riot.tag2('app-modals-add-friendship', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Add Friendship</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> </section> <footer class="modal-card-foot" style="display: flex;justify-content: space-between;"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success" onclick="{clickAdd}">Add</button> </footer> </div> </div>', '', '', function(opts) {
-     this.clickAdd = () => {
+riot.tag2('app-modals-add-friendship-contents-hearts', '<div style="display: flex; justify-content: center;"> <div style="margin-right:11px;margin-left:-36px;"> <p style="font-size:24px;"><i class="fas fa-heartbeat"></i></p> </div> <div class="select"> <select onchange="{onChange}"> <option each="{obj in list()}" riot-value="{obj.name}"> {obj.name} </option> </select> </div> </div>', 'app-modals-add-friendship-contents-hearts { display: flex; flex-direction: column; }', '', function(opts) {
+     this.onChange = (e) => {
+         let code = e.target.value;
+         let heart = null;
 
+         if (code!='Select Heart')
+             heart = STORE.get('hearts').find((d) => {
+                 return d.name = code;
+             });
+
+         this.opts.callbacks('change-heart', heart);
+     };
+     this.list = () => {
+         let list = STORE.get('hearts');
+
+         if (!list)
+             return [];
+
+         return [
+             { name: 'Select Heart' },
+         ].concat(list);
+
+     };
+});
+
+riot.tag2('app-modals-add-friendship-contents-node', '<div> <div class="node-image" style="padding:11px;"> <img riot-src="{imageSrc()}" style="width:89px;height:89px;"> </div> <div style="margin-top:11px; width: 111px;"> <input class="input" type="text" style="text-align: center;" placeholder="{opts.label}" onkeyup="{keyUp}"> </div> </div>', 'app-modals-add-friendship-contents-node .node-image { border-radius: 5px; background:#eee; width:111px; height:111px; }', '', function(opts) {
+     this.imageSrc = () => {
+         let node = this.node;
+
+         if (!node)
+             return "";
+
+         let cls = node._class;
+
+         if (cls=='NOBIT@')
+             return '/nobit@/assets/image/nobit@.png';
+
+         if (cls=='4NEO')
+             return '/nobit@/assets/image/4neo.png';
+
+         if (cls=='G*AN')
+             return '/nobit@/assets/image/g_an.png';
+     };
+
+     this.node = null
+     this.keyUp = (e) => {
+         let target = e.target;
+         let id = target.value;
+
+         this.node = STORE.get('nodes.ht')[id] || null;
+
+         this.update();
+
+         this.opts.callbacks('change-node', {
+             type: this.opts.type,
+             node: this.node,
+         });
+     };
+});
+
+riot.tag2('app-modals-add-friendship-contents', '<div style="display:flex;align-items: center;justify-content: center;"> <div style="margin-bottom: 11px;"> <div> <app-modals-add-friendship-contents-node label="Fron Node ID" type="from" callbacks="{childrenCallbacks}"></app-modals-add-friendship-contents-node> </div> </div> <div style="padding-left: 22px;padding-right: 22px;"> <div style="text-align: center;"> <p style="font-size: 66px;"> <i class="far fa-handshake"></i> </p> </div> </div> <div style="margin-bottom: 11px;"> <div> <app-modals-add-friendship-contents-node label="To Node ID" type="to" callbacks="{childrenCallbacks}"></app-modals-add-friendship-contents-node> </div> </div> </div> <div> <app-modals-add-friendship-contents-hearts callbacks="{childrenCallbacks}"></app-modals-add-friendship-contents-hearts> </div> <div style="margin-top:22px;"> <textarea class="textarea" placeholder="Description" onkeyup="{keyUp}"></textarea> </div>', '', '', function(opts) {
+     this.keyUp = (e) => {
+         let description = e.target.value;
+         this.opts.callbacks('change-description', description);
+     };
+     this.childrenCallbacks = (action, data) => {
+         if (action=='change-node' || action=='change-heart') {
+             this.opts.callbacks(action, data);
+             return
+         }
+     };
+});
+
+riot.tag2('app-modals-add-friendship', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Add Friendship</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> <app-modals-add-friendship-contents callbacks="{childrenCallbacks}" source="{form_data}"></app-modals-add-friendship-contents> </section> <footer class="modal-card-foot" style="display: flex;justify-content: space-between;"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success" onclick="{clickAdd}" disabled="{isDisabled()}">Add</button> </footer> </div> </div>', '', '', function(opts) {
+     this.form_data = {
+         from: null,
+         to: null,
+         description: "",
+         heart: null,
+     };
+     this.clickAdd = () => {
+         ACTIONS.createFriendship({
+             from_id:     this.form_data.from._id,
+             to_id:       this.form_data.to._id,
+             description: this.form_data.description,
+             heart_code:  this.form_data.heart.name,
+         });
      };
      this.clickClose = () => {
          ACTIONS.closeModal('add-friendship')
+     };
+
+     this.childrenCallbacks = (action, data) => {
+         if (action=='change-node') {
+             this.form_data[data.type] = data.node;
+
+             this.update();
+
+             return;
+         }
+         if (action=='change-heart') {
+             this.form_data.heart = data;
+
+             this.update();
+
+             return;
+         }
+         if (action=='change-description') {
+             this.form_data.description = data || "";
+             return;
+         }
+     };
+     this.isDisabled = () => {
+         let data = this.form_data;
+
+         if (!data.heart)
+             return true;
+
+         let from_node = data.from;
+         let to_node   = data.to;
+
+         if (!from_node || !to_node)
+             return true;
+
+         if (from_node._id == to_node._id)
+             return true;
+
+         let from_node_class = data.from._class;
+         let to_node_class   = data.to._class;
+
+         if (from_node_class=='G*AN' && to_node_class=='4NEO')
+             return false;
+
+         if (from_node_class=='4NEO' && to_node_class=='NOBIT@')
+             return false;
+
+         if (from_node_class=='NOBIT@' && to_node_class=='NOBIT@')
+             return false;
+
+         if (from_node_class=='NOBIT@' && to_node_class=='4NEO')
+             return false;
+
+         if (from_node_class=='4NEO' && to_node_class=='G*AN')
+             return false;
+
+         return true;
      };
 });
 

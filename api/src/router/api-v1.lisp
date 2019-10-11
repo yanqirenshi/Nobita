@@ -66,17 +66,13 @@
                         :description description)))))
 
 
-(defroute ("/friends/nobita/" :method :POST) (&key |name| |description|)
-  (let ((name        (validate |name|        :string :require t   :url-decode t))
-        (description (validate |description| :string :require nil :url-decode t)))
-    (render-json :null)))
-
-
-(defroute ("/friendship" :method :POST) (&key |from-id| |to-id| |description|)
-  (let ((from-id     (validate |from-id| :integer :require t))
-        (to-id       (validate |to-id|   :integer :require t))
-        (description (validate |description| :string :require nil :url-decode t)))
-    (render-json :null)))
+(defroute ("/friendship" :method :POST)
+    (&key |from_id| |to_id| |description| |heart_code|)
+  (let ((from-id     (validate |from_id|     :integer :require t))
+        (to-id       (validate |to_id|       :integer :require t))
+        (heart-code  (validate |heart_code|  :string  :require t   :url-decode t))
+        (description (validate |description| :string  :require nil :url-decode t)))
+    (render-json (list from-id to-id heart-code description))))
 
 
 ;;;

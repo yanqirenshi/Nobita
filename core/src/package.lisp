@@ -29,6 +29,7 @@
   (:export #:find-nobit@
            #:get-nobit@
            #:tx-make-nobit@)
+  (:export #:get-friend)
   (:export #:find-frendship
            #:tx-make-frendship)
   (:export #:flash-across-ones-mind))

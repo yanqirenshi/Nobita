@@ -209,6 +209,24 @@ class Actions extends Vanilla_Redux_Actions {
             type: 'CREATED-FRIENDS-NOBIT@',
         };
     }
+    createFriendship (data) {
+        let path = '/friendship';
+        let post_data = {
+            from_id:     data.from_id,
+            to_id:       data.to_id,
+            heart_code:  data.heart_code,
+            description: data.description,
+        };
+
+        API.post(path, this.encodePostData(post_data), (response) => {
+            STORE.dispatch(this.createdFriendship(response));
+        });
+    }
+    createdFriendship (response) {
+        return {
+            type: 'CREATED-FRIENDSHIP',
+        };
+    }
     /* **************************************************************** *
      *   Pages
      * **************************************************************** */
@@ -225,7 +243,7 @@ class Actions extends Vanilla_Redux_Actions {
 
         return {
             type: 'FETCHED-PAGES-SCHOOL-DISTRICT',
-            data: {},
+            data: { hearts: response.hearts },
             response: response,
         };
     }

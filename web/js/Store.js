@@ -96,6 +96,7 @@ class Store extends Vanilla_Redux_Store {
                 'add-nobita': null,
                 'add-friendship': null,
             },
+            hearts: [],
         };
     }
     init () {
