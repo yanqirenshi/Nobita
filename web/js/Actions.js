@@ -237,6 +237,15 @@ class Actions extends Vanilla_Redux_Actions {
     }
     fetchedPagesSchoolDistrict (response) {
 
+        response['edges'] = response['edges'].map((d) => {
+            return {
+                _id: d._id,
+                source: d.from_id,
+                target: d.to_id,
+                distance: 30
+            };
+        });
+
         let keys = ['nodes', 'edges'];
         for (let key of keys)
             response[key] = this.list2Pool(response[key]);

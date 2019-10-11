@@ -146,6 +146,7 @@ class Nobita {
         this.nobiLines.draw(edges_data, d3svg, node_data);
 
         let simulation = this.simulation();
+
         simulation
             .force("link")
             .links(edges_data.list)
