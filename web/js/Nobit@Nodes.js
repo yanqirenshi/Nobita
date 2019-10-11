@@ -105,6 +105,5 @@ class NobitaNodes {
 
         this.drawImage(simulation, node_groups);
         this.drawLabel(node_groups);
-
     }
 }

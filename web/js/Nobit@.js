@@ -46,9 +46,12 @@ class Nobita {
         return this._simulation;
     }
     simulationTickNodes (svg, nodes) {
-        nodes.attr("x", function(d) { return d.x; })
-            .attr("y", function(d) { return d.y; });
+        nodes
+            .attr("transform", function(d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
     }
+    // .attr(;
     simulationTickLines (svg, lines) {
         lines
             .attr("x1", function(d) { return d.source.x + 256 / 2; })
@@ -68,7 +71,7 @@ class Nobita {
             });
     }
     simulationTick (svg) {
-        let nodes = svg.selectAll('image.frend');
+        let nodes = svg.selectAll('g.node');
         this.simulationTickNodes(svg, nodes);
 
         let lines = svg.selectAll('line.nobita');
