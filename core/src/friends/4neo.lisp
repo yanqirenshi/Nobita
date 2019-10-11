@@ -14,8 +14,9 @@
   (when %id
     (get-vertex-at graph '4neo :%id %id)))
 
-(defun tx-make-4neo (graph &key (name "4neo:???"))
-  (tx-make-vertex graph '4neo `((name ,name))))
+(defun tx-make-4neo (graph &key (name "4neo:???") (description ""))
+  (tx-make-vertex graph '4neo `((name ,name)
+                                (description ,description))))
 
 (defmethod print-object ((obj 4neo) out)
   (print-unreadable-object (obj out :type t)

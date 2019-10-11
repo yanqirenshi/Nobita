@@ -15,15 +15,13 @@
             <div style="width:auto; margin-right:22px;">
 
                 <div class="control" style="margin-bottom: 22px;">
-                    <label class="radio"
-                           each={obj in contents_types}>
-                        <input type="radio" name="answer" code={obj.code}>
-                        {obj.label}
-                    </label>
+                    <app-modals-add-nobita-contents-select-action-type source={contents_types}
+                                                                       callbacks={childrenCallbaks}></app-modals-add-nobita-contents-select-action-type>
                 </div>
 
-                <!-- <app-modals-add-nobita-contents-fn></app-modals-add-nobita-contents-fn> -->
-                <app-modals-add-nobita-contents-cl></app-modals-add-nobita-contents-cl>
+                <app-modals-add-nobita-contents-default class={isHide(null)}></app-modals-add-nobita-contents-default>
+                <app-modals-add-nobita-contents-fn      class={isHide('fn')}></app-modals-add-nobita-contents-fn>
+                <app-modals-add-nobita-contents-cl      class={isHide('cl')}></app-modals-add-nobita-contents-cl>
             </div>
 
             <div style="width:333px; flex-grow:1;">
@@ -44,6 +42,18 @@
          { code: 'fn', label: 'Submit Lisp Code' },
          { code: 'cl', label: 'Call Function' },
      ];
+
+     this.selected = null
+     this.childrenCallbaks = (action, data) => {
+         if (action=="selected-action-type") {
+             this.selected = data;
+             this.update();
+             return;
+         }
+     };
+     this.isHide = (key) => {
+         return key == this.selected ? '' : 'hide';
+     };
     </script>
 
 </app-modals-add-nobita-contents>

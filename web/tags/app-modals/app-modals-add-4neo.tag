@@ -15,13 +15,18 @@
 
                 <div class="field">
                     <div class="control">
-                        <input class="input" type="text" placeholder="Name">
+                        <input class="input"
+                               type="text"
+                               placeholder="Name"
+                               ref="name">
                     </div>
                 </div>
 
                 <div class="field">
                     <div class="control">
-                        <textarea class="textarea" placeholder="Description"></textarea>
+                        <textarea class="textarea"
+                                  placeholder="Description"
+                                  ref="description"></textarea>
                     </div>
                 </div>
 
@@ -29,12 +34,21 @@
 
             <footer class="modal-card-foot">
                 <button class="button" onclick={clickClose}>Cancel</button>
-                <button class="button is-success">Add</button>
+                <button class="button is-success" onclick={clickAdd}>Add</button>
             </footer>
         </div>
     </div>
 
     <script>
+     this.clickAdd = () => {
+         let name = this.refs.name.value.trim();
+         let description = this.refs.description.value.trim();
+
+         ACTIONS.createFriends4neo({
+             name: name,
+             description: description,
+         });
+     };
      this.clickClose = () => {
          ACTIONS.closeModal('add-4neo')
      };

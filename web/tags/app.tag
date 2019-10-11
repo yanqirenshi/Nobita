@@ -37,10 +37,12 @@
 
          if (action.type=='CREATED-FRIENDS-GxAN') {
              ACTIONS.closeModal('add-gxan')
-
              return;
          }
-
+         if (action.type=='CREATED-FRIENDS-4NEO') {
+             ACTIONS.closeModal('add-4neo')
+             return;
+         }
      });
 
      window.addEventListener('resize', (event) => {

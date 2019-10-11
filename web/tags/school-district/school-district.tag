@@ -33,6 +33,20 @@
 
              return;
          }
+         if (action.type=='CREATED-FRIENDS-4NEO') {
+             ACTIONS.closeModal('add-4neo')
+
+             ACTIONS.fetchPagesSchoolDistrict();
+
+             return;
+         }
+         if (action.type=='CREATED-FRIENDS-NOBIT@') {
+             ACTIONS.closeModal('add-nobita')
+
+             ACTIONS.fetchPagesSchoolDistrict();
+
+             return;
+         }
          if (action.type=='FETCHED-PAGES-SCHOOL-DISTRICT') {
              this.source = action.response;
 

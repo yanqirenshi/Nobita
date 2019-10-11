@@ -10,5 +10,7 @@
   (:export #:edges
            #:find-hearts)
   ;; resources
-  (:export #:tx-create-g*an))
+  (:export #:tx-create-g*an
+           #:tx-create-4neo
+           #:tx-create-nobit@))
 (in-package :nobit@.api.controller)

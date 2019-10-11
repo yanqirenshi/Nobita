@@ -162,7 +162,7 @@ class Actions extends Vanilla_Redux_Actions {
      *   Resources
      * **************************************************************** */
     createFriendsGxan (data) {
-        let path = '/friends/g*an/';
+        let path = '/friends/g*an';
         let post_data = {
             name:        data.name,
             description: data.description,
@@ -175,7 +175,38 @@ class Actions extends Vanilla_Redux_Actions {
     createdFriendsGxan (response) {
         return {
             type: 'CREATED-FRIENDS-GxAN',
-            data: {},
+        };
+    }
+    createFriends4neo (data) {
+        let path = '/friends/4neo';
+        let post_data = {
+            name:        data.name,
+            description: data.description,
+        };
+
+        API.post(path, this.encodePostData(post_data), (response) => {
+            STORE.dispatch(this.createdFriends4neo(response));
+        });
+    }
+    createdFriends4neo (response) {
+        return {
+            type: 'CREATED-FRIENDS-4NEO',
+        };
+    }
+    createFriendsNobita (data) {
+        let path = '/friends/nobita';
+        let post_data = {
+            name:        data.name,
+            description: data.description,
+        };
+
+        API.post(path, this.encodePostData(post_data), (response) => {
+            STORE.dispatch(this.createdFriendsNobita(response));
+        });
+    }
+    createdFriendsNobita (response) {
+        return {
+            type: 'CREATED-FRIENDS-NOBIT@',
         };
     }
     /* **************************************************************** *
