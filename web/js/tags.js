@@ -13,6 +13,15 @@ riot.tag2('app-modals-add-4neo', '<div class="modal is-active"> <div class="moda
      };
 });
 
+riot.tag2('app-modals-add-friendship', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Add Friendship</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> </section> <footer class="modal-card-foot" style="display: flex;justify-content: space-between;"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success" onclick="{clickAdd}">Add</button> </footer> </div> </div>', '', '', function(opts) {
+     this.clickAdd = () => {
+
+     };
+     this.clickClose = () => {
+         ACTIONS.closeModal('add-friendship')
+     };
+});
+
 riot.tag2('app-modals-add-gxan', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Add G * an</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input class="input" type="text" placeholder="Name" ref="name"> </div> </div> <div class="field"> <div class="control"> <textarea class="textarea" placeholder="Description" ref="description"></textarea> </div> </div> </section> <footer class="modal-card-foot" style="display: flex;justify-content: space-between;"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success" onclick="{clickAdd}">Add</button> </footer> </div> </div>', '', '', function(opts) {
      this.clickAdd = () => {
          let name = this.refs.name.value.trim();
@@ -83,7 +92,7 @@ riot.tag2('app-modals-add-nobita', '<div class="modal is-active"> <div class="mo
      };
 });
 
-riot.tag2('app-modals', '<app-modals-add-gxan if="{isShow(\'add-gxan\')}"></app-modals-add-gxan> <app-modals-add-4neo if="{isShow(\'add-4neo\')}"></app-modals-add-4neo> <app-modals-add-nobita if="{isShow(\'add-nobita\')}"></app-modals-add-nobita>', '', '', function(opts) {
+riot.tag2('app-modals', '<app-modals-add-gxan if="{isShow(\'add-gxan\')}"></app-modals-add-gxan> <app-modals-add-4neo if="{isShow(\'add-4neo\')}"></app-modals-add-4neo> <app-modals-add-nobita if="{isShow(\'add-nobita\')}"></app-modals-add-nobita> <app-modals-add-friendship if="{isShow(\'add-friendship\')}"></app-modals-add-friendship>', '', '', function(opts) {
      this.isShow = (key) => {
          return this.opts.source[key] ? true : false;
      };
@@ -804,9 +813,10 @@ riot.tag2('network-graph', '<svg></svg>', '', '', function(opts) {
 
 riot.tag2('school-district-controller', '<div> <button class="button" each="{obj in add_buttons}" action="{obj.action}" onclick="{clickAddButton}"> {obj.label} </button> </div>', 'school-district-controller > div { position: fixed; right: 22px; bottom: 22px; display: flex; flex-direction: column; } school-district-controller > div > * { margin-bottom: 11px; } school-district-controller > div > *:last-child { margin-bottom: 0px; }', '', function(opts) {
      this.add_buttons = [
-         { label: 'Add G * an',   action: 'add-gxan' },
-         { label: 'Add 4neo',     action: 'add-4neo' },
-         { label: 'Add No bit @', action: 'add-nobita' },
+         { label: 'Add G * an',     action: 'add-gxan' },
+         { label: 'Add 4neo',       action: 'add-4neo' },
+         { label: 'Add No bit @',   action: 'add-nobita' },
+         { label: 'Add Friendship', action: 'add-friendship' },
      ];
      this.clickAddButton = (e) => {
          let key = e.target.getAttribute('action');

@@ -11,9 +11,10 @@
 
     <script>
      this.add_buttons = [
-         { label: 'Add G * an',   action: 'add-gxan' },
-         { label: 'Add 4neo',     action: 'add-4neo' },
-         { label: 'Add No bit @', action: 'add-nobita' },
+         { label: 'Add G * an',     action: 'add-gxan' },
+         { label: 'Add 4neo',       action: 'add-4neo' },
+         { label: 'Add No bit @',   action: 'add-nobita' },
+         { label: 'Add Friendship', action: 'add-friendship' },
      ];
      this.clickAddButton = (e) => {
          let key = e.target.getAttribute('action');

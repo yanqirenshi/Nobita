@@ -94,6 +94,7 @@ class Store extends Vanilla_Redux_Store {
                 'add-gxan': null,
                 'add-4neo': null,
                 'add-nobita': null,
+                'add-friendship': null,
             },
         };
     }
