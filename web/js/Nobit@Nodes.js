@@ -80,6 +80,7 @@ class NobitaNodes {
     drawLabel (node_groups) {
         node_groups
             .append('text')
+            .attr('font-size', 48)
             .text((d) => {
                 return d.name + "(" + d._id + ")";
             });
