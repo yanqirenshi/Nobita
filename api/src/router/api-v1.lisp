@@ -71,8 +71,15 @@
   (let ((from-id     (validate |from_id|     :integer :require t))
         (to-id       (validate |to_id|       :integer :require t))
         (heart-code  (validate |heart_code|  :string  :require t   :url-decode t))
-        (description (validate |description| :string  :require nil :url-decode t)))
-    (render-json (list from-id to-id heart-code description))))
+        (description (validate |description| :string  :require nil :url-decode t))
+        (graph nobit@.graph:*graph*))
+    (render-json
+     (up:execute-transaction
+      (tx-create-friendship graph
+                            :from-id     from-id
+                            :to-id       to-id
+                            :heart-code  heart-code
+                            :description description)))))
 
 
 ;;;

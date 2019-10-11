@@ -50,7 +50,7 @@ This file is a part of nobit@ project.
                                                 (:file "friendship")))
                  ;; カースト
                  (:module "hearts" :components ((:file "tick!")
-                                                (:file "deamons"))))))
+                                                (:file "heart"))))))
   :description ""
   :long-description
   #.(read-file-string

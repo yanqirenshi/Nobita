@@ -12,5 +12,6 @@
   ;; resources
   (:export #:tx-create-g*an
            #:tx-create-4neo
-           #:tx-create-nobit@))
+           #:tx-create-nobit@
+           #:tx-create-friendship))
 (in-package :nobit@.api.controller)

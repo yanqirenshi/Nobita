@@ -26,12 +26,14 @@
                          :action nil))
 
 
-(defun tx-create-friendship@ (graph &key from-id to-id description)
-  (declare (ignore description))
+(defun str2keyword (str)
+  (alexandria:make-keyword (string-upcase str)))
+
+(defun tx-create-friendship (graph &key from-id to-id heart-code description)
   (assert graph)
-  (assert (and from-id to-id))
-  (let ((from (nobit@:get-friend graph :%id from-id))
-        (to   (nobit@:get-friend graph :%id to-id))
-        (heart nil))
-    (assert (and from to))
-    (nobit@:tx-make-frendship graph from to heart)))
+  (assert (and from-id to-id heart-code))
+  (let ((from  (nobit@:get-friend graph :%id  from-id))
+        (to    (nobit@:get-friend graph :%id  to-id))
+        (heart (nobit@:get-heart :code (str2keyword heart-code))))
+    (assert (and from to heart))
+    (nobit@:tx-make-frendship graph from to heart :description description)))

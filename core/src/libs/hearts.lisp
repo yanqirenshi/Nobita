@@ -18,7 +18,10 @@
 (in-package :nobit@.hearts)
 
 (defclass nobiheart (rhythm::heart)
-  ((karma-pool :accessor karma-pool
+  ((code :accessor code
+         :initarg :code
+         :initform nil)
+   (karma-pool :accessor karma-pool
                :initarg :karma-pool
                :initform (make-instance 'karma-pool))))
 
@@ -30,10 +33,13 @@
             (nobit@.karma:qsize (karma-pool obj)))))
 
 (defun make-heart (name core)
-  (rhythm:make-heart :class 'nobiheart
-                     :name (concatenate 'string "nobit@" name)
-                     :core #'(lambda (heart times)
-                               (funcall core heart times))))
+  (let ((heart (rhythm:make-heart :class 'nobiheart
+                                  :name (concatenate 'string "nobit@" name)
+                                  :core #'(lambda (heart times)
+                                            (funcall core heart times)))))
+    (let ((code (alexandria:make-keyword (string-upcase name))))
+      (setf (code heart) code))
+    heart))
 
 (defgeneric start-heart (heart)
   (:method ((heart nobiheart))

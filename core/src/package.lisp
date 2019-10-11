@@ -18,7 +18,8 @@
   (:import-from :nobit@.graph
                 #:*graph*)
   (:export #:start)
-  (:export #:find-hearts)
+  (:export #:find-hearts
+           #:get-heart)
   (:export #:tx-save-location)
   (:export #:find-g*an
            #:get-g*an

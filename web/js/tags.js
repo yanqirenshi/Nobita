@@ -98,7 +98,7 @@ riot.tag2('app-modals-add-friendship', '<div class="modal is-active"> <div class
              from_id:     this.form_data.from._id,
              to_id:       this.form_data.to._id,
              description: this.form_data.description,
-             heart_code:  this.form_data.heart.name,
+             heart_code:  this.form_data.heart.code,
          });
      };
      this.clickClose = () => {
