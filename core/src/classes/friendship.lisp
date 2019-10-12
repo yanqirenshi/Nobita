@@ -1,5 +1,12 @@
 (in-package :nobit@)
 
+
+(defclass friendship (edge)
+  ((heart       :accessor heart       :initarg :heart       :initform nil)
+   (description :accessor description :initarg :description :initform "")
+   (contexts    :accessor contexts    :initarg :contexts    :initform (make-hash-table :synchronized t))))
+
+
 (defmethod jojo:%to-json ((obj friendship))
   (jojo:with-object
     (jojo:write-key-value "_id"  (slot-value obj 'up:%id))

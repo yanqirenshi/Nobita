@@ -18,37 +18,42 @@ This file is a part of nobit@ project.
                #:rhythm)
   :components ((:module "src"
                 :components
-                ((:module "libs" :components ((:file "idea")
-                                              (:file "karma")
-                                              (:file "hearts")))
-                 (:module "action" :components ((:file "package")
-                                                (:file "action-plan")))
-                 (:file "utilities")
+                ((:module "libs"
+                  :components ((:file "utilities")
+                               (:file "idea")
+                               (:file "karma")
+                               (:module "hearts"
+                                :components ((:file "package")
+                                             (:file "class")
+                                             (:file "operators")))
+                               (:module "action"
+                                :components ((:file "package")
+                                             (:file "action-plan")))
+                               (:module "pocket"
+                                :components ((:file "package")
+                                             (:file "pocket")))))
                  (:file "package")
-                 (:file "class")
+                 (:module "classes" :components ((:file "common")
+                                                 (:file "g_an")
+                                                 (:file "4neo")
+                                                 (:file "nobit@")
+                                                 (:file "friendship")))
                  (:file "idea")
-                 (:file "pocket")
-                 ;; グラフ
-                 (:module "friends" :components ((:file "2json")
-                                                 (:file "location")
+                 (:module "friends" :components ((:file "location")
                                                  (:file "g_an")
                                                  (:file "4neo")
                                                  (:file "nobit@")
                                                  (:file "friend")))
                  (:module "friendship" :components ((:file "finder")
                                                     (:file "maker")
-                                                    (:file "printer")
-                                                    (:file "json")))
-                 ;; Friend ごとの Action
+                                                    (:file "printer")))
                  (:module "friend-action" :components ((:file "action")
                                                        (:file "nobit@")))
-                 ;; 伝播
-                 (:module "spread" :components ((:file "spread")
-                                                (:file "g_an")
-                                                (:file "4neo")
-                                                (:file "nobit@")
-                                                (:file "friendship")))
-                 ;; カースト
+                 (:module "spreads" :components ((:file "spread")
+                                                 (:file "g_an")
+                                                 (:file "4neo")
+                                                 (:file "nobit@")
+                                                 (:file "friendship")))
                  (:module "hearts" :components ((:file "tick!")
                                                 (:file "heart"))))))
   :description ""

@@ -1006,6 +1006,23 @@ riot.tag2('generic-function_pop-karma', '<section-container title="Generic funct
 riot.tag2('generic-function_propagation', '<section-container title="Generic function: propagation(spread)"> <section-contents no="4" title="Syntax:"> <section-contents> <operator-syntax name="spread" args="{[\'graph\', \'idea\', \'source\', \'target\']}"></operator-syntax> </section-contents> </section-contents> <section-contents no="4" title="Method Signatures:"> <section-contents> <generic-function_propagation_method-signatures></generic-function_propagation_method-signatures> </section-contents> </section-contents> <section-contents no="4" title="Arguments and Values:"> <section-container no="5" title="graph"> <section-contents> <p></p> </section-contents> </section-container> <section-container no="5" title="idea"> <section-contents> <p></p> </section-contents> </section-container> <section-container no="5" title="source"> <section-contents> <p></p> </section-contents> </section-container> <section-container no="5" title="target"> <section-contents> <p></p> </section-contents> </section-container> </section-contents> <generic-function_propagation_description></generic-function_propagation_description> </section-container>', '', '', function(opts) {
 });
 
+riot.tag2('generic-function_propagations', '<section-container title="Generic function: propagations(spreads)"> <section-contents no="4" title="Syntax:"> <section-contents> <operator-syntax name="spread" args="{[\'graph\', \'idea\', \'source\', \'targets\']}"></operator-syntax> </section-contents> </section-contents> <section-contents no="4" title="Method Signatures:"> <generic-function_propagations_method-signatures> </generic-function_propagations_method-signatures> </section-contents> <section-contents no="4" title="Arguments and Values:"> </section-contents> <section-contents no="4" title="Description:"> </section-contents> </section-container>', '', '', function(opts) {
+});
+
+riot.tag2('generic-function_propagations_method-signatures', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th each="{headers}">{label}</th> </tr> </thead> <tbody> <tr each="{contents}"> <td>{for}</td> <td>{graph}</td> <td>{idea}</td> <td>{source}</td> <td>{targets}</td> </tr> </tbody> </table>', '', '', function(opts) {
+     this.headers = [
+         { code: 'for',     label: 'for'},
+         { code: 'graph',   label: 'Graph'},
+         { code: 'idea',    label: 'Idea'},
+         { code: 'source',  label: 'Source'},
+         { code: 'targets', label: 'Targets'}
+     ];
+     this.contents = [
+         { for:'List', graph:'shinra:banshou', idea:'list', source:false, targets:'list' }
+     ];
+
+});
+
 riot.tag2('generic-function_propagation_description', '<section-contents no="4" title="Description:"> <section-container no="5" title="For: G*AN"> <section-contents> <p></p> </section-contents> </section-container> <section-container no="5" title="For: 4NEO"> <section-contents> <p></p> </section-contents> </section-container> <section-container no="5" title="For: NOBIT@"> <section-contents> <p>前フレンズの処理が完了しているかを確認し、全て完了している場合に自身の処理を実行する。</p> <p>完了しているかどうかはフレンドシップに対象idが存在するかどうかで判断する。</p> </section-contents> </section-container> <section-container no="5" title="For: FRIENDSHIP"> </section-container> </section-contents>', '', '', function(opts) {
 });
 
@@ -1023,23 +1040,6 @@ riot.tag2('generic-function_propagation_method-signatures', '<table class="table
          { for:'NOBIT@',     graph:'SHINRA:BANSHOU', idea:'List', source:false, target:'NOBIT@' },
          { for:'FRIENDSHIP', graph:'SHINRA:BANSHOU', idea:'List', source:false, target:'FRIENDSHIP' }
      ];
-});
-
-riot.tag2('generic-function_propagations', '<section-container title="Generic function: propagations(spreads)"> <section-contents no="4" title="Syntax:"> <section-contents> <operator-syntax name="spread" args="{[\'graph\', \'idea\', \'source\', \'targets\']}"></operator-syntax> </section-contents> </section-contents> <section-contents no="4" title="Method Signatures:"> <generic-function_propagations_method-signatures> </generic-function_propagations_method-signatures> </section-contents> <section-contents no="4" title="Arguments and Values:"> </section-contents> <section-contents no="4" title="Description:"> </section-contents> </section-container>', '', '', function(opts) {
-});
-
-riot.tag2('generic-function_propagations_method-signatures', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th each="{headers}">{label}</th> </tr> </thead> <tbody> <tr each="{contents}"> <td>{for}</td> <td>{graph}</td> <td>{idea}</td> <td>{source}</td> <td>{targets}</td> </tr> </tbody> </table>', '', '', function(opts) {
-     this.headers = [
-         { code: 'for',     label: 'for'},
-         { code: 'graph',   label: 'Graph'},
-         { code: 'idea',    label: 'Idea'},
-         { code: 'source',  label: 'Source'},
-         { code: 'targets', label: 'Targets'}
-     ];
-     this.contents = [
-         { for:'List', graph:'shinra:banshou', idea:'list', source:false, targets:'list' }
-     ];
-
 });
 
 riot.tag2('generic-function_push-karma', '<section-container no="3" title="Generic function: push-karma"> <section-contents no="4" title="Syntax:"> <section-contents> <operator-syntax name="push-karma" keys="{[\'idea_id\', \'graph\', \'source\', \'friendship\']}" results="{null}"> </section-contents> </section-contents> <section-contents no="4" title="Method Signatures:"> </section-contents> <section-contents no="4" title="Arguments and Values:"> </section-contents> <section-contents no="4" title="Description:"> </section-contents> </section-container>', '', '', function(opts) {

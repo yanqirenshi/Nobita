@@ -3,7 +3,9 @@
   (:use #:cl
         #:nobit@.utilities
         #:nobit@.hearts
-        #:nobit@.action)
+        #:nobit@.action
+        #:nobit@.pocket
+        #:nobit@.idea)
   (:import-from :alexandria
                 #:when-let
                 #:ensure-list

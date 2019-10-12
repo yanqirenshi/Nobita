@@ -13,6 +13,7 @@
                            (shinra::to-class friendship)
                            :%id (shinra::to-id friendship)))))
 
+
 (defun heart-core (heart times)
   (declare (ignorable times))
   "キューに溜った friendship を順(FILO)に処理する。
@@ -20,21 +21,25 @@
   (when-let ((karma (pop-karma (karma-pool heart))))
     (%heart-core karma)))
 
+
 (defun heart-core-before (heart times)
   (let ((func *hook-heart-core-before*))
     (when (functionp func)
       (funcall func heart times))))
+
 
 (defun heart-core-after (heart times)
   (let ((func *hook-heart-core-after*))
     (when (functionp func)
       (funcall func heart times))))
 
+
 (defun tick!-error (e heart times)
   (format t "Reisd Error!!!~%heart=~a, times=~a~%<error>~%~a"
           heart
           times
           e))
+
 
 (defun tick! (heart times)
   (handler-case

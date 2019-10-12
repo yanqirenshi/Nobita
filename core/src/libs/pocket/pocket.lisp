@@ -1,14 +1,18 @@
-(in-package :nobit@)
+(in-package :nobit@.pocket)
+
 
 (defvar *pocket* `(:list nil
                    :index (:thread      ,(make-hash-table)
                            :nobit@-idea ,(make-hash-table))))
 
+
 (defun pocket-list (&key (pocket *pocket*))
   (getf pocket :list))
 
+
 (defun pocket-index (type &key (pocket *pocket*))
   (getf (getf pocket :index) type))
+
 
 ;;;;;
 ;;;;; get-from-pocket
@@ -19,12 +23,14 @@
     (when ht-tmp
       (gethash ide-id ht-tmp))))
 
+
 (defun get-from-pocket (&key nobit@-id ide-id thread (pocket *pocket*))
   (cond ((and nobit@-id ide-id)
          (get-from-pocket-at-nobit@-id-and-ide-id nobit@-id ide-id :pocket pocket))
         (thread
          (let ((index (pocket-index :thread :pocket pocket)))
            (gethash thread index)))))
+
 
 (defun find-from-pocket (&key nobit@-id (pocket *pocket*))
   (when nobit@-id
@@ -49,10 +55,11 @@
     (or v
         (setf (gethash id ht) (make-hash-table)))))
 
+
 (defun add-to-pocket-nobit@-idea (index nobit@-id ide-id thread)
-  (let* ((ht-tmp (add-pocket-gethash nobit@-id index))
-         (ht     (add-pocket-gethash ide-id ht-tmp)))
+  (let* ((ht-tmp (add-pocket-gethash nobit@-id index)))
     (setf (gethash ide-id ht-tmp) thread)))
+
 
 (defun add-to-pocket (nobit@-id ide-id thread &key (pocket *pocket*))
   (let ((index (gethash thread (pocket-index :thread))))
