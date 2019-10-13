@@ -2,6 +2,15 @@ class Store extends Vanilla_Redux_Store {
     constructor(reducer) {
         super(reducer, Immutable.Map({}));
     }
+    geChildTag (id) {
+        let store = STORE.get('wnqi.workpackages.ht');
+        let wp = store[id];
+
+        if (!wp)
+            return null;
+
+        return wp._core.type + "-"  + id;;
+    }
     initSiteHome () {
         return {
             code: "home",
@@ -15,6 +24,54 @@ class Store extends Vanilla_Redux_Store {
                 { code: 'ieda',        tag: 'class_ieda' },
                 { code: 'karma-pool',  tag: 'class_karma-pool' },
                 { code: 'nobiheart',   tag: 'class_nobiheart' },
+                {
+                    code: 'packages',
+                    children: [
+                        {
+                            code: 'package',
+                            regex: /\d+/,
+                            tag: (node, route) => {
+                                return this.geChildTag(route.reverse()[0]);
+                            },
+                        },
+                    ],
+                },
+                {
+                    code: 'variables',
+                    children: [
+                        {
+                            code: 'variable',
+                            regex: /\d+/,
+                            tag: (node, route) => {
+                                return this.geChildTag(route.reverse()[0]);
+                            },
+                        },
+                    ],
+                },
+                {
+                    code: 'classes',
+                    children: [
+                        {
+                            code: 'class',
+                            regex: /\d+/,
+                            tag: (node, route) => {
+                                return this.geChildTag(route.reverse()[0]);
+                            },
+                        },
+                    ],
+                },
+                {
+                    code: 'operators',
+                    children: [
+                        {
+                            code: 'operator',
+                            regex: /\d+/,
+                            tag: (node, route) => {
+                                return this.geChildTag(route.reverse()[0]);
+                            },
+                        },
+                    ],
+                },
             ],
             menu_label: '家',
         };
@@ -90,12 +147,7 @@ class Store extends Vanilla_Redux_Store {
                 structures: _CL_DATASTRUCTURES,
             },
             site: this.initSite(),
-            wnqi: {
-                projects:     { ht:{}, list: [] },
-                wbs:          { ht:{}, list: [] },
-                workpackages: { ht:{}, list: [] },
-                edges:        { ht:{}, list: [] },
-            },
+            wnqi: new WNQI().build(),
         };
 
         for (var i in data.site.pages) {

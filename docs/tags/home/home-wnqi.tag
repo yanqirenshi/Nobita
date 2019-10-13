@@ -12,6 +12,42 @@
              workpackage: {
                  finished: false
              },
+         },
+         "columns": {
+             "schedule": {
+                 "code": "schedule",
+                 "hide": true,
+             },
+             "result": {
+                 "code": "result",
+                 "hide": true,
+             },
+             "operators": {
+                 "code": "operators",
+                 "hide": true
+             },
+         },
+         rows: {
+             operators: {
+                 pageLink: (d) => {
+                     let type = d._core.type;
+                     let id   = d._id;
+
+                     if (type=='package')
+                         return location.hash + '/packages/' + id;
+
+                     if (type=='variable')
+                         return location.hash + '/variables/' + id;
+
+                     if (type=='class')
+                         return location.hash + '/classes/' + id;
+
+                     if (type=='operator')
+                         return location.hash + '/operator/' + id;
+
+                     return null;
+                 },
+             },
          }
      };
      this.data = () => {

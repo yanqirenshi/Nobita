@@ -1,7 +1,13 @@
 riot.tag2('app-page-area', '', '', '', function(opts) {
-     this.on('update', (action) => {
+     this.draw = () => {
          if (this.opts.route)
              ROUTER.draw(this, STORE.get('site.pages'), this.opts.route);
+     }
+     this.on('mount', () => {
+         this.draw();
+     });
+     this.on('update', () => {
+         this.draw();
      });
 });
 
@@ -903,6 +909,42 @@ riot.tag2('home-wnqi', '<wbs-tree-list data="{data()}" options="{wbs_list_option
              workpackage: {
                  finished: false
              },
+         },
+         "columns": {
+             "schedule": {
+                 "code": "schedule",
+                 "hide": true,
+             },
+             "result": {
+                 "code": "result",
+                 "hide": true,
+             },
+             "operators": {
+                 "code": "operators",
+                 "hide": true
+             },
+         },
+         rows: {
+             operators: {
+                 pageLink: (d) => {
+                     let type = d._core.type;
+                     let id   = d._id;
+
+                     if (type=='package')
+                         return location.hash + '/packages/' + id;
+
+                     if (type=='variable')
+                         return location.hash + '/variables/' + id;
+
+                     if (type=='class')
+                         return location.hash + '/classes/' + id;
+
+                     if (type=='operator')
+                         return location.hash + '/operator/' + id;
+
+                     return null;
+                 },
+             },
          }
      };
      this.data = () => {
@@ -1314,233 +1356,1579 @@ riot.tag2('propagation_tab_home', '<section class="section"> <div class="contain
 riot.tag2('variable_hearts', '<section-container title="Variable: *hearts*"> <section-container title="Operators"> <section-container title="Function: get-heart" no="4"> </section-container> <section-container title="Function: add-heart" no="4"> </section-container> <section-container title="Function: rm-heart" no="4"> </section-container> </section-container> </section-container>', '', '', function(opts) {
 });
 
-riot.tag2('class-10000029', '', '', '', function(opts) {
+riot.tag2('class-10000029', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <class-10000029-readme class="hide"></class-10000029-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'class-10000029-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('class-10000030', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <class-10000030-readme class="hide"></class-10000030-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'class-10000030-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('class-10000031', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <class-10000031-readme class="hide"></class-10000031-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'class-10000031-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('class-10000032', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <class-10000032-readme class="hide"></class-10000032-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'class-10000032-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('class-10000033', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <class-10000033-readme class="hide"></class-10000033-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'class-10000033-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('class-10000034', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <class-10000034-readme class="hide"></class-10000034-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'class-10000034-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('class-10000035', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <class-10000035-readme class="hide"></class-10000035-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'class-10000035-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('class-10000036', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <class-10000036-readme class="hide"></class-10000036-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'class-10000036-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('class-10000037', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <class-10000037-readme class="hide"></class-10000037-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'class-10000037-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('home-wbs-header', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">{makeTitle()}</h1> <h2 class="subtitle"> <section-breadcrumb></section-breadcrumb> </h2> </div> </div> </section>', '', '', function(opts) {
+     this.makeTitle = () => {
+         let node = this.geData();
+
+         if (!node)
+             return '????????';
+
+         let type = node._core.type;
+         let name = node.name;
+
+         return type.toUpperCase() + ':' + name.toUpperCase();
+     };
+     this.geData = () => {
+         let path = location.hash.split('/').reverse();
+         let id = path[0]*1;
+         let type = {
+             packages:  'package',
+             variables: 'variable',
+             classes:   'class',
+             operators: 'operator',
+         }[path[1]];
+
+         let node = STORE.get('wnqi.workpackages.ht')[id];
+
+         if (!node)
+             return null;
+
+         if (!type==node._core.type)
+             return null;
+
+         return node;
+     };
+});
+
+riot.tag2('home-wbs-structure', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000038', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000038-readme class="hide"></operator-10000038-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000038-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000039', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000039-readme class="hide"></operator-10000039-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000039-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000040', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000040-readme class="hide"></operator-10000040-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000040-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000041', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000041-readme class="hide"></operator-10000041-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000041-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000042', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000042-readme class="hide"></operator-10000042-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000042-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000043', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000043-readme class="hide"></operator-10000043-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000043-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000044', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000044-readme class="hide"></operator-10000044-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000044-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000045', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000045-readme class="hide"></operator-10000045-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000045-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000046', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000046-readme class="hide"></operator-10000046-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000046-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000047', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000047-readme class="hide"></operator-10000047-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000047-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000048', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000048-readme class="hide"></operator-10000048-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000048-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000049', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000049-readme class="hide"></operator-10000049-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000049-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000050', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000050-readme class="hide"></operator-10000050-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000050-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000051', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000051-readme class="hide"></operator-10000051-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000051-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000052', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000052-readme class="hide"></operator-10000052-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000052-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000053', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000053-readme class="hide"></operator-10000053-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000053-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000054', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000054-readme class="hide"></operator-10000054-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000054-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000055', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000055-readme class="hide"></operator-10000055-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000055-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000056', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000056-readme class="hide"></operator-10000056-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000056-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000057', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000057-readme class="hide"></operator-10000057-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000057-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000058', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000058-readme class="hide"></operator-10000058-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000058-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000059', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000059-readme class="hide"></operator-10000059-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000059-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000060', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000060-readme class="hide"></operator-10000060-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000060-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000061', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000061-readme class="hide"></operator-10000061-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000061-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000062', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000062-readme class="hide"></operator-10000062-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000062-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000063', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000063-readme class="hide"></operator-10000063-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000063-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000064', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000064-readme class="hide"></operator-10000064-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000064-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000065', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000065-readme class="hide"></operator-10000065-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000065-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000066', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000066-readme class="hide"></operator-10000066-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000066-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000067', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000067-readme class="hide"></operator-10000067-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000067-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000068', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000068-readme class="hide"></operator-10000068-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000068-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000069', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000069-readme class="hide"></operator-10000069-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000069-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000070', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000070-readme class="hide"></operator-10000070-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000070-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000071', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000071-readme class="hide"></operator-10000071-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000071-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000072', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000072-readme class="hide"></operator-10000072-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000072-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000073', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000073-readme class="hide"></operator-10000073-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000073-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000074', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000074-readme class="hide"></operator-10000074-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000074-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000075', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000075-readme class="hide"></operator-10000075-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000075-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000076', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000076-readme class="hide"></operator-10000076-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000076-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('package-10000000', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000000-readme class="hide"></package-10000000-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'package-10000000-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('package-10000001', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000001-readme class="hide"></package-10000001-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'package-10000001-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('package-10000002', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000002-readme class="hide"></package-10000002-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'package-10000002-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('package-10000003', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000003-readme class="hide"></package-10000003-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'package-10000003-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('package-10000004', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000004-readme class="hide"></package-10000004-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'package-10000004-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('package-10000005', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000005-readme class="hide"></package-10000005-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'package-10000005-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('package-10000006', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000006-readme class="hide"></package-10000006-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'package-10000006-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('package-10000007', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000007-readme class="hide"></package-10000007-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'package-10000007-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('package-10000008', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000008-readme class="hide"></package-10000008-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'package-10000008-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('package-10000009', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000009-readme class="hide"></package-10000009-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'package-10000009-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('package-10000010', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000010-readme class="hide"></package-10000010-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'package-10000010-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('package-10000011', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000011-readme class="hide"></package-10000011-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'package-10000011-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('package-10000012', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000012-readme class="hide"></package-10000012-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'package-10000012-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('class-10000029-readme', '', '', '', function(opts) {
+});
+
+riot.tag2('class-10000030-readme', '', '', '', function(opts) {
+});
+
+riot.tag2('class-10000031-readme', '', '', '', function(opts) {
+});
+
+riot.tag2('class-10000032-readme', '', '', '', function(opts) {
+});
+
+riot.tag2('class-10000033-readme', '', '', '', function(opts) {
+});
+
+riot.tag2('class-10000034-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('class-10000030', '', '', '', function(opts) {
+riot.tag2('class-10000035-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('class-10000031', '', '', '', function(opts) {
+riot.tag2('class-10000036-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('class-10000032', '', '', '', function(opts) {
+riot.tag2('class-10000037-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('class-10000033', '', '', '', function(opts) {
+riot.tag2('operator-10000038-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('class-10000034', '', '', '', function(opts) {
+riot.tag2('operator-10000039-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('class-10000035', '', '', '', function(opts) {
+riot.tag2('operator-10000040-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('class-10000036', '', '', '', function(opts) {
+riot.tag2('operator-10000041-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('class-10000037', '', '', '', function(opts) {
+riot.tag2('operator-10000042-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000038', '', '', '', function(opts) {
+riot.tag2('operator-10000043-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000039', '', '', '', function(opts) {
+riot.tag2('operator-10000044-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000040', '', '', '', function(opts) {
+riot.tag2('operator-10000045-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000041', '', '', '', function(opts) {
+riot.tag2('operator-10000046-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000042', '', '', '', function(opts) {
+riot.tag2('operator-10000047-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000043', '', '', '', function(opts) {
+riot.tag2('operator-10000048-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000044', '', '', '', function(opts) {
+riot.tag2('operator-10000049-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000045', '', '', '', function(opts) {
+riot.tag2('operator-10000050-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000046', '', '', '', function(opts) {
+riot.tag2('operator-10000051-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000047', '', '', '', function(opts) {
+riot.tag2('operator-10000052-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000048', '', '', '', function(opts) {
+riot.tag2('operator-10000053-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000049', '', '', '', function(opts) {
+riot.tag2('operator-10000054-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000050', '', '', '', function(opts) {
+riot.tag2('operator-10000055-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000051', '', '', '', function(opts) {
+riot.tag2('operator-10000056-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000052', '', '', '', function(opts) {
+riot.tag2('operator-10000057-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000053', '', '', '', function(opts) {
+riot.tag2('operator-10000058-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000054', '', '', '', function(opts) {
+riot.tag2('operator-10000059-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000055', '', '', '', function(opts) {
+riot.tag2('operator-10000060-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000056', '', '', '', function(opts) {
+riot.tag2('operator-10000061-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000057', '', '', '', function(opts) {
+riot.tag2('operator-10000062-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000058', '', '', '', function(opts) {
+riot.tag2('operator-10000063-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000059', '', '', '', function(opts) {
+riot.tag2('operator-10000064-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000060', '', '', '', function(opts) {
+riot.tag2('operator-10000065-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000061', '', '', '', function(opts) {
+riot.tag2('operator-10000066-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000062', '', '', '', function(opts) {
+riot.tag2('operator-10000067-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000063', '', '', '', function(opts) {
+riot.tag2('operator-10000068-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000064', '', '', '', function(opts) {
+riot.tag2('operator-10000069-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000065', '', '', '', function(opts) {
+riot.tag2('operator-10000070-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000066', '', '', '', function(opts) {
+riot.tag2('operator-10000071-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000067', '', '', '', function(opts) {
+riot.tag2('operator-10000072-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000068', '', '', '', function(opts) {
+riot.tag2('operator-10000073-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000069', '', '', '', function(opts) {
+riot.tag2('operator-10000074-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000070', '', '', '', function(opts) {
+riot.tag2('operator-10000075-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000071', '', '', '', function(opts) {
+riot.tag2('operator-10000076-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000072', '', '', '', function(opts) {
+riot.tag2('package-10000000-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000073', '', '', '', function(opts) {
+riot.tag2('package-10000001-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000074', '', '', '', function(opts) {
+riot.tag2('package-10000002-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000075', '', '', '', function(opts) {
+riot.tag2('package-10000003-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000076', '', '', '', function(opts) {
+riot.tag2('package-10000004-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('package-10000000', '', '', '', function(opts) {
+riot.tag2('package-10000005-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('package-10000001', '', '', '', function(opts) {
+riot.tag2('package-10000006-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('package-10000002', '', '', '', function(opts) {
+riot.tag2('package-10000007-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('package-10000003', '', '', '', function(opts) {
+riot.tag2('package-10000008-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('package-10000004', '', '', '', function(opts) {
+riot.tag2('package-10000009-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('package-10000005', '', '', '', function(opts) {
+riot.tag2('package-10000010-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('package-10000006', '', '', '', function(opts) {
+riot.tag2('package-10000011-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('package-10000007', '', '', '', function(opts) {
+riot.tag2('package-10000012-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('package-10000008', '', '', '', function(opts) {
+riot.tag2('variable-10000013-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('package-10000009', '', '', '', function(opts) {
+riot.tag2('variable-10000014-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('package-10000010', '', '', '', function(opts) {
+riot.tag2('variable-10000015-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('package-10000011', '', '', '', function(opts) {
+riot.tag2('variable-10000016-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('package-10000012', '', '', '', function(opts) {
+riot.tag2('variable-10000017-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('variable-10000013', '', '', '', function(opts) {
+riot.tag2('variable-10000018-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('variable-10000014', '', '', '', function(opts) {
+riot.tag2('variable-10000019-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('variable-10000015', '', '', '', function(opts) {
+riot.tag2('variable-10000020-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('variable-10000016', '', '', '', function(opts) {
+riot.tag2('variable-10000021-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('variable-10000017', '', '', '', function(opts) {
+riot.tag2('variable-10000022-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('variable-10000018', '', '', '', function(opts) {
+riot.tag2('variable-10000023-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('variable-10000019', '', '', '', function(opts) {
+riot.tag2('variable-10000024-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('variable-10000020', '', '', '', function(opts) {
+riot.tag2('variable-10000025-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('variable-10000021', '', '', '', function(opts) {
+riot.tag2('variable-10000026-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('variable-10000022', '', '', '', function(opts) {
+riot.tag2('variable-10000027-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('variable-10000023', '', '', '', function(opts) {
+riot.tag2('variable-10000028-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('variable-10000024', '', '', '', function(opts) {
+riot.tag2('variable-10000013', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000013-readme class="hide"></variable-10000013-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000013-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('variable-10000014', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000014-readme class="hide"></variable-10000014-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000014-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('variable-10000015', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000015-readme class="hide"></variable-10000015-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000015-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('variable-10000016', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000016-readme class="hide"></variable-10000016-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000016-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('variable-10000017', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000017-readme class="hide"></variable-10000017-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000017-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('variable-10000018', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000018-readme class="hide"></variable-10000018-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000018-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('variable-10000019', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000019-readme class="hide"></variable-10000019-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000019-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('variable-10000020', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000020-readme class="hide"></variable-10000020-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000020-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('variable-10000021', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000021-readme class="hide"></variable-10000021-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000021-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('variable-10000022', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000022-readme class="hide"></variable-10000022-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000022-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('variable-10000023', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000023-readme class="hide"></variable-10000023-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000023-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('variable-10000024', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000024-readme class="hide"></variable-10000024-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000024-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
 });
+
+riot.tag2('variable-10000025', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000025-readme class="hide"></variable-10000025-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000025-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
 
-riot.tag2('variable-10000025', '', '', '', function(opts) {
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
 });
+
+riot.tag2('variable-10000026', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000026-readme class="hide"></variable-10000026-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000026-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
 
-riot.tag2('variable-10000026', '', '', '', function(opts) {
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
 });
 
-riot.tag2('variable-10000027', '', '', '', function(opts) {
+riot.tag2('variable-10000027', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000027-readme class="hide"></variable-10000027-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000027-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
 });
+
+riot.tag2('variable-10000028', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <variable-10000028-readme class="hide"></variable-10000028-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'variable-10000028-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
 
-riot.tag2('variable-10000028', '', '', '', function(opts) {
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
 });
