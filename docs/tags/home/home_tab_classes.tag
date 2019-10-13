@@ -6,7 +6,7 @@
             <h2 class="subtitle"></h2>
 
             <div class="contents">
-                <classes-table link-prefix={location.hash}></classes-table>
+                <home-wnqi start_id={13}></home-wnqi>
             </div>
         </div>
     </section>

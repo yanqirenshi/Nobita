@@ -275,6 +275,121 @@ riot.tag2('section-list', '<table class="table is-bordered is-striped is-narrow 
      };
 });
 
+riot.tag2('wbs-guntt-chart', '<div style="overflow:auto;"> <svg class="chart-yabane"></svg> </div>', '', '', function(opts) {
+     this.on('update', (action) => {
+         let tree = this.opts.data ? this.opts.data : [];
+         let selector = 'svg.chart-yabane';
+
+         let options = {
+             stage: {
+                 selector: selector,
+                 padding: 11,
+             },
+             scale: this.opts.options.scale,
+         };
+
+         let d3yabane = new D3jsYabane({ callback: this.opts.callback })
+             .config(options)
+             .setScale()
+             .makeStage()
+             .data(tree)
+             .draw();
+     });
+});
+
+riot.tag2('wbs-tree-list', '<table class="table is-bordered is-narrow is-hoverable is-fullwidth"> <thead> <tr> <th rowspan="2" class="{isHideCol(\'code\')}">Code</th> <th rowspan="2" class="{isHideCol(\'name\')}">Name</th> <th colspan="4" class="{isHideCol(\'schedule\')}">Schedule</th> <th colspan="4" class="{isHideCol(\'result\')}">Result</th> <th rowspan="2" class="{isHideCol(\'operators\')} {hideOperators()}"> 操作 </th> <th rowspan="2" class="{isHideCol(\'description\')}">Description</th> </tr> <tr> <th colspan="2" class="{isHideCol(\'schedule\')}">start</th> <th colspan="2" class="{isHideCol(\'schedule\')}">end</th> <th colspan="2" class="{isHideCol(\'result\')}">start</th> <th colspan="2" class="{isHideCol(\'result\')}">end</th> </tr> </thead> <tbody> <tr each="{tableData()}" class="{tool.projectClass(_core._class)}"> <td nowrap class="{isHideCol(\'code\')}"> <a href="{pageLinkUrl(_core)}">{_core._id}</a> </td> <td nowrap class="{isHideCol(\'name\')}"> <span class="tree-mergin">{tool.margin(_level)}</span> <span>{_core.name}</span> </td> <td class="{_class} {isHideCol(\'schedule\')}" nowrap> {tool.date2str(term(_core,\'schedule\',\'start\'))} </td> <td class="week {_class} {isHideCol(\'schedule\')}" nowrap> {tool.date2week(term(_core,\'schedule\',\'start\'))} </td> <td class="{_class} {isHideCol(\'schedule\')}" nowrap> {tool.date2str(term(_core,\'schedule\',\'end\'))} </td> <td class="week {_class} {isHideCol(\'schedule\')}" nowrap> {tool.date2week(term(_core,\'schedule\',\'end\'))} </td> <td class="{_class} {isHideCol(\'result\')}" nowrap> {tool.date2str(term(_core,\'result\',\'start\'))} </td> <td class="week {_class} {isHideCol(\'result\')}" nowrap> {tool.date2week(term(_core,\'result\',\'start\'))} </td> <td class="{_class} {isHideCol(\'result\')}" nowrap> {tool.date2str(term(_core,\'result\',\'end\'))} </td> <td class="week {_class} {isHideCol(\'result\')}" nowrap> {tool.date2week(term(_core,\'result\',\'end\'))} </td> <td class="operators {isHideCol(\'operators\')} {hideOperators()}"> <button class="button is-small add-child {hideAddChildOperator(this)}" onclick="{clickAddChild}" node_id="{_core._id}"> 子を追加 </button> <button class="button is-small delete-node {hideDeleteOperator(this)}" onclick="{clickDeleteWp}" node_id="{_core._id}"> 削除 </button> </td> <td nowrap class="{isHideCol(\'description\')}"> <span>{_core.description}</span> </td> </tr> </tbody> </table>', 'wbs-tree-list .table th { background: #EAE2D6; color: #867666; font-size: 12px; vertical-align: middle; text-align: center; } wbs-tree-list .table td { font-size: 12px; vertical-align: middle; } wbs-tree-list .table tr.project td { font-size: 16px; font-weight: bold; } wbs-tree-list .table tr.wbs td { font-size: 14px; font-weight: bold; } wbs-tree-list td.WBS { color: #888888; } wbs-tree-list td.PROJECT { color: #666666; } wbs-tree-list td.operators { text-align: center; } wbs-tree-list td.operators > button.button { width: 100%; } wbs-tree-list td.operators > button.button.add-child:hover { background: #89c3eb; color: #ffffff; font-weight: bold; } wbs-tree-list td.operators > button.button.delete-node:hover { background: #ec6d71; color: #ffffff; font-weight: bold; } wbs-tree-list span.tree-mergin { font-size: 12px; font-weight: normal; } wbs-tree-list .table td.week { font-size: 12px; padding-left: 1px; padding-right: 1px; text-align: center; }', '', function(opts) {
+     this.tool = new Wbs();
+
+     this.pageLinkUrl = (record) => {
+         let keys = "options.rows.operators.pageLink"
+         let func = keys.split('.').reduce((a, b) => {
+             if (!a || !a[b])
+                 return null;
+
+             return a[b];
+         }, this.opts);
+
+         if (func)
+             return func(record);
+
+         return this.tool.hashWbsPage(record._id, record._class);
+     };
+
+     this.clickAddChild = (e) => {
+         this.opts.callback('open-add-child', {
+             _id: e.target.getAttribute('node_id')
+         });
+     };
+     this.clickDeleteWp = (e) => {
+         this.opts.callback('open-delete-workpackage', {
+             _id: e.target.getAttribute('node_id')
+         });
+     };
+     STORE.subscribe((action) => {
+         if (action.type=='FETCHED-PROJECT-TREE')
+             this.update();
+
+         if (action.type=='MOVE-PAGE')
+             this.update();
+     });
+
+     this.options = { columns: this.opts.options.columns };
+     this.isHideCol = (keys_str) => {
+         if (!this.options.columns)
+             return '';
+
+         let keys = keys_str.split('.');
+         let options = { children: this.options.columns };
+
+         for (let key of keys) {
+             let next = options.children[key]
+
+             if (!next)
+                 return '';
+
+             options = next;
+         }
+
+         return options.hide ? 'hide' : '';
+     };
+     this.hideOperators = () => {
+         if (!this.opts.options ||
+             !this.opts.options.security)
+             return '';
+
+         let v = (this.opts.options.security.create || this.opts.options.security.delete);
+
+         return v ? '' : 'hide';
+     };
+     this.hideAddChildOperator = (data) => {
+         return data._class=='WBS' ? '' : 'hide';
+     };
+     this.hideDeleteOperator = (data) => {
+         return data._class=='WORKPACKAGE' ? '' : 'hide';
+     };
+
+     this.term = (data, key, type) => {
+         if (!data || !data[key]) return null;
+
+         return data[key][type];
+     };
+     this.tableData = () => {
+         let data = this.opts.data;
+
+         if (!data)
+             return [];
+
+         let options = this.opts.options;
+         if (options.rows && options.rows.workpackage)
+             if (options.rows.workpackage.hide)
+                 return data.filter((d) => {
+                     return d._class != "WORKPACKAGE"
+                 });
+
+         return data;
+     };
+});
+
 riot.tag2('classes-table-section', '<section class="section"> <div class="container"> <h1 class="title is-4">Classes:</h1> <div class="contents"> <classes-table targets="{targets()}" link-prefix="{location.hash}"></classes-table> </div> </div> </section>', '', '', function(opts) {
      this.targets = () => {
          if (this.opts.targets && this.opts.targets.classes)
@@ -779,6 +894,34 @@ riot.tag2('hearts_tab_management', '<section class="section"> <div class="contai
      };
 });
 
+riot.tag2('home-wnqi', '<wbs-tree-list data="{data()}" options="{wbs_list_options}"></wbs-tree-list>', '', '', function(opts) {
+     this.wbs_list_options = {
+         hide: {
+             wbs: {
+                 finished: false
+             },
+             workpackage: {
+                 finished: false
+             },
+         }
+     };
+     this.data = () => {
+         let state = new WNQI().build();
+         let options = this.wbs_list_options;
+
+         if (state.projects.list.length==0)
+             return [];
+
+         let id = this.opts.start_id;
+         return new Wbs().composeTreeFlat(
+             state.wbs.ht[id],
+             state.wbs,
+             state.workpackages,
+             state.edges,
+             options);
+     };
+});
+
 riot.tag2('home', '', '', '', function(opts) {
      this.mixin(MIXINS.page);
 
@@ -812,7 +955,7 @@ riot.tag2('home_sec_root', '<section-header title="NOBIT@: Home"></section-heade
      };
 });
 
-riot.tag2('home_tab_classes', '<section class="section"> <div class="container"> <h1 class="title is-4">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <classes-table link-prefix="{location.hash}"></classes-table> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('home_tab_classes', '<section class="section"> <div class="container"> <h1 class="title is-4">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <home-wnqi start_id="{13}"></home-wnqi> </div> </div> </section>', '', '', function(opts) {
 });
 
 riot.tag2('home_tab_data-model', '<section class="section"> <div class="container"> <h1 class="title is-4">OverView</h1> <h2 class="subtitle"></h2> <div class="contents"> <div ref="svg-parent" style="padding: 8px;border: 1px solid #eeeeee; border-radius: 8px;"> <svg id="scketchbook"></svg> </div> </div> </div> </section>', '', '', function(opts) {
@@ -875,10 +1018,34 @@ riot.tag2('home_tab_data-model', '<section class="section"> <div class="containe
 riot.tag2('home_tab_installation', '<section class="section"> <div class="container"> <div class="contents"> <p><pre>\n(ql:quickload :nobit@.graph)\n(ql:quickload :nobit@)\n(ql:quickload :nobit@.api)\n(ql:quickload :nobit@-test)</pre></p> </div> </div> </section>', '', '', function(opts) {
 });
 
-riot.tag2('home_tab_operators', '<section class="section"> <div class="container"> <h1 class="title is-4">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <operators-table link-prefix="{location.hash}"></operators-table> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('home_tab_operators', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> <home-wnqi start_id="{14}"></home-wnqi> </div> </div> </section>', '', '', function(opts) {
 });
 
-riot.tag2('home_tab_packages', '<section class="section"> <div class="container"> <h1 class="title is-4">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <packages-table></packages-table> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('home_tab_packages', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents" style="padding-left:0px;"> <home-wnqi start_id="{11}"></home-wnqi> </div> </div> </section>', '', '', function(opts) {
+     this.wbs_list_options = {
+         hide: {
+             wbs: {
+                 finished: false
+             },
+             workpackage: {
+                 finished: false
+             },
+         }
+     };
+     this.data = () => {
+         let state = new WNQI().build();
+         let options = this.wbs_list_options;
+
+         if (state.projects.list.length==0)
+             return [];
+
+         return new Wbs().composeTreeFlat(
+             state.wbs.ht[11],
+             state.wbs,
+             state.workpackages,
+             state.edges,
+             options);
+     };
 });
 
 riot.tag2('home_tab_readme', '<section class="section"> <div class="container"> <h1 class="title">Description</h1> <h2 class="subtitle"></h2> <div class="contents"> <h1 class="title"> <ruby> <rb>我的工作是你的工作</rb> <rt>俺の仕事はおまえのもの</rt> </ruby> ・ <ruby> <rb>你的工作是你的工作</rb> <rt>おまえの仕事はおまえのもの</rt> </ruby> </h1> <p>現在のバージョンは 0.0.4 です。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Dependencies</h1> <h2 class="subtitle"></h2> <div class="contents"> <ol> <li>alexandria</li> <li>cl-fad</li> <li>local-time</li> <li>queues / queues.simple-cqueue</li> <li>shinrabanshou / upanishad</li> <li>rhythm</li> </ol> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Author</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Satoshi Iwasaki (yanqirenshi@gmail.com)</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Copyright</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>Copyright (c) 2014 Satoshi Iwasaki (yanqirenshi@gmail.com)</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">License</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>MIT</p> </div> </div> </section>', '', '', function(opts) {
@@ -887,7 +1054,7 @@ riot.tag2('home_tab_readme', '<section class="section"> <div class="container"> 
 riot.tag2('home_tab_usage', '<section class="section"> <div class="container"> <h1 class="title is-4">例： <code>(1 + 2) / (3 * 4) = 1/4</code> をやってみます。</h1> <h2 class="subtitle"></h2> <section class="section"> <div class="container"> <h1 class="title is-4">(0) 準備</h1> <h2 class="subtitle"></h2> <div class="contents"> <p><pre>(in-package :nobit@)\n;; DBの処理開始\n(nobit@.graph:start)\n;; 八つの心臓の鼓動開始\n(nobit@:start)</pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">(1) Nobit@ の Action を定義</h1> <h2 class="subtitle"></h2> <div class="contents"> <p><pre>\n(defun nobi-action-1 (&key graph idea source nobit@)\n  (declare (ignore graph source nobit@))\n  (setf (getf idea :contents)\n        (list :nobit@1 (list 1 3)\n              :nobit@2 nil\n              :nobit@3 nil))\n  idea)\n\n(defun nobi-action-2 (&key graph idea source nobit@)\n  (declare (ignore graph source nobit@))\n  (let ((contents (getf idea :contents)))\n    (setf (getf contents :nobit@2)\n          (+ 2 (first (getf contents :nobit@1)))))\n  idea)\n\n(defun nobi-action-3 (&key graph idea source nobit@)\n  (declare (ignore graph source nobit@))\n  (let ((contents (getf idea :contents)))\n    (setf (getf contents :nobit@3)\n          (* 4 (second (getf contents :nobit@1)))))\n  idea)\n\n(defun nobi-action-4 (&key graph idea source nobit@)\n  (declare (ignore graph source nobit@))\n  (let ((contents (getf idea :contents)))\n    (setf (getf idea :results)\n          (/ (getf contents :nobit@2)\n             (getf contents :nobit@3))))\n  idea)</pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">(2) 友達を定義する</h1> <h2 class="subtitle"></h2> <div class="contents"> <p><pre>\n(defparameter *g*an*     (tx-make-g*an   *graph* :name "ジャ○アン"))\n(defparameter *4neo-1*   (tx-make-4neo   *graph* :name "ス○夫(始)"))\n(defparameter *4neo-2*   (tx-make-4neo   *graph* :name "ス○夫(結)"))\n(defparameter *nobit@-1* (tx-make-nobit@ *graph* :name "ど"    :action #\'nobi-action-1))\n(defparameter *nobit@-2* (tx-make-nobit@ *graph* :name "○"    :action #\'nobi-action-2))\n(defparameter *nobit@-3* (tx-make-nobit@ *graph* :name "え"    :action #\'nobi-action-3))\n(defparameter *nobit@-4* (tx-make-nobit@ *graph* :name "も〜ん" :action #\'nobi-action-4))</pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">(3) 友情を定義する</h1> <h2 class="subtitle"></h2> <div class="contents"> <p><pre>\n(tx-make-frendship *graph* *g*an*     *4neo-1*   :aon)\n(tx-make-frendship *graph* *4neo-1*   *nobit@-1* :aon)\n(tx-make-frendship *graph* *nobit@-1* *nobit@-2* :aon)\n(tx-make-frendship *graph* *nobit@-1* *nobit@-3* :aon)\n(tx-make-frendship *graph* *nobit@-2* *nobit@-4* :aon)\n(tx-make-frendship *graph* *nobit@-3* *nobit@-4* :aon)\n(tx-make-frendship *graph* *nobit@-4* *4neo-2*   :aon)\n(tx-make-frendship *graph* *4neo-2*   *g*an*     :aon)</pre></p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">(4) 処理の実行</h1> <h2 class="subtitle"></h2> <div class="contents"> <p><pre>\n;; G*an が急に思いつく\n(flash-across-ones-mind *graph* *g*an*)</pre></p> </div> </div> </section> </div> </section>', '', '', function(opts) {
 });
 
-riot.tag2('home_tab_variables', '<section class="section"> <div class="container"> <h1 class="title is-4">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <variables-table link-prefix="{location.hash}"></variables-table> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('home_tab_variables', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> <home-wnqi start_id="{12}"></home-wnqi> </div> </div> </section>', '', '', function(opts) {
 });
 
 riot.tag2('home_usage', '<section-container title="Usage"> <section-contents> <p> <pre>\n(in-package :nobit@)\n\n(nobita.graph:start)\n\n(defparameter *g*an* (tx-make-g*an *graph*))\n(defparameter *4neo-1* (tx-make-4neo *graph*))\n(defparameter *4neo-2* (tx-make-4neo *graph*))\n(defparameter *nobit@-1* (tx-make-nobit@ *graph*))\n(defparameter *nobit@-2* (tx-make-nobit@ *graph*))\n(defparameter *nobit@-3* (tx-make-nobit@ *graph*))\n(defparameter *nobit@-4* (tx-make-nobit@ *graph*))\n\n(defparameter *heart* (get-heart :code :aon))\n\n(tx-make-frendship *graph* *g*an* *4neo-1* *heart*)\n(tx-make-frendship *graph* *4neo-1* *nobit@-1* *heart*)\n(tx-make-frendship *graph* *nobit@-1* *nobit@-2* *heart*)\n(tx-make-frendship *graph* *nobit@-1* *nobit@-3* *heart*)\n(tx-make-frendship *graph* *nobit@-2* *nobit@-4* *heart*)\n(tx-make-frendship *graph* *nobit@-3* *nobit@-4* *heart*)\n(tx-make-frendship *graph* *nobit@-4* *4neo-2* *heart*)\n(tx-make-frendship *graph* *4neo-2* *g*an* *heart*)\n                </pre> </p> </section-contents> </section-container>', '', '', function(opts) {
@@ -1145,4 +1312,235 @@ riot.tag2('propagation_tab_home', '<section class="section"> <div class="contain
 });
 
 riot.tag2('variable_hearts', '<section-container title="Variable: *hearts*"> <section-container title="Operators"> <section-container title="Function: get-heart" no="4"> </section-container> <section-container title="Function: add-heart" no="4"> </section-container> <section-container title="Function: rm-heart" no="4"> </section-container> </section-container> </section-container>', '', '', function(opts) {
+});
+
+riot.tag2('class-10000029', '', '', '', function(opts) {
+});
+
+riot.tag2('class-10000030', '', '', '', function(opts) {
+});
+
+riot.tag2('class-10000031', '', '', '', function(opts) {
+});
+
+riot.tag2('class-10000032', '', '', '', function(opts) {
+});
+
+riot.tag2('class-10000033', '', '', '', function(opts) {
+});
+
+riot.tag2('class-10000034', '', '', '', function(opts) {
+});
+
+riot.tag2('class-10000035', '', '', '', function(opts) {
+});
+
+riot.tag2('class-10000036', '', '', '', function(opts) {
+});
+
+riot.tag2('class-10000037', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000038', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000039', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000040', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000041', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000042', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000043', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000044', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000045', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000046', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000047', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000048', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000049', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000050', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000051', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000052', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000053', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000054', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000055', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000056', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000057', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000058', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000059', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000060', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000061', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000062', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000063', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000064', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000065', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000066', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000067', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000068', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000069', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000070', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000071', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000072', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000073', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000074', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000075', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000076', '', '', '', function(opts) {
+});
+
+riot.tag2('package-10000000', '', '', '', function(opts) {
+});
+
+riot.tag2('package-10000001', '', '', '', function(opts) {
+});
+
+riot.tag2('package-10000002', '', '', '', function(opts) {
+});
+
+riot.tag2('package-10000003', '', '', '', function(opts) {
+});
+
+riot.tag2('package-10000004', '', '', '', function(opts) {
+});
+
+riot.tag2('package-10000005', '', '', '', function(opts) {
+});
+
+riot.tag2('package-10000006', '', '', '', function(opts) {
+});
+
+riot.tag2('package-10000007', '', '', '', function(opts) {
+});
+
+riot.tag2('package-10000008', '', '', '', function(opts) {
+});
+
+riot.tag2('package-10000009', '', '', '', function(opts) {
+});
+
+riot.tag2('package-10000010', '', '', '', function(opts) {
+});
+
+riot.tag2('package-10000011', '', '', '', function(opts) {
+});
+
+riot.tag2('package-10000012', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000013', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000014', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000015', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000016', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000017', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000018', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000019', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000020', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000021', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000022', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000023', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000024', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000025', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000026', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000027', '', '', '', function(opts) {
+});
+
+riot.tag2('variable-10000028', '', '', '', function(opts) {
 });

@@ -38,7 +38,6 @@ This file is a part of nobit@ project.
                                                  (:file "4neo")
                                                  (:file "nobit@")
                                                  (:file "friendship")))
-                 (:file "idea")
                  (:module "friends" :components ((:file "location")
                                                  (:file "g_an")
                                                  (:file "4neo")

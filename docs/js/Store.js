@@ -90,6 +90,12 @@ class Store extends Vanilla_Redux_Store {
                 structures: _CL_DATASTRUCTURES,
             },
             site: this.initSite(),
+            wnqi: {
+                projects:     { ht:{}, list: [] },
+                wbs:          { ht:{}, list: [] },
+                workpackages: { ht:{}, list: [] },
+                edges:        { ht:{}, list: [] },
+            },
         };
 
         for (var i in data.site.pages) {

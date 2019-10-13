@@ -1,15 +1,7 @@
-<home_tab_packages>
+<home-wnqi>
 
-    <section class="section">
-        <div class="container">
-            <h1 class="title is-4"></h1>
-            <h2 class="subtitle"></h2>
-
-            <div class="contents" style="padding-left:0px;">
-                <home-wnqi start_id={11}></home-wnqi>
-            </div>
-        </div>
-    </section>
+    <wbs-tree-list data={data()}
+                   options={wbs_list_options}></wbs-tree-list>
 
     <script>
      this.wbs_list_options = {
@@ -29,8 +21,9 @@
          if (state.projects.list.length==0)
              return [];
 
+         let id = this.opts.start_id;
          return new Wbs().composeTreeFlat(
-             state.wbs.ht[11], //state.projects.list[0],
+             state.wbs.ht[id],
              state.wbs,
              state.workpackages,
              state.edges,
@@ -38,4 +31,4 @@
      };
     </script>
 
-</home_tab_packages>
+</home-wnqi>
