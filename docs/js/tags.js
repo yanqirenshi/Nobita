@@ -1543,7 +1543,10 @@ riot.tag2('home-wbs-header', '<section class="hero"> <div class="hero-body"> <di
      };
 });
 
-riot.tag2('home-wbs-structure', '', '', '', function(opts) {
+riot.tag2('home-wbs-structure', '<section class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"></h2> <div class="contents" style="padding-left:0px;"> <home-wnqi start_id="{gtID()}"></home-wnqi> </div> </div> </section>', '', '', function(opts) {
+     this.gtID = () => {
+         return location.hash.split('/').reverse()[0] * 1;
+     }
 });
 
 riot.tag2('operator-10000038', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000038-readme class="hide"></operator-10000038-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
