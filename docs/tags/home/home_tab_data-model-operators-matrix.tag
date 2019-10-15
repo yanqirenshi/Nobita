@@ -1,6 +1,6 @@
-<home_tab_operators-matrix>
+<home_tab_data-model-operators-matrix>
 
-    <table class="table is-bordered is-striped is-narrow is-hoverable" style="font-size:12px;">
+    <table class="table is-bordered is-striped is-narrow is-hoverable">
         <thead>
             <tr>
                 <th rowspan="2">Object</th>
@@ -29,7 +29,7 @@
     <script>
      this.list = [
          {
-             source: 'pocket',
+             source: 'pocket (dra@mon)',
              c: ['add-to-pocket'],
              r: ['get-from-pocket', 'find-from-pocket'],
              u: [],
@@ -119,4 +119,4 @@
      ];
     </script>
 
-</home_tab_operators-matrix>
+</home_tab_data-model-operators-matrix>

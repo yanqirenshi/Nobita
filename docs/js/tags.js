@@ -1000,70 +1000,10 @@ riot.tag2('home_sec_root', '<section-header title="NOBIT@: Home"></section-heade
 riot.tag2('home_tab_classes', '<section class="section"> <div class="container"> <h1 class="title is-4">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <home-wnqi start_id="{13}"></home-wnqi> </div> </div> </section>', '', '', function(opts) {
 });
 
-riot.tag2('home_tab_data-model', '<section class="section"> <div class="container"> <h1 class="title is-4">OverView</h1> <h2 class="subtitle"></h2> <div class="contents"> <div ref="svg-parent" style="padding: 8px;border: 1px solid #eeeeee; border-radius: 8px;"> <svg id="scketchbook"></svg> </div> </div> </div> </section>', '', '', function(opts) {
-     this.nodes = [
-         { _id: 1, label: { text: 'g*an' } },
-         { _id: 2, label: { text: '4neo' } },
-         { _id: 3, label: { text: 'nobit@' } },
-         { _id: 4, label: { text: 'draem-on' } },
-     ];
-     let id = 100;
-     this.edges = [
-         { _id: id++, source: 1, target: 2 },
-         { _id: id++, source: 2, target: 3 },
-         { _id: id++, source: 3, target: 4 },
-     ];
-
-     this.sketcher = null;
-     this.painter  = null;
-
-     this.makeSketcher = (w, h) => {
-         let camera = {
-             look: {
-                 at: {
-                     x: 0,
-                     y: 0.0,
-                 },
-             },
-             scale: 1.3,
-         };
-
-         return new Sketcher({
-             element: {
-                 selector: 'home_tab_data-model svg#scketchbook',
-             },
-             w: w,
-             h: h,
-             x: camera.look.at.x,
-             y: camera.look.at.y,
-             scale: camera.scale,
-         });
-     };
-
-     this.on('updated', () => {
-         this.sketcher = this.makeSketcher(
-             this.refs['svg-parent'].clientWidth - 8*2,
-             333);
-         this.sketcher.underpainting();
-
-         this.painter = new NobitaDocDataModel(this.sketcher.d3Svg());
-
-         let nodes = this.nodes.map(this.painter.makeNode);
-         let edges = this.edges;
-
-         this.painter.draw({ list: nodes },
-                           { list: this.edges },
-                           null);
-     });
-});
-
-riot.tag2('home_tab_installation', '<section class="section"> <div class="container"> <div class="contents"> <p><pre>\n(ql:quickload :nobit@.graph)\n(ql:quickload :nobit@)\n(ql:quickload :nobit@.api)\n(ql:quickload :nobit@-test)</pre></p> </div> </div> </section>', '', '', function(opts) {
-});
-
-riot.tag2('home_tab_operators-matrix', '<table class="table is-bordered is-striped is-narrow is-hoverable" style="font-size:12px;"> <thead> <tr> <th rowspan="2">Object</th> <th colspan="4">CRUD</th> <th rowspan="2">Description</th> </tr> <tr> <th>C</th> <th>R</th> <th>U</th> <th>D</th> </tr> </thead> <tbody> <tr each="{obj in list}"> <td>{obj.source}</td> <td><p each="{d in obj.c}">{d}</p></td> <td><p each="{d in obj.r}">{d}</p></td> <td><p each="{d in obj.u}">{d}</p></td> <td><p each="{d in obj.d}">{d}</p></td> <td>{obj.description}</td> </tr> </tbody> </table>', '', '', function(opts) {
+riot.tag2('home_tab_data-model-operators-matrix', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Object</th> <th colspan="4">CRUD</th> <th rowspan="2">Description</th> </tr> <tr> <th>C</th> <th>R</th> <th>U</th> <th>D</th> </tr> </thead> <tbody> <tr each="{obj in list}"> <td>{obj.source}</td> <td><p each="{d in obj.c}">{d}</p></td> <td><p each="{d in obj.r}">{d}</p></td> <td><p each="{d in obj.u}">{d}</p></td> <td><p each="{d in obj.d}">{d}</p></td> <td>{obj.description}</td> </tr> </tbody> </table>', '', '', function(opts) {
      this.list = [
          {
-             source: 'pocket',
+             source: 'pocket (dra@mon)',
              c: ['add-to-pocket'],
              r: ['get-from-pocket', 'find-from-pocket'],
              u: [],
@@ -1153,7 +1093,82 @@ riot.tag2('home_tab_operators-matrix', '<table class="table is-bordered is-strip
      ];
 });
 
-riot.tag2('home_tab_operators', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> <home_tab_operators-matrix></home_tab_operators-matrix> <div style="margin-top:22px;"> <home-wnqi start_id="{14}"></home-wnqi> </div> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('home_tab_data-model', '<section class="section"> <div class="container"> <h1 class="title is-4">OverView</h1> <h2 class="subtitle"></h2> <div class="contents"> <div ref="svg-parent" style="padding: 8px;border: 1px solid #eeeeee; border-radius: 8px; margin-bottom:55px;"> <svg id="scketchbook"></svg> </div> <home_tab_data-model-operators-matrix></home_tab_data-model-operators-matrix> </div> </div> </section>', '', '', function(opts) {
+     this.nodes = [
+         { _id:  1, label: { text: 'g*an' } },
+         { _id:  2, label: { text: '4neo' } },
+         { _id:  3, label: { text: 'nobit@' } },
+         { _id:  4, label: { text: 'heart' } },
+         { _id:  5, label: { text: 'friendship' } },
+         { _id:  6, label: { text: 'karma-pool' } },
+         { _id:  7, label: { text: 'karma' } },
+         { _id:  8, label: { text: 'idea' } },
+         { _id:  9, label: { text: 'pocket' } },
+         { _id: 10, label: { text: 'spread-action' } },
+     ];
+     let id = 100;
+     this.edges = [
+         { _id: id++, source: 1, target: 2 },
+         { _id: id++, source: 2, target: 3 },
+
+         { _id: id++, source: 4, target: 5 },
+         { _id: id++, source: 4, target: 6 },
+         { _id: id++, source: 6, target: 7 },
+
+         { _id: id++, source:  9, target: 10 },
+         { _id: id++, source: 10, target:  8 },
+     ];
+
+     this.sketcher = null;
+     this.painter  = null;
+
+     this.makeSketcher = (w, h) => {
+         let camera = {
+             look: {
+                 at: {
+                     x: 0,
+                     y: 0.0,
+                 },
+             },
+             scale: 1.3,
+         };
+
+         return new Sketcher({
+             element: {
+                 selector: 'home_tab_data-model svg#scketchbook',
+             },
+             w: w,
+             h: h,
+             x: camera.look.at.x,
+             y: camera.look.at.y,
+             scale: camera.scale,
+         });
+     };
+
+     this.on('updated', () => {
+         let width  = this.refs['svg-parent'].clientWidth - 8 * 2;
+         let height = 555;
+
+         this.sketcher = this.makeSketcher(
+             (width<0 ? 0 : width),
+             height);
+         this.sketcher.underpainting();
+
+         this.painter = new NobitaDocDataModel(this.sketcher.d3Svg());
+
+         let nodes = this.nodes.map(this.painter.makeNode);
+         let edges = this.edges;
+
+         this.painter.draw({ list: nodes },
+                           { list: this.edges },
+                           null);
+     });
+});
+
+riot.tag2('home_tab_installation', '<section class="section"> <div class="container"> <div class="contents"> <p><pre>\n(ql:quickload :nobit@.graph)\n(ql:quickload :nobit@)\n(ql:quickload :nobit@.api)\n(ql:quickload :nobit@-test)</pre></p> </div> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('home_tab_operators', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> <div> <home-wnqi start_id="{14}"></home-wnqi> </div> </div> </div> </section>', '', '', function(opts) {
 });
 
 riot.tag2('home_tab_packages', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents" style="padding-left:0px;"> <home-wnqi start_id="{11}"></home-wnqi> </div> </div> </section>', '', '', function(opts) {
