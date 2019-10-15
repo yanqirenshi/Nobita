@@ -32,11 +32,9 @@
 
 
 (defmethod action! (graph (nobit@ nobit@) idea source)
-  (format t "~S: Start Action~%" nobit@)
-  (let ((action (action nobit@))
+  (let ((action   (action nobit@))
         (new-idea (copy-idea idea)))
     (when action
       (setf (getf new-idea :contents)
             (ation!-core graph action nobit@ idea source)))
-    (format t "~S: Complete Action~%" nobit@)
     new-idea))

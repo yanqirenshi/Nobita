@@ -2,7 +2,7 @@
 
 (defun push-idea (friendship idea)
   "friendship に idea を保管する。"
-  (setf (gethash (getf idea :_id) (contexts friendship))
+  (setf (gethash (idea-id idea) (contexts friendship))
         idea))
 
 (defun exist-idea-p (friendship _id)
@@ -16,13 +16,15 @@
     (remhash _id (contexts friendship))
     idea))
 
-(defmethod spread ((graph shinra:banshou) (idea list) source (friendship friendship))
+(defmethod spread ((graph shinra:banshou) (idea nobit@.idea::idea) source (friendship friendship))
   "heart heart に context を作って保管するだけ。
 あとは heart の tick で後続に進められる。"
-  (when-let ((heart (gethash (heart friendship) *hearts*)))
+  (format t "SPREAD Friendship: Start ~a~%" friendship)
+  (when-let ((heart (heart friendship)))
     (push-idea friendship idea)
     (push-karma (karma-pool heart)
-                :idea_id (getf idea :_id)
+                :idea_id (idea-id idea)
                 :graph graph
                 :source source
-                :friendship friendship)))
+                :friendship friendship))
+  (format t "SPREAD Friendship: End ~a~%" friendship))

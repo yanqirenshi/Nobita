@@ -49,18 +49,15 @@
                              :to-classes '(4neo nobit@)))))
 
 
-(defmethod spread ((graph shinra:banshou) (idea list) source (nobit@ nobit@))
-  "前フレンズの処理が完了しているかを確認し、全て完了している場合に自身の処理を実行する。
-完了しているかどうかはフレンドシップに対象idが存在するかどうかで判断する。"
+(defmethod spread ((graph shinra:banshou) (idea nobit@.idea::idea) source (nobit@ nobit@))
+  (format t "SPREAD Nobit@: Start ~a~%" nobit@)
   (let ((frendships_before (find-frendship graph :to nobit@))
-        (idea-id (getf idea :_id)))
+        (idea-id (idea-id idea)))
     (when (do-it-now? idea-id frendships_before)
-      ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
-      ;;;  TODO: スレッド数に制限かけんとね。 ;;;
-      ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ;;;
-      (let ((thread (bordeaux-threads:make-thread
+      (let ((thread (bordeaux-threads:make-thread ;; TODO: スレッド数に制限かけんとね。
                      #'(lambda ()
                          (spread-action graph idea-id source nobit@ frendships_before)))))
         (add-to-pocket (up:%id nobit@)
                        idea-id
-                       thread)))))
+                       thread))))
+  (format t "SPREAD Nobit@: End ~a~%" nobit@))

@@ -17,11 +17,12 @@
 
 (defgeneric flash-across-ones-mind (graph g*an)
   (:method (graph (g*an g*an))
-    (format t  "Start!! gian=~S~%" g*an)
+    (format t "Flash across ones mind: Start ~a~%" g*an)
     (spreads graph
              (make-idea)
              g*an
-             (find-frendship graph :from g*an))))
+             (find-frendship graph :from g*an))
+    (format t "Flash across ones mind: End ~a~%" g*an)))
 
 
 (defmethod print-object ((obj g*an) out)

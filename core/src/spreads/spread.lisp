@@ -11,7 +11,7 @@
   (:documentation ""))
 
 (defgeneric spreads (graph idea source targets)
-  (:method ((graph shinra:banshou) (idea list) source (targets list))
+  (:method ((graph shinra:banshou) (idea nobit@.idea::idea) source (targets list))
     (when-let ((target (car targets)))
       (spread graph idea source target)
       (spreads graph idea source (cdr targets)))))
