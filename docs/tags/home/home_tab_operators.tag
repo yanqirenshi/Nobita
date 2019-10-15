@@ -6,7 +6,11 @@
             <h2 class="subtitle"></h2>
 
             <div class="contents">
-                <home-wnqi start_id={14}></home-wnqi>
+                <home_tab_operators-matrix></home_tab_operators-matrix>
+
+                <div style="margin-top:22px;">
+                    <home-wnqi start_id={14}></home-wnqi>
+                </div>
             </div>
         </div>
     </section>

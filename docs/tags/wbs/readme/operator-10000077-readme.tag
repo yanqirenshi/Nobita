@@ -1,4 +1,4 @@
-<operator-10000055-readme>
+<operator-10000077-readme>
 
     <section class="section">
         <div class="container">
@@ -7,8 +7,8 @@
 
             <div class="contents">
                 <operator-syntax operator="spread"
-                                 arguments={ { normal: ["graph", "friend", "idea", "source"] } }
-                                 results={"new-idea"}></operator-syntax>
+                                 arguments={ { normal: ["graph", "idea", "source", "target"] } }
+                                 results={"nil"}></operator-syntax>
             </div>
         </div>
     </section>
@@ -107,11 +107,14 @@
 
     <script>
      this.signatures = {
-         header: ["_code", "graph", "friend", "idea", "source", "description"],
+         header: ["_code", "graph", "idea", "source", "target", "description"],
          contents: [
-             { _code: 'nobit@', graph: 'shinra:banshou', friend: 'nobit@', idea: 'list', source: 't', },
+             { _code: 'g*an',       graph: 'shinra:banshou', idea: 'list', source: 't', target: 'g*an', },
+             { _code: '4neo',       graph: 'shinra:banshou', idea: 'list', source: 't', target: '4neo', },
+             { _code: 'nobit@',     graph: 'shinra:banshou', idea: 'list', source: 't', target: 'nobit@', },
+             { _code: 'friendship', graph: 'shinra:banshou', idea: 'list', source: 't', target: 'friendship', },
          ]
      };
     </script>
 
-</operator-10000055-readme>
+</operator-10000077-readme>

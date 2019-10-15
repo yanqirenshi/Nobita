@@ -43,7 +43,7 @@
                          return location.hash + '/classes/' + id;
 
                      if (type=='operator')
-                         return location.hash + '/operator/' + id;
+                         return location.hash + '/operators/' + id;
 
                      return null;
                  },

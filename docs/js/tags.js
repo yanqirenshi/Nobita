@@ -940,7 +940,7 @@ riot.tag2('home-wnqi', '<wbs-tree-list data="{data()}" options="{wbs_list_option
                          return location.hash + '/classes/' + id;
 
                      if (type=='operator')
-                         return location.hash + '/operator/' + id;
+                         return location.hash + '/operators/' + id;
 
                      return null;
                  },
@@ -1060,7 +1060,100 @@ riot.tag2('home_tab_data-model', '<section class="section"> <div class="containe
 riot.tag2('home_tab_installation', '<section class="section"> <div class="container"> <div class="contents"> <p><pre>\n(ql:quickload :nobit@.graph)\n(ql:quickload :nobit@)\n(ql:quickload :nobit@.api)\n(ql:quickload :nobit@-test)</pre></p> </div> </div> </section>', '', '', function(opts) {
 });
 
-riot.tag2('home_tab_operators', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> <home-wnqi start_id="{14}"></home-wnqi> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('home_tab_operators-matrix', '<table class="table is-bordered is-striped is-narrow is-hoverable" style="font-size:12px;"> <thead> <tr> <th rowspan="2">Object</th> <th colspan="4">CRUD</th> <th rowspan="2">Description</th> </tr> <tr> <th>C</th> <th>R</th> <th>U</th> <th>D</th> </tr> </thead> <tbody> <tr each="{obj in list}"> <td>{obj.source}</td> <td><p each="{d in obj.c}">{d}</p></td> <td><p each="{d in obj.r}">{d}</p></td> <td><p each="{d in obj.u}">{d}</p></td> <td><p each="{d in obj.d}">{d}</p></td> <td>{obj.description}</td> </tr> </tbody> </table>', '', '', function(opts) {
+     this.list = [
+         {
+             source: 'pocket',
+             c: ['add-to-pocket'],
+             r: ['get-from-pocket', 'find-from-pocket'],
+             u: [],
+             d: ['rm-from-pocket'],
+             description: ''
+         },
+         {
+             source: 'nobit@',
+             c: ['tx-make-nobit@'],
+             r: ['get-nobit@', 'find-nobit@'],
+             u: [],
+             d: [],
+             description: ''
+         },
+         {
+             source: 'g*an',
+             c: ['tx-make-g*an'],
+             r: ['get-g*an', 'find-g*an'],
+             u: [],
+             d: [],
+             description: ''
+         },
+         {
+             source: '4neo',
+             c: ['tx-make-4neo'],
+             r: ['get-4neo', 'find-4neo'],
+             u: [],
+             d: [],
+             description: ''
+         },
+         {
+             source: 'friend',
+             c: [],
+             r: ['get-friend'],
+             u: ['tx-save-location'],
+             d: [],
+             description: ''
+         },
+         {
+             source: 'heart',
+             c: ['make-heart'],
+             r: ['get-heart', 'find-hearts'],
+             u: ['start-heart', 'stop-heart'],
+             d: [],
+             description: ''
+         },
+         {
+             source: 'friendship',
+             c: ['tx-make-frendship'],
+             r: ['find-frendship'],
+             u: [],
+             d: [],
+             description: ''
+         },
+         {
+             source: 'karma-pool',
+             c: ['make-karma-pool'],
+             r: [],
+             u: ['push-karma', 'pop-karma'],
+             d: [],
+             description: ''
+         },
+         {
+             source: 'karma',
+             c: [],
+             r: [],
+             u: [],
+             d: [],
+             description: ''
+         },
+         {
+             source: 'spread-action',
+             c: [],
+             r: [],
+             u: [],
+             d: [],
+             description: ''
+         },
+         {
+             source: 'idea',
+             c: ['make-idea', 'copy-idea'],
+             r: [],
+             u: [],
+             d: [],
+             description: ''
+         },
+     ];
+});
+
+riot.tag2('home_tab_operators', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents"> <home_tab_operators-matrix></home_tab_operators-matrix> <div style="margin-top:22px;"> <home-wnqi start_id="{14}"></home-wnqi> </div> </div> </div> </section>', '', '', function(opts) {
 });
 
 riot.tag2('home_tab_packages', '<section class="section"> <div class="container"> <h1 class="title is-4"></h1> <h2 class="subtitle"></h2> <div class="contents" style="padding-left:0px;"> <home-wnqi start_id="{11}"></home-wnqi> </div> </div> </section>', '', '', function(opts) {
@@ -1215,23 +1308,6 @@ riot.tag2('generic-function_pop-karma', '<section-container title="Generic funct
 riot.tag2('generic-function_propagation', '<section-container title="Generic function: propagation(spread)"> <section-contents no="4" title="Syntax:"> <section-contents> <operator-syntax name="spread" args="{[\'graph\', \'idea\', \'source\', \'target\']}"></operator-syntax> </section-contents> </section-contents> <section-contents no="4" title="Method Signatures:"> <section-contents> <generic-function_propagation_method-signatures></generic-function_propagation_method-signatures> </section-contents> </section-contents> <section-contents no="4" title="Arguments and Values:"> <section-container no="5" title="graph"> <section-contents> <p></p> </section-contents> </section-container> <section-container no="5" title="idea"> <section-contents> <p></p> </section-contents> </section-container> <section-container no="5" title="source"> <section-contents> <p></p> </section-contents> </section-container> <section-container no="5" title="target"> <section-contents> <p></p> </section-contents> </section-container> </section-contents> <generic-function_propagation_description></generic-function_propagation_description> </section-container>', '', '', function(opts) {
 });
 
-riot.tag2('generic-function_propagations', '<section-container title="Generic function: propagations(spreads)"> <section-contents no="4" title="Syntax:"> <section-contents> <operator-syntax name="spread" args="{[\'graph\', \'idea\', \'source\', \'targets\']}"></operator-syntax> </section-contents> </section-contents> <section-contents no="4" title="Method Signatures:"> <generic-function_propagations_method-signatures> </generic-function_propagations_method-signatures> </section-contents> <section-contents no="4" title="Arguments and Values:"> </section-contents> <section-contents no="4" title="Description:"> </section-contents> </section-container>', '', '', function(opts) {
-});
-
-riot.tag2('generic-function_propagations_method-signatures', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th each="{headers}">{label}</th> </tr> </thead> <tbody> <tr each="{contents}"> <td>{for}</td> <td>{graph}</td> <td>{idea}</td> <td>{source}</td> <td>{targets}</td> </tr> </tbody> </table>', '', '', function(opts) {
-     this.headers = [
-         { code: 'for',     label: 'for'},
-         { code: 'graph',   label: 'Graph'},
-         { code: 'idea',    label: 'Idea'},
-         { code: 'source',  label: 'Source'},
-         { code: 'targets', label: 'Targets'}
-     ];
-     this.contents = [
-         { for:'List', graph:'shinra:banshou', idea:'list', source:false, targets:'list' }
-     ];
-
-});
-
 riot.tag2('generic-function_propagation_description', '<section-contents no="4" title="Description:"> <section-container no="5" title="For: G*AN"> <section-contents> <p></p> </section-contents> </section-container> <section-container no="5" title="For: 4NEO"> <section-contents> <p></p> </section-contents> </section-container> <section-container no="5" title="For: NOBIT@"> <section-contents> <p>前フレンズの処理が完了しているかを確認し、全て完了している場合に自身の処理を実行する。</p> <p>完了しているかどうかはフレンドシップに対象idが存在するかどうかで判断する。</p> </section-contents> </section-container> <section-container no="5" title="For: FRIENDSHIP"> </section-container> </section-contents>', '', '', function(opts) {
 });
 
@@ -1249,6 +1325,23 @@ riot.tag2('generic-function_propagation_method-signatures', '<table class="table
          { for:'NOBIT@',     graph:'SHINRA:BANSHOU', idea:'List', source:false, target:'NOBIT@' },
          { for:'FRIENDSHIP', graph:'SHINRA:BANSHOU', idea:'List', source:false, target:'FRIENDSHIP' }
      ];
+});
+
+riot.tag2('generic-function_propagations', '<section-container title="Generic function: propagations(spreads)"> <section-contents no="4" title="Syntax:"> <section-contents> <operator-syntax name="spread" args="{[\'graph\', \'idea\', \'source\', \'targets\']}"></operator-syntax> </section-contents> </section-contents> <section-contents no="4" title="Method Signatures:"> <generic-function_propagations_method-signatures> </generic-function_propagations_method-signatures> </section-contents> <section-contents no="4" title="Arguments and Values:"> </section-contents> <section-contents no="4" title="Description:"> </section-contents> </section-container>', '', '', function(opts) {
+});
+
+riot.tag2('generic-function_propagations_method-signatures', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th each="{headers}">{label}</th> </tr> </thead> <tbody> <tr each="{contents}"> <td>{for}</td> <td>{graph}</td> <td>{idea}</td> <td>{source}</td> <td>{targets}</td> </tr> </tbody> </table>', '', '', function(opts) {
+     this.headers = [
+         { code: 'for',     label: 'for'},
+         { code: 'graph',   label: 'Graph'},
+         { code: 'idea',    label: 'Idea'},
+         { code: 'source',  label: 'Source'},
+         { code: 'targets', label: 'Targets'}
+     ];
+     this.contents = [
+         { for:'List', graph:'shinra:banshou', idea:'list', source:false, targets:'list' }
+     ];
+
 });
 
 riot.tag2('generic-function_push-karma', '<section-container no="3" title="Generic function: push-karma"> <section-contents no="4" title="Syntax:"> <section-contents> <operator-syntax name="push-karma" keys="{[\'idea_id\', \'graph\', \'source\', \'friendship\']}" results="{null}"> </section-contents> </section-contents> <section-contents no="4" title="Method Signatures:"> </section-contents> <section-contents no="4" title="Arguments and Values:"> </section-contents> <section-contents no="4" title="Description:"> </section-contents> </section-container>', '', '', function(opts) {
@@ -2212,6 +2305,73 @@ riot.tag2('operator-10000076', '<home-wbs-header></home-wbs-header> <page-tab-wi
      };
 });
 
+riot.tag2('operator-10000077-signatiure-4neo', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000077-signatiure-friendship', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000077-signatiure-g_an', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000077-signatiure-nobita', '<section class="section"> <div class="container"> <h1 class="title">Description</h1> <h2 class="subtitle"></h2> <div class="contents"></div> <section class="section"> <div class="container"> <h1 class="title is-4">Procedure</h1> <h2 class="subtitle"></h2> <div class="contents"> <ol> <li>前フレンズの処理が完了しているかを確認する。</li> <li>全て完了している場合に自身の処理を実行する。</li> </ol> </div> </div> </section> </div> </section> <section class="section"> <div class="container"> <h1 class="title">自身の処理の実行</h1> <h2 class="subtitle"></h2> <div class="contents"> <p><code>bordeaux-threads:make-thread</code> でスレッドを作り、<code>add-to-pocket</code> で pocket に入れる。(ど○えもんに委託する)</p> <p><code>bordeaux-threads:make-thread</code> の中身は <code>spread-action</code> のみを実行する。</p> </div> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000077', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000077-readme class="hide"></operator-10000077-readme> <home-wbs-structure class="hide"></home-wbs-structure> <operator-10000077-signatiure-4neo class="hide"></operator-10000077-signatiure-4neo> <operator-10000077-signatiure-friendship class="hide"></operator-10000077-signatiure-friendship> <operator-10000077-signatiure-g_an class="hide"></operator-10000077-signatiure-g_an> <operator-10000077-signatiure-nobita class="hide"></operator-10000077-signatiure-nobita> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',                label: 'README',                tag: 'operator-10000077-readme' },
+         {code: 'signatiure-g_an',       label: 'Signatiure:G*an',       tag: 'operator-10000077-signatiure-g_an' },
+         {code: 'signatiure-4neo',       label: 'Signatiure:4neo',       tag: 'operator-10000077-signatiure-4neo' },
+         {code: 'signatiure-nobit@',     label: 'Signatiure:Nobit@',     tag: 'operator-10000077-signatiure-nobita' },
+         {code: 'signatiure-friendship', label: 'Signatiure:Friendship', tag: 'operator-10000077-signatiure-friendship' },
+         {code: 'structure',             label: 'Wnqi',                  tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000078', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000078-readme class="hide"></operator-10000078-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000078-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
+riot.tag2('operator-10000079', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <operator-10000079-readme class="hide"></operator-10000079-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
+     this.page_tabs = new PageTabs([
+         {code: 'readme',       label: 'README', tag: 'operator-10000079-readme' },
+         {code: 'installation', label: 'Wnqi',   tag: 'home-wbs-structure' },
+     ]);
+
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+         this.update();
+     });
+
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+});
+
 riot.tag2('package-10000000', '<home-wbs-header></home-wbs-header> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <package-10000000-readme class="hide"></package-10000000-readme> <home-wbs-structure class="hide"></home-wbs-structure> </div> <section-footer></section-footer>', '', '', function(opts) {
      this.page_tabs = new PageTabs([
          {code: 'readme',       label: 'README', tag: 'package-10000000-readme' },
@@ -2511,7 +2671,13 @@ riot.tag2('operator-10000053-readme', '', '', '', function(opts) {
 riot.tag2('operator-10000054-readme', '', '', '', function(opts) {
 });
 
-riot.tag2('operator-10000055-readme', '', '', '', function(opts) {
+riot.tag2('operator-10000055-readme', '<section class="section"> <div class="container"> <h1 class="title">Syntax</h1> <h2 class="subtitle"></h2> <div class="contents"> <operator-syntax operator="spread" arguments="{{ normal: [⁗graph⁗, ⁗friend⁗, ⁗idea⁗, ⁗source⁗] }}" results="{⁗new-idea⁗}"></operator-syntax> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Method Signatures</h1> <h2 class="subtitle"></h2> <div class="contents"> <operator-method-signatures source="{signatures}"></operator-method-signatures> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Arguments</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Values</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Description</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Examples</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Side Effects</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Affected By</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Exceptional Situations</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">See Also</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Notes</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section>', '', '', function(opts) {
+     this.signatures = {
+         header: ["_code", "graph", "friend", "idea", "source", "description"],
+         contents: [
+             { _code: 'nobit@', graph: 'shinra:banshou', friend: 'nobit@', idea: 'list', source: 't', },
+         ]
+     };
 });
 
 riot.tag2('operator-10000056-readme', '', '', '', function(opts) {
@@ -2575,6 +2741,36 @@ riot.tag2('operator-10000075-readme', '', '', '', function(opts) {
 });
 
 riot.tag2('operator-10000076-readme', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000077-readme', '<section class="section"> <div class="container"> <h1 class="title">Syntax</h1> <h2 class="subtitle"></h2> <div class="contents"> <operator-syntax operator="spread" arguments="{{ normal: [⁗graph⁗, ⁗idea⁗, ⁗source⁗, ⁗target⁗] }}" results="{⁗nil⁗}"></operator-syntax> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Method Signatures</h1> <h2 class="subtitle"></h2> <div class="contents"> <operator-method-signatures source="{signatures}"></operator-method-signatures> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Arguments</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Values</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Description</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Examples</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Side Effects</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Affected By</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Exceptional Situations</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">See Also</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Notes</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section>', '', '', function(opts) {
+     this.signatures = {
+         header: ["_code", "graph", "idea", "source", "target", "description"],
+         contents: [
+             { _code: 'g*an',       graph: 'shinra:banshou', idea: 'list', source: 't', target: 'g*an', },
+             { _code: '4neo',       graph: 'shinra:banshou', idea: 'list', source: 't', target: '4neo', },
+             { _code: 'nobit@',     graph: 'shinra:banshou', idea: 'list', source: 't', target: 'nobit@', },
+             { _code: 'friendship', graph: 'shinra:banshou', idea: 'list', source: 't', target: 'friendship', },
+         ]
+     };
+});
+
+riot.tag2('operator-10000078-readme', '', '', '', function(opts) {
+});
+
+riot.tag2('operator-10000079-readme', '<section class="section"> <div class="container"> <h1 class="title">Syntax</h1> <h2 class="subtitle"></h2> <div class="contents"> <operator-syntax operator="spread-action" arguments="{{ normal: [⁗graph⁗, ⁗idea-id⁗, ⁗source⁗, ⁗nobit@⁗, ⁗frendships_before⁗] }}" results="{⁗nil⁗}"></operator-syntax> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Arguments</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Values</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Description</h1> <h2 class="subtitle"></h2> <div class="contents"></div> <section class="section"> <div class="container"> <h1 class="title is-4">Procedure</h1> <h2 class="subtitle"></h2> <div class="contents"> <ol> <li><code>remove-karmas</code> で karma を削除する。</li> <li><code>idea-id</code> から <code>action!</code> で新しい <code>idea</code> を作る。</li> <li><code>rm-from-pocket</code> pocket から削除する。</li> <li><code>spreads</code> で、新しい <code>idea</code> を拡散させる。</li> </ol> </div> </div> </section> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Examples</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Side Effects</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Affected By</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Exceptional Situations</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">See Also</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Notes</h1> <h2 class="subtitle"></h2> <div class="contents"></div> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('operator-method-signatures', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <tehad> <th each="{obj in opts.source.header}">{label(obj)}</th> </tehad> <tbody> <tr each="{obj in opts.source.contents}"> <td each="{key in opts.source.header}">{obj[key]}</td> </tr> </tbody> </table>', '', '', function(opts) {
+     this.label = (obj) => {
+         if (obj.substring(0,1)=="_")
+             return '';
+
+         return obj;
+     };
+});
+
+riot.tag2('operator-syntax', '<div> <div class="operator-name"> <p>{opts.operator}</p> </div> <div class="arguments-normal"> <p each="{arg in opts.arguments.normal}">{arg}</p> </div> <div class="sep">⇒</div> <div class="results"> <p each="{result in opts.results}">{result}</p> </div> </div>', 'operator-syntax > div { padding: 22px; background: #f8f8f8; border-radius: 5px; display: flex; } operator-syntax .operator-name { font-weight: bold; display: flex; } operator-syntax .arguments-normal { display: flex; margin-left: 11px; } operator-syntax .arguments-normal > * { margin-left: 11px; } operator-syntax .arguments-normal > *:first-child { margin-left: 0px; } operator-syntax .sep { margin-left: 11px; } operator-syntax .results { display: flex; margin-left: 11px; }', '', function(opts) {
 });
 
 riot.tag2('package-10000000-readme', '', '', '', function(opts) {
