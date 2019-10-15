@@ -10,6 +10,7 @@
           :rest     (getf args :rest)
           :optional (getf args :optional))))
 
+
 (defgeneric make-nobit@-action-call-operator (operator args)
   (:method ((operator function) args)
     (list :type     :call-operator

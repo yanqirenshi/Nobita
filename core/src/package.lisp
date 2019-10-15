@@ -5,7 +5,8 @@
         #:nobit@.hearts
         #:nobit@.action
         #:nobit@.pocket
-        #:nobit@.idea)
+        #:nobit@.idea
+        #:nobit@.dora@mon)
   (:import-from :alexandria
                 #:when-let
                 #:ensure-list

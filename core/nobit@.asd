@@ -33,6 +33,9 @@ This file is a part of nobit@ project.
                                (:module "pocket"
                                 :components ((:file "package")
                                              (:file "pocket")))))
+                 (:module "dora@mon" :components ((:file "package")
+                                                  (:file "future-tool")
+                                                  (:file "dora@mon")))
                  (:file "package")
                  (:module "classes" :components ((:file "common")
                                                  (:file "g_an")
@@ -47,7 +50,7 @@ This file is a part of nobit@ project.
                  (:module "friendship" :components ((:file "finder")
                                                     (:file "maker")
                                                     (:file "printer")))
-                 (:module "friend-action" :components ((:file "action")
+                 (:module "solve-problem" :components ((:file "action")
                                                        (:file "nobit@")))
                  (:module "spreads" :components ((:file "spread")
                                                  (:file "g_an")

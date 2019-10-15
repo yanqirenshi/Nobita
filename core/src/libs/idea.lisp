@@ -37,9 +37,15 @@
 (defun idea-contents (idea)
   (contents  idea))
 
+(defun (setf idea-contents) (val idea)
+  (setf (contents idea) val))
+
 
 (defun idea-results (idea)
   (results idea))
+
+(defun (setf idea-results) (val idea)
+  (setf (results idea) val))
 
 
 (defun idea-timestamp (idea)

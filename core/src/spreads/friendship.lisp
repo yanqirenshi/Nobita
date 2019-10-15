@@ -23,8 +23,8 @@
   (when-let ((heart (heart friendship)))
     (push-idea friendship idea)
     (push-karma (karma-pool heart)
-                :idea_id (idea-id idea)
-                :graph graph
-                :source source
+                :idea_id    (idea-id idea)
+                :graph      graph
+                :source     source
                 :friendship friendship))
   (format t "SPREAD Friendship: End ~a~%" friendship))
