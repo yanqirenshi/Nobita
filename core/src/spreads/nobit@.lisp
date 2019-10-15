@@ -36,7 +36,7 @@
   ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (remove-karmas idea-id source frendships_before)
   (let* ((next_idea (pop-idea-from-frendships idea-id frendships_before))
-         (new_idea (action! graph nobit@ next_idea source)))
+         (new_idea  (action! graph nobit@ next_idea source)))
     ;;; Remove Thread at Pocket
     (let ((thread (get-from-pocket :nobit@-id (up:%id nobit@) :ide-id idea-id)))
       (rm-from-pocket thread))

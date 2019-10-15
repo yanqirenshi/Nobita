@@ -20,6 +20,7 @@ This file is a part of nobit@ project.
                 :components
                 ((:module "libs"
                   :components ((:file "utilities")
+                               (:file "logging")
                                (:file "idea")
                                (:file "karma")
                                (:module "hearts"
