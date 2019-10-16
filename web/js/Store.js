@@ -59,6 +59,11 @@ class Store extends Vanilla_Redux_Store {
                     code: 'school-district-karma',
                     tag: 'school-district-karma',
                     menu_label: '学業',
+                },
+                {
+                    code: 'student-desk',
+                    tag: 'student-desk',
+                    menu_label: '学机',
                 }
             ]
         };

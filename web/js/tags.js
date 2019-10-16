@@ -522,7 +522,7 @@ riot.tag2('sections-list', '<table class="table"> <tbody> <tr each="{opts.data}"
 riot.tag2('four-neo', '<section-header-with-breadcrumb title="4 Neo"></section-header-with-breadcrumb>', '', '', function(opts) {
 });
 
-riot.tag2('friends', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">友達</h1> <h2 class="subtitle">。。。皆は友達怖くない</h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">一覧</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Working</th> <th rowspan="2">Type</th> <th rowspan="2">ID</th> <th rowspan="2">Name</th> <th rowspan="1">Action</th> </tr> <tr> <th>Size</th> </tr> </thead> <tbody> <tr each="{friend in friends()}"> <td>{friend.workings ? friend.workings : \'--\'}</td> <td>{friend._class}</td> <td><a href="{this.href(friend)}">{friend._id}</a></td> <td>{friend.name}</td> <td>{friend.action}</td> </tr> </tbody> </table> </div> </div> </section>', 'friends { display: block; margin-left: 55px; }', '', function(opts) {
+riot.tag2('friends', '<section class="section"> <div class="container"> <h1 class="title">一覧</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Working</th> <th rowspan="2">Type</th> <th rowspan="2">ID</th> <th rowspan="2">Name</th> <th rowspan="1">Action</th> </tr> <tr> <th>Size</th> </tr> </thead> <tbody> <tr each="{friend in friends()}"> <td>{friend.workings ? friend.workings : \'--\'}</td> <td>{friend._class}</td> <td><a href="{this.href(friend)}">{friend._id}</a></td> <td>{friend.name}</td> <td>{friend.action}</td> </tr> </tbody> </table> </div> </div> </section>', 'friends { display: block; margin-left: 55px; }', '', function(opts) {
      this.href = (friend) => {
          return new Nobita().makeFriendHash('#friends', friend);
      }
@@ -721,13 +721,13 @@ riot.tag2('nobita_tab_basic', '<section class="section"> <div class="container">
 riot.tag2('nobita_tab_working', '', '', 'class="tab-page"', function(opts) {
 });
 
-riot.tag2('friendship', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">友情</h1> <h2 class="subtitle">けっして切れない鎖</h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">id</th> <th rowspan="2">distance</th> <th rowspan="2">index</th> <th colspan="2">Source</th> <th colspan="2">target</th> </tr> <tr> <th>id</th> <th>name</th> <th>id</th> <th>name</th> </tr> </thead> <tbody> <tr each="{obj in sources()}"> <td>{obj._id}</td> <td>{obj.distance}</td> <td>{obj.index}</td> <td>{obj.source._id}</td> <td>{obj.source.name}</td> <td>{obj.target._id}</td> <td>{obj.target.name}</td> </tr> </tbody> </table> </div> </div> </section>', '', '', function(opts) {
+riot.tag2('friendship', '<section class="section"> <div class="container"> <h1 class="title">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">id</th> <th rowspan="2">distance</th> <th rowspan="2">index</th> <th colspan="2">Source</th> <th colspan="2">target</th> </tr> <tr> <th>id</th> <th>name</th> <th>id</th> <th>name</th> </tr> </thead> <tbody> <tr each="{obj in sources()}"> <td>{obj._id}</td> <td>{obj.distance}</td> <td>{obj.index}</td> <td>{obj.source._id}</td> <td>{obj.source.name}</td> <td>{obj.target._id}</td> <td>{obj.target.name}</td> </tr> </tbody> </table> </div> </div> </section>', '', '', function(opts) {
      this.sources = () => {
          return STORE.get('edges.list');
      };
 });
 
-riot.tag2('hearts', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">心臓</h1> <h2 class="subtitle"></h2> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">一覧</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Name</th> <th rowspan="2">Bpm</th> <th rowspan="2">Times</th> <th rowspan="1">Queue</th> </tr> <tr> <th>Size</th> </tr> </thead> <tbody> <tr each="{heart in hearts()}"> <td>{heart.name}</td> <td>{heart.bpm}</td> <td>{heart.times}</td> <td>{heart.queue.SIZE}</td> </tr> </tbody> </table> </div> </div> </section>', 'hearts_sec_root { display: block; margin-left: 55px; }', '', function(opts) {
+riot.tag2('hearts', '<section class="section"> <div class="container"> <h1 class="title">一覧</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Name</th> <th rowspan="2">Bpm</th> <th rowspan="2">Times</th> <th rowspan="1">Queue</th> </tr> <tr> <th>Size</th> </tr> </thead> <tbody> <tr each="{heart in hearts()}"> <td>{heart.name}</td> <td>{heart.bpm}</td> <td>{heart.times}</td> <td>{heart.queue.SIZE}</td> </tr> </tbody> </table> </div> </div> </section>', 'hearts_sec_root { display: block; margin-left: 55px; }', '', function(opts) {
      this.hearts = () => {
          let store = STORE.state().toJS().hearts;
          return store ? store : [];
@@ -1024,7 +1024,7 @@ riot.tag2('school-district', '<network-graph source="{source}" callback="{callba
      });
 });
 
-riot.tag2('school-district-karma', '<section class="hero"> <div class="hero-body"> <div class="container"> <h1 class="title">校区(学区)のカルマ、略して学業</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>利用するパッケージを制限したり、利用できるオペーレータを制限したり。</p> <p>基本ホワイトリスト管理になると思います。</p> </div> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Packages</h1> <h2 class="subtitle"></h2> <section class="section"> <div class="container"> <h1 class="title is-4">White List</h1> <h2 class="subtitle"></h2> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Others</h1> <h2 class="subtitle"></h2> <div class="contents"> <div style="display:flex; padding: 11px 22px;"> <input class="input" type="text" placeholder="Filter" onkeyup="{keyUp}" ref="filter-pattern"> <button class="button">Clear</button> </div> <div style="display:flex;flex-wrap: wrap; padding:22px;"> <button each="{obj in list()}" class="button" style="margin-bottom: 11px; margin-left:11px;">{obj.name}</button> </div> </div> </div> </section> </div> </section>', '', '', function(opts) {
+riot.tag2('school-district-karma', '<section class="section"> <div class="container"> <h1 class="title">概要</h1> <h2 class="subtitle"></h2> <div class="contents"> <p>校区(学区)のカルマ、略して学業</p> <p>利用するパッケージを制限したり、利用できるオペーレータを制限したり。</p> <p>基本ホワイトリスト管理になると思います。</p> </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title">Packages</h1> <h2 class="subtitle"></h2> <section class="section"> <div class="container"> <h1 class="title is-4">White List</h1> <h2 class="subtitle"></h2> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Others</h1> <h2 class="subtitle"></h2> <div class="contents"> <div style="display:flex; padding: 11px 22px;"> <input class="input" type="text" placeholder="Filter" onkeyup="{keyUp}" ref="filter-pattern"> <button class="button">Clear</button> </div> <div style="display:flex;flex-wrap: wrap; padding:22px;"> <button each="{obj in list()}" class="button" style="margin-bottom: 11px; margin-left:11px;">{obj.name}</button> </div> </div> </div> </section> </div> </section>', '', '', function(opts) {
      this.keyUp = (e) => {
          this.update();
      };
@@ -1051,4 +1051,7 @@ riot.tag2('school-district-karma', '<section class="hero"> <div class="hero-body
              return;
          }
      });
+});
+
+riot.tag2('student-desk', '', '', '', function(opts) {
 });
