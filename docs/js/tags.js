@@ -1012,11 +1012,12 @@ riot.tag2('home_tab_data-model-graph', '<div ref="svg-parent" style=""> <svg id=
          return { w: x, h: 555, };
      }
      this.makeCamera = (size) => {
+         let scale = 2.5
          return {
              look: {
                  at: {
-                     x: size.w / 2,
-                     y: size.h / 2,
+                     x: (size.w / 2),
+                     y: (size.h / 2),
                  },
              },
              scale: 2.5,
@@ -1032,8 +1033,8 @@ riot.tag2('home_tab_data-model-graph', '<div ref="svg-parent" style=""> <svg id=
              },
              w: size.w,
              h: size.h,
-             x: camera.look.at.x,
-             y: camera.look.at.y,
+             x: camera.look.at.x - 1000,
+             y: camera.look.at.y -  500,
              scale: camera.scale,
          };
      }

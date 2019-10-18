@@ -141,7 +141,7 @@ class NobitaDocDataModel {
                 node:   this.makeNodeLabel2('node',   data),
             },
             circle: {
-                r: 33,
+                r: 66,
                 fill: '#eeeeee',
                 stroke: {
                     color: '#888888',
