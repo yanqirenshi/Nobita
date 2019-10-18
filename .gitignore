@@ -9,3 +9,5 @@
 transaction-log.xml
 web/config.js
 graph/data/
+
+docs/libs/D3Network.js

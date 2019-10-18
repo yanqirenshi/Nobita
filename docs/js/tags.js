@@ -1000,6 +1000,66 @@ riot.tag2('home_sec_root', '<section-header title="NOBIT@: Home"></section-heade
 riot.tag2('home_tab_classes', '<section class="section"> <div class="container"> <h1 class="title is-4">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <home-wnqi start_id="{13}"></home-wnqi> </div> </div> </section>', '', '', function(opts) {
 });
 
+riot.tag2('home_tab_data-model-graph', '<div ref="svg-parent" style=""> <svg id="scketchbook"></svg> </div>', 'home_tab_data-model-graph > div { padding: 8px; border: 1px solid #eeeeee; border-radius: 8px; margin-bottom:55px; background: #fff; }', '', function(opts) {
+     this.sketcher = null;
+     this.painter  = null;
+     this.getSize = () => {
+         let x = this.refs['svg-parent'].clientWidth - 8 * 2;
+
+         if (x < 0)
+             x = 0;
+
+         return { w: x, h: 555, };
+     }
+     this.makeCamera = (size) => {
+         return {
+             look: {
+                 at: {
+                     x: size.w / 2,
+                     y: size.h / 2,
+                 },
+             },
+             scale: 2.5,
+         };
+     }
+     this.makeOption = () => {
+         let size   = this.getSize();
+         let camera = this.makeCamera(size);
+
+         return {
+             element: {
+                 selector: 'svg#scketchbook',
+             },
+             w: size.w,
+             h: size.h,
+             x: camera.look.at.x,
+             y: camera.look.at.y,
+             scale: camera.scale,
+         };
+     }
+     this.makeSketcher = (w, h) => {
+         return new DefaultSketcher(this.makeOption());
+     };
+
+     this.on('updated', () => {
+         let size = this.getSize();
+
+         this.sketcher = this.makeSketcher(size.w, size.h);
+         this.sketcher.underpainting();
+
+         this.painter = new NobitaDocDataModel(this.sketcher.d3Svg());
+
+         let nodes = this.opts.source.nodes.map((d) => {
+             return this.painter.makeNode(d);
+         });
+         let edges = this.opts.source.edges;
+
+         this.painter.draw({ list: nodes },
+                           { list: edges },
+                           null);
+     });
+});
+
 riot.tag2('home_tab_data-model-operators-matrix', '<table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Object</th> <th colspan="4">CRUD</th> <th rowspan="2">Description</th> </tr> <tr> <th>C</th> <th>R</th> <th>U</th> <th>D</th> </tr> </thead> <tbody> <tr each="{obj in list}"> <td>{obj.source}</td> <td><p each="{d in obj.c}">{d}</p></td> <td><p each="{d in obj.r}">{d}</p></td> <td><p each="{d in obj.u}">{d}</p></td> <td><p each="{d in obj.d}">{d}</p></td> <td>{obj.description}</td> </tr> </tbody> </table>', '', '', function(opts) {
      this.list = [
          {
@@ -1093,76 +1153,140 @@ riot.tag2('home_tab_data-model-operators-matrix', '<table class="table is-border
      ];
 });
 
-riot.tag2('home_tab_data-model', '<section class="section"> <div class="container"> <h1 class="title is-4">OverView</h1> <h2 class="subtitle"></h2> <div class="contents"> <div ref="svg-parent" style="padding: 8px;border: 1px solid #eeeeee; border-radius: 8px; margin-bottom:55px;"> <svg id="scketchbook"></svg> </div> <home_tab_data-model-operators-matrix></home_tab_data-model-operators-matrix> </div> </div> </section>', '', '', function(opts) {
-     this.nodes = [
-         { _id:  1, label: { text: 'g*an' } },
-         { _id:  2, label: { text: '4neo' } },
-         { _id:  3, label: { text: 'nobit@' } },
-         { _id:  4, label: { text: 'heart' } },
-         { _id:  5, label: { text: 'friendship' } },
-         { _id:  6, label: { text: 'karma-pool' } },
-         { _id:  7, label: { text: 'karma' } },
-         { _id:  8, label: { text: 'idea' } },
-         { _id:  9, label: { text: 'pocket' } },
-         { _id: 10, label: { text: 'spread-action' } },
-     ];
-     let id = 100;
-     this.edges = [
-         { _id: id++, source: 1, target: 2 },
-         { _id: id++, source: 2, target: 3 },
-
-         { _id: id++, source: 4, target: 5 },
-         { _id: id++, source: 4, target: 6 },
-         { _id: id++, source: 6, target: 7 },
-
-         { _id: id++, source:  9, target: 10 },
-         { _id: id++, source: 10, target:  8 },
-     ];
-
-     this.sketcher = null;
-     this.painter  = null;
-
-     this.makeSketcher = (w, h) => {
-         let camera = {
-             look: {
-                 at: {
-                     x: 0,
-                     y: 0.0,
+riot.tag2('home_tab_data-model', '<section class="section"> <div class="container"> <h1 class="title is-4">OverView</h1> <h2 class="subtitle"></h2> <div class="contents"> <home_tab_data-model-graph source="{graphData()}"></home_tab_data-model-graph> <home_tab_data-model-operators-matrix></home_tab_data-model-operators-matrix> </div> </div> </section>', '', '', function(opts) {
+     this.graphData = () => {
+         let labelCircle = (text) => {
+             return {
+                 text: text,
+                 font: { size: 48 },
+                 position: { x: -12, y: 12 },
+             };
+         }
+         let labelNode = (text)  => {
+             return {
+                 text: text,
+                 font: { size: 36 },
+                 position: { x: -8, y: 8 },
+             };
+         }
+         let nodes = [
+             {
+                 _id:  1,
+                 label: {
+                     circle: labelCircle('G'),
+                     node:   labelNode('g*an'),
                  },
+                 position: { x: -600, y: -300, hold:  true },
              },
-             scale: 1.3,
-         };
-
-         return new Sketcher({
-             element: {
-                 selector: 'home_tab_data-model svg#scketchbook',
+             {
+                 _id:  2,
+                 label: {
+                     circle: labelCircle('4'),
+                     node:   labelNode('4neo'),
+                 },
+                 position: { x: -400, y: -300, hold:  true },
              },
-             w: w,
-             h: h,
-             x: camera.look.at.x,
-             y: camera.look.at.y,
-             scale: camera.scale,
-         });
-     };
+             {
+                 _id:  3,
+                 label: {
+                     circle: labelCircle('N'),
+                     node:   labelNode('nobit@'),
+                 },
+                 position: { x: -200, y: -300, hold:  true },
+             },
+             {
+                 _id:  4,
+                 label: {
+                     circle: labelCircle('H'),
+                     node:   labelNode('heart'),
+                 },
+                 position: { x: -600, y: 200, hold: true },
+             },
+             {
+                 _id:  5,
+                 label: {
+                     circle: labelCircle("F"),
+                     node:   labelNode('friendship'),
+                 },
+                 position: { x: -900, y: 200, hold: true },
+             },
+             {
+                 _id:  6,
+                 label: {
+                     circle: labelCircle('KP'),
+                     node:   labelNode('karma-pool'),
+                 },
+                 position: { x: -400, y: 200, hold: true },
+             },
+             {
+                 _id:  7,
+                 label: {
+                     circle: labelCircle('K'),
+                     node:   labelNode('karma'),
+                 },
+                 position: { x: -100, y: 200, hold: true },
+             },
+             {
+                 _id:  8,
+                 label: {
+                     circle: labelCircle('I'),
+                     node:   labelNode('idea'),
+                 },
+                 position: { x: 100, y: 200, hold: true },
+             },
+             {
+                 _id:  9,
+                 label: {
+                     circle: labelCircle('P'),
+                     node:   labelNode('pocket'),
+                 },
+                 position: { x: 600, y: 200, hold: true },
+             },
+             {
+                 _id: 10,
+                 label: {
+                     circle: labelCircle('SA'),
+                     node:   labelNode('spread-action'),
+                 },
+                 position: { x: 300, y: 200, hold: true },
+             },
+             {
+                 _id: 11,
+                 label: {
+                     circle: labelCircle('D@'),
+                     node:   labelNode('dra@mon'),
+                 },
+                 position: { x: 400, y: -300, hold: true },
+             },
+             {
+                 _id: 12,
+                 label: {
+                     circle: labelCircle('Fi'),
+                     node:   labelNode('future-item'),
+                 },
+                 position: { x: 200, y: -300, hold: true },
+             },
+         ];
+         let id = 100;
+         let edges = [
+             { _id: id++, source:  1, target:  2, stroke: { w: 6, color: '#cccccc' } },
+             { _id: id++, source:  2, target:  3, stroke: { w: 6, color: '#cccccc' } },
 
-     this.on('updated', () => {
-         let width  = this.refs['svg-parent'].clientWidth - 8 * 2;
-         let height = 555;
+             { _id: id++, source:  4, target:  5, stroke: { w: 6, color: '#cccccc' } },
+             { _id: id++, source:  4, target:  6, stroke: { w: 6, color: '#cccccc' } },
+             { _id: id++, source:  6, target:  7, stroke: { w: 6, color: '#cccccc' } },
 
-         this.sketcher = this.makeSketcher(
-             (width<0 ? 0 : width),
-             height);
-         this.sketcher.underpainting();
+             { _id: id++, source:  9, target: 10, stroke: { w: 6, color: '#cccccc' } },
+             { _id: id++, source: 10, target:  8, stroke: { w: 6, color: '#cccccc' } },
 
-         this.painter = new NobitaDocDataModel(this.sketcher.d3Svg());
-
-         let nodes = this.nodes.map(this.painter.makeNode);
-         let edges = this.edges;
-
-         this.painter.draw({ list: nodes },
-                           { list: this.edges },
-                           null);
-     });
+             { _id: id++, source: 11, target: 12, stroke: { w: 6, color: '#cccccc' } },
+             { _id: id++, source:  3, target: 12, stroke: { w: 6, color: '#cccccc' } },
+         ];
+         return {
+             nodes: nodes,
+             edges: edges,
+         }
+     }
 });
 
 riot.tag2('home_tab_installation', '<section class="section"> <div class="container"> <div class="contents"> <p><pre>\n(ql:quickload :nobit@.graph)\n(ql:quickload :nobit@)\n(ql:quickload :nobit@.api)\n(ql:quickload :nobit@-test)</pre></p> </div> </div> </section>', '', '', function(opts) {
