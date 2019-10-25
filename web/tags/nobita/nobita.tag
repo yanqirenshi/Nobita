@@ -8,9 +8,9 @@
                                callback={clickTab}></page-tab-with-section>
 
         <div class="tab-contents-area">
-            <nobita_tab_basic   class="hide" source={source()}></nobita_tab_basic>
-            <nobita_tab_action  class="hide" source={source()}></nobita_tab_action>
-            <nobita_tab_working class="hide" source={source()}></nobita_tab_working>
+            <nobita_tab_basic   class="hide" source={source}></nobita_tab_basic>
+            <nobita_tab_action  class="hide" source={source}></nobita_tab_action>
+            <nobita_tab_working class="hide" source={source}></nobita_tab_working>
         </div>
     </div>
 
@@ -36,11 +36,6 @@
     </script>
 
     <script>
-     this.source = () => {
-         let id = this.opts._route.params.path.id;
-
-         return STORE.get('nodes.ht')[id];
-     };
      this.page_tabs = new PageTabs([
          {code: 'basic',   label: 'Basic',   tag: 'nobita_tab_basic' },
          {code: 'action',  label: 'Action',  tag: 'nobita_tab_action' },

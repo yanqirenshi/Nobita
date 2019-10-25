@@ -23,6 +23,15 @@
 
             <section class="section">
                 <div class="container">
+                    <h1 class="title is-4">Workings</h1>
+                    <h2 class="subtitle"></h2>
+
+                    <div class="contents">{workings()}</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="container">
                     <h1 class="title is-4">Description</h1>
                     <h2 class="subtitle"></h2>
 
@@ -35,7 +44,7 @@
 
     <script>
      this.source = () => {
-         return this.opts.source;
+         return this.opts.source['nobit@'];
      };
      this.id = () => {
          let source = this.source();
@@ -46,6 +55,11 @@
          let source = this.source();
 
          return source ? source.name : '????????';
+     };
+     this.workings = () => {
+         let source = this.source();
+
+         return source ? source.workings : 0;
      };
      this.description = () => {
          let source = this.source();

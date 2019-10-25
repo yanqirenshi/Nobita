@@ -538,6 +538,26 @@ riot.tag2('friends', '<section class="section"> <div class="container"> <h1 clas
 riot.tag2('g_an', '<section-header-with-breadcrumb title="G × An"></section-header-with-breadcrumb>', '', '', function(opts) {
 });
 
+riot.tag2('friendship', '<section class="section"> <div class="container"> <h1 class="title">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">id</th> <th rowspan="2">distance</th> <th rowspan="2">index</th> <th colspan="2">Source</th> <th colspan="2">target</th> </tr> <tr> <th>id</th> <th>name</th> <th>id</th> <th>name</th> </tr> </thead> <tbody> <tr each="{obj in sources()}"> <td>{obj._id}</td> <td>{obj.distance}</td> <td>{obj.index}</td> <td>{obj.source._id}</td> <td>{obj.source.name}</td> <td>{obj.target._id}</td> <td>{obj.target.name}</td> </tr> </tbody> </table> </div> </div> </section>', '', '', function(opts) {
+     this.sources = () => {
+         return STORE.get('edges.list');
+     };
+});
+
+riot.tag2('hearts', '<section class="section"> <div class="container"> <h1 class="title">一覧</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Name</th> <th rowspan="2">Bpm</th> <th rowspan="2">Times</th> <th rowspan="1">Queue</th> </tr> <tr> <th>Size</th> </tr> </thead> <tbody> <tr each="{heart in hearts()}"> <td>{heart.name}</td> <td>{heart.bpm}</td> <td>{heart.times}</td> <td>{heart.queue.SIZE}</td> </tr> </tbody> </table> </div> </div> </section>', 'hearts_sec_root { display: block; margin-left: 55px; }', '', function(opts) {
+     this.hearts = () => {
+         let store = STORE.state().toJS().hearts;
+         return store ? store : [];
+     }
+     this.on('mount', () => {
+         ACTIONS.fetchHearts();
+     });
+     STORE.subscribe((action) => {
+         if (action.type=='FETCHED-HEARTS')
+             this.update();
+     });
+});
+
 riot.tag2('nobita-action-call-func', '<section class="section" style="padding-top: 11px;"> <div class="container"> <div class="contents"> <input class="input" type="text" placeholder="Operator Symbol" riot-value="{operator()}"> <textarea class="textarea" style="margin-top:33px;" placeholder="Description" rows="11"></textarea> </div> </div> </section>', '', '', function(opts) {
      this.operator = () => {
          let action = this.opts.source.action;
@@ -644,7 +664,7 @@ riot.tag2('nobita-action', '<section-header-with-breadcrumb title="Nobit@ Action
      };
 });
 
-riot.tag2('nobita', '<section-header-with-breadcrumb title="Nobit@"></section-header-with-breadcrumb> <div> <div style="margin-top:33px;"></div> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <nobita_tab_basic class="hide" source="{source()}"></nobita_tab_basic> <nobita_tab_action class="hide" source="{source()}"></nobita_tab_action> <nobita_tab_working class="hide" source="{source()}"></nobita_tab_working> </div> </div>', '', '', function(opts) {
+riot.tag2('nobita', '<section-header-with-breadcrumb title="Nobit@"></section-header-with-breadcrumb> <div> <div style="margin-top:33px;"></div> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <nobita_tab_basic class="hide" source="{source}"></nobita_tab_basic> <nobita_tab_action class="hide" source="{source}"></nobita_tab_action> <nobita_tab_working class="hide" source="{source}"></nobita_tab_working> </div> </div>', '', '', function(opts) {
      this.source = {
          'nobit@': null,
          'future_item': null,
@@ -664,11 +684,6 @@ riot.tag2('nobita', '<section-header-with-breadcrumb title="Nobit@"></section-he
          ACTIONS.fetchPagesNobita(id);
      };
 
-     this.source = () => {
-         let id = this.opts._route.params.path.id;
-
-         return STORE.get('nodes.ht')[id];
-     };
      this.page_tabs = new PageTabs([
          {code: 'basic',   label: 'Basic',   tag: 'nobita_tab_basic' },
          {code: 'action',  label: 'Action',  tag: 'nobita_tab_action' },
@@ -688,39 +703,12 @@ riot.tag2('nobita', '<section-header-with-breadcrumb title="Nobit@"></section-he
 
 });
 
-riot.tag2('nobita_tab_action', '<section class="section" style="padding-top:11px;"> <div class="container"> <section class="section"> <div class="container"> <h1 class="title is-4">Type</h1> <h2 class="subtitle"></h2> <div class="contents"> {type()} </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Contents</h1> <h2 class="subtitle"></h2> <div class="contents"> {contents()} </div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Description</h1> <h2 class="subtitle">{description()}</h2> <div class="contents"> {description()} </div> </div> </section> <div class="contents"> <button class="button" onclick="{clickDetail}"> 詳細 </button> </div> </div> </section>', '', 'class="tab-page"', function(opts) {
-     this.action = () => {
-
-         return this.opts.source ? this.opts.source.action : null;
-     };
-     this.type = () => {
-         let source = this.action();
-
-         return source ? source.type : '????????';
-     };
-     this.contents = () => {
-         let source = this.action();
-         let contents = source.contents;
-
-         if (source.type=="CALL-OPERATOR")
-             return contents.symbol;
-
-         return source ? source.contents : '????????';
-     };
-     this.description = () => {
-         let source = this.action();
-
-         return source ? source.description : '????????';
-     };
-
-     this.clickDetail = () => {
-         location.hash = location.hash + '/action';
-     };
+riot.tag2('nobita_tab_action', '<section class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"></h2> <div class="contents"> <div style="display:flex; width:100%; height: 555px; flex-direction: column;"> <div style="display: flex; width:100%;display:flex;width:100%;padding:22px;margin-bottom:11px;"> <p>Name: xxxx</p> </div> <div style="display: flex; flex-grow: 1;"> <div style="padding: 22px 11px;background: #eeeeee; margin-right:11px;"> <p>Menu</p> </div> <div style="flex-grow: 1; padding: 22px; background: #f8f8f8"> <p>Editor</p> </div> </div> </div> </div> </div> </section>', '', 'class="tab-page" style="padding-left:55px;"', function(opts) {
 });
 
-riot.tag2('nobita_tab_basic', '<section class="section"> <div class="container"> <section class="section"> <div class="container"> <h1 class="title is-4">ID</h1> <h2 class="subtitle"></h2> <div class="contents">{id()}</div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Name</h1> <h2 class="subtitle"></h2> <div class="contents">{name()}</div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Description</h1> <h2 class="subtitle"></h2> <div class="contents">{description()}</div> </div> </section> </div> </section>', '', 'class="tab-page"', function(opts) {
+riot.tag2('nobita_tab_basic', '<section class="section"> <div class="container"> <section class="section"> <div class="container"> <h1 class="title is-4">ID</h1> <h2 class="subtitle"></h2> <div class="contents">{id()}</div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Name</h1> <h2 class="subtitle"></h2> <div class="contents">{name()}</div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Workings</h1> <h2 class="subtitle"></h2> <div class="contents">{workings()}</div> </div> </section> <section class="section"> <div class="container"> <h1 class="title is-4">Description</h1> <h2 class="subtitle"></h2> <div class="contents">{description()}</div> </div> </section> </div> </section>', '', 'class="tab-page"', function(opts) {
      this.source = () => {
-         return this.opts.source;
+         return this.opts.source['nobit@'];
      };
      this.id = () => {
          let source = this.source();
@@ -732,6 +720,11 @@ riot.tag2('nobita_tab_basic', '<section class="section"> <div class="container">
 
          return source ? source.name : '????????';
      };
+     this.workings = () => {
+         let source = this.source();
+
+         return source ? source.workings : 0;
+     };
      this.description = () => {
          let source = this.source();
 
@@ -739,27 +732,10 @@ riot.tag2('nobita_tab_basic', '<section class="section"> <div class="container">
      };
 });
 
-riot.tag2('nobita_tab_working', '', '', 'class="tab-page"', function(opts) {
-});
-
-riot.tag2('friendship', '<section class="section"> <div class="container"> <h1 class="title">List</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">id</th> <th rowspan="2">distance</th> <th rowspan="2">index</th> <th colspan="2">Source</th> <th colspan="2">target</th> </tr> <tr> <th>id</th> <th>name</th> <th>id</th> <th>name</th> </tr> </thead> <tbody> <tr each="{obj in sources()}"> <td>{obj._id}</td> <td>{obj.distance}</td> <td>{obj.index}</td> <td>{obj.source._id}</td> <td>{obj.source.name}</td> <td>{obj.target._id}</td> <td>{obj.target.name}</td> </tr> </tbody> </table> </div> </div> </section>', '', '', function(opts) {
-     this.sources = () => {
-         return STORE.get('edges.list');
+riot.tag2('nobita_tab_working', '<section class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"></h2> <div class="contents"> <div each="{obj in source()}" class="nobita-action-card"> <p>Name: <span>{obj.name}</span></p> <p>Alive: <span>{obj[\'alive-p\']}</span></p> </div> </div> </div> </section>', 'nobita_tab_working .nobita-action-card { display: flex; padding: 22px; border: 1px solid #eeeeee; border-radius: 5px; margin-bottom: 11px; box-shadow: 0px 0px 8px #cccccc } nobita_tab_working .nobita-action-card > * { margin-left: 22px; } nobita_tab_working .nobita-action-card > p > span { font-weight:bold; } nobita_tab_working .nobita-action-card > *:first-child { margin-left: 0px; }', 'class="tab-page"', function(opts) {
+     this.source = () => {
+         return this.opts.source['actions'] || [];
      };
-});
-
-riot.tag2('hearts', '<section class="section"> <div class="container"> <h1 class="title">一覧</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Name</th> <th rowspan="2">Bpm</th> <th rowspan="2">Times</th> <th rowspan="1">Queue</th> </tr> <tr> <th>Size</th> </tr> </thead> <tbody> <tr each="{heart in hearts()}"> <td>{heart.name}</td> <td>{heart.bpm}</td> <td>{heart.times}</td> <td>{heart.queue.SIZE}</td> </tr> </tbody> </table> </div> </div> </section>', 'hearts_sec_root { display: block; margin-left: 55px; }', '', function(opts) {
-     this.hearts = () => {
-         let store = STORE.state().toJS().hearts;
-         return store ? store : [];
-     }
-     this.on('mount', () => {
-         ACTIONS.fetchHearts();
-     });
-     STORE.subscribe((action) => {
-         if (action.type=='FETCHED-HEARTS')
-             this.update();
-     });
 });
 
 riot.tag2('school-district_4neo', '<school-district_basic source="{opts.source}"></school-district_basic> <school-district_location source="{opts.source}"></school-district_location>', '', '', function(opts) {
