@@ -4,5 +4,7 @@
   (:export #:dora@mon
            #:please-use-four-dimension-pocket) ;; これはいらんかなぁ。。。
   (:export #:future-tool
-           #:show-efficacy))
+           #:show-efficacy
+           #:tx-make-add-four-dimensional-pocket
+           #:tx-ensure-add-four-dimensional-pocket))
 (in-package :nobit@.dora@mon)
