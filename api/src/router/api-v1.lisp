@@ -98,6 +98,12 @@
                                          (list-all-packages)))))
 
 
+(defroute "/pages/nobita/:id" (&key id)
+  (let ((id     (validate id :integer :require t))
+        (graph nobit@.graph:*graph*))
+    (render-json (pages-nobit@ graph id))))
+
+
 ;;;
 ;;; Olds
 ;;;

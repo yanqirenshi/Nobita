@@ -268,4 +268,18 @@ class Actions extends Vanilla_Redux_Actions {
             response: response,
         };
     }
+    fetchPagesNobita (id) {
+        let path = '/pages/nobita/' + id;
+
+        API.get(path, (response) => {
+            STORE.dispatch(this.fetchedPagesNobita(response));
+        });
+    }
+    fetchedPagesNobita (response) {
+
+        return {
+            type: 'FETCHED-PAGES-NOBA@',
+            response: response,
+        };
+    }
 }

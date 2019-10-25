@@ -36,5 +36,7 @@
   (:export #:get-friend)
   (:export #:find-frendship
            #:tx-make-frendship)
-  (:export #:flash-across-ones-mind))
+  (:export #:flash-across-ones-mind)
+  (:export #:get-future-tool
+           #:find-nobit@-actions))
 (in-package :nobit@)

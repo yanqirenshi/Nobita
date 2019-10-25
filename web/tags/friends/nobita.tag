@@ -15,6 +15,27 @@
     </div>
 
     <script>
+     this.source = {
+         'nobit@': null,
+         'future_item': null,
+         'actions': [],
+     };
+     STORE.subscribe((action) => {
+         if (action.type=='FETCHED-PAGES-NOBA@') {
+             this.source = action.response;
+
+             this.update();
+             return;
+         }
+     });
+     this.loadPageData = () => {
+         let id = this.opts._route.params.path.id;
+
+         ACTIONS.fetchPagesNobita(id);
+     };
+    </script>
+
+    <script>
      this.source = () => {
          let id = this.opts._route.params.path.id;
 
@@ -27,9 +48,11 @@
      ]);
      this.on('mount', () => {
          this.page_tabs.switchTab(this.tags)
-         this.update();
-     });
 
+         this.update();
+
+         this.loadPageData()
+     });
      this.clickTab = (e, action, data) => {
          if (this.page_tabs.switchTab(this.tags, data.code))
              this.update();

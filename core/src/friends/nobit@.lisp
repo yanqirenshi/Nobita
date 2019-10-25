@@ -47,9 +47,10 @@
 
 
 (defun already-have-future-tool-p (graph nobit@ future-tool)
-  (find-if #'(lambda (r)
-               (/= (up:%id future-tool) (up:%id (getf r :vertex))))
-           (find-edge-nobit@2future-tool graph :nobit@ nobit@)))
+  (if (find-if #'(lambda (r)
+                    (/= (up:%id future-tool) (up:%id (getf r :vertex))))
+                (find-edge-nobit@2future-tool graph :nobit@ nobit@))
+      t nil))
 
 
 (defgeneric tx-make-edge-nobit@2future-tool
@@ -72,3 +73,10 @@
         (if r
             (getf r :edge)
             (tx-make-edge-nobit@2future-tool graph nobit@ future-tool :description description)))))
+
+
+(defun get-future-tool (graph &key nobit@)
+  (let ((r-list (find-edge-nobit@2future-tool graph :nobit@ nobit@)))
+    (when (< 1 (length r-list))
+      (warn "ズル(future-tool複数所持)している Nobit@ がいます。Nobit@=~S"nobit@))
+    (getf (car r-list) :vertex))))

@@ -13,5 +13,6 @@
   (:export #:tx-create-g*an
            #:tx-create-4neo
            #:tx-create-nobit@
-           #:tx-create-friendship))
+           #:tx-create-friendship)
+  (:export #:pages-nobit@))
 (in-package :nobit@.api.controller)

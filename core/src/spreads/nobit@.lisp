@@ -49,15 +49,33 @@
                              :to-classes '(4neo nobit@)))))
 
 
+(defun make-spread-thread (graph idea-id source nobit@ frendships_before)
+  (bordeaux-threads:make-thread ;; TODO: スレッド数に制限かけんとね。
+   #'(lambda ()
+       (spread-action graph
+                      idea-id
+                      source
+                      nobit@
+                      frendships_before))))
+
+
 (defmethod spread ((graph shinra:banshou) (idea nobit@.idea::idea) source (nobit@ nobit@))
   (format t "SPREAD Nobit@: Start ~a~%" nobit@)
   (let ((frendships_before (find-frendship graph :to nobit@))
         (idea-id (idea-id idea)))
     (when (do-it-now? idea-id frendships_before)
-      (let ((thread (bordeaux-threads:make-thread ;; TODO: スレッド数に制限かけんとね。
-                     #'(lambda ()
-                         (spread-action graph idea-id source nobit@ frendships_before)))))
+      (let ((thread (make-spread-thread graph
+                                        idea-id
+                                        source nobit@
+                                        frendships_before)))
         (add-to-pocket (up:%id nobit@)
                        idea-id
                        thread))))
   (format t "SPREAD Nobit@: End ~a~%" nobit@))
+
+
+(defun find-nobit@-actions (nobit@)
+  (mapcar #'(lambda (d)
+              (list :|name|    (bordeaux-threads:thread-name d)
+                    :|alive-p| (if (bordeaux-threads:thread-alive-p d) t :false)))
+          (nobit@.pocket:find-from-pocket :nobit@-id (up:%id nobit@))))

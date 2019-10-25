@@ -27,7 +27,8 @@
                                (:file "hearts")
                                (:file "nodes")
                                (:file "edges")
-                               (:file "resources")))
+                               (:file "resources")
+                               (:file "pages")))
                  (:file "render")
                  (:module "router"
                   :components ((:file "route")
