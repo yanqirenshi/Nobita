@@ -3,6 +3,5 @@
   (:use #:cl)
   (:export #:action-plan-cl
            #:action-plan-op
-           #:action!)
-  (:export #:dora@mon))
+           #:action!))
 (in-package :nobit@.action)

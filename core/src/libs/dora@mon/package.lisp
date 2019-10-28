@@ -6,5 +6,6 @@
   (:export #:future-tool
            #:show-efficacy
            #:tx-make-add-four-dimensional-pocket
-           #:tx-ensure-add-four-dimensional-pocket))
+           #:tx-ensure-add-four-dimensional-pocket
+           #:find-future-tool-by-dora@mon))
 (in-package :nobit@.dora@mon)

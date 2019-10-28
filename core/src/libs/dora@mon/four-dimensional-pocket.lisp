@@ -44,3 +44,11 @@
           (assert (= (up:%id (getf r :vertex)) (up:%id from)))
           (getf r :edge))
         (tx-make-add-four-dimensional-pocket graph from to :description description))))
+
+
+(defun find-future-tool-by-dora@mon (graph dora@mon)
+  (shinra:find-r-vertex graph
+                        'add-four-dimensional-pocket
+                        :from         dora@mon
+                        :vertex-class 'future-tool
+                        :edge-type    *edge-type-fo-add-four-dimensional-pocket*))

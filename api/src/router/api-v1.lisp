@@ -104,6 +104,11 @@
     (render-json (pages-nobit@ graph id))))
 
 
+(defroute "/pages/student-desk" ()
+  (let ((graph nobit@.graph:*graph*))
+    (render-json (pages-student-desk graph))))
+
+
 ;;;
 ;;; Olds
 ;;;

@@ -282,4 +282,17 @@ class Actions extends Vanilla_Redux_Actions {
             response: response,
         };
     }
+    fetchPagesStudentDesk (id) {
+        let path = '/pages/student-desk';
+
+        API.get(path, (response) => {
+            STORE.dispatch(this.fetchedPagesStudentDesk(response));
+        });
+    }
+    fetchedPagesStudentDesk (response) {
+        return {
+            type: 'FETCHED-PAGES-STUDENT-DESK',
+            response: response,
+        };
+    }
 }

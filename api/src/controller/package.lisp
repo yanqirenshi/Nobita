@@ -14,5 +14,6 @@
            #:tx-create-4neo
            #:tx-create-nobit@
            #:tx-create-friendship)
-  (:export #:pages-nobit@))
+  (:export #:pages-nobit@
+           #:pages-student-desk))
 (in-package :nobit@.api.controller)

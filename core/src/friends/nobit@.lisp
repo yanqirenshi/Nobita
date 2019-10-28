@@ -79,4 +79,4 @@
   (let ((r-list (find-edge-nobit@2future-tool graph :nobit@ nobit@)))
     (when (< 1 (length r-list))
       (warn "ズル(future-tool複数所持)している Nobit@ がいます。Nobit@=~S"nobit@))
-    (getf (car r-list) :vertex))))
+    (getf (car r-list) :vertex)))

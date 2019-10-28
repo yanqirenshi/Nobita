@@ -63,6 +63,30 @@ class Store extends Vanilla_Redux_Store {
                 {
                     code: 'student-desk',
                     tag: 'student-desk',
+                    children: [
+                        {
+                            code: 'dora@mons',
+                            children: [
+                                {
+                                    code: 'dora@mon',
+                                    regex: /^\d+$/,
+                                    tag: 'page-doraamon',
+                                    children: [
+                                        {
+                                            code: 'future-items',
+                                            children: [
+                                                {
+                                                    code: 'future-item',
+                                                    regex: /^\d+$/,
+                                                    tag: 'page-future-item',
+                                                }
+                                            ],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
                     menu_label: '学机',
                 }
             ]

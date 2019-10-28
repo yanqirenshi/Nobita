@@ -519,6 +519,14 @@ riot.tag2('page-tab-with-section', '<section class="section" style="padding:0px;
 riot.tag2('sections-list', '<table class="table"> <tbody> <tr each="{opts.data}"> <td><a href="{hash}">{title}</a></td> </tr> </tbody> </table>', '', '', function(opts) {
 });
 
+riot.tag2('page-doraamon', '<section-header-with-breadcrumb title="Dora @ mon"></section-header-with-breadcrumb> <section class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"> </h2> <div class="contents"> <a href="{futureItemLink()}">Future Item</a> </div> </div> </section>', '', '', function(opts) {
+     this.futureItemLink = () => {
+         return location.hash + '/future-items/' + 1
+     };
+     this.on('mount', () => {
+     });
+});
+
 riot.tag2('four-neo', '<section-header-with-breadcrumb title="4 Neo"></section-header-with-breadcrumb>', '', '', function(opts) {
 });
 
@@ -542,6 +550,9 @@ riot.tag2('friendship', '<section class="section"> <div class="container"> <h1 c
      this.sources = () => {
          return STORE.get('edges.list');
      };
+});
+
+riot.tag2('page-future-item', '<section-header-with-breadcrumb title="Future Item"></section-header-with-breadcrumb> <section class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"> </h2> <div class="contents"> </div> </div> </section>', '', '', function(opts) {
 });
 
 riot.tag2('hearts', '<section class="section"> <div class="container"> <h1 class="title">一覧</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Name</th> <th rowspan="2">Bpm</th> <th rowspan="2">Times</th> <th rowspan="1">Queue</th> </tr> <tr> <th>Size</th> </tr> </thead> <tbody> <tr each="{heart in hearts()}"> <td>{heart.name}</td> <td>{heart.bpm}</td> <td>{heart.times}</td> <td>{heart.queue.SIZE}</td> </tr> </tbody> </table> </div> </div> </section>', 'hearts_sec_root { display: block; margin-left: 55px; }', '', function(opts) {
@@ -1050,5 +1061,35 @@ riot.tag2('school-district-karma', '<section class="section"> <div class="contai
      });
 });
 
-riot.tag2('student-desk', '', '', '', function(opts) {
+riot.tag2('student-desk', '<section class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"> </h2> <div class="card-pool"> <student-desk_card-doraamon each="{obj in source[\'dora@mons\']}" source="{obj}"></student-desk_card-doraamon> </div> </div> </section>', 'student-desk { display: block; padding-left: 55px; width: 100vw; height: 100vh; } student-desk .card-pool { padding: 22px; } student-desk .card-pool > * { margin-left: 22px; margin-bottom: 22px; }', '', function(opts) {
+     this.source = [];
+     STORE.subscribe((action) => {
+         if (action.type=='FETCHED-PAGES-STUDENT-DESK') {
+             this.source = action.response;
+
+             this.update();
+
+             return;
+         };
+     });
+     this.on('mount', () => {
+         ACTIONS.fetchPagesStudentDesk();
+     });
+});
+
+riot.tag2('student-desk_card-doraamon-large', '', '', '', function(opts) {
+});
+
+riot.tag2('student-desk_card-doraamon-small', '<div> <p><a href="{draamonLink()}" source="{opts.source}">{opts.source.name}</a></p> </div>', 'student-desk_card-doraamon-small { display: flex; width: 222px; height: 222px; padding: 22px; border: 1px solid #eeeeee; border-radius: 5px; box-shadow: 0px 0px 8px #aaaaaa; }', '', function(opts) {
+     this.draamonLink = () => {
+         let dora = this.opts.source;
+
+         return location.hash + '/dora@mons/' + dora._id;
+     };
+});
+
+riot.tag2('student-desk_card-doraamon', '<student-desk_card-doraamon-large source="{childrenSource()}"></student-desk_card-doraamon-large> <student-desk_card-doraamon-small source="{childrenSource()}"></student-desk_card-doraamon-small>', '', '', function(opts) {
+     this.childrenSource = () => {
+         return this.opts.source;
+     }
 });

@@ -15,7 +15,8 @@ This file is a part of nobit@ project.
                #:bordeaux-threads
                #:cl-syslog
                #:shinrabanshou
-               #:rhythm)
+               #:rhythm
+               #:log4cl)
   :components ((:module "src"
                 :components
                 ((:module "libs"
@@ -32,11 +33,11 @@ This file is a part of nobit@ project.
                                              (:file "action-plan")))
                                (:module "pocket"
                                 :components ((:file "package")
-                                             (:file "pocket")))))
-                 (:module "dora@mon" :components ((:file "package")
-                                                  (:file "future-tool")
-                                                  (:file "dora@mon")
-                                                  (:file "four-dimensional-pocket")))
+                                             (:file "pocket")))
+                               (:module "dora@mon" :components ((:file "package")
+                                                                (:file "dora@mon")
+                                                                (:file "future-tool")
+                                                                (:file "four-dimensional-pocket")))))
                  (:file "package")
                  (:module "classes" :components ((:file "common")
                                                  (:file "g_an")
