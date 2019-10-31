@@ -1,5 +1,4 @@
 (defpackage nobit@.logging
   (:nicknames :nobi.logging)
-  (:use #:cl
-        #:log4cl))
+  (:use #:cl))
 (in-package :nobit@.logging)

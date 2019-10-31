@@ -16,7 +16,8 @@ This file is a part of nobit@ project.
                #:cl-syslog
                #:shinrabanshou
                #:rhythm
-               #:log4cl)
+               #:log4cl
+               #:cl-syslog)
   :components ((:module "src"
                 :components
                 ((:module "libs"

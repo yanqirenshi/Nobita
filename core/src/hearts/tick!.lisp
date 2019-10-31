@@ -3,23 +3,35 @@
 (defvar *hook-heart-core-before* nil)
 (defvar *hook-heart-core-after* nil)
 
+
+(defun heart-core-rm-karma (heart karma)
+  (let ((karma-pool (karma-pool heart)))
+    (nobit@.karma:rm-karma-at-idea-id karma-pool _id)))
+
+
 (defun %heart-core (karma)
-  (let ((graph (getf karma :graph))
-        (friendship (getf karma :friendship)))
-    (spread graph
-            (gethash (getf karma :idea_id) (contexts friendship))
-            (getf karma :source)
-            (get-vertex-at graph
-                           (shinra::to-class friendship)
-                           :%id (shinra::to-id friendship)))))
+  (handler-case
+      (let ((graph (getf karma :graph))
+            (friendship (getf karma :friendship)))
+        (spread graph
+                (gethash (getf karma :idea_id) (contexts friendship))
+                (getf karma :source)
+                (get-vertex-at graph
+                               (shinra::to-class friendship)
+                               :%id (shinra::to-id friendship))))
+    (error (e) (nlog "Function: heart-core, ~S~%" e))))
+
+
+(defun rm-heart-karma (heart karma)
+  (let ((karma-pool (nobit@.karma:karma-pool heart)))
+    (nobi.karma:rm-karma karma-pool karma)))
 
 
 (defun heart-core (heart times)
   (declare (ignorable times))
-  "キューに溜った friendship を順(FILO)に処理する。
-今は一つづつじゃけど、複数づつ出来るようにパラメータ化してもええねぇ。"
   (when-let ((karma (pop-karma (karma-pool heart))))
-    (%heart-core karma)))
+    (%heart-core karma)
+    (rm-heart-karma heart karma)))
 
 
 (defun heart-core-before (heart times)
