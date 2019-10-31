@@ -295,4 +295,30 @@ class Actions extends Vanilla_Redux_Actions {
             response: response,
         };
     }
+    fetchPagesDoraamon (id) {
+        let path = '/pages/doraamon/' + id;
+
+        API.get(path, (response) => {
+            STORE.dispatch(this.fetchedPagesDoraamon(response));
+        });
+    }
+    fetchedPagesDoraamon (response) {
+        return {
+            type: 'FETCHED-PAGES-DORA@MON',
+            response: response,
+        };
+    }
+    fetchPagesFutureItem (id) {
+        let path = '/pages/future-item/' + id;
+
+        API.get(path, (response) => {
+            STORE.dispatch(this.fetchedPagesFutureItem(response));
+        });
+    }
+    fetchedPagesFutureItem (response) {
+        return {
+            type: 'FETCHED-PAGES-FUTURE-ITEM',
+            response: response,
+        };
+    }
 }

@@ -519,12 +519,91 @@ riot.tag2('page-tab-with-section', '<section class="section" style="padding:0px;
 riot.tag2('sections-list', '<table class="table"> <tbody> <tr each="{opts.data}"> <td><a href="{hash}">{title}</a></td> </tr> </tbody> </table>', '', '', function(opts) {
 });
 
-riot.tag2('page-doraamon', '<section-header-with-breadcrumb title="Dora @ mon"></section-header-with-breadcrumb> <section class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"> </h2> <div class="contents"> <a href="{futureItemLink()}">Future Item</a> </div> </div> </section>', '', '', function(opts) {
-     this.futureItemLink = () => {
-         return location.hash + '/future-items/' + 1
+riot.tag2('page-doraamon-description', '<div> <p>{descriptionValue()}</p> </div>', 'page-doraamon-description > div { display: block; background: #fafafa; padding: 22px; border-radius: 5px; margin-top: 33px; height: 333px; }', '', function(opts) {
+     this.descriptionValue = () => {
+         let obj = this.opts.source;
+
+         if (!obj || !obj.description)
+             return "";
+
+         return obj.description;
      };
+});
+
+riot.tag2('page-doraamon-name', '<div if="{!edit}" style="display:flex;"> <div style="flex-grow:1;"> <h1 class="title is-2">{nameValue()}</h1> </div> <div style="margin-left:11px;"> <button class="button" onclick="{clickEdit}">Edit</button> </div> </div> <div if="{edit}" style="display:flex;"> <div style="flex-grow:1;"> <input class="input" type="text" placeholder="Name" riot-value="{nameValue()}"> </div> <div style="margin-left:11px;"> <button class="button" onclick="{clickCancel}">Cancel</button> <button class="button" style="margin-right:11px;" onclick="{clickSave}">Save</button> </div> </div>', '', '', function(opts) {
+     this.edit = false;
+     this.clickEdit = () => {
+         this.edit = true;
+         this.update();
+     };
+     this.clickCancel = () => {
+         this.edit = false;
+         this.update();
+     };
+     this.clickSave = () => {
+         this.edit = false;
+         this.update();
+     };
+
      this.on('mount', () => {
+         dump('mo');
+         dump(this.opts);
      });
+     this.on('update', () => {
+         dump('up');
+         dump(this.opts);
+     });
+     this.nameValue = () => {
+         let obj = this.opts.source;
+
+         if (!obj || !obj.name)
+             return "";
+
+         return obj.name;
+     };
+});
+
+riot.tag2('page-doraamon', '<section-header-with-breadcrumb title="Dora @ mon"></section-header-with-breadcrumb> <section class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"></h2> <page-doraamon-name source="{source}"></page-doraamon-name> <page-doraamon-description source="{source}"></page-doraamon-description> </div> </section> <section class="section" style="padding-top:0px;"> <div class="container"> <h1 class="title">Future Items</h1> <h2 class="subtitle"> <button class="button">Create</button> </h2> <page-doraamon_card-future-items source="{futureItems()}"></page-doraamon_card-future-items> </div> </section>', '', '', function(opts) {
+     this.futureItems = () => {
+         return this.source ? this.source['4d-pocket'] : [];
+     };
+
+     this.source = null;
+     STORE.subscribe((action) => {
+         if (action.type=='FETCHED-PAGES-DORA@MON') {
+             this.source = action.response;
+             this.update();
+
+             return;
+         }
+     });
+     this.on('mount', () => {
+         let id = location.hash.split('/').reverse()[0] * 1;
+
+         ACTIONS.fetchPagesDoraamon(id);
+     });
+});
+
+riot.tag2('page-doraamon_card-future-item', '<a href="{futureItemLink()}">{futureItemName()}</a>', 'page-doraamon_card-future-item { display: flex; width: 222px; height: 222px; padding: 22px; border: 1px solid #eeeeee; border-radius: 5px; box-shadow: 0px 0px 11px #dddddd; }', '', function(opts) {
+     this.futureItemName = () => {
+         let obj = this.opts.source;
+
+         if (!obj || !obj.name)
+             return '';
+
+         return obj.name;
+     };
+     this.futureItemLink = () => {
+         let obj = this.opts.source;
+
+         if (!obj)
+             return null;
+
+         return location.hash + '/future-items/' + obj._id;
+     };
+});
+
+riot.tag2('page-doraamon_card-future-items', '<page-doraamon_card-future-item each="{obj in opts.source}" source="{obj}"></page-doraamon_card-future-item>', 'page-doraamon_card-future-items { display: flex; flex-wrap:wrap } page-doraamon_card-future-items > page-doraamon_card-future-item { margin-left: 22px; margin-bottom: 22px; }', '', function(opts) {
 });
 
 riot.tag2('four-neo', '<section-header-with-breadcrumb title="4 Neo"></section-header-with-breadcrumb>', '', '', function(opts) {
@@ -553,6 +632,7 @@ riot.tag2('friendship', '<section class="section"> <div class="container"> <h1 c
 });
 
 riot.tag2('page-future-item', '<section-header-with-breadcrumb title="Future Item"></section-header-with-breadcrumb> <section class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"> </h2> <div class="contents"> </div> </div> </section>', '', '', function(opts) {
+     ACTIONS.fetchPagesFutureItem(1);
 });
 
 riot.tag2('hearts', '<section class="section"> <div class="container"> <h1 class="title">一覧</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Name</th> <th rowspan="2">Bpm</th> <th rowspan="2">Times</th> <th rowspan="1">Queue</th> </tr> <tr> <th>Size</th> </tr> </thead> <tbody> <tr each="{heart in hearts()}"> <td>{heart.name}</td> <td>{heart.bpm}</td> <td>{heart.times}</td> <td>{heart.queue.SIZE}</td> </tr> </tbody> </table> </div> </div> </section>', 'hearts_sec_root { display: block; margin-left: 55px; }', '', function(opts) {

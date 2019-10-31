@@ -14,4 +14,8 @@
         </div>
     </section>
 
+    <script>
+     ACTIONS.fetchPagesFutureItem(1);
+    </script>
+
 </page-future-item>

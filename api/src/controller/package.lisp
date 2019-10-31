@@ -15,5 +15,7 @@
            #:tx-create-nobit@
            #:tx-create-friendship)
   (:export #:pages-nobit@
-           #:pages-student-desk))
+           #:pages-student-desk
+           #:pages-dora@mon
+           #:pages-future-tool))
 (in-package :nobit@.api.controller)

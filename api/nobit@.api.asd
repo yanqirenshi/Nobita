@@ -24,6 +24,7 @@
                 ((:file "config")
                  (:module "controller"
                   :components ((:file "package")
+                               (:file "classes")
                                (:file "hearts")
                                (:file "nodes")
                                (:file "edges")

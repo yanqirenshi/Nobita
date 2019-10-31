@@ -109,6 +109,22 @@
     (render-json (pages-student-desk graph))))
 
 
+(defroute "/pages/doraamon/:id" (&key id)
+  (let ((id (validate id :integer :require t))
+        (graph nobit@.graph:*graph*))
+    (let ((dora@mon (nobit@.dora@mon::get-dora@mon graph :%id id)))
+      (unless dora@mon (throw-code 404))
+      (render-json (pages-dora@mon graph dora@mon)))))
+
+
+(defroute "/pages/future-tool/:id" (&key id)
+  (let ((id (validate id :integer :require t))
+        (graph nobit@.graph:*graph*))
+    (let ((future-item (nobit@.dora@mon::get-future-tool graph :%id id)))
+      (unless future-item (throw-code 404))
+      (render-json (pages-future-tool graph future-item)))))
+
+
 ;;;
 ;;; Olds
 ;;;
