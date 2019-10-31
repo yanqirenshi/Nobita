@@ -17,7 +17,7 @@
          if (!obj)
              return null;
 
-         return location.hash + '/future-items/' + obj._id;
+         return location.hash + '/future-tools/' + obj._id;
      };
     </script>
 

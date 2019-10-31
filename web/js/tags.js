@@ -599,7 +599,7 @@ riot.tag2('page-doraamon_card-future-item', '<a href="{futureItemLink()}">{futur
          if (!obj)
              return null;
 
-         return location.hash + '/future-items/' + obj._id;
+         return location.hash + '/future-tools/' + obj._id;
      };
 });
 
@@ -631,8 +631,35 @@ riot.tag2('friendship', '<section class="section"> <div class="container"> <h1 c
      };
 });
 
-riot.tag2('page-future-item', '<section-header-with-breadcrumb title="Future Item"></section-header-with-breadcrumb> <section class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"> </h2> <div class="contents"> </div> </div> </section>', '', '', function(opts) {
-     ACTIONS.fetchPagesFutureItem(1);
+riot.tag2('page-future-tool-editor', '<section if="{!edit}" class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"> </h2> <div class="contents"> </div> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('page-future-tool-viewer-call-operator', '', '', '', function(opts) {
+});
+
+riot.tag2('page-future-tool-viewer-submit-code', '', '', '', function(opts) {
+});
+
+
+riot.tag2('page-future-tool-viewer', '<section if="{!edit}" class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"> </h2> <page-future-tool-viewer-call-operator></page-future-tool-viewer-call-operator> <page-future-tool-viewer-submit-code></page-future-tool-viewer-submit-code> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('page-future-tool', '<section-header-with-breadcrumb title="Future Item"></section-header-with-breadcrumb> <page-future-tool-viewer if="{!edit}"></page-future-tool-viewer> <page-future-tool-editor if="{edit}"></page-future-tool-editor>', '', '', function(opts) {
+     this.edit = false;
+     this.source = null;
+     STORE.subscribe((action) => {
+         if (action.type=='FETCHED-PAGES-FUTURE-TOOL') {
+             this.source = action.response;
+             this.update();
+
+             return;
+         }
+     });
+     this.on('mount', () => {
+         let id = location.hash.split('/').reverse()[0] * 1;
+
+         ACTIONS.fetchedPagesFutureTool(id);
+     });
 });
 
 riot.tag2('hearts', '<section class="section"> <div class="container"> <h1 class="title">一覧</h1> <h2 class="subtitle"></h2> <div class="contents"> <table class="table is-bordered is-striped is-narrow is-hoverable"> <thead> <tr> <th rowspan="2">Name</th> <th rowspan="2">Bpm</th> <th rowspan="2">Times</th> <th rowspan="1">Queue</th> </tr> <tr> <th>Size</th> </tr> </thead> <tbody> <tr each="{heart in hearts()}"> <td>{heart.name}</td> <td>{heart.bpm}</td> <td>{heart.times}</td> <td>{heart.queue.SIZE}</td> </tr> </tbody> </table> </div> </div> </section>', 'hearts_sec_root { display: block; margin-left: 55px; }', '', function(opts) {

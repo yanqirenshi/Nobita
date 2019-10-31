@@ -117,7 +117,7 @@
       (render-json (pages-dora@mon graph dora@mon)))))
 
 
-(defroute "/pages/future-tool/:id" (&key id)
+(defroute "/pages/future-tools/:id" (&key id)
   (let ((id (validate id :integer :require t))
         (graph nobit@.graph:*graph*))
     (let ((future-item (nobit@.dora@mon::get-future-tool graph :%id id)))

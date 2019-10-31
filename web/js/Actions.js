@@ -308,16 +308,16 @@ class Actions extends Vanilla_Redux_Actions {
             response: response,
         };
     }
-    fetchPagesFutureItem (id) {
-        let path = '/pages/future-item/' + id;
+    fetchPagesFutureTool (id) {
+        let path = '/pages/future-tools/' + id;
 
         API.get(path, (response) => {
-            STORE.dispatch(this.fetchedPagesFutureItem(response));
+            STORE.dispatch(this.fetchedPagesFutureTool(response));
         });
     }
-    fetchedPagesFutureItem (response) {
+    fetchedPagesFutureTool (response) {
         return {
-            type: 'FETCHED-PAGES-FUTURE-ITEM',
+            type: 'FETCHED-PAGES-FUTURE-TOOL',
             response: response,
         };
     }

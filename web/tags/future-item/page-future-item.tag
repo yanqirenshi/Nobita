@@ -1,21 +1,26 @@
-<page-future-item>
+<page-future-tool>
 
     <section-header-with-breadcrumb title="Future Item"></section-header-with-breadcrumb>
 
-    <section class="section">
-        <div class="container">
-            <h1 class="title"></h1>
-            <h2 class="subtitle">
-            </h2>
-
-            <div class="contents">
-            </div>
-
-        </div>
-    </section>
+    <page-future-tool-viewer if={!edit}></page-future-tool-viewer>
+    <page-future-tool-editor if={edit}></page-future-tool-editor>
 
     <script>
-     ACTIONS.fetchPagesFutureItem(1);
+     this.edit = false;
+     this.source = null;
+     STORE.subscribe((action) => {
+         if (action.type=='FETCHED-PAGES-FUTURE-TOOL') {
+             this.source = action.response;
+             this.update();
+
+             return;
+         }
+     });
+     this.on('mount', () => {
+         let id = location.hash.split('/').reverse()[0] * 1;
+
+         ACTIONS.fetchedPagesFutureTool(id);
+     });
     </script>
 
-</page-future-item>
+</page-future-tool>

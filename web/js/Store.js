@@ -73,12 +73,12 @@ class Store extends Vanilla_Redux_Store {
                                     tag: 'page-doraamon',
                                     children: [
                                         {
-                                            code: 'future-items',
+                                            code: 'future-tools',
                                             children: [
                                                 {
-                                                    code: 'future-item',
+                                                    code: 'future-tool',
                                                     regex: /^\d+$/,
-                                                    tag: 'page-future-item',
+                                                    tag: 'page-future-tool',
                                                 }
                                             ],
                                         },
