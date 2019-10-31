@@ -32,14 +32,25 @@
 
 (defun spread-action (graph idea-id source nobit@ frendships_before)
   ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;;;   TODO: remove-karmas はここじゃないほうが良いんじゃない?
-  ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;  TODO:
+  ;;;    remove-karmas はここじゃないほうが良いんじゃない?
+  ;;;    %heart-coreで削除すべき。
   (remove-karmas idea-id source frendships_before)
+  ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;  TODO:
+  ;;;    なんか、ここ見づらい。な。
+  ;;;    中心は new_idea だけど、おまけ風に見える。
+  ;;;    もっと良い書きかたを検討すべき。
   (let* ((before_idea (pop-idea-from-frendships idea-id frendships_before))
          (new_idea    (solve graph nobit@ before_idea source)))
+
+    ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;;; Remove Thread at Pocket
     (let ((thread (get-from-pocket :nobit@-id (up:%id nobit@) :ide-id idea-id)))
       (rm-from-pocket thread))
+    ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;;; Spread
     (spreads graph
              new_idea
