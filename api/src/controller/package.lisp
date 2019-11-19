@@ -17,5 +17,6 @@
   (:export #:pages-nobit@
            #:pages-student-desk
            #:pages-dora@mon
-           #:pages-future-tool))
+           #:pages-future-tool
+           #:pages-dora@mon-future-tools-create))
 (in-package :nobit@.api.controller)

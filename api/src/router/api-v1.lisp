@@ -82,6 +82,19 @@
                             :description description)))))
 
 
+(defroute ("/doraamon/:id/future-tools" :method :POST)
+    (id &key |name| |description| |operator|)
+  (let ((id          (validate id            :integer :require t))
+        (name        (validate |name|        :string  :require t   :url-decode t))
+        (description (validate |description| :string  :require nil :url-decode t))
+        (operator    (validate |operator|    :string  :require t   :url-decode t))
+        (graph nobit@.graph:*graph*))
+    (let ((dora@mon (nobit@.dora@mon::get-dora@mon graph :%id id)))
+      (unless dora@mon (throw-code 404))
+      (render-json nil))))
+
+
+
 ;;;
 ;;; Pages
 ;;;
@@ -115,6 +128,17 @@
     (let ((dora@mon (nobit@.dora@mon::get-dora@mon graph :%id id)))
       (unless dora@mon (throw-code 404))
       (render-json (pages-dora@mon graph dora@mon)))))
+
+
+(defroute "/pages/doraamon/:id/future-tools/create" (&key id |package-name|)
+  (let ((id (validate id :integer :require t))
+        (package-name (validate |package-name| :string :require nil))
+        (graph nobit@.graph:*graph*))
+    (let ((dora@mon (nobit@.dora@mon::get-dora@mon graph :%id id)))
+      (unless dora@mon (throw-code 404))
+      (render-json (pages-dora@mon-future-tools-create graph
+                                                       dora@mon
+                                                       :package-name package-name)))))
 
 
 (defroute "/pages/future-tools/:id" (&key id)
