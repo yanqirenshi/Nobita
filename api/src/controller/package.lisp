@@ -14,8 +14,10 @@
            #:tx-create-4neo
            #:tx-create-nobit@
            #:tx-create-friendship)
+  (:export #:add-future-tool-in-dora@mon)
   (:export #:pages-nobit@
            #:pages-student-desk
            #:pages-dora@mon
-           #:pages-future-tool))
+           #:pages-future-tool
+           #:pages-dora@mon-future-tools-create))
 (in-package :nobit@.api.controller)

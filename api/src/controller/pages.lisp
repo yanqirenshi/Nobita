@@ -18,6 +18,21 @@
   (dora@mon2dora@mon dora@mon :graph graph))
 
 
+(defun dora@mon-use-package-list (graph dora@mon)
+  (declare (ignore graph dora@mon))
+  (mapcar #'(lambda (pkg)
+              (list :|name|      (package-name pkg)
+                    :|nicknames| (package-nicknames pkg)))
+          (list-all-packages)))
+
+
+(defun pages-dora@mon-future-tools-create (graph dora@mon &key package-name)
+  (list :|dra@mon|  (dora@mon2dora@mon dora@mon :graph graph)
+        :|packages| (dora@mon-use-package-list graph dora@mon)
+        :|operators| (when package-name
+                       (package-symbol-list package-name))))
+
+
 (defun pages-future-tool (graph future-item)
   (declare (ignore graph future-item))
   (list :|future_item| :null

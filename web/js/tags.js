@@ -1,3 +1,87 @@
+riot.tag2('app-modal-select-cl-operator', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card" style="width: calc(100vw - 20%);"> <header class="modal-card-head"> <p class="modal-card-title">Select Operator</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input class="input" type="text" placeholder="Keyword" ref="name" onkeyup="{keyupKeyword}"> </div> </div> <div class="field"> <div class="control operator-pool"> <div if="{this.keyword==⁗⁗}"> <p>Operator を検索してください。</p> </div> <div if="{this.keyword!=⁗⁗}"> <button each="{obj in getOperators()}" class="button" onclick="{clickOperator}" operator-name="{obj.full_name}">{obj.full_name}</> </div> </div> </div> <div class="field" if="{this.operator}"> <div class="control" style="display: flex;"> <p style="margin-right:11px;">選択した Operator:</p> <p style="flex-grow: 1; font-weight:bold;">{this.operator.full_name}</p> </div> </div> </section> <footer class="modal-card-foot" style="display: flex;justify-content: space-between;"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success" onclick="{clickSelect}">Select</button> </footer> </div> </div>', 'app-modal-select-cl-operator .operator-pool > div { width:100%; height: 333px; background: #fafafa; border-radius: 5px; padding:22px; overflow: auto; } app-modal-select-cl-operator .operator-pool .button { margin-left: 11px; margin-bottom: 11px; }', '', function(opts) {
+     this.keyword = "";
+     this.keyupKeyword = (e) => {
+         let val = e.target.value.toUpperCase();
+
+         this.keyword = (val.trim()=="" ? "" : val)
+
+         this.update();
+     };
+
+     this.operator = null;
+     this.operators = STORE.get('modals.select-cl-operator.operators').sort((a,b) => {
+         return a.name < b.name ? -1 : 1;
+     });
+     this.getOperators = () => {
+         let keyword = this.keyword;
+
+         return this.operators.filter((d) => {
+             return d.name.toUpperCase().indexOf(keyword) != -1;
+         });
+     };
+     this.getOperator = (operator_name) => {
+
+         return this.operators.find((d) => {
+             return d.full_name == operator_name;
+         });
+     };
+     this.clickOperator = (e) => {
+         let button = e.target;
+         let operator_name = button.getAttribute('operator-name');
+
+         this.operator = this.getOperator(operator_name);
+     };
+
+     this.clickSelect = () => {
+         ACTIONS.modalSelectedOperator(this.operator);
+     };
+     this.clickClose = () => {
+         ACTIONS.closeModal('select-cl-operator')
+     };
+});
+
+riot.tag2('app-modal-select-cl-package', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card" style="width: calc(100vw - 20%);"> <header class="modal-card-head"> <p class="modal-card-title">Select Package</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input class="input" type="text" placeholder="Keyword" ref="name" onkeyup="{keyupKeyword}"> </div> </div> <div class="field"> <div class="control package-pool"> <div if="{this.keyword==⁗⁗}"> <p>Package を検索してください。</p> </div> <div if="{this.keyword!=⁗⁗}"> <button each="{obj in getPackages()}" class="button" onclick="{clickPackage}" package-name="{obj.name}">{obj.name}</> </div> </div> </div> <div class="field" if="{this.package}" ref="selected-package"> <div class="control" style="display: flex;"> <p style="margin-right:11px;">選択した Package:</p> <p style="flex-grow: 1; font-weight:bold;">{this.package.name}</p> </div> </div> </section> <footer class="modal-card-foot" style="display: flex;justify-content: space-between;"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success" onclick="{clickSelect}">Select</button> </footer> </div> </div>', 'app-modal-select-cl-package .package-pool > div { width:100%; height: 333px; background: #fafafa; border-radius: 5px; padding:22px; overflow: auto; } app-modal-select-cl-package .package-pool .button { margin-left: 11px; margin-bottom: 11px; }', '', function(opts) {
+     this.keyword = "";
+     this.keyupKeyword = (e) => {
+         let val = e.target.value.toUpperCase();
+
+         this.keyword = (val.trim()=="" ? "" : val)
+
+         this.update();
+     };
+
+     this.package = null;
+     this.packages = STORE.get('modals.select-cl-package.packages').sort((a,b) => {
+         return a.name < b.name ? -1 : 1;
+     });
+     this.getPackages = () => {
+         let keyword = this.keyword;
+
+         return this.packages.filter((d) => {
+             return d.name.toUpperCase().indexOf(keyword) != -1;
+         });
+     };
+     this.getPackage = (package_name) => {
+
+         return this.packages.find((d) => {
+             return d.name == package_name;
+         });
+     };
+     this.clickPackage = (e) => {
+         let button = e.target;
+         let package_name = button.getAttribute('package-name');
+
+         this.package = this.getPackage(package_name);
+     };
+
+     this.clickSelect = () => {
+         ACTIONS.modalSelectedPackage(this.package);
+     };
+     this.clickClose = () => {
+         ACTIONS.closeModal('select-cl-package')
+     };
+});
+
 riot.tag2('app-modals-add-4neo', '<div class="modal is-active"> <div class="modal-background" onclick="{clickClose}"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Add 4neo</p> <button class="delete" aria-label="close" onclick="{clickClose}"></button> </header> <section class="modal-card-body"> <div class="field"> <div class="control"> <input class="input" type="text" placeholder="Name" ref="name"> </div> </div> <div class="field"> <div class="control"> <textarea class="textarea" placeholder="Description" ref="description"></textarea> </div> </div> </section> <footer class="modal-card-foot" style="display: flex;justify-content: space-between;"> <button class="button" onclick="{clickClose}">Cancel</button> <button class="button is-success" onclick="{clickAdd}">Add</button> </footer> </div> </div>', '', '', function(opts) {
      this.clickAdd = () => {
          let name = this.refs.name.value.trim();
@@ -232,7 +316,7 @@ riot.tag2('app-modals-add-nobita', '<div class="modal is-active"> <div class="mo
      };
 });
 
-riot.tag2('app-modals', '<app-modals-add-gxan if="{isShow(\'add-gxan\')}"></app-modals-add-gxan> <app-modals-add-4neo if="{isShow(\'add-4neo\')}"></app-modals-add-4neo> <app-modals-add-nobita if="{isShow(\'add-nobita\')}"></app-modals-add-nobita> <app-modals-add-friendship if="{isShow(\'add-friendship\')}"></app-modals-add-friendship>', '', '', function(opts) {
+riot.tag2('app-modals', '<app-modals-add-gxan if="{isShow(\'add-gxan\')}"></app-modals-add-gxan> <app-modals-add-4neo if="{isShow(\'add-4neo\')}"></app-modals-add-4neo> <app-modals-add-nobita if="{isShow(\'add-nobita\')}"></app-modals-add-nobita> <app-modals-add-friendship if="{isShow(\'add-friendship\')}"></app-modals-add-friendship> <app-modal-select-cl-package if="{isShow(\'select-cl-package\')}"></app-modal-select-cl-package> <app-modal-select-cl-operator if="{isShow(\'select-cl-operator\')}"></app-modal-select-cl-operator>', '', '', function(opts) {
      this.isShow = (key) => {
          return this.opts.source[key] ? true : false;
      };
@@ -563,9 +647,12 @@ riot.tag2('page-doraamon-name', '<div if="{!edit}" style="display:flex;"> <div s
      };
 });
 
-riot.tag2('page-doraamon', '<section-header-with-breadcrumb title="Dora @ mon"></section-header-with-breadcrumb> <section class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"></h2> <page-doraamon-name source="{source}"></page-doraamon-name> <page-doraamon-description source="{source}"></page-doraamon-description> </div> </section> <section class="section" style="padding-top:0px;"> <div class="container"> <h1 class="title">Future Items</h1> <h2 class="subtitle"> <button class="button">Create</button> </h2> <page-doraamon_card-future-items source="{futureItems()}"></page-doraamon_card-future-items> </div> </section>', '', '', function(opts) {
+riot.tag2('page-doraamon', '<section-header-with-breadcrumb title="Dora @ mon"></section-header-with-breadcrumb> <section class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"></h2> <page-doraamon-name source="{source}"></page-doraamon-name> <page-doraamon-description source="{source}"></page-doraamon-description> </div> </section> <section class="section" style="padding-top:0px;"> <div class="container"> <h1 class="title">Future Items</h1> <h2 class="subtitle"> <button class="button" onclick="{clickCreate}">Create</button> </h2> <page-doraamon_card-future-items source="{futureItems()}"></page-doraamon_card-future-items> </div> </section>', '', '', function(opts) {
      this.futureItems = () => {
          return this.source ? this.source['4d-pocket'] : [];
+     };
+     this.clickCreate = () => {
+         location.hash = location.hash + '/future-tools/create';
      };
 
      this.source = null;
@@ -659,6 +746,147 @@ riot.tag2('page-future-tool', '<section-header-with-breadcrumb title="Future Ite
          let id = location.hash.split('/').reverse()[0] * 1;
 
          ACTIONS.fetchedPagesFutureTool(id);
+     });
+});
+
+riot.tag2('page-future-tool-create-basic-info', '<section class="section"> <div class="container"> <h1 class="title">Basic Infomation</h1> <h2 class="subtitle"></h2> <div class="field"> <div class="control"> <input class="input" type="text" placeholder="Name" onkeyup="{keyupName}"> </div> </div> <div class="field"> <div class="control"> <textarea class="textarea" placeholder="Description" onkeyup="{keyupDescription}"></textarea> </div> </div> </div> </section>', 'page-future-tool-create-basic-info > .section { padding-bottom: 11px; }', '', function(opts) {
+     this.keyupName = (e) => {
+         let name = e.target.value;
+         let cb = this.opts.callback;
+
+         cb('change-name', name);
+     };
+     this.keyupDescription = (e) => {
+         let description = e.target.value;
+         let cb = this.opts.callback;
+
+         cb('change-description', description);
+     };
+});
+
+riot.tag2('page-future-tool-create-call-operator', '<section class="section"> <div class="container"> <h1 class="title">Operator</h1> <h2 class="subtitle"></h2> <div class="field"> <div class="control"> <button class="button" style="width:100%; justify-content: start;" onclick="{clickChoosePackage}">{packageName()}</button> </div> </div> <div class="field" if="{opts.source.selected_package}"> <div class="control"> <button class="button" style="width:100%; justify-content: start;" onclick="{clickChooseOperator}">{operatorName()}</button> </div> </div> </div> </section>', 'page-future-tool-create-call-operator > .section { padding-bottom: 11px; }', '', function(opts) {
+     this.operatorName = () => {
+         let operator = this.opts.source.selected_operator;
+
+         if (!operator)
+             return 'Operator を選択して下さい。';
+
+         return 'Operator: ' + operator.full_name;
+     };
+     this.clickChooseOperator = () => {
+         ACTIONS.openModal('select-cl-operator', {
+             'dra@mon': this.opts.source['dra@mon'],
+             selected: null,
+             selected_package: this.opts.source.selected_package,
+             operators: this.opts.source.operators,
+         });
+     };
+
+     this.packageName = () => {
+         let pkg = this.opts.source.selected_package;
+
+         if (!pkg)
+             return 'Package を選択して下さい。';
+
+         return 'Package: ' + pkg.name;
+     };
+     this.clickChoosePackage = () => {
+         ACTIONS.openModal('select-cl-package', {
+             selected: null,
+             packages: this.opts.source.packages,
+         });
+     };
+});
+
+riot.tag2('page-future-tool-create', '<section-header-with-breadcrumb title="Create Future Item"></section-header-with-breadcrumb> <section class="section"> <div class="container"> <page-future-tool-create-basic-info source="{childrenSource()}" callback="{callback}"></page-future-tool-create-basic-info> <page-future-tool-create-call-operator source="{childrenSource()}" callback="{callback}"></page-future-tool-create-call-operator> <section class="section"> <div class="container"> <button class="button is-danger" disabled="{!canCreateP()}" onclick="{clickCreate}">Create</button> </div> </section> </div> </section>', '', '', function(opts) {
+     this.source = {
+         name: '',
+         description: '',
+         'dra@mon': null,
+         packages: [],
+         operators: [],
+         selected_package: null,
+         selected_operator: null,
+     };
+     this.callback = (action, data) => {
+         if (action=='change-name') {
+             this.source.name = (data || '');
+             this.update();
+
+             return;
+         }
+
+         if (action=='change-description') {
+             this.source.description = (data || '');
+             this.update();
+
+             return;
+         }
+     };
+     this.clickCreate = () => {
+         ACTIONS.addDoraamonFutureItem(
+             this.source['dra@mon'],
+             {
+                 name: this.source.name,
+                 description: this.source.description,
+                 package: this.source.selected_package.name,
+                 operator: this.source.selected_operator.name,
+             });
+     };
+
+     this.canCreateP = () => {
+         if (this.source.name.trim()=="")
+             return false;
+
+         if (!this.source.selected_package ||
+             !this.source.selected_operator)
+             return false;
+
+         return true;
+     }
+     this.childrenSource = () => {
+         return this.source;
+     };
+     STORE.subscribe((action) => {
+         if (action.type=='FETCHED-PAGES-DORAAMON-FUTURE-TOOL-CREATE') {
+             this.source['dra@mon']   = action.response['dra@mon'];
+             this.source['packages']  = action.response['packages'];
+             this.source['operators'] = action.response['operators'];
+
+             this.update();
+
+             return;
+         }
+
+         if (action.type=='MODAL-SELECTED-PACKAGE') {
+             ACTIONS.closeModal('select-cl-package')
+
+             this.source.selected_package = action.package;
+
+             this.update();
+
+             this.fetchPageData(this.source.selected_package);
+
+             return;
+         }
+
+         if (action.type=='MODAL-SELECTED-OPERATOR') {
+             ACTIONS.closeModal('select-cl-operator')
+
+             this.source.selected_operator = action.operator;
+
+             this.update();
+
+             return;
+         }
+     });
+     this.fetchPageData = (pkg) => {
+         let doraamon_id = this.opts._route.params.path['dora@mon'];
+
+         ACTIONS.fetchPagesDoraamonFutureToolCreate(doraamon_id, pkg);
+     };
+     this.on('mount', () => {
+         this.fetchPageData();
      });
 });
 

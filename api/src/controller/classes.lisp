@@ -18,7 +18,7 @@
     (setf (name        new-dora@mon) (nobit@.dora@mon::name dora@mon))
     (setf (description new-dora@mon) (nobit@.dora@mon::description dora@mon))
     (when graph
-      (setf (4d-pocket   new-dora@mon)
+      (setf (4d-pocket new-dora@mon)
             (nobit@.dora@mon:find-future-tool-by-dora@mon graph dora@mon)))
     new-dora@mon))
 

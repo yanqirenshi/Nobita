@@ -20,6 +20,44 @@ class Store extends Vanilla_Redux_Store {
             ],
         };
     }
+    initSiteFutureTools () {
+        return {
+            code: 'future-tools',
+            children: [
+                {
+                    code: 'future-tool',
+                    regex: /^\d+$/,
+                    tag: 'page-future-tool',
+                },
+                {
+                    code: 'create',
+                    tag: 'page-future-tool-create',
+                },
+            ],
+        };
+    }
+    initSiteStudentDesk () {
+        return {
+            code: 'student-desk',
+            tag: 'student-desk',
+            children: [
+                {
+                    code: 'dora@mons',
+                    children: [
+                        {
+                            code: 'dora@mon',
+                            regex: /^\d+$/,
+                            tag: 'page-doraamon',
+                            children: [
+                                this.initSiteFutureTools(),
+                            ],
+                        },
+                    ],
+                },
+            ],
+            menu_label: '学机',
+        };
+    }
     initSite () {
         let data = {
             active_page: 'school-district',
@@ -60,35 +98,7 @@ class Store extends Vanilla_Redux_Store {
                     tag: 'school-district-karma',
                     menu_label: '学業',
                 },
-                {
-                    code: 'student-desk',
-                    tag: 'student-desk',
-                    children: [
-                        {
-                            code: 'dora@mons',
-                            children: [
-                                {
-                                    code: 'dora@mon',
-                                    regex: /^\d+$/,
-                                    tag: 'page-doraamon',
-                                    children: [
-                                        {
-                                            code: 'future-tools',
-                                            children: [
-                                                {
-                                                    code: 'future-tool',
-                                                    regex: /^\d+$/,
-                                                    tag: 'page-future-tool',
-                                                }
-                                            ],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                    ],
-                    menu_label: '学机',
-                }
+                this.initSiteStudentDesk(),
             ]
         };
 
@@ -124,6 +134,8 @@ class Store extends Vanilla_Redux_Store {
                 'add-4neo': null,
                 'add-nobita': null,
                 'add-friendship': null,
+                'select-cl-package': null,
+                'select-cl-operator': null,
             },
             hearts: [],
         };

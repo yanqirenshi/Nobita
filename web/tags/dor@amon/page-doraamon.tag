@@ -17,7 +17,7 @@
         <div class="container">
             <h1 class="title">Future Items</h1>
             <h2 class="subtitle">
-                <button class="button">Create</button>
+                <button class="button" onclick={clickCreate}>Create</button>
             </h2>
 
             <page-doraamon_card-future-items source={futureItems()}></page-doraamon_card-future-items>
@@ -27,6 +27,9 @@
     <script>
      this.futureItems = () => {
          return this.source ? this.source['4d-pocket'] : [];
+     };
+     this.clickCreate = () => {
+         location.hash = location.hash + '/future-tools/create';
      };
     </script>
 

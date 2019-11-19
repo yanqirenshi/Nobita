@@ -25,25 +25,25 @@
 
 
 (defgeneric tx-make-add-four-dimensional-pocket
-    (graph from to &key description)
-  (:method (graph (from dora@mon) (to future-tool) &key description)
-    (assert (null (get-owner graph to)))
+    (graph dora@mon future-tool &key description)
+  (:method (graph (dora@mon dora@mon) (future-tool future-tool) &key description)
+    (assert (null (get-owner graph future-tool)))
     (shinra:tx-make-edge graph
                          'add-four-dimensional-pocket
-                         from
-                         to
+                         dora@mon
+                         future-tool
                          *edge-type-fo-add-four-dimensional-pocket*
                          `((description ,description)))))
 
 
 (defun tx-ensure-add-four-dimensional-pocket
-    (graph from to &key description)
-  (let ((r (get-owner graph to)))
+    (graph dora@mon future-tool &key description)
+  (let ((r (get-owner graph future-tool)))
     (if r
         (progn
-          (assert (= (up:%id (getf r :vertex)) (up:%id from)))
+          (assert (= (up:%id (getf r :vertex)) (up:%id dora@mon)))
           (getf r :edge))
-        (tx-make-add-four-dimensional-pocket graph from to :description description))))
+        (tx-make-add-four-dimensional-pocket graph dora@mon future-tool :description description))))
 
 
 (defun find-future-tool-by-dora@mon (graph dora@mon)

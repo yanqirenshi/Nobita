@@ -138,7 +138,7 @@ class Actions extends Vanilla_Redux_Actions {
     /* **************************************************************** *
      *   Modals
      * **************************************************************** */
-    openModal(key, data) {
+    openModal (key, data) {
         let state = STORE.get('modals');
 
         state[key] = data || 'open';
@@ -148,7 +148,7 @@ class Actions extends Vanilla_Redux_Actions {
             data: { modals: state },
         });
     }
-    closeModal(key) {
+    closeModal (key) {
         let state = STORE.get('modals');
 
         state[key] = null;
@@ -156,6 +156,18 @@ class Actions extends Vanilla_Redux_Actions {
         STORE.dispatch({
             type: 'CLOSE-MODAL',
             data: { modals: state },
+        });
+    }
+    modalSelectedPackage (pkg) {
+        STORE.dispatch({
+            type: 'MODAL-SELECTED-PACKAGE',
+            package: pkg,
+        });
+    }
+    modalSelectedOperator (operator) {
+        STORE.dispatch({
+            type: 'MODAL-SELECTED-OPERATOR',
+            operator: operator,
         });
     }
     /* **************************************************************** *
@@ -223,6 +235,18 @@ class Actions extends Vanilla_Redux_Actions {
         });
     }
     createdFriendship (response) {
+        return {
+            type: 'CREATED-FRIENDSHIP',
+        };
+    }
+    addDoraamonFutureItem (doraamon, post_data) {
+        let path = '/doraamon/%d/future-tools'.format(doraamon._id);
+
+        API.post(path, this.encodePostData(post_data), (response) => {
+            STORE.dispatch(this.addedDoraamonFutureItem(response));
+        });
+    }
+    addedDoraamonFutureItem (response) {
         return {
             type: 'CREATED-FRIENDSHIP',
         };
@@ -318,6 +342,22 @@ class Actions extends Vanilla_Redux_Actions {
     fetchedPagesFutureTool (response) {
         return {
             type: 'FETCHED-PAGES-FUTURE-TOOL',
+            response: response,
+        };
+    }
+    fetchPagesDoraamonFutureToolCreate (doraamon_id, pkg) {
+        let path = "/pages/doraamon/%d/future-tools/create".format(doraamon_id);
+
+        if (pkg)
+            path += "?package-name=" + encodeURIComponent(pkg.name);
+
+        API.get(path, (response) => {
+            STORE.dispatch(this.fetchedPagesDoraamonFutureToolCreate(response));
+        });
+    }
+    fetchedPagesDoraamonFutureToolCreate (response) {
+        return {
+            type: 'FETCHED-PAGES-DORAAMON-FUTURE-TOOL-CREATE',
             response: response,
         };
     }

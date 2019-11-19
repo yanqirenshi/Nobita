@@ -24,11 +24,13 @@
                 ((:file "config")
                  (:module "controller"
                   :components ((:file "package")
+                               (:file "util-pkg-symbol")
                                (:file "classes")
                                (:file "hearts")
                                (:file "nodes")
                                (:file "edges")
                                (:file "resources")
+                               (:file "dora@mon")
                                (:file "pages")))
                  (:file "render")
                  (:module "router"
