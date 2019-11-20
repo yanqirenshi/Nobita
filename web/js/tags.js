@@ -833,7 +833,6 @@ riot.tag2('page-future-tool-create', '<section-header-with-breadcrumb title="Cre
                  operator: this.source.selected_operator.name,
              });
      };
-
      this.canCreateP = () => {
          if (this.source.name.trim()=="")
              return false;
@@ -843,7 +842,7 @@ riot.tag2('page-future-tool-create', '<section-header-with-breadcrumb title="Cre
              return false;
 
          return true;
-     }
+     };
      this.childrenSource = () => {
          return this.source;
      };
