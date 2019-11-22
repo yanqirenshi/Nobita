@@ -718,7 +718,145 @@ riot.tag2('friendship', '<section class="section"> <div class="container"> <h1 c
      };
 });
 
+riot.tag2('name-area', '<div if="{mode==\'view\'}" class="viewer"> <p>{nameValue()}</p> <button class="button" onclick="{clickEdit}">Edit</button> </div> <div if="{mode!=\'view\'}" class="editor"> <input class="input" type="text" placeholder="Text input" riot-value="{tmpName}" onkeyup="{keyupName}" ref="name"> <button class="button is-warning" onclick="{clickCancel}">Cancel</button> <button class="button is-danger" onclick="{clickSave}">Save</button> </div>', 'name-area .viewer { display: flex; } name-area .viewer > p { flex-grow: 1; margin-right: 22px; font-weghit: bold; font-size: 24px; } name-area .editor { display: flex; } name-area .editor > input { flex-grow: 1; margin-right: 22px; } name-area .editor > .is-warning { margin-right: 11px; }', '', function(opts) {
+     this.tmpName = null;
+     this.clickEdit = () => {
+         this.mode = 'edit';
+
+         if (!this.tmpName)
+             this.tmpName = this.opts.source;
+
+         this.update();
+     };
+     this.clickCancel = () => {
+         this.mode = 'view';
+         this.update();
+     };
+     this.clickSave = () => {
+         this.opts.callback('click-save-name', this.tmpName)
+     };
+     this.keyupName = (e) => {
+         let name = e.target.value;
+
+         this.tmpName = name;
+     }
+     STORE.subscribe((action) => {
+         if (action.type==this.opts.succes_action) {
+             this.clickCancel();
+             return;
+         }
+     });
+
+     this.mode = 'view';
+     this.nameValue = () => {
+         return this.opts.source;
+     };
+});
+
+riot.tag2('page-future-tool-basic', '<section class="section"> <div class="container"> <h1 class="title">Basic Info</h1> <h2 class="subtitle"></h2> </div> </section>', '', '', function(opts) {
+});
+
 riot.tag2('page-future-tool-editor', '<section if="{!edit}" class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"> </h2> <div class="contents"> </div> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('page-future-tool-efficacy', '<section class="section"> <div class="container"> <h1 class="title">Efficacy</h1> <h2 class="subtitle"></h2> <div class="{efficacyType()}" style="margin-top:11px; margin-bottom:11px;"> <button class="button call-operator" efficacy-type="call-operator" onclick="{clickEfficacyType}">Call Operator</button> <button class="button evaluation-code" efficacy-type="evaluation-code" onclick="{clickEfficacyType}">Evaluation Code</button> </div> <div> <page-future-tool-efficacy_call-operator if="{efficacyType()==⁗call-operator⁗}" efficacy_type="{efficacyType()}" source="{childrenSource()}"></page-future-tool-efficacy_call-operator> <page-future-tool-efficacy_evaluation-code if="{efficacyType()==⁗evaluation-code⁗}" efficacy_type="{efficacyType()}" source="{childrenSource()}"></page-future-tool-efficacy_evaluation-code> </div> </div> </section>', 'page-future-tool-efficacy div.call-operator > button.call-operator { background: #BDB04F; color: #fff; font-weight: bold; } page-future-tool-efficacy div.call-operator > button.evaluation-code { border-color: #fafafa; } page-future-tool-efficacy div.call-operator > button.evaluation-code:hover { background: #F8F7ED; } page-future-tool-efficacy div.evaluation-code > button.call-operator { border-color: #fafafa; } page-future-tool-efficacy div.evaluation-code > button.call-operator:hover { background: #F8F7ED; } page-future-tool-efficacy div.evaluation-code > button.evaluation-code { background: #BDB04F; color: #fff; font-weight: bold; }', '', function(opts) {
+     this.childrenSource = () => {
+         return this.opts.source;
+     };
+
+     this.efficacy_type = 'call-operator';
+     this.efficacyType = () => {
+         let future_item = this.opts.source.future_item;
+
+         if (!future_item)
+             return null;
+
+         return future_item.efficacy.type.toLowerCase();
+     };
+     this.clickEfficacyType = (e) => {
+         let type = e.target.getAttribute('efficacy-type');
+     };
+});
+
+riot.tag2('page-future-tool-efficacy_call-operator-controller', '<div class="{active(\'view\')}" mode="view" onclick="{clickSwitchItem}">View</div> <div class="{active(\'edit\')}" mode="edit" onclick="{clickSwitchItem}">Edit</div> <div class="spacer"></div>', 'page-future-tool-efficacy_call-operator-controller { flex-direction: column; display: flex; } page-future-tool-efficacy_call-operator-controller > * { padding: 22px; border-bottom: 1px solid #eeeeee; border-right: 1px solid #eeeeee; } page-future-tool-efficacy_call-operator-controller > *:last-child { border-bottom: none; flex-grow: 1; } page-future-tool-efficacy_call-operator-controller > *.active { border-right: none; font-weight: bold; }', '', function(opts) {
+     this.active = (key) => {
+         return (key == this.opts.mode) ? 'active' : '';
+     }
+     this.clickSwitchItem = (e) => {
+         let mode = e.target.getAttribute('mode');
+
+         this.opts.callback(mode);
+     };
+});
+
+riot.tag2('page-future-tool-efficacy_call-operator-edit', '<div> <button class="button">{operatorPackage()}</button> <button class="button">{operatorName()}</button> </div>', 'page-future-tool-efficacy_call-operator-edit > div { padding: 22px; width: 100%; height: 333px; }', '', function(opts) {
+     this.operatorPackage = () => {
+         let contents = this.opts.source.future_item.efficacy.contents;
+
+         return contents.package;
+     };
+     this.operatorName = () => {
+         let contents = this.opts.source.future_item.efficacy.contents;
+
+         return contents.symbol
+     };
+});
+
+riot.tag2('page-future-tool-efficacy_call-operator-view', '<div style="padding:22px;"> <div class="field"> <label class="label">Operator</label> <div class="control"> <p>{operatorName()}</p> </div> </div> </div>', 'page-future-tool-efficacy_call-operator-view > div { width: 100%; height: 333px; }', '', function(opts) {
+     this.operatorName = () => {
+         let contents = this.opts.source.future_item.efficacy.contents;
+
+         return contents.package + ' ' + contents.symbol
+     };
+});
+
+riot.tag2('page-future-tool-efficacy_call-operator', '<div class="flex-root"> <page-future-tool-efficacy_call-operator-controller mode="{mode}" callback="{clickSwitchItem}"></page-future-tool-efficacy_call-operator-controller> <div class="contents-area {mode}" style="flex-grow:1; display:flex; flex-direction:column;"> <page-future-tool-efficacy_call-operator-view source="{childrenSource()}"></page-future-tool-efficacy_call-operator-view> <page-future-tool-efficacy_call-operator-edit source="{childrenSource()}"></page-future-tool-efficacy_call-operator-edit> </div> </div>', 'page-future-tool-efficacy_call-operator > div.flex-root { display:flex; border: 1px solid #eeeeee; } page-future-tool-efficacy_call-operator > div.flex-root > .controller-area > * { padding: 22px; border-bottom: 1px solid #eeeeee; } page-future-tool-efficacy_call-operator > div.flex-root > .controller-area > *:last-child { border-bottom: none; border-right: 1px solid #eeeeee; flex-grow: 1; } page-future-tool-efficacy_call-operator > div.flex-root > .contents-area { flex-grow:1; display: flex; flex-direction: column; } page-future-tool-efficacy_call-operator > div.flex-root > .contents-area.view > page-future-tool-efficacy_call-operator-edit { display: none; } page-future-tool-efficacy_call-operator > div.flex-root > .contents-area.edit > page-future-tool-efficacy_call-operator-view { display: none; }', '', function(opts) {
+     this.mode = 'view';
+     this.clickSwitchItem = (mode) => {
+         this.mode = mode;
+
+         this.update();
+     };
+
+     this.childrenSource = () => {
+         return this.opts.source;
+     };
+});
+
+riot.tag2('page-future-tool-efficacy_evaluation-code-controller', '<div class="{active(\'view\')}" mode="view" onclick="{clickSwitchItem}">View</div> <div class="{active(\'edit\')}" mode="edit" onclick="{clickSwitchItem}">Edit</div> <div class="spacer"></div>', 'page-future-tool-efficacy_evaluation-code-controller { flex-direction: column; display: flex; } page-future-tool-efficacy_evaluation-code-controller > * { padding: 22px; border-bottom: 1px solid #eeeeee; border-right: 1px solid #eeeeee; } page-future-tool-efficacy_evaluation-code-controller > *:last-child { border-bottom: none; flex-grow: 1; } page-future-tool-efficacy_evaluation-code-controller > *.active { border-right: none; font-weight: bold; }', '', function(opts) {
+     this.active = (key) => {
+         return (key == this.opts.mode) ? 'active' : '';
+     }
+     this.clickSwitchItem = (e) => {
+         let mode = e.target.getAttribute('mode');
+
+         this.opts.callback(mode);
+     };
+});
+
+riot.tag2('page-future-tool-efficacy_evaluation-code-edit', '<div> <div class="select"> <select> <option>Select dropdown</option> <option>With options</option> </select> </div> <div class="select"> <select> <option>Select dropdown</option> <option>With options</option> </select> </div> </div>', 'page-future-tool-efficacy_evaluation-code-edit > div { padding: 22px; width: 100%; height: 333px; }', '', function(opts) {
+});
+
+riot.tag2('page-future-tool-efficacy_evaluation-code-view', '<div style="padding:22px;"> <div class="field"> <label class="label">Operator</label> <div class="control"> <p>XXXX::YYYYY</p> </div> </div> </div>', 'page-future-tool-efficacy_evaluation-code-view > div { width: 100%; height: 333px; }', '', function(opts) {
+});
+
+riot.tag2('page-future-tool-efficacy_evaluation-code', '<div class="flex-root"> <page-future-tool-efficacy_evaluation-code-controller mode="{mode}" callback="{clickSwitchItem}"></page-future-tool-efficacy_evaluation-code-controller> <div class="contents-area {mode}" style="flex-grow:1; display:flex; flex-direction:column;"> <page-future-tool-efficacy_evaluation-code-view source="{childrenSource()}"></page-future-tool-efficacy_evaluation-code-view> <page-future-tool-efficacy_evaluation-code-edit source="{childrenSource()}"></page-future-tool-efficacy_evaluation-code-edit> </div> </div>', 'page-future-tool-efficacy_evaluation-code > div.flex-root { display:flex; border: 1px solid #eeeeee; } page-future-tool-efficacy_evaluation-code > div.flex-root > .controller-area > * { padding: 22px; border-bottom: 1px solid #eeeeee; } page-future-tool-efficacy_evaluation-code > div.flex-root > .controller-area > *:last-child { border-bottom: none; border-right: 1px solid #eeeeee; flex-grow: 1; } page-future-tool-efficacy_evaluation-code > div.flex-root > .contents-area { flex-grow:1; display: flex; flex-direction: column; } page-future-tool-efficacy_evaluation-code > div.flex-root > .contents-area.view > page-future-tool-efficacy_evaluation-code-edit { display: none; } page-future-tool-efficacy_evaluation-code > div.flex-root > .contents-area.edit > page-future-tool-efficacy_evaluation-code-view { display: none; }', '', function(opts) {
+     this.mode = 'view';
+     this.clickSwitchItem = (mode) => {
+         this.mode = mode;
+
+         this.update();
+     };
+
+     this.childrenSource = () => {
+         return this.source;
+     };
+});
+
+riot.tag2('page-future-tool-owner', '<section class="section"> <div class="container"> <h1 class="title">Owner</h1> <h2 class="subtitle"></h2> </div> </section>', '', '', function(opts) {
+});
+
+riot.tag2('page-future-tool-users', '<section class="section"> <div class="container"> <h1 class="title">Users</h1> <h2 class="subtitle"></h2> </div> </section>', '', '', function(opts) {
 });
 
 riot.tag2('page-future-tool-viewer-call-operator', '', '', '', function(opts) {
@@ -731,9 +869,47 @@ riot.tag2('page-future-tool-viewer-submit-code', '', '', '', function(opts) {
 riot.tag2('page-future-tool-viewer', '<section if="{!edit}" class="section"> <div class="container"> <h1 class="title"></h1> <h2 class="subtitle"> </h2> <page-future-tool-viewer-call-operator></page-future-tool-viewer-call-operator> <page-future-tool-viewer-submit-code></page-future-tool-viewer-submit-code> </div> </section>', '', '', function(opts) {
 });
 
-riot.tag2('page-future-tool', '<section-header-with-breadcrumb title="Future Item"></section-header-with-breadcrumb> <page-future-tool-viewer if="{!edit}"></page-future-tool-viewer> <page-future-tool-editor if="{edit}"></page-future-tool-editor>', '', '', function(opts) {
+riot.tag2('page-future-tool', '<section-header-with-breadcrumb title="Future Item"></section-header-with-breadcrumb> <section class="section" style="padding-top: 22px;"> <div class="container"> <div> <name-area source="{futureToolName()}" callback="{callback}" succes_action="SAVED-FUTURE-ITEM-NAME"></name-area> </div> <div style="margin-top:22px;"> <page-tab-with-section core="{page_tabs}" callback="{clickTab}"></page-tab-with-section> <div class="tab-contents-area"> <page-future-tool-efficacy class="hide" source="{childrenSource()}"></page-future-tool-efficacy> <page-future-tool-basic class="hide" source="{childrenSource()}"></page-future-tool-basic> <page-future-tool-owner class="hide" source="{childrenSource()}"></page-future-tool-owner> <page-future-tool-users class="hide" source="{childrenSource()}"></page-future-tool-users> </div> </div> </div> </section>', '', '', function(opts) {
+     this.callback = (action, data) => {
+         if (action=='click-save-name') {
+             ACTIONS.saveFutureItemName(this.source.future_item, data);
+
+             return;
+         }
+     };
+     this.futureToolName = () => {
+         if (!this.source.future_item)
+             return '';
+
+         return this.source.future_item.name;
+     }
+
+     this.page_tabs = new PageTabs([
+         {code: 'efficacy', label: 'Efficacy',   tag: 'page-future-tool-efficacy' },
+         {code: 'basic',    label: 'Basic Info', tag: 'page-future-tool-basic' },
+         {code: 'owner',    label: 'Owner',      tag: 'page-future-tool-owner' },
+         {code: 'users',    label: 'Users',      tag: 'page-future-tool-users' },
+     ]);
+     this.on('mount', () => {
+         this.page_tabs.switchTab(this.tags)
+
+         this.update();
+     });
+     this.clickTab = (e, action, data) => {
+         if (this.page_tabs.switchTab(this.tags, data.code))
+             this.update();
+     };
+
+     this.childrenSource = () => {
+         return this.source;
+     };
+
      this.edit = false;
-     this.source = null;
+     this.source = {
+         'dora@mon': null,
+         future_item: null,
+         users: [],
+     };
      STORE.subscribe((action) => {
          if (action.type=='FETCHED-PAGES-FUTURE-TOOL') {
              this.source = action.response;
@@ -741,12 +917,21 @@ riot.tag2('page-future-tool', '<section-header-with-breadcrumb title="Future Ite
 
              return;
          }
+         if (action.type=='SAVED-FUTURE-ITEM-NAME') {
+             this.loadPageData();
+
+             return;
+         }
+
      });
      this.on('mount', () => {
+         this.loadPageData();
+     });
+     this.loadPageData = () => {
          let id = location.hash.split('/').reverse()[0] * 1;
 
-         ACTIONS.fetchedPagesFutureTool(id);
-     });
+         ACTIONS.fetchPagesFutureTool(id);
+     };
 });
 
 riot.tag2('page-future-tool-create-basic-info', '<section class="section"> <div class="container"> <h1 class="title">Basic Infomation</h1> <h2 class="subtitle"></h2> <div class="field"> <div class="control"> <input class="input" type="text" placeholder="Name" onkeyup="{keyupName}"> </div> </div> <div class="field"> <div class="control"> <textarea class="textarea" placeholder="Description" onkeyup="{keyupDescription}"></textarea> </div> </div> </div> </section>', 'page-future-tool-create-basic-info > .section { padding-bottom: 11px; }', '', function(opts) {
@@ -833,6 +1018,7 @@ riot.tag2('page-future-tool-create', '<section-header-with-breadcrumb title="Cre
                  operator: this.source.selected_operator.name,
              });
      };
+
      this.canCreateP = () => {
          if (this.source.name.trim()=="")
              return false;
@@ -842,7 +1028,7 @@ riot.tag2('page-future-tool-create', '<section-header-with-breadcrumb title="Cre
              return false;
 
          return true;
-     };
+     }
      this.childrenSource = () => {
          return this.source;
      };

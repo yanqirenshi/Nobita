@@ -9,5 +9,8 @@
            #:tx-ensure-add-four-dimensional-pocket
            #:find-future-tool-by-dora@mon
            #:tx-make-and-add-future-tool-in-4dp
-           #:make-efficacy))
+           #:tx-change-future-tool-name
+           #:make-efficacy)
+  (:export #:future-tool-owner
+           #:future-tool-users))
 (in-package :nobit@.dora@mon)

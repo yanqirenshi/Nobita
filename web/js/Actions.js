@@ -251,6 +251,21 @@ class Actions extends Vanilla_Redux_Actions {
             type: 'CREATED-FRIENDSHIP',
         };
     }
+    saveFutureItemName (future_item, name) {
+        let path = '/future-tools/%d/name'.format(future_item._id);
+        let post_data = {
+            name: name
+        };
+
+        API.post(path, this.encodePostData(post_data), (response) => {
+            STORE.dispatch(this.savedFutureItemName(response));
+        });
+    }
+    savedFutureItemName () {
+        return {
+            type: 'SAVED-FUTURE-ITEM-NAME',
+        };
+    }
     /* **************************************************************** *
      *   Pages
      * **************************************************************** */

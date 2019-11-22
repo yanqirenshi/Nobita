@@ -70,3 +70,10 @@
 (defmethod print-object ((obj future-tool) out)
   (print-unreadable-object (obj out :type t)
     (format out "%id:~s ,name:~s" (up:%id obj) (name obj))))
+
+
+(defun tx-change-future-tool-name (graph future-tool name)
+  (up:tx-change-object-slots graph
+                             'future-tool
+                             (up:%id future-tool)
+                             `((name ,name))))

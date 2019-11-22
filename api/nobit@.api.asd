@@ -31,6 +31,7 @@
                                (:file "edges")
                                (:file "resources")
                                (:file "dora@mon")
+                               (:file "future-item")
                                (:file "pages")))
                  (:file "render")
                  (:module "router"

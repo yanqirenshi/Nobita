@@ -34,7 +34,6 @@
 
 
 (defun pages-future-tool (graph future-item)
-  (declare (ignore graph future-item))
-  (list :|future_item| :null
-        :|dora@mon| :null
-        :|users| nil))
+  (list :|future_item| future-item
+        :|dora@mon|    (nobit@.dora@mon:future-tool-owner graph future-item)
+        :|users|       (nobit@.dora@mon:future-tool-users graph future-item)))

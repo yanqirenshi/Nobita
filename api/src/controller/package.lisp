@@ -14,7 +14,8 @@
            #:tx-create-4neo
            #:tx-create-nobit@
            #:tx-create-friendship)
-  (:export #:add-future-tool-in-dora@mon)
+  (:export #:add-future-tool-in-dora@mon
+           #:change-future-item-name)
   (:export #:pages-nobit@
            #:pages-student-desk
            #:pages-dora@mon

@@ -11,3 +11,12 @@
       (tx-ensure-add-four-dimensional-pocket graph
                                              dora@mon
                                              future-item))))
+
+
+(defun future-tool-owner (graph future-item)
+  (getf (get-owner graph future-item) :vertex))
+
+
+(defun future-tool-users (graph future-item)
+  (declare (ignore graph future-item))
+  nil)

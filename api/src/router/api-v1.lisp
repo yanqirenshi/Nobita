@@ -99,6 +99,15 @@
                                                 :operator-name operator)))))
 
 
+(defroute ("/future-tools/:id/name" :method :POST) (&key id |name|)
+  (let ((id   (validate id     :integer :require t))
+        (name (validate |name| :string  :require t :url-decode t))
+        (graph nobit@.graph:*graph*))
+    (let ((future-item (nobit@.dora@mon::get-future-tool graph :%id id)))
+      (unless future-item (throw-code 404))
+      (render-json (change-future-item-name graph future-item name)))))
+
+
 ;;;
 ;;; Pages
 ;;;
